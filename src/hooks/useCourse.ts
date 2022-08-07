@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import TypedFetch from "utils/TypedFetch";
 import { APIGetCourseById } from "utils/types/course";
 import { ContractModel } from "utils/types/firebase";
 import { useAccount, useContractRead } from "wagmi";
 import { NFTabi } from "abis/NFTabi";
 import { course as mixpanelCourse } from "utils/mixpanel";
+import getCourse from "services/firebase/store/getCourse";
 
 function useCourse({ id }: { id?: string }) {
   const [current, setCurrent] = useState<APIGetCourseById | null>(null);
@@ -17,17 +17,17 @@ function useCourse({ id }: { id?: string }) {
     const p = async () => {
       try {
         if (!id) return null;
-        const { data } = await TypedFetch<APIGetCourseById>(
-          `/api/courses/${id}`
-        );
-        if (!data) return null;
-        data.videos.sort((a, b) => {
+
+        const course = await getCourse(id);
+        if (!course) return null;
+
+        course.videos.sort((a, b) => {
           if (!a || !b) return 0;
           return Number(b.free) - Number(a.free);
         });
 
-        setCurrent(data);
-        setContract(data.contract);
+        setCurrent(course);
+        setContract(course.contract);
       } catch (e) {}
     };
     p();

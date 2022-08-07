@@ -1,4 +1,4 @@
-import { InputProps } from "@/types/";
+import { InputProps } from "utils/types";
 import Password from "./Password";
 import { Label } from "./styles";
 

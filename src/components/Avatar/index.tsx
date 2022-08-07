@@ -1,5 +1,4 @@
 import Placeholder from "components/Placeholders";
-import Image from "next/image";
 import styled from "styled-components";
 
 const Container = styled.button`
@@ -16,14 +15,13 @@ const Container = styled.button`
   }
 
   .image-container {
-    position: relative;
     width: 2.5rem;
     height: 2.5rem;
-    border-radius: 0.25rem;
-    overflow: hidden;
-    .img {
-      object-fit: cover;
-      object-position: center;
+
+    img {
+      border-radius: 4px;
+      width: 100%;
+      height: 100%;
     }
   }
 `;
@@ -42,6 +40,7 @@ function Avatar({ img, isLoading, to, username, onClick }: Props) {
     <Placeholder width="20rem" height="1.25rem" />
   );
   const tag = onClick ? "button" : "div";
+  console.log(img);
 
   return (
     <Container as={tag} onClick={onClick}>
@@ -49,14 +48,7 @@ function Avatar({ img, isLoading, to, username, onClick }: Props) {
 
       {img ? (
         <div className="image-container">
-          <Image
-            className="img"
-            layout="responsive"
-            height="2rem"
-            width="2rem"
-            src={img}
-            alt=""
-          />
+          <img className="img" src={img} alt="" loading="lazy" />
         </div>
       ) : (
         <Placeholder width="2rem" height="2rem" />

@@ -10,5 +10,7 @@ const collectionFactory = <T = DocumentData>(collectionName: string) => {
   return collection(db, collectionName) as CollectionReference<T>;
 };
 
-export const coursesCollection = collectionFactory<CourseModel>("courses");
-export const videosCollection = collectionFactory<VideoModel>("videos");
+export const coursesCollection =
+  collectionFactory<Omit<CourseModel, "id">>("courses");
+export const videosCollection =
+  collectionFactory<Omit<VideoModel, "id">>("videos");

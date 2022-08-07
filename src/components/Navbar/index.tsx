@@ -1,22 +1,22 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { SecondaryButton } from "components/Buttons";
 import { useAuth } from "context/firebase";
-import Link from "next/link";
-import Router from "next/router";
 import { ReactNode } from "react";
 import Avatar from "../Avatar";
 import { Nav, Verify } from "./styled";
 
 import { FaTimes } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 
 const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
-  <Link href={href}>
-    <a className="link">{children}</a>
+  <Link to={href} className="link">
+    {children}
   </Link>
 );
 
 function Navbar() {
   const { data } = useAuth();
+  const navigate = useNavigate();
   const { user, isLoading } = data;
 
   return (
@@ -31,8 +31,8 @@ function Navbar() {
       <Nav>
         <div className="wrapper">
           <div className="left">
-            <Link href="/">
-              <a className="logo">DL3arn</a>
+            <Link to="/" className="logo">
+              DL3arn
             </Link>
             {!isLoading && user && (
               <>
@@ -50,7 +50,7 @@ function Navbar() {
 
                 <li>
                   <Avatar
-                    onClick={() => Router.push("/profile")}
+                    onClick={() => navigate("/profile")}
                     img={user.photoURL}
                     isLoading={isLoading}
                   />
@@ -58,9 +58,7 @@ function Navbar() {
               </>
             ) : (
               <SecondaryButton className="login">
-                <Link href="/auth/login">
-                  <a>Login</a>
-                </Link>
+                <Link to="/auth/login">Login</Link>
               </SecondaryButton>
             )}
           </ul>

@@ -1,31 +1,28 @@
 import { FormEvent, useEffect, useState } from "react";
-import Head from "next/head";
-import Link from "next/link";
+import { Link, useNavigate } from "react-router-dom";
 
-import { PrimaryButton } from "@/components/Buttons";
-import Input from "@/components/Input";
+import { PrimaryButton } from "components/Buttons";
+import Input from "components/Input";
 
-import useForm from "@/hooks/useForm";
-import { registerInputs } from "@/utils/inputs";
-import { Main } from "@/styles/auth";
+import useForm from "hooks/useForm";
+import { registerInputs } from "utils/inputs";
+import { Main } from "styles/auth";
 import { useAuth } from "context/firebase";
-import Router from "next/router";
 import GoogleButton from "components/Buttons/GoogleButton";
-import { useMixpanel } from "context/Mixpanel";
 
 function Signup() {
+  const navigate = useNavigate();
   const { inputs, onChange } = useForm(registerInputs);
   const {
     data: { user, isLoading },
     signUp,
   } = useAuth();
-  const { signUp: mixSignUp } = useMixpanel();
 
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!isLoading && user) Router.push("/");
-  }, [isLoading, user]);
+    if (!isLoading && user) navigate("/");
+  }, [isLoading, user, navigate]);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -40,17 +37,12 @@ function Signup() {
       setError(res.error.message);
       setTimeout(() => setError(null), 5000);
     } else {
-      mixSignUp();
       setError(null);
     }
   };
 
   return (
     <div>
-      <Head>
-        <title>DL3arn | Sign up</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Main>
         <div>
           <form onSubmit={onSubmit} className="form">
@@ -77,10 +69,7 @@ function Signup() {
           {error && <p className="error">{error}</p>}
 
           <p className="signup">
-            Already have an account?{" "}
-            <Link href="/auth/login">
-              <a className="link">Login</a>
-            </Link>
+            Already have an account? <Link to="/auth/login">Login</Link>
           </p>
         </div>
       </Main>

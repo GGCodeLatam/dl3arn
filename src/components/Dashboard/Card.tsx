@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
 import { ClockIcon, FireIcon } from "utils/icons";
 import { CourseModel } from "utils/types/firebase";
 
@@ -19,33 +17,31 @@ function Card({
   image,
 }: CardProps) {
   return (
-    <Link href={`/course/${id}`}>
-      <Container>
-        <header>
-          <Image className="img" layout="fill" src={image} alt="" />
-        </header>
+    <Container to={`/course/${id}`}>
+      <header>
+        <img className="img" src={image} alt="" />
+      </header>
 
-        <footer>
-          <div className="info">
-            <div>
-              <h3 className="name">{name}</h3>
-              <p className="instructor">{`by ${instructor.name}`}</p>
-            </div>
-            <div className="meta">
-              <time>
-                <ClockIcon size={14} /> {total_duration}
-              </time>
-              <p>
-                <FireIcon size={14} /> {score}
-              </p>
-            </div>
-            <p className="description">{description}</p>
+      <footer>
+        <div className="info">
+          <div>
+            <h3 className="name">{name}</h3>
+            <p className="instructor">{`by ${instructor.name}`}</p>
           </div>
+          <div className="meta">
+            <time>
+              <ClockIcon size={14} /> {total_duration}
+            </time>
+            <p>
+              <FireIcon size={14} /> {score}
+            </p>
+          </div>
+          <p className="description">{description}</p>
+        </div>
 
-          <PrimaryButton className="btn">View course</PrimaryButton>
-        </footer>
-      </Container>
-    </Link>
+        <PrimaryButton className="btn">View course</PrimaryButton>
+      </footer>
+    </Container>
   );
 }
 

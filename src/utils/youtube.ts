@@ -1,4 +1,4 @@
-import { YOUTUBE_API_KEY } from "@/constants";
+import { YOUTUBE_API_KEY } from "constants/index";
 import axios from "axios";
 import ISO8601 from "./ISO8601";
 

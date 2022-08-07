@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { InputChange, Inputs } from "@/types/";
+import { InputChange, Inputs } from "utils/types";
 
 function useForm(initialState: Inputs) {
   const [inputs, setInputs] = useState<typeof initialState>(initialState);

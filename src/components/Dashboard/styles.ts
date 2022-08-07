@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const Container = styled.a`
+export const Container = styled(Link)`
   display: flex;
   flex-flow: column;
   gap: 1rem;
@@ -9,16 +10,27 @@ export const Container = styled.a`
   padding: 1rem;
   background-color: #0000000a;
   border-radius: 0.25rem;
+  height: 100%;
+  box-shadow: 0 5px 5px -5px #0001, 0 7px 7px -7px #0001,
+    0 12px 12px -12px #0001;
+  transition: all 0.25s;
+
+  :hover {
+    box-shadow: 0 7px 5px -5px #0003, 0 9px 7px -7px #0003,
+      0 14px 12px -12px #0003;
+  }
 
   header {
     position: relative;
     display: block;
     width: 100%;
-    height: 10rem;
+    height: 100%;
 
     .img {
-      object-fit: cover;
+      display: block;
       border-radius: 0.25rem;
+      width: 100%;
+      height: 100%;
     }
   }
 

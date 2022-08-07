@@ -1,12 +1,9 @@
 import styled from "styled-components";
 
-import Card from "@/components/Dashboard/Card";
-import CardPlaceholder from "@/components/Placeholders/Card";
-import PrivateRoute from "@/components/PrivateRoute";
-import useCourses from "@/hooks/useCourses";
-import Head from "next/head";
-import { GetServerSideProps } from "next";
-import privateRoute from "utils/privateRoute";
+import Card from "components/Dashboard/Card";
+import CardPlaceholder from "components/Placeholders/Card";
+import PrivateRoute from "components/PrivateRoute";
+import useCourses from "hooks/useCourses";
 
 const Container = styled.div`
   width: 90%;
@@ -43,9 +40,6 @@ function Dashboard() {
 
   return (
     <PrivateRoute verified>
-      <Head>
-        <title>DL3arn | Dashboard</title>
-      </Head>
       <Container>
         <main>
           <section>
@@ -77,9 +71,4 @@ function Dashboard() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const isUnauthenticated = await privateRoute(context);
-  if (isUnauthenticated) return isUnauthenticated;
-  return { props: {} };
-};
 export default Dashboard;

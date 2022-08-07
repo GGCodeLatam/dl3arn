@@ -1,4 +1,4 @@
-import { Inputs } from "@/types/useForm";
+import { Inputs } from "utils/types";
 import { AUTH_EMAIL, AUTH_PASSWORD } from "constants/";
 
 type Input = Inputs[string];

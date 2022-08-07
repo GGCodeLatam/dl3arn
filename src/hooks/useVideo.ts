@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import getVideo from "services/firebase/store/getVideo";
 import TypedFetch from "utils/TypedFetch";
 import { APIGetVideoById } from "utils/types/video";
 
@@ -13,7 +14,7 @@ interface Params {
 interface Data {
   error: { message: string } | null;
   isLoading: boolean;
-  video: APIGetVideoById;
+  video: Partial<APIGetVideoById>;
 }
 
 const empty: Data = {
@@ -34,12 +35,9 @@ function useVideo({ video: { id, free }, locked }: Params) {
     if (!free && locked) return setData(empty);
 
     setData(initial);
-    TypedFetch<APIGetVideoById>(`/api/videos/${id}`)
-      .then(({ data: video, error }) => {
-        if (error) throw error;
-        setData({ ...empty, video });
-      })
-      .catch((error) => error && setData({ ...empty, error }));
+    getVideo(id).then((video) => {
+      if (video) return setData({ ...empty, video });
+    });
   }, [locked, id, free]);
 
   return data;

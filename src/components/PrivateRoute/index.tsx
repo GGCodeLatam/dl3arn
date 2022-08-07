@@ -1,6 +1,6 @@
 import { useAuth } from "context/firebase";
-import { useRouter } from "next/router";
 import { ReactNode, useEffect } from "react";
+import { useNavigate } from "react-router";
 
 interface Props {
   children: ReactNode;
@@ -10,12 +10,12 @@ interface Props {
 function PrivateRoute({ children, verified }: Props) {
   const { data } = useAuth();
   const { user, isLoading } = data;
-  const router = useRouter();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isLoading) return;
-    if (!user || (verified && !user.emailVerified)) router.push("/");
-  }, [user, isLoading, verified, router]);
+    if (!user || (verified && !user.emailVerified)) navigate("/");
+  }, [user, isLoading, verified, navigate]);
 
   return <>{children}</>;
 }

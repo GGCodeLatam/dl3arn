@@ -1,15 +1,13 @@
 import { doc, getDoc } from "firebase/firestore";
+import { APIGetVideoById } from "utils/types/video";
 import { videosCollection } from "./collections";
 
-const getById = async (id: string) => doc(videosCollection, id);
+async function getVideo(id: string): Promise<Partial<APIGetVideoById>> {
+  const snapshot = await getDoc(doc(videosCollection, id));
+  const data = snapshot.data();
+  const video = { id: snapshot.id, ...data };
 
-async function getVideo(id: string) {
-  const res = await getDoc(doc(videosCollection, id));
-  const data = res.data();
-
-  if (!data || typeof data === "string") return null;
-
-  return { uid: res.id, ...data };
+  return video;
 }
 
 export default getVideo;

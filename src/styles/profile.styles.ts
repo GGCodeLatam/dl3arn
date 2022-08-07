@@ -39,8 +39,11 @@ export const ProfileContainer = styled.div`
       border-radius: 100%;
       overflow: hidden;
 
-      .img {
+      img {
+        width: 100%;
+        height: 100%;
         object-fit: cover;
+        object-position: center;
       }
     }
   }

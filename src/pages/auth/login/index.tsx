@@ -1,20 +1,18 @@
-import Link from "next/link";
-
-import Input from "@/components/Input";
-import { PrimaryButton } from "@/components/Buttons";
+import Input from "components/Input";
+import { PrimaryButton } from "components/Buttons";
 
 import useForm from "hooks/useForm";
 import { loginInputs } from "utils/inputs";
 
 import { Main } from "styles/auth";
 import { FormEvent, useEffect, useState } from "react";
-import Head from "next/head";
 import { useAuth } from "context/firebase";
-import Router from "next/router";
 import GoogleButton from "components/Buttons/GoogleButton";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const { inputs, onChange } = useForm(loginInputs);
+  const navigate = useNavigate();
   const {
     data: { user, isLoading },
     login,
@@ -23,8 +21,8 @@ function Login() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!isLoading && user) Router.push("/dashboard");
-  }, [isLoading, user]);
+    if (!isLoading && user) navigate("/dashboard");
+  }, [isLoading, user, navigate]);
   if (isLoading || user) return null;
 
   const onSubmit = async (e: FormEvent) => {
@@ -43,11 +41,6 @@ function Login() {
 
   return (
     <div>
-      <Head>
-        <title>DL3arn | Login</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <Main>
         <div>
           <h1>Login</h1>
@@ -71,17 +64,14 @@ function Login() {
               </div>
               <PrimaryButton>Next</PrimaryButton>
 
-              <Link href="/auth/change/password">
-                <a className="link">Forgot password?</a>
+              <Link to="/auth/change/password" className="link">
+                Forgot password?
               </Link>
             </form>
             {error && <p className="error">{error}</p>}
 
             <p className="signup">
-              Don&apos;t have an account?{" "}
-              <Link href="/auth/signup">
-                <a className="link">Sign up</a>
-              </Link>
+              Don&apos;t have an account? <Link to="/auth/signup">Sign up</Link>
             </p>
           </div>
         </div>

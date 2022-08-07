@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { Override } from "./utility";
 
 /**
@@ -37,14 +36,14 @@ export interface APIResponse<T = null> {
  *
  * Overrides properties of T in NextApiRequest
  *
- */
+ *
 export type Request<T> = Override<NextApiRequest, T>;
 
 /**
  *
  * Typed JSON Response
  *
- */
+ *
 export type Response<T> = NextApiResponse<APIResponse<Partial<T>>>;
 
 /**
@@ -56,8 +55,9 @@ export type Response<T> = NextApiResponse<APIResponse<Partial<T>>>;
  *
  * @returns *
  *
- */
+ *
 export type APIHandler<Req, Res> = (
   req: Request<Req>,
   res: Response<Res>
 ) => Promise<any>;
+*/

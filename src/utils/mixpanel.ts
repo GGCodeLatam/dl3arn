@@ -1,4 +1,4 @@
-import { MIXPANEL_KEY } from "@/constants/index";
+import { MIXPANEL_KEY } from "constants/index";
 import mixpanel from "mixpanel-browser";
 
 const event = (name: string, params?: { [key: string]: any }) => {

@@ -1,28 +1,25 @@
-import type { NextPage } from "next";
-import Head from "next/head";
 import styled from "styled-components";
 
 const Container = styled.div`
+  height: 100%;
+
   main {
-    height: calc(100vh - var(--nav-size));
+    display: grid;
+    place-items: center;
+    height: 100%;
   }
 `;
 
-const Home: NextPage = () => {
+function Home() {
   return (
     <Container>
-      <Head>
-        <title>DL3arn</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main style={{ display: "grid", placeItems: "center" }}>
+      <main>
         <div>
           <h1>DL3arn</h1>
         </div>
       </main>
     </Container>
   );
-};
+}
 
 export default Home;

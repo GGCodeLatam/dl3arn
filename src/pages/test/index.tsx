@@ -1,22 +1,15 @@
-import Head from "next/head";
-import Router from "next/router";
-
 import { Container } from "styles/test.styles";
 
-import { NODE_ENV } from "../../constants";
+import { NODE_ENV } from "constants/index";
 import { useEffect, useState } from "react";
-import { GetServerSideProps } from "next";
-import privateRoute from "utils/privateRoute";
+import { useNavigate } from "react-router";
 
 function Test() {
-  if (NODE_ENV !== "development") return Router.back();
+  const navigate = useNavigate();
+  if (NODE_ENV !== "development") return navigate("");
 
   return (
     <Container>
-      <Head>
-        <title>DL3arn | Test page</title>
-      </Head>
-
       <main style={{ margin: "5vh 0 0 0" }}>
         <button className="btn primary">hola</button>
       </main>
@@ -25,12 +18,6 @@ function Test() {
     </Container>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const isUnauthenticated = await privateRoute(context);
-  if (isUnauthenticated) return isUnauthenticated;
-  return { props: {} };
-};
 
 export default Test;
 

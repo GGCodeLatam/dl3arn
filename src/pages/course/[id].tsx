@@ -1,18 +1,19 @@
-import { useRouter } from "next/router";
 import { Container } from "styles/course.styles";
-import Head from "next/head";
 import useCourse from "hooks/useCourse";
 import useVideo from "hooks/useVideo";
-import { GetServerSideProps } from "next";
-import privateRoute from "utils/privateRoute";
 import Video from "components/Course/Video";
 import Loading from "components/Loading";
 import RamppButton from "components/Buttons/RamppButton";
 import Placeholder from "components/Placeholders";
 
+import { useParams } from "react-router";
+import { useSearchParams } from "react-router-dom";
+
 function Course() {
-  const router = useRouter();
-  const { id, videoId } = router.query as { [key: string]: string };
+  const [params, setSearchParams] = useSearchParams();
+
+  const { id } = useParams();
+  const videoId = params.get("videoId");
 
   const { current, locked } = useCourse({ id });
 
@@ -21,22 +22,16 @@ function Course() {
 
   const { video, error, isLoading } = useVideo({
     video: {
-      id: videoId,
+      id: videoId || "",
       free: !!isFree,
     },
     locked: locked,
   });
 
-  const handleVideo = (_id?: string) =>
-    router.push(_id ? `${id}?videoId=${_id}` : id, undefined, {
-      shallow: true,
-    });
+  const handleVideo = (_id?: string) => setSearchParams({ videoId: _id || "" });
 
   return (
     <Container>
-      <Head>
-        <title>DL3arn | {current?.name}</title>
-      </Head>
       <main>
         <aside className="videos">
           <button
@@ -66,6 +61,7 @@ function Course() {
               <>
                 <div className="frame-container">
                   <iframe
+                    title="ytvideo"
                     id="ytplayer"
                     width="100%"
                     height="100%"
@@ -98,12 +94,6 @@ function Course() {
     </Container>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const isUnauthenticated = await privateRoute(context);
-  if (isUnauthenticated) return isUnauthenticated;
-  return { props: {} };
-};
 
 export default Course;
 

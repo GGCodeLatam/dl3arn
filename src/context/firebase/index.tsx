@@ -16,7 +16,6 @@ import {
   updateCredentials,
   updateUser,
 } from "services/firebase/auth";
-import { removeCookies, setCookie } from "cookies-next";
 
 const initial = {
   auth: {
@@ -42,11 +41,6 @@ function FirebaseProvider({ children }: Props) {
 
   useEffect(() => {
     const unsuscribe = auth.onAuthStateChanged((user: User | null) => {
-      if (user) {
-        user.getIdToken().then((idToken) => {
-          setCookie("token", idToken, { sameSite: true });
-        });
-      } else removeCookies("token");
       setData({ user, isLoading: false });
     });
     return unsuscribe;
@@ -74,6 +68,6 @@ export default FirebaseProvider;
 export function useFirebase() {
   return useContext(firebaseContext);
 }
-export function useAuth() {
+export function useAuth(): FirebaseContext["auth"] {
   return useContext(firebaseContext).auth;
 }

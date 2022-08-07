@@ -1,4 +1,4 @@
-import Script from "next/script";
+import { useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -15,6 +15,32 @@ interface Props {
   address: string;
 }
 function RamppButton({ address }: Props) {
+  useEffect(() => {
+    if (!address) return () => {};
+
+    const cdnjs = document.createElement("script");
+    const rampp = document.createElement("script");
+
+    cdnjs.src =
+      "https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.0-rc.0/web3.min.js";
+    cdnjs.async = true;
+    cdnjs.crossOrigin = "anonymous";
+    cdnjs.referrerPolicy = "no-referrer";
+
+    rampp.src = "https://rampp.xyz/embeds/v2/embed1155.js";
+    rampp.setAttribute("data-uuid", "1539aa28-b4cb-4e2d-a087-d988afd915ad");
+    rampp.type = "text/javascript";
+    rampp.async = true;
+
+    document.body.appendChild(cdnjs);
+    document.body.appendChild(rampp);
+
+    return () => {
+      document.body.removeChild(cdnjs);
+      document.body.removeChild(rampp);
+    };
+  }, [address]);
+
   if (!address) return null;
   return (
     <Container>
@@ -37,16 +63,6 @@ function RamppButton({ address }: Props) {
           data-format="single"
         ></button>
       </div>
-      <Script
-        src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.0-rc.0/web3.min.js"
-        crossOrigin="anonymous"
-        referrerPolicy="no-referrer"
-      ></Script>
-      <Script
-        type="text/javascript"
-        src="https://rampp.xyz/embeds/v2/embed1155.js"
-        data-uuid="1539aa28-b4cb-4e2d-a087-d988afd915ad"
-      ></Script>
     </Container>
   );
 }
