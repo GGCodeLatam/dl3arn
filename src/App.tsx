@@ -1,4 +1,5 @@
-import { Route, Routes } from "react-router";
+import { useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router";
 
 import Home from "pages";
 import Dashboard from "pages/dashboard";
@@ -10,8 +11,20 @@ import Signup from "pages/auth/signup";
 import ChangePassword from "pages/auth/change/password";
 
 import FullPage from "styles/FullContainer";
+import { useSearchParams } from "react-router-dom";
+import useChat from "hooks/useChat";
 
 function App() {
+  useChat();
+
+  const [params] = useSearchParams();
+  const to = params.get("to");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (to) navigate(to, { replace: true });
+  }, [to, navigate]);
+
   return (
     <FullPage>
       <Routes>

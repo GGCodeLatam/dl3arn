@@ -26,6 +26,10 @@ export const MIXPANEL_KEY = process.env.REACT_APP_MIXPANEL_KEY;
 export const HOTJAR_SITE_ID = process.env.REACT_APP_HOTJAR_SITE_ID;
 export const HOTJAR_VERSION = process.env.REACT_APP_HOTJAR_VERSION;
 
+/* -------------------- HUBSPOT -------------------- */
+
+export const HUBSPOT = process.env.REACT_APP_HUBSPOT;
+
 /* -------------------- TESTING -------------------- */
 
 export const AUTH_EMAIL = process.env.REACT_APP_AUTH_EMAIL;
