@@ -13,9 +13,10 @@ import ChangePassword from "pages/auth/change/password";
 import FullPage from "styles/FullContainer";
 import { useSearchParams } from "react-router-dom";
 import useChat from "hooks/useChat";
+import { HUBSPOT } from "constants/index";
 
 function App() {
-  useChat();
+  useChat({ url: HUBSPOT });
 
   const [params] = useSearchParams();
   const to = params.get("to");

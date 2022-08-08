@@ -49,7 +49,7 @@ root.render(
     <FirebaseProvider>
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains} theme={darkTheme()}>
-          <BrowserRouter>
+          <BrowserRouter basename="/">
             <GlobalStyle />
             <Layout>
               <App />

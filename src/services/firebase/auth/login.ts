@@ -6,7 +6,7 @@ import { login as mixpanelLogin } from "utils/mixpanel";
 
 export const login: Login = async ({ email, password }, provider = "email") => {
   try {
-    const providers = {
+    const providers: { [key: string]: any } = {
       email: async () =>
         email && password
           ? await signInWithEmailAndPassword(auth, email, password)
@@ -17,9 +17,9 @@ export const login: Login = async ({ email, password }, provider = "email") => {
     const handler = providers[provider];
     const data = await handler();
 
-    if (!data) return { error: null, user: null };
+    if (!data || !data.user) return { error: null, user: null };
 
-    mixpanelLogin({ email: data.user.email || "" });
+    mixpanelLogin({ email: data.user.email });
 
     return { error: null, user: data };
   } catch (e: any) {

@@ -1,13 +1,12 @@
 import { useEffect } from "react";
-import { HUBSPOT } from "constants/index";
 
-function useChat() {
+function useChat({ url }: { url?: string }) {
   useEffect(() => {
-    if (!HUBSPOT) return;
+    if (!url) return;
 
     const chat = document.createElement("script");
 
-    chat.src = HUBSPOT;
+    chat.src = url;
     chat.type = "text/javascript";
     chat.id = "hs-script-loader";
     chat.async = true;
@@ -18,7 +17,7 @@ function useChat() {
     return () => {
       document.body.removeChild(chat);
     };
-  }, []);
+  }, [url]);
 }
 
 export default useChat;
