@@ -7,6 +7,7 @@ export const RoadmapContainer = styled.main`
   gap: 10vw;
   padding: 2rem 1rem;
   color: #fff;
+  padding: 25vh 1rem;
 
   .left {
     width: 100%;
@@ -79,8 +80,22 @@ export const RoadmapContainer = styled.main`
   }
   .cards {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 1rem;
+
+    .card1 {
+      grid-area: 1 / 1 / 2 / 2;
+    }
+    .card2 {
+      grid-area: 2 / 1 / 3 / 2;
+    }
+    .card3 {
+      grid-area: 1 / 2 / 2 / 3;
+    }
+    .card4 {
+      grid-area: 2 / 2 / 3 / 3;
+    }
   }
 `;
 

@@ -4,12 +4,12 @@ export const QuienesSomosContainer = styled.main`
   background: var(--gradient);
   color: #fff;
   height: 100%;
-  padding: 0 1rem;
+  padding: 25vh 1rem;
 
   h2 {
     text-align: center;
     font-size: 2rem;
-    margin: 25vh 0;
+    margin: 0 0 5rem 0;
   }
 
   .members {

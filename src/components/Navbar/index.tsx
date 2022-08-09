@@ -6,7 +6,9 @@ import Avatar from "../Avatar";
 import { Nav, Verify } from "./styled";
 
 import { FaTimes } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
+import Logo from "assets/Logo.png";
 
 const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
   <Link to={href} className="link">
@@ -14,10 +16,17 @@ const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
   </Link>
 );
 
+const blue_theme: { [key: string]: boolean } = {
+  "/": true,
+  "/roadmap": true,
+  "/quienes-somos": true,
+};
+
 function Navbar() {
   const { data } = useAuth();
   const navigate = useNavigate();
   const { user, isLoading } = data;
+  const location = useLocation();
 
   return (
     <>
@@ -28,11 +37,11 @@ function Navbar() {
         </Verify>
       )}
 
-      <Nav>
+      <Nav isBlue={!!blue_theme[location.pathname]}>
         <div className="wrapper">
           <div className="left">
             <Link to="/" className="logo">
-              DL3arn
+              <img src={Logo} alt="dl3arn" />
             </Link>
             {!isLoading && user && (
               <>
@@ -64,8 +73,8 @@ function Navbar() {
                 </li>
               </>
             ) : (
-              <SecondaryButton className="login">
-                <Link to="/auth/login">Login</Link>
+              <SecondaryButton as={Link} to="/auth/login" className="login">
+                Login
               </SecondaryButton>
             )}
           </ul>

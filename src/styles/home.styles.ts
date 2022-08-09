@@ -4,7 +4,7 @@ import Flower from "assets/Coin-Flower.png";
 export const HomeContainer = styled.div`
   main {
     position: relative;
-    padding: 15vh 1rem;
+    padding: 25vh 1rem;
     border: 1px solid #000;
     border-bottom: none;
     border-top: none;

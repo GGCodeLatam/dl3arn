@@ -1,6 +1,9 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const Nav = styled.nav`
+interface NavProps {
+  isBlue: boolean;
+}
+export const Nav = styled.nav<NavProps>`
   position: relative;
   top: 0;
   left: 0;
@@ -34,6 +37,8 @@ export const Nav = styled.nav`
     .link {
       font-size: 0.85rem;
       opacity: 0.5;
+      padding: 0 1rem;
+      width: max-content;
     }
     .link:hover {
       opacity: 1;
@@ -44,12 +49,18 @@ export const Nav = styled.nav`
     gap: 1rem;
   }
   .login {
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 1.5rem;
     font-size: 0.85rem;
   }
   .logo {
-    font-weight: 500;
-    font-size: 1.15rem;
+    width: 7rem;
+    filter: drop-shadow(0 0px 2px #000a);
+    img {
+      object-fit: contain;
+      object-position: center;
+      max-width: 100%;
+      height: 100%;
+    }
   }
 
   .logo,
@@ -58,6 +69,27 @@ export const Nav = styled.nav`
     place-items: center;
     height: 100%;
   }
+
+  ${({ isBlue }) =>
+    isBlue &&
+    css`
+      background: transparent;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      color: #fff;
+
+      .right .link {
+        opacity: 0.7;
+      }
+      .link:hover {
+        opacity: 1;
+      }
+      .logo {
+        filter: none;
+      }
+    `}
 `;
 
 export const Verify = styled.button`

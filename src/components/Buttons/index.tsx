@@ -1,5 +1,9 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Button from "./Button";
+
+interface ButtonProps {
+  isDark?: boolean;
+}
 
 export const PrimaryButton = styled(Button)`
   background-color: var(--primary);
@@ -10,16 +14,24 @@ export const PrimaryButton = styled(Button)`
   }
 `;
 
-export const SecondaryButton = styled(Button)`
-  background-color: #fff;
-  border: 1px solid var(--dark);
-  color: var(--dark);
+export const SecondaryButton = styled(Button)<ButtonProps>`
+  background-color: transparent;
+
+  border: 1px solid var(--light);
+  color: var(--light);
 
   :hover {
     background-color: var(--primary);
     border: 1px solid var(--primary);
     color: #fff;
   }
+
+  ${({ isDark }) =>
+    isDark &&
+    css`
+      border: 1px solid var(--dark);
+      color: var(--dark);
+    `}
 `;
 
 export const SimpleButton = styled(Button)`

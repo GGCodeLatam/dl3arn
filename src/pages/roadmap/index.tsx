@@ -1,19 +1,23 @@
-import Flower from "assets/Coin-Flower.png";
 import { ReactNode, useState } from "react";
 import { Card, RoadmapContainer } from "styles/roadmap.styles";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 
+import FlowerImg from "assets/Coin-Flower.png";
+import NotesImg from "assets/Notes.png";
+import LightImg from "assets/Light.png";
+import TeamImg from "assets/Team.png";
+
 const cards = [
-  { emelent: <Bases />, img: Flower, title: "Las bases", num: "01" },
+  { emelent: <Bases />, img: FlowerImg, title: "Las bases", num: "01" },
   {
     emelent: <Community />,
-    img: Flower,
+    img: LightImg,
     title: "Construir en comunidad",
     num: "01",
   },
-  { emelent: <StepToStep />, img: Flower, title: "Paso a paso", num: "01" },
-  { emelent: <Team />, img: Flower, title: "Nuestro equipo", num: "01" },
+  { emelent: <StepToStep />, img: NotesImg, title: "Paso a paso", num: "01" },
+  { emelent: <Team />, img: TeamImg, title: "Nuestro equipo", num: "01" },
 ];
 
 function Roadmap() {
@@ -44,7 +48,7 @@ function Roadmap() {
       <section>
         <div className="cards">
           {cards.map((card, i) => (
-            <Card onClick={() => setCurrent(i)}>
+            <Card className={`card${i + 1}`} onClick={() => setCurrent(i)}>
               <img src={card.img} alt="" />
               <div className="title">
                 <span>0{i + 1}</span>
