@@ -25,7 +25,6 @@ export const login: Login = async ({ email, password }, provider = "email") => {
   } catch (e: any) {
     const { code } = e as { code: string };
     const message = ErrorMessages[code] || "Something went wrong";
-    console.log(e);
 
     return {
       error: { code, message },

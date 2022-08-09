@@ -10,12 +10,9 @@ function ChangePassword() {
   const reset = (e: FormEvent) => {
     e.preventDefault();
     sendPasswordResetEmail(auth, email)
-      .then(() => {
-        console.log("email sent");
-      })
+      .then(() => {})
       .catch((err: any) => {
         const { code, message } = err;
-        console.log(code, message);
       });
   };
 

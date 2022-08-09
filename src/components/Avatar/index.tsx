@@ -40,7 +40,6 @@ function Avatar({ img, isLoading, to, username, onClick }: Props) {
     <Placeholder width="20rem" height="1.25rem" />
   );
   const tag = onClick ? "button" : "div";
-  console.log(img);
 
   return (
     <Container as={tag} onClick={onClick}>

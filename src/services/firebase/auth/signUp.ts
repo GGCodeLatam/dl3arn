@@ -13,7 +13,6 @@ import { EmailRegister } from "utils/types/firebase";
 export const signUp: EmailRegister = async ({ email, password }) => {
   try {
     const data = await createUserWithEmailAndPassword(auth, email, password);
-    console.log(data);
     if (!auth.currentUser || !data)
       return {
         error: { message: "Something went wrong.", code: "" },
