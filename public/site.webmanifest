@@ -1,0 +1,14 @@
+{
+    "name": "DL3ARN",
+    "short_name": "DL3ARN",
+    "icons": [
+        {
+            "src": "/android-chrome-72x72.png",
+            "sizes": "72x72",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#0d0b20",
+    "background_color": "#0d0b20",
+    "display": "standalone"
+}

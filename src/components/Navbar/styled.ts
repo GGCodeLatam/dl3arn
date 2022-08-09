@@ -55,10 +55,12 @@ export const Nav = styled.nav<NavProps>`
   .logo {
     width: 7rem;
     filter: drop-shadow(0 0px 2px #000a);
+
     img {
       object-fit: contain;
       object-position: center;
-      max-width: 100%;
+
+      width: 100%;
       height: 100%;
     }
   }

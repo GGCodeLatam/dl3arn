@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import Button from "./Button";
 
 interface ButtonProps {
-  isDark?: boolean;
+  isLight?: boolean;
 }
 
 export const PrimaryButton = styled(Button)`
@@ -17,8 +17,8 @@ export const PrimaryButton = styled(Button)`
 export const SecondaryButton = styled(Button)<ButtonProps>`
   background-color: transparent;
 
-  border: 1px solid var(--light);
-  color: var(--light);
+  border: 1px solid var(--dark);
+  color: var(--dark);
 
   :hover {
     background-color: var(--primary);
@@ -26,11 +26,11 @@ export const SecondaryButton = styled(Button)<ButtonProps>`
     color: #fff;
   }
 
-  ${({ isDark }) =>
-    isDark &&
+  ${({ isLight }) =>
+    isLight &&
     css`
-      border: 1px solid var(--dark);
-      color: var(--dark);
+      border: 1px solid var(--light);
+      color: var(--light);
     `}
 `;
 

@@ -52,10 +52,13 @@ function Navbar() {
 
           <ul className="right">
             <li>
-              <NavLink href="roadmap">Roadmap</NavLink>
+              <NavLink href="/">Home</NavLink>
             </li>
             <li>
-              <NavLink href="quienes-somos">Quienes Somos</NavLink>
+              <NavLink href="/roadmap">Roadmap</NavLink>
+            </li>
+            <li>
+              <NavLink href="/quienes-somos">Quienes Somos</NavLink>
             </li>
 
             {!isLoading && user ? (
@@ -73,7 +76,12 @@ function Navbar() {
                 </li>
               </>
             ) : (
-              <SecondaryButton as={Link} to="/auth/login" className="login">
+              <SecondaryButton
+                isLight={!!blue_theme[location.pathname]}
+                as={Link}
+                to="/auth/login"
+                className="login"
+              >
                 Login
               </SecondaryButton>
             )}
