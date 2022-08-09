@@ -75,7 +75,7 @@ export const Nav = styled.nav<NavProps>`
   ${({ isBlue }) =>
     isBlue &&
     css`
-      background: transparent;
+      background: #030816;
       position: fixed;
       top: 0;
       left: 0;
