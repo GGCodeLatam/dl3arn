@@ -37,6 +37,8 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   color: #1e1e20;
   font-size: 16px;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 a {

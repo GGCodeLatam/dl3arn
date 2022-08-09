@@ -9,18 +9,20 @@ function Home() {
           <div className="bg" />
           <div className="overlay" />
           <div className="main-content">
-            <h2 className="header">
-              Bienvenidos a la primer plataforma de cursos online con tecnología
-              blockchain
-            </h2>
+            <div>
+              <h2 className="header">
+                Bienvenidos a la primer plataforma de cursos online con
+                tecnología blockchain
+              </h2>
 
-            <div className="buttons">
-              <Link to="roadmap" className="link roadmap">
-                roadmap
-              </Link>
-              <Link to="quienes-somos" className="link quienes-somos">
-                quienes somos
-              </Link>
+              <div className="buttons">
+                <Link to="roadmap" className="link roadmap">
+                  roadmap
+                </Link>
+                <Link to="quienes-somos" className="link quienes-somos">
+                  quienes somos
+                </Link>
+              </div>
             </div>
 
             <div className="presentation">

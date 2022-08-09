@@ -2,6 +2,9 @@ import { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router";
 
 import Home from "pages";
+import Roadmap from "pages/roadmap";
+import QuienesSomos from "pages/quienes-somos";
+
 import Dashboard from "pages/dashboard";
 import Course from "pages/course/[id]";
 import Profile from "pages/profile";
@@ -14,7 +17,6 @@ import FullPage from "styles/FullContainer";
 import { useSearchParams } from "react-router-dom";
 import useChat from "hooks/useChat";
 import { HUBSPOT } from "constants/index";
-import Roadmap from "pages/roadmap";
 
 function App() {
   useChat({ url: HUBSPOT });
@@ -32,6 +34,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/roadmap" element={<Roadmap />} />
+        <Route path="/quienes-somos" element={<QuienesSomos />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/course/:id" element={<Course />} />
         <Route path="/profile" element={<Profile />} />

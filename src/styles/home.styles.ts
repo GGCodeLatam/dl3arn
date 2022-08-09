@@ -37,15 +37,15 @@ export const HomeContainer = styled.div`
     .main-content {
       position: relative;
       display: flex;
-      flex-flow: column;
-      gap: 5vh;
+      flex-flow: row;
+      gap: 10vw;
       align-items: center;
 
       .header {
         font-size: 2.15rem;
-        text-align: center;
         color: #fff;
         text-shadow: 0 4px 10px #0008;
+        margin: 0 0 5vh 0;
       }
 
       .buttons {

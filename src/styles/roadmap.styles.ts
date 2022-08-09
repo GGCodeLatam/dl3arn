@@ -3,16 +3,20 @@ import styled from "styled-components";
 export const RoadmapContainer = styled.main`
   background: var(--gradient);
   display: grid;
-  grid-template-columns: minmax(auto, 1fr) 1fr;
-  gap: 1rem;
+  grid-template-columns: minmax(auto, 25vw) 1fr;
+  gap: 10vw;
   padding: 2rem 1rem;
   color: #fff;
-  height: 100%;
 
   .left {
     width: 100%;
     h2 {
-      font-size: 3rem;
+      font-size: 4rem;
+    }
+    p {
+      margin: 1rem 0 0 0;
+      font-size: 1rem;
+      opacity: 0.75;
     }
   }
 

@@ -1,6 +1,8 @@
 import Flower from "assets/Coin-Flower.png";
 import { ReactNode, useState } from "react";
 import { Card, RoadmapContainer } from "styles/roadmap.styles";
+import { AiFillCloseCircle } from "react-icons/ai";
+import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 
 const cards = [
   { emelent: <Bases />, img: Flower, title: "Las bases", num: "01" },
@@ -38,16 +40,19 @@ function Roadmap() {
           para el futuro
         </p>
       </section>
-      <section className="cards">
-        {cards.map((card, i) => (
-          <Card onClick={() => setCurrent(i)}>
-            <img src={card.img} alt="" />
-            <div className="title">
-              <span>0{i}</span>
-              <h3>{card.title}</h3>
-            </div>
-          </Card>
-        ))}
+
+      <section>
+        <div className="cards">
+          {cards.map((card, i) => (
+            <Card onClick={() => setCurrent(i)}>
+              <img src={card.img} alt="" />
+              <div className="title">
+                <span>0{i + 1}</span>
+                <h3>{card.title}</h3>
+              </div>
+            </Card>
+          ))}
+        </div>
       </section>
 
       {current !== null && (
@@ -77,7 +82,7 @@ function Wrapper({ onExit, onNext, onPrev, children, current }: SectionProps) {
     <div className="popup">
       <div>
         <button className="btn exit" onClick={onExit}>
-          Exit
+          <AiFillCloseCircle size={20} />
         </button>
 
         <div className="overflow">{children}</div>
@@ -85,12 +90,12 @@ function Wrapper({ onExit, onNext, onPrev, children, current }: SectionProps) {
         <div className="buttons">
           {current !== null && current - 1 >= 0 ? (
             <button className="btn prev" onClick={onPrev}>
-              Prev
+              <BiChevronLeft size={20} />
             </button>
           ) : null}
           {current !== null && current + 1 <= 3 ? (
             <button className="btn next" onClick={onNext}>
-              Next
+              <BiChevronRight size={20} />
             </button>
           ) : null}
         </div>
