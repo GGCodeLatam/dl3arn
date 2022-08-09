@@ -30,13 +30,6 @@ function Navbar() {
 
   return (
     <>
-      {user && !user.emailVerified && (
-        <Verify>
-          <p>Please verify your email</p>
-          <FaTimes />
-        </Verify>
-      )}
-
       <Nav isBlue={!!blue_theme[location.pathname]}>
         <div className="wrapper">
           <div className="left">

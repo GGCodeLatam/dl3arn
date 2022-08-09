@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router";
 
 import Home from "pages";
@@ -17,6 +17,11 @@ import FullPage from "styles/FullContainer";
 import { useSearchParams } from "react-router-dom";
 import useChat from "hooks/useChat";
 import { HUBSPOT } from "constants/index";
+import { useAlerts } from "context/alerts";
+import { Alerts, EmailVerify } from "styles/alerts.styles";
+import { useAuth } from "context/firebase";
+
+import { Alert } from "utils/types/alerts";
 
 function App() {
   useChat({ url: HUBSPOT });
@@ -29,8 +34,24 @@ function App() {
     if (to) navigate(to, { replace: true });
   }, [to, navigate]);
 
+  const {
+    data: { user, isLoading },
+  } = useAuth();
+
+  const [verify, setVerify] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!isLoading && user && !user.emailVerified) {
+      setVerify(true);
+    }
+  }, []);
+
   return (
     <FullPage>
+      {verify && (
+        <EmailVerify>Para ver los cursos verifica tu correo.</EmailVerify>
+      )}
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/roadmap" element={<Roadmap />} />

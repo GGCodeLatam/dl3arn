@@ -15,6 +15,7 @@ import { publicProvider } from "wagmi/providers/public";
 import { GlobalStyle } from "styles/global";
 import FirebaseProvider from "context/firebase";
 import Layout from "components/Layouts";
+import AlertProvider from "context/alerts";
 
 const { chains, provider, webSocketProvider } = configureChains(
   [chain.mainnet, chain.polygon, chain.rinkeby],
@@ -46,17 +47,19 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <FirebaseProvider>
-      <WagmiConfig client={wagmiClient}>
-        <RainbowKitProvider chains={chains} theme={darkTheme()}>
-          <BrowserRouter basename="/">
-            <GlobalStyle />
-            <Layout>
-              <App />
-            </Layout>
-          </BrowserRouter>
-        </RainbowKitProvider>
-      </WagmiConfig>
-    </FirebaseProvider>
+    <AlertProvider>
+      <FirebaseProvider>
+        <WagmiConfig client={wagmiClient}>
+          <RainbowKitProvider chains={chains} theme={darkTheme()}>
+            <BrowserRouter basename="/">
+              <GlobalStyle />
+              <Layout>
+                <App />
+              </Layout>
+            </BrowserRouter>
+          </RainbowKitProvider>
+        </WagmiConfig>
+      </FirebaseProvider>
+    </AlertProvider>
   </React.StrictMode>
 );
