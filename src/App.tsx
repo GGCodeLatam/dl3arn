@@ -14,6 +14,7 @@ import FullPage from "styles/FullContainer";
 import { useSearchParams } from "react-router-dom";
 import useChat from "hooks/useChat";
 import { HUBSPOT } from "constants/index";
+import Roadmap from "pages/roadmap";
 
 function App() {
   useChat({ url: HUBSPOT });
@@ -30,6 +31,7 @@ function App() {
     <FullPage>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/roadmap" element={<Roadmap />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/course/:id" element={<Course />} />
         <Route path="/profile" element={<Profile />} />

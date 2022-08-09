@@ -42,6 +42,13 @@ function Navbar() {
           </div>
 
           <ul className="right">
+            <li>
+              <NavLink href="roadmap">Roadmap</NavLink>
+            </li>
+            <li>
+              <NavLink href="quienes-somos">Quienes Somos</NavLink>
+            </li>
+
             {!isLoading && user ? (
               <>
                 <li>

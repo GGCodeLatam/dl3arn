@@ -20,11 +20,13 @@ export const GlobalStyle = createGlobalStyle`
   --yellow-orange-color-wheel: #ff9100ff;
 
 
-  --primary: var(--french-violet);
+  --primary: var(--orange);
   --primary-contrast: #fff;
   --dark-primary: var(--persian-indigo);
   --dark: #1e1e20;
   --light: #fafaff;
+
+  --gradient: linear-gradient(#4374ff, #030816);
 
   --nav-size: 56px;
 }

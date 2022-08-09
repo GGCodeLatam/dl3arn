@@ -1,24 +1,43 @@
-import styled from "styled-components";
-
-const Container = styled.div`
-  height: 100%;
-
-  main {
-    display: grid;
-    place-items: center;
-    height: 100%;
-  }
-`;
+import { Link } from "react-router-dom";
+import { HomeContainer } from "styles/home.styles";
 
 function Home() {
   return (
-    <Container>
+    <HomeContainer>
       <main>
-        <div>
-          <h1>DL3arn</h1>
-        </div>
+        <section className="content">
+          <div className="bg" />
+          <div className="overlay" />
+          <div className="main-content">
+            <h2 className="header">
+              Bienvenidos a la primer plataforma de cursos online con tecnología
+              blockchain
+            </h2>
+
+            <div className="buttons">
+              <Link to="roadmap" className="link roadmap">
+                roadmap
+              </Link>
+              <Link to="quienes-somos" className="link quienes-somos">
+                quienes somos
+              </Link>
+            </div>
+
+            <div className="presentation">
+              <iframe
+                width="768"
+                height="432"
+                src="https://www.youtube.com/embed/5d4T3p8J7dI"
+                title="DLearn"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+        </section>
       </main>
-    </Container>
+    </HomeContainer>
   );
 }
 

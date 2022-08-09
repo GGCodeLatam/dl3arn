@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   min-height: calc(97vh - var(--nav-size));
+  display: grid;
 `;
 
 function FullPage({ children }: { children: ReactNode }) {
