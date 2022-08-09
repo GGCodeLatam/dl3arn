@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { getImage } from "services/firebase/storage";
 import { ClockIcon, FireIcon } from "utils/icons";
 import { CourseModel } from "utils/types/firebase";
 
@@ -16,10 +18,15 @@ function Card({
   score,
   image,
 }: CardProps) {
+  const [storageImage, setStorageImage] = useState("");
+  useEffect(() => {
+    if (image) getImage(image).then((url) => setStorageImage(url));
+  }, [image]);
+
   return (
     <Container to={`/course/${id}`}>
       <header>
-        <img className="img" src={image} alt="" />
+        {storageImage && <img className="img" src={storageImage} alt="" />}
       </header>
 
       <footer>
@@ -29,12 +36,16 @@ function Card({
             <p className="instructor">{`by ${instructor.name}`}</p>
           </div>
           <div className="meta">
-            <time>
-              <ClockIcon size={14} /> {total_duration}
-            </time>
-            <p>
-              <FireIcon size={14} /> {score}
-            </p>
+            {total_duration && (
+              <time>
+                <ClockIcon size={14} /> {total_duration}
+              </time>
+            )}
+            {score && (
+              <p>
+                <FireIcon size={14} /> {score}
+              </p>
+            )}
           </div>
           <p className="description">{description}</p>
         </div>

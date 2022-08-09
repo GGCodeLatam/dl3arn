@@ -65,10 +65,21 @@ export const Container = styled.div`
   }
 
   .course-container {
+    display: flex;
     padding: 0 2rem;
 
-    .course-name {
-      font-size: 1.5rem;
+    .info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .course-image {
+        width: 5rem;
+        height: 5rem;
+      }
+      .course-name {
+        font-size: 1.5rem;
+      }
     }
   }
 
