@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router";
+import { Route, Routes, useLocation, useNavigate } from "react-router";
 
 import Home from "pages";
 import Roadmap from "pages/roadmap";
@@ -21,14 +21,13 @@ import { useAlerts } from "context/alerts";
 import { Alerts, EmailVerify } from "styles/alerts.styles";
 import { useAuth } from "context/firebase";
 
-import { Alert } from "utils/types/alerts";
-
 function App() {
   useChat({ url: HUBSPOT });
 
   const [params] = useSearchParams();
   const to = params.get("to");
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (to) navigate(to, { replace: true });
@@ -44,7 +43,16 @@ function App() {
     if (!isLoading && user && !user.emailVerified) {
       setVerify(true);
     }
-  }, []);
+  }, [user, isLoading]);
+
+  useEffect(() => {
+    if (
+      user &&
+      user.emailVerified &&
+      ["/", "/quienes-somos", "/roadmap"].includes(location.pathname)
+    )
+      navigate("/dashboard", { replace: true });
+  }, [user, navigate, location]);
 
   return (
     <FullPage>
