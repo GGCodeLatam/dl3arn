@@ -14,7 +14,7 @@ function PrivateRoute({ children, verified }: Props) {
 
   useEffect(() => {
     if (isLoading) return;
-    if (!user || (verified && !user.emailVerified)) navigate("/");
+    if (!user) navigate("/", { replace: true });
   }, [user, isLoading, verified, navigate]);
 
   return <>{children}</>;

@@ -5,6 +5,7 @@ import { SecondaryButton } from "components/Buttons";
 import ProfileForm from "components/Forms/ProfileForm";
 
 import { BiLogOut } from "react-icons/bi";
+import { User } from "firebase/auth";
 
 function Profile() {
   const {
@@ -12,8 +13,7 @@ function Profile() {
     logout,
   } = useAuth();
 
-  if (!user) return null;
-  const { email, photoURL, displayName } = user;
+  const { email, photoURL, displayName } = user || ({} as User);
 
   return (
     <PrivateRoute>

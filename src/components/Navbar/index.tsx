@@ -33,26 +33,25 @@ function Navbar() {
       <Nav isBlue={!!blue_theme[location.pathname]}>
         <div className="wrapper">
           <div className="left">
-            <Link to="/" className="logo">
+            <Link to={!isLoading && user ? "/dashboard" : "/"} className="logo">
               <img src={Logo} alt="dl3arn" />
             </Link>
-            {!isLoading && user && (
-              <>
-                <NavLink href="/dashboard">Dashboard</NavLink>
-              </>
-            )}
           </div>
 
           <ul className="right">
-            <li>
-              <NavLink href="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink href="/roadmap">Roadmap</NavLink>
-            </li>
-            <li>
-              <NavLink href="/quienes-somos">Quienes Somos</NavLink>
-            </li>
+            {!isLoading && !user && (
+              <>
+                <li>
+                  <NavLink href="/">Home</NavLink>
+                </li>
+                <li>
+                  <NavLink href="/roadmap">Roadmap</NavLink>
+                </li>
+                <li>
+                  <NavLink href="/quienes-somos">Quienes Somos</NavLink>
+                </li>
+              </>
+            )}
 
             {!isLoading && user ? (
               <>
