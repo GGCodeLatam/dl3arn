@@ -4,8 +4,9 @@ interface StyleProps {
   selected: boolean;
   blocked: boolean;
   isFree: boolean;
+  prox: boolean;
 }
-export const Container = styled.button<StyleProps>`
+export const Container = styled.button<Partial<StyleProps>>`
   background-color: transparent;
   border-radius: 0;
   border: none;
@@ -77,5 +78,39 @@ export const Container = styled.button<StyleProps>`
       }
 
       color: #fff;
+    `}
+
+  ${({ prox }) =>
+    prox &&
+    css`
+      ::before {
+        background-color: #0001;
+        content: "";
+        height: 100%;
+        right: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        transition: width 0.25s;
+      }
+
+      div {
+        gap: 0.5rem;
+        justify-content: space-between;
+
+        span {
+          font-size: 0.75rem;
+          font-weight: 500;
+          letter-spacing: 0.5px;
+          background-color: var(--primary);
+          padding: 0.25rem 0.75rem;
+          border-radius: 9999px;
+          color: #fff;
+        }
+
+        p {
+          font-size: 0.85rem;
+        }
+      }
     `}
 `;

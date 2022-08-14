@@ -15,12 +15,13 @@ function Video({ hasNFT, selected, video, onClick }: Props) {
   if (!video || !video.name) return null;
 
   const blocked = !video.free && !hasNFT;
-  return (
+  return video.duration ? (
     <Container
       isFree={video.free}
       selected={selected}
       blocked={blocked}
       onClick={onClick}
+      prox={!video.duration}
     >
       <div>
         {!video.free && blocked && (
@@ -31,6 +32,13 @@ function Video({ hasNFT, selected, video, onClick }: Props) {
           {video.duration}
           <ClockIcon />
         </span>
+      </div>
+    </Container>
+  ) : (
+    <Container as="div" prox={true}>
+      <div>
+        <p>{video.name}</p>
+        <span>Proximamente</span>
       </div>
     </Container>
   );
