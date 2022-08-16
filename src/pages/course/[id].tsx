@@ -101,9 +101,10 @@ function Course() {
             )}
           </Loading>
         </div>
-        {current && current.contract && (
+
+        {current && current.rampp && (
           <div>
-            <RamppButton address={current.contract.address} />
+            <RamppButton rampp={current.rampp} />
           </div>
         )}
       </main>

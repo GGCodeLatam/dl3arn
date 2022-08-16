@@ -6,8 +6,8 @@ import { CourseModel } from "utils/types/firebase";
 import { PrimaryButton } from "../Buttons";
 import { Container } from "./styles";
 
-type Ignore = "videos" | "contract";
-interface CardProps extends Omit<CourseModel, Ignore> {}
+type Ignore = "videos" | "contract" | "rampp";
+type CardProps = Omit<CourseModel, Ignore>;
 
 function Card({
   id,

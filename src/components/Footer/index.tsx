@@ -2,12 +2,25 @@ import styled from "styled-components";
 import { FiInstagram, FiTwitter, FiYoutube } from "react-icons/fi";
 import { TbBrandSpotify, TbBrandTiktok } from "react-icons/tb";
 import ExtLink from "components/ExtLink";
+import Wave from "components/SVGs/wave";
 
 const Container = styled.footer`
-  background-color: #1e1e20;
+  position: relative;
   color: #fff;
-  padding: 5vh 1rem;
   text-align: center;
+  display: flex;
+  flex-flow: column;
+  gap: 0;
+
+  .wave {
+    width: 100%;
+    transform: translate(0, 1px);
+  }
+  .data {
+    background-color: #1e1e20;
+    position: relative;
+    padding: 5vh 1rem;
+  }
 
   .contacts {
     display: flex;
@@ -44,19 +57,22 @@ const contacts = [
 function Footer() {
   return (
     <Container>
-      <div className="wrapper">
-        <h3>DL3ARN</h3>
-      </div>
+      <Wave className="wave" fill="#1e1e20" />
+      <div className="data">
+        <div className="wrapper">
+          <h3>DL3ARN</h3>
+        </div>
 
-      <div className="contacts">
-        {contacts.map((contact, i) => (
-          <ExtLink key={contact.href} href={contact.href}>
-            {contact.element}
-          </ExtLink>
-        ))}
-      </div>
+        <div className="contacts">
+          {contacts.map((contact, i) => (
+            <ExtLink key={contact.href} href={contact.href}>
+              {contact.element}
+            </ExtLink>
+          ))}
+        </div>
 
-      <p>DL3ARN | © 2022 – Todos los derechos reservados.</p>
+        <p>DL3ARN | © 2022 – Todos los derechos reservados.</p>
+      </div>
     </Container>
   );
 }

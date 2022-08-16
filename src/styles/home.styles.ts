@@ -16,7 +16,7 @@ export const HomeContainer = styled.div`
 
     .bg,
     .overlay {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;

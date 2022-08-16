@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import styled from "styled-components";
+import { RamppModel } from "utils/types/firebase";
 
 const Container = styled.div`
   padding: 0 1rem;
@@ -11,11 +12,14 @@ const Container = styled.div`
 `;
 
 interface Props {
-  address: string;
+  address?: string;
+  rampp: Partial<RamppModel>;
 }
-function RamppButton({ address }: Props) {
+function RamppButton({ rampp }: Props) {
+  const { address, abi_uri, buttonId, proof_uri } = rampp;
+
   useEffect(() => {
-    if (!address) return () => {};
+    if (!address || !buttonId || !proof_uri) return () => {};
 
     const cdnjs = document.createElement("script");
     const rampp = document.createElement("script");
@@ -27,9 +31,9 @@ function RamppButton({ address }: Props) {
     cdnjs.referrerPolicy = "no-referrer";
 
     rampp.src = "https://rampp.xyz/embeds/v2/embed1155.js";
-    rampp.setAttribute("data-uuid", "1539aa28-b4cb-4e2d-a087-d988afd915ad");
-    rampp.type = "text/javascript";
     rampp.async = true;
+    rampp.setAttribute("data-uuid", buttonId);
+    rampp.type = "text/javascript";
 
     document.body.appendChild(cdnjs);
     document.body.appendChild(rampp);
@@ -38,28 +42,28 @@ function RamppButton({ address }: Props) {
       document.body.removeChild(cdnjs);
       document.body.removeChild(rampp);
     };
-  }, [address]);
+  }, [address, buttonId, proof_uri]);
 
-  if (!address) return null;
+  if (!abi_uri || !address || !buttonId || !proof_uri) return null;
   return (
     <Container
-      id="rampp-minting-container-1539aa28-b4cb-4e2d-a087-d988afd915ad"
       className="rampp-minting-container"
+      id={`rampp-minting-container-${buttonId}`}
     >
       <button
-        id="rampp-minting-button-1539aa28-b4cb-4e2d-a087-d988afd915ad"
         className="rampp-minting-button"
-        style={{ display: "none" }}
-        data-merkle-proof-uri="https://us-central1-nft-rampp.cloudfunctions.net/allowlist/fmEalku1Q8BCj1kzgcBC/merkle/verify"
-        data-styles="eyJvcGVuIjp7InRleHQiOiJDb21wcmFyJTIwQWNhISUyMCIsInN0eWxlcyI6ImJvcmRlcjpub25lO3dpZHRoOiAxNXJlbTtwYWRkaW5nOjAuNXJlbTtmb250LXNpemU6IDEuMTI1cmVtO2xpbmUtaGVpZ2h0OiAxLjc1cmVtO3RleHQtYWxpZ246IGNlbnRlcjtjdXJzb3I6IHBvaW50ZXI7Ym9yZGVyLXJhZGl1czowLjM3NXJlbTtjb2xvcjojRkZGRkZGO2JhY2tncm91bmQtY29sb3I6IzUzMjRmZjsifSwicGF1c2VkIjp7InRleHQiOiJDb21wcmElMjBQYXVzYWRhJTIwIiwic3R5bGVzIjoiYm9yZGVyOm5vbmU7d2lkdGg6IDE1cmVtO3BhZGRpbmc6MC41cmVtO2ZvbnQtc2l6ZTogMS4xMjVyZW07bGluZS1oZWlnaHQ6IDEuNzVyZW07dGV4dC1hbGlnbjogY2VudGVyO2N1cnNvcjogcG9pbnRlcjtib3JkZXItcmFkaXVzOjAuMzc1cmVtO2NvbG9yOiM2NzY1NjU7YmFja2dyb3VuZC1jb2xvcjojQ0NEQkRDO2N1cnNvcjpub3QtYWxsb3dlZDsifSwic3VwcGx5UmVhY2hlZCI6eyJ0ZXh0IjoiRnVlcmElMjBkZSUyMHN0b2NrIiwic3R5bGVzIjoiYm9yZGVyOm5vbmU7d2lkdGg6IDE1cmVtO3BhZGRpbmc6MC41cmVtO2ZvbnQtc2l6ZTogMS4xMjVyZW07bGluZS1oZWlnaHQ6IDEuNzVyZW07dGV4dC1hbGlnbjogY2VudGVyO2N1cnNvcjogcG9pbnRlcjtib3JkZXItcmFkaXVzOjAuMzc1cmVtO2NvbG9yOiNmZjAwMDA7YmFja2dyb3VuZC1jb2xvcjojZmZiOGI4O2N1cnNvcjpub3QtYWxsb3dlZDsifSwiZXJyb3IiOnsidGV4dCI6Ik1pbnRpbmcgVW5hdmFpbGFibGUiLCJzdHlsZXMiOiJib3JkZXI6bm9uZTt3aWR0aDogMTVyZW07cGFkZGluZzowLjVyZW07Zm9udC1zaXplOiAxLjEyNXJlbTtsaW5lLWhlaWdodDogMS43NXJlbTt0ZXh0LWFsaWduOiBjZW50ZXI7Y3Vyc29yOiBwb2ludGVyO2JvcmRlci1yYWRpdXM6MC4zNzVyZW07Y29sb3I6I2ZmMDAwMDtiYWNrZ3JvdW5kLWNvbG9yOiNmZmI4Yjg7Y3Vyc29yOm5vdC1hbGxvd2VkOyJ9LCJjbGFpbVRleHQiOnsidGV4dCI6bnVsbCwic3R5bGVzIjoiY29sb3I6IHJnYmEoMTU2LCAxNjMsIDE3NSk7Zm9udC1zaXplOiAwLjc1cmVtO2xpbmUtaGVpZ2h0OiAxcmVtO3RleHQtYWxpZ246IGNlbnRlcjtwYWRkaW5nLXRvcDogMC4yNXJlbTtwYWRkaW5nLWJvdHRvbTogMC4yNXJlbTttYXJnaW46MDtmb250LWZhbWlseTpzYW5zLXNlcmlmOyJ9LCJxdWFudGl0eSI6eyJ0ZXh0IjpudWxsLCJzdHlsZXMiOiJ3aWR0aDo0MHB4O2NvbG9yOiM1MzI0ZmY7Ym9yZGVyLXN0eWxlOnNvbGlkO2JvcmRlci13aWR0aDoxcHg7Ym9yZGVyLWNvbG9yOiM1MzI0ZmY7Ym9yZGVyLXJhZGl1czowLjM3NXJlbTtmb250LXNpemU6MS4zcmVtO3RleHQtYWxpZ246Y2VudGVyOyJ9fQ=="
-        data-abi-link="https://firebasestorage.googleapis.com/v0/b/nft-rampp.appspot.com/o/solidity_outputs%2FfmEalku1Q8BCj1kzgcBC%2FLucasWeb3Contract_data-b649eda9-988e-42c1-9ed4-fcca29cd55d0.json?alt=media"
-        data-token-id="1"
-        data-redirect="null"
+        data-abi-link={abi_uri}
         data-contract-address={address}
-        data-show-claim-count="false"
-        data-network="testnet"
         data-format="single"
-      ></button>
+        data-merkle-proof-uri={proof_uri}
+        data-network="testnet"
+        data-redirect="null"
+        data-show-claim-count="false"
+        data-styles="eyJvcGVuIjp7InRleHQiOiJNaW50Iiwic3R5bGVzIjoiYm9yZGVyOm5vbmU7d2lkdGg6IDE1cmVtO3BhZGRpbmc6MC41cmVtO2ZvbnQtc2l6ZTogMS4xMjVyZW07bGluZS1oZWlnaHQ6IDEuNzVyZW07dGV4dC1hbGlnbjogY2VudGVyO2N1cnNvcjogcG9pbnRlcjtib3JkZXItcmFkaXVzOjAuMzc1cmVtO2NvbG9yOiNGRkZGRkY7YmFja2dyb3VuZC1jb2xvcjojNTMyNGZmOyJ9LCJwYXVzZWQiOnsidGV4dCI6Ik1pbnQlMjBDbG9zZWQiLCJzdHlsZXMiOiJib3JkZXI6bm9uZTt3aWR0aDogMTVyZW07cGFkZGluZzowLjVyZW07Zm9udC1zaXplOiAxLjEyNXJlbTtsaW5lLWhlaWdodDogMS43NXJlbTt0ZXh0LWFsaWduOiBjZW50ZXI7Y3Vyc29yOiBwb2ludGVyO2JvcmRlci1yYWRpdXM6MC4zNzVyZW07Y29sb3I6IzY3NjU2NTtiYWNrZ3JvdW5kLWNvbG9yOiNDQ0RCREM7Y3Vyc29yOm5vdC1hbGxvd2VkOyJ9LCJzdXBwbHlSZWFjaGVkIjp7InRleHQiOiJBbGwlMjBUb2tlbnMlMjBNaW50ZWQhIiwic3R5bGVzIjoiYm9yZGVyOm5vbmU7d2lkdGg6IDE1cmVtO3BhZGRpbmc6MC41cmVtO2ZvbnQtc2l6ZTogMS4xMjVyZW07bGluZS1oZWlnaHQ6IDEuNzVyZW07dGV4dC1hbGlnbjogY2VudGVyO2N1cnNvcjogcG9pbnRlcjtib3JkZXItcmFkaXVzOjAuMzc1cmVtO2NvbG9yOiNmZjAwMDA7YmFja2dyb3VuZC1jb2xvcjojZmZiOGI4O2N1cnNvcjpub3QtYWxsb3dlZDsifSwiZXJyb3IiOnsidGV4dCI6Ik1pbnRpbmcgVW5hdmFpbGFibGUiLCJzdHlsZXMiOiJib3JkZXI6bm9uZTt3aWR0aDogMTVyZW07cGFkZGluZzowLjVyZW07Zm9udC1zaXplOiAxLjEyNXJlbTtsaW5lLWhlaWdodDogMS43NXJlbTt0ZXh0LWFsaWduOiBjZW50ZXI7Y3Vyc29yOiBwb2ludGVyO2JvcmRlci1yYWRpdXM6MC4zNzVyZW07Y29sb3I6I2ZmMDAwMDtiYWNrZ3JvdW5kLWNvbG9yOiNmZmI4Yjg7Y3Vyc29yOm5vdC1hbGxvd2VkOyJ9LCJjbGFpbVRleHQiOnsidGV4dCI6bnVsbCwic3R5bGVzIjoiY29sb3I6IHJnYmEoMTU2LCAxNjMsIDE3NSk7Zm9udC1zaXplOiAwLjc1cmVtO2xpbmUtaGVpZ2h0OiAxcmVtO3RleHQtYWxpZ246IGNlbnRlcjtwYWRkaW5nLXRvcDogMC4yNXJlbTtwYWRkaW5nLWJvdHRvbTogMC4yNXJlbTttYXJnaW46MDtmb250LWZhbWlseTpzYW5zLXNlcmlmOyJ9LCJxdWFudGl0eSI6eyJ0ZXh0IjpudWxsLCJzdHlsZXMiOiJ3aWR0aDo0MHB4O2NvbG9yOiM1MzI0ZmY7Ym9yZGVyLXN0eWxlOnNvbGlkO2JvcmRlci13aWR0aDoxcHg7Ym9yZGVyLWNvbG9yOiM1MzI0ZmY7Ym9yZGVyLXJhZGl1czowLjM3NXJlbTtmb250LXNpemU6MS4zcmVtO3RleHQtYWxpZ246Y2VudGVyOyJ9fQ=="
+        data-token-id="1"
+        id={`rampp-minting-button-${buttonId}`}
+        style={{ display: "none" }}
+      />
     </Container>
   );
 }

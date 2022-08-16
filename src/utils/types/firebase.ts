@@ -70,13 +70,21 @@ export interface FirebaseContext {
 export interface CourseModel {
   contract: ContractModel;
   description: string;
+  id: string;
   image: string;
   instructor: InstructorModel;
-  id: string;
   name: string;
+  rampp: RamppModel | null;
   score: number;
   total_duration: string;
   videos: string[];
+}
+
+export interface RamppModel {
+  address: string;
+  abi_uri: string;
+  buttonId: string;
+  proof_uri: string;
 }
 
 export interface VideoModel {
