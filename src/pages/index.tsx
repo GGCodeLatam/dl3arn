@@ -12,14 +12,14 @@ function Home() {
             <div>
               <h2 className="header">
                 Bienvenidos a la primer plataforma de cursos online con
-                tecnología blockchain
+                tecnología blockchain!
               </h2>
 
               <div className="buttons">
-                <Link to="roadmap" className="link roadmap">
-                  roadmap
+                <Link to="/auth/login" className="link login">
+                  login
                 </Link>
-                <Link to="quienes-somos" className="link quienes-somos">
+                <Link to="/quienes-somos" className="link quienes-somos">
                   quienes somos
                 </Link>
               </div>

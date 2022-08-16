@@ -35,7 +35,7 @@ export const Nav = styled.nav<NavProps>`
     height: 100%;
 
     .link {
-      font-size: 0.85rem;
+      font-size: 0.9em;
       opacity: 0.5;
       padding: 0 1rem;
       width: max-content;
@@ -75,7 +75,7 @@ export const Nav = styled.nav<NavProps>`
   ${({ isBlue }) =>
     isBlue &&
     css`
-      background: #030816;
+      background: #3f6ef2;
       position: fixed;
       top: 0;
       left: 0;
@@ -83,7 +83,7 @@ export const Nav = styled.nav<NavProps>`
       color: #fff;
 
       .right .link {
-        opacity: 0.7;
+        opacity: 0.75;
       }
       .link:hover {
         opacity: 1;

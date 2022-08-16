@@ -116,7 +116,7 @@ export default Course;
 function LoadingVideo() {
   return (
     <div className="loading">
-      <Placeholder width="100%" height="75vh" />
+      <Placeholder width="100%" height="40rem" />
       <Placeholder width="75%" height="2.5rem" />
     </div>
   );

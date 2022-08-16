@@ -6,11 +6,17 @@ interface ButtonProps {
 }
 
 export const PrimaryButton = styled(Button)`
-  background-color: var(--primary);
   color: #fff;
 
+  background-color: var(--primary);
+  box-shadow: -48px -61px 52px -40px #ffd700 inset;
+
+  border-radius: 9999px;
+
+  transition: transform 0.15s;
+
   :hover {
-    background-color: var(--dark-primary);
+    transform: scale(110%);
   }
 `;
 

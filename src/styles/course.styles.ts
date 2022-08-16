@@ -7,11 +7,12 @@ export const Container = styled.div`
   }
   main {
     display: grid;
-    grid-template-columns: minmax(15rem, 20rem) 1fr minmax(15rem, 20rem);
+    grid-template-columns: minmax(15rem, 20rem) 1fr minmax(10rem, 15rem);
     margin: 1rem auto;
 
     .frame-container {
-      height: 75vh;
+      height: 40rem;
+      min-height: 40rem;
       display: flex;
     }
 
@@ -43,7 +44,6 @@ export const Container = styled.div`
     }
 
     .course-content {
-      padding: 0 0.5rem;
       .data {
         border-bottom: 1px solid #00000020;
         padding: 1rem 1rem;

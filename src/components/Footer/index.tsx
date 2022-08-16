@@ -1,16 +1,7 @@
 import styled from "styled-components";
 import { FiInstagram, FiTwitter, FiYoutube } from "react-icons/fi";
 import { TbBrandSpotify, TbBrandTiktok } from "react-icons/tb";
-import { HTMLProps, ReactNode } from "react";
-
-interface ExtProps extends HTMLProps<HTMLAnchorElement> {
-  children: ReactNode;
-}
-const ExtLink = ({ children, ...props }: ExtProps) => (
-  <a {...props} target="_blank" rel="noreferrer">
-    {children}
-  </a>
-);
+import ExtLink from "components/ExtLink";
 
 const Container = styled.footer`
   background-color: #1e1e20;
@@ -54,7 +45,7 @@ function Footer() {
   return (
     <Container>
       <div className="wrapper">
-        <h3>DL3arn</h3>
+        <h3>DL3ARN</h3>
       </div>
 
       <div className="contacts">
@@ -65,7 +56,7 @@ function Footer() {
         ))}
       </div>
 
-      <p>DLEARN | © 2022 – Todos los derechos reservados.</p>
+      <p>DL3ARN | © 2022 – Todos los derechos reservados.</p>
     </Container>
   );
 }

@@ -31,6 +31,8 @@ export const HomeContainer = styled.div`
       background-repeat: no-repeat;
       background-size: contain;
       background-attachment: fixed;
+      background-origin: content-box, padding-box;
+      padding: 10px;
       opacity: 0.4;
     }
 
@@ -68,7 +70,7 @@ export const HomeContainer = styled.div`
           transform: scale(110%);
         }
 
-        .roadmap {
+        .login {
           background-color: var(--primary);
           box-shadow: -48px -61px 52px -40px #ffd700 inset;
         }
@@ -78,13 +80,14 @@ export const HomeContainer = styled.div`
       }
 
       .presentation {
+        display: flex;
+
         width: 100%;
         max-width: 1200px;
         aspect-ratio: 16/9;
-        padding: 1.25rem;
+        padding: 2px;
         background-color: #fff;
         border-radius: 3px;
-        box-shadow: 0 5px 10px #0005;
 
         iframe {
           width: 100%;

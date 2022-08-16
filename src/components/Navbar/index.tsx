@@ -1,11 +1,10 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { SecondaryButton } from "components/Buttons";
+import { PrimaryButton } from "components/Buttons";
 import { useAuth } from "context/firebase";
 import { ReactNode } from "react";
 import Avatar from "../Avatar";
-import { Nav, Verify } from "./styled";
+import { Nav } from "./styled";
 
-import { FaTimes } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import Logo from "assets/Logo.png";
@@ -68,14 +67,9 @@ function Navbar() {
                 </li>
               </>
             ) : (
-              <SecondaryButton
-                isLight={!!blue_theme[location.pathname]}
-                as={Link}
-                to="/auth/login"
-                className="login"
-              >
+              <PrimaryButton as={Link} to="/auth/login" className="login">
                 Login
-              </SecondaryButton>
+              </PrimaryButton>
             )}
           </ul>
         </div>
