@@ -75,6 +75,7 @@ export interface CourseModel {
   instructor: InstructorModel;
   name: string;
   rampp: RamppModel | null;
+  created_at: number;
   score: number;
   total_duration: string;
   videos: string[];

@@ -1,8 +1,8 @@
-import { getDocs, query } from "firebase/firestore";
+import { getDocs, orderBy, query } from "firebase/firestore";
 import { CourseModel } from "utils/types/firebase";
 import { coursesCollection } from "./collections";
 
-const q = query(coursesCollection);
+const q = query(coursesCollection, orderBy("created_at", "desc"));
 
 async function getCourses() {
   const snapshots = await getDocs(q);

@@ -6,17 +6,24 @@ import { CourseModel } from "utils/types/firebase";
 import { PrimaryButton } from "../Buttons";
 import { Container } from "./styles";
 
-type Ignore = "videos" | "contract" | "rampp";
-type CardProps = Omit<CourseModel, Ignore>;
+type Get =
+  | "description"
+  | "id"
+  | "image"
+  | "instructor"
+  | "name"
+  | "score"
+  | "total_duration";
+type CardProps = Pick<CourseModel, Get>;
 
 function Card({
-  id,
   description,
+  id,
+  image,
   instructor,
   name,
-  total_duration,
   score,
-  image,
+  total_duration,
 }: CardProps) {
   const [storageImage, setStorageImage] = useState("");
   useEffect(() => {
@@ -50,7 +57,7 @@ function Card({
           <p className="description">{description}</p>
         </div>
 
-        <PrimaryButton className="btn">View course</PrimaryButton>
+        <PrimaryButton className="btn">Ver curso</PrimaryButton>
       </footer>
     </Container>
   );

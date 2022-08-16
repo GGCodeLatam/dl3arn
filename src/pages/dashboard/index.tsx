@@ -13,7 +13,6 @@ const Container = styled.div`
   margin: 0 auto;
 
   section {
-    min-height: calc(95vh - var(--nav-size));
     h2 {
       font-size: 1.25rem;
       padding: 1rem 0;
@@ -69,7 +68,7 @@ function Dashboard() {
       <Container>
         <main>
           <section>
-            <h2>courses</h2>
+            <h2>cursos</h2>
             <div className="cards">
               {Array.from({ length: 6 }).map((_, i) =>
                 isLoading ? (
