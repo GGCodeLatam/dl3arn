@@ -55,7 +55,7 @@ function Navbar() {
             {!isLoading && user ? (
               <>
                 <li>
-                  <ConnectButton />
+                  <ConnectButton label="Conectar Wallet" />
                 </li>
 
                 <li>

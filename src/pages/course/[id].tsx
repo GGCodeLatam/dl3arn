@@ -1,15 +1,20 @@
-import { Container } from "styles/course.styles";
-import useCourse from "hooks/useCourse";
-import useVideo from "hooks/useVideo";
-import Video from "components/Course/Video";
-import Loading from "components/Loading";
-import RamppButton from "components/Buttons/RamppButton";
-import Placeholder from "components/Placeholders";
-
 import { useParams } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+
 import { getImage } from "services/firebase/storage";
+
+import useCourse from "hooks/useCourse";
+import useVideo from "hooks/useVideo";
+
+import Loading from "components/Loading";
+import RamppButton from "components/Buttons/RamppButton";
+import Placeholder from "components/Placeholders";
+import VideoContent from "components/Course/VideoContent";
+import CourseIntro from "components/Course/CourseIntro";
+
+import { Container } from "styles/course.styles";
+import VideosMenu from "components/Course/VideosMenu";
 
 function Course() {
   const [params, setSearchParams] = useSearchParams();
@@ -22,7 +27,7 @@ function Course() {
   const isFree = current?.videos.filter((video) => video.id === videoId)![0]
     ?.free;
 
-  const { video, error, isLoading } = useVideo({
+  const { video, isLoading } = useVideo({
     video: {
       id: videoId || "",
       free: !!isFree,
@@ -30,7 +35,8 @@ function Course() {
     locked: locked,
   });
 
-  const handleVideo = (_id?: string) => setSearchParams({ videoId: _id || "" });
+  const handleVideo = (_id?: string | null) =>
+    _id === null ? null : setSearchParams({ videoId: _id || "" });
 
   const [imgUrl, setImgUrl] = useState<string | null>(null);
 
@@ -39,75 +45,60 @@ function Course() {
       getImage(current.image).then((url) => setImgUrl(url));
   }, [current]);
 
+  const getVideo = (diff: number) => {
+    const available = current?.videos.filter((video) => !!video.duration);
+    if (available && !videoId) return available[0].id;
+
+    const videoIndex = available?.findIndex((video) => video.id === videoId);
+    if (typeof videoIndex !== "number" || videoIndex === -1 || !available)
+      return null;
+
+    const newIndex = videoIndex + diff;
+    if (newIndex < 0 || newIndex >= available.length) return null;
+    return available[videoIndex + diff].id;
+  };
+
+  const prev = () => handleVideo(getVideo(-1));
+  const next = () => handleVideo(getVideo(1));
+
   return (
     <Container>
-      <main>
-        <aside className="videos">
-          <button
-            className={`course ${!videoId ? "active" : ""}`}
-            onClick={() => handleVideo()}
-          >
-            {current?.name}
-          </button>
-          <ul>
-            {current?.videos
-              .filter((video) => video.name)
-              .map((video) => (
-                <Video
-                  hasNFT={!locked}
-                  key={video?.id}
-                  video={video}
-                  selected={!!videoId && video?.id === videoId}
-                  onClick={() => handleVideo(video?.id)}
-                />
-              ))}
-          </ul>
-        </aside>
+      <VideosMenu
+        current={current}
+        videoId={videoId}
+        handleVideo={handleVideo}
+        hasNFT={!locked}
+      />
 
-        <div className="course-content">
-          <Loading isLoading={isLoading} element={<LoadingVideo />}>
-            {video ? (
-              <>
-                <div className="frame-container">
-                  <iframe
-                    title="ytvideo"
-                    id="ytplayer"
-                    width="100%"
-                    height="100%"
-                    src={`https://www.youtube.com/embed/${video.videoId}?autoplay=0&origin=http://example.com`}
-                    frameBorder="0"
-                  />
-                </div>
+      <div className="course-content">
+        <Loading isLoading={isLoading} element={<LoadingVideo />}>
+          {!video && current && (
+            <>
+              <CourseIntro
+                name={current.name}
+                imgUrl={imgUrl}
+                instructor={current.instructor}
+                description={current.description}
+                prev={prev}
+                next={next}
+              />
+            </>
+          )}
 
-                <div className="data">
-                  <h2>{video.name}</h2>
-                </div>
-              </>
-            ) : null}
+          {video && (
+            <VideoContent
+              name={video.name}
+              videoId={video.id}
+              next={next}
+              prev={prev}
+            />
+          )}
+        </Loading>
+      </div>
 
-            {!error && !video && current && (
-              <div className="course-container">
-                <div className="info">
-                  {imgUrl && (
-                    <img className="course-image" src={imgUrl} alt="" />
-                  )}
-                  <div>
-                    <h2 className="course-name">{current.name}</h2>
-                    <p className="instructor">by {current.instructor?.name}</p>
-                  </div>
-                  <p className="description">{current.description}</p>
-                </div>
-              </div>
-            )}
-          </Loading>
-        </div>
-
-        {current && current.rampp && (
-          <div>
-            <RamppButton rampp={current.rampp} />
-          </div>
-        )}
-      </main>
+      <div>
+        <RamppButton rampp={current?.rampp} />
+      </div>
     </Container>
   );
 }

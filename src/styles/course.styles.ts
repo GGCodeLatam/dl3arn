@@ -1,85 +1,21 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  main,
-  .videos {
-    min-height: calc(95vh - var(--nav-size));
-  }
-  main {
-    display: grid;
-    grid-template-columns: minmax(15rem, 20rem) 1fr minmax(10rem, 15rem);
-    margin: 1rem auto;
+export const Container = styled.main`
+  display: grid;
+  grid-template-columns: minmax(15rem, 20rem) 1fr minmax(10rem, 15rem);
+  margin: 1rem auto;
+  width: 100%;
 
-    .frame-container {
-      height: 40rem;
-      min-height: 40rem;
-      display: flex;
+  .course-content {
+    .instructor {
+      font-size: 0.85rem;
+      opacity: 0.5;
     }
-
-    .videos {
-      background-color: #fafafa;
-      display: flex;
-      flex-flow: column;
-      box-shadow: inset 0 -1.25rem 0.5rem -1rem #0008;
-
-      ul {
-        display: flex;
-        flex-flow: column;
-      }
-
-      .course {
-        position: relative;
-        background-color: transparent;
-        border: none;
-        font-size: 1.25rem;
-        font-weight: 800;
-        padding: 1.5rem 1rem;
-        text-align: left;
-        width: 100%;
-      }
-
-      .course.active {
-        color: var(--primary);
-      }
-    }
-
-    .course-content {
-      .data {
-        border-bottom: 1px solid #00000020;
-        padding: 1rem 1rem;
-        h2 {
-          font-size: 1.5rem;
-        }
-      }
-      .instructor {
-        font-size: 0.85rem;
-        opacity: 0.5;
-      }
-      .description {
-        font-size: 1rem;
-        letter-spacing: 0.25px;
-        line-height: 1.75rem;
-        padding: 1rem 0 0 0;
-      }
-    }
-  }
-
-  .course-container {
-    display: flex;
-    padding: 0 2rem;
-
-    .info {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-
-      .course-image {
-        width: 5rem;
-        height: 5rem;
-      }
-      .course-name {
-        font-size: 1.5rem;
-      }
+    .description {
+      font-size: 1rem;
+      letter-spacing: 0.25px;
+      line-height: 1.75rem;
+      padding: 1rem 0 0 0;
     }
   }
 
@@ -91,5 +27,15 @@ export const Container = styled.div`
     font-weight: 600;
     height: 100%;
     text-align: center;
+  }
+
+  .video-options {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+
+    button {
+      padding: 0.75rem 1rem;
+    }
   }
 `;

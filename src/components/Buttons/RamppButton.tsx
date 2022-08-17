@@ -13,10 +13,10 @@ const Container = styled.div`
 
 interface Props {
   address?: string;
-  rampp: Partial<RamppModel>;
+  rampp?: Partial<RamppModel> | null;
 }
 function RamppButton({ rampp }: Props) {
-  const { address, abi_uri, buttonId, proof_uri } = rampp;
+  const { address, abi_uri, buttonId, proof_uri } = rampp || {};
 
   useEffect(() => {
     if (!address || !buttonId || !proof_uri) return () => {};
