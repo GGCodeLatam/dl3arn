@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled(Link)`
+  font-family: Montserrat;
   display: flex;
   flex-flow: column;
   gap: 1rem;
