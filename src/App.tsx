@@ -17,8 +17,7 @@ import FullPage from "styles/FullContainer";
 import { useSearchParams } from "react-router-dom";
 import useChat from "hooks/useChat";
 import { HUBSPOT } from "constants/index";
-import { useAlerts } from "context/alerts";
-import { Alerts, EmailVerify } from "styles/alerts.styles";
+import { EmailVerify } from "styles/alerts.styles";
 import { useAuth } from "context/firebase";
 
 function App() {
@@ -51,8 +50,8 @@ function App() {
       user.emailVerified &&
       ["/", "/quienes-somos", "/roadmap"].includes(location.pathname)
     )
-      navigate("/dashboard", { replace: true });
-  }, [user, navigate, location]);
+      navigate(to || "/dashboard", { replace: true });
+  }, [user, navigate, location, to]);
 
   return (
     <FullPage>
