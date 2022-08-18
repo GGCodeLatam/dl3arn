@@ -1,35 +1,42 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+const MIN = 200;
+const MAX = 255;
+const { r, g, b } = {
+  r: Math.floor(Math.random() * (MAX - MIN) + MIN),
+  g: Math.floor(Math.random() * (MAX - MIN) + MIN),
+  b: Math.floor(Math.random() * (MAX - MIN) + MIN),
+};
+
 export const Container = styled(Link)`
   font-family: Montserrat;
   display: flex;
-  flex-flow: column;
   gap: 1rem;
   text-align: left;
+  align-items: center;
 
-  padding: 1rem;
-  background-color: #0000000a;
   border-radius: 0.25rem;
-  height: 100%;
-  box-shadow: 0 5px 5px -5px #0001, 0 7px 7px -7px #0001,
-    0 12px 12px -12px #0001;
-  transition: all 0.25s;
 
-  :hover {
-    box-shadow: 0 7px 5px -5px #0003, 0 9px 7px -7px #0003,
-      0 14px 12px -12px #0003;
+  :hover header {
+    transform: scale(110%);
   }
 
   header {
+    --img-size: 6rem;
     position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
+    display: flex;
+    width: var(--img-size);
+    height: var(--img-size);
+    transition: all 0.25s;
+
+    border-radius: 5px;
+    background-color: rgb(${r}, ${g}, ${b});
+
+    overflow: hidden;
 
     .img {
       display: block;
-      border-radius: 0.25rem;
       width: 100%;
       height: 100%;
     }
@@ -44,7 +51,7 @@ export const Container = styled(Link)`
       width: 100%;
 
       .name {
-        max-width: 10rem;
+        max-width: 15rem;
         text-overflow: ellipsis;
         font-size: 1.1rem;
         letter-spacing: 0.5px;
@@ -75,65 +82,9 @@ export const Container = styled(Link)`
     }
   }
 
-  :first-child {
-    align-items: center;
-    flex-flow: row;
-    grid-area: 1 / 1 / 2 / 3;
-
-    header {
-      width: 100%;
-      height: 100%;
-
-      .img {
-        object-fit: cover;
-        border-radius: 0.25rem;
-      }
-    }
-
-    footer {
-      display: flex;
-      flex-flow: column;
-      justify-content: space-between;
-      width: 100%;
-      height: 100%;
-
-      .info {
-        flex-flow: column;
-        align-items: flex-start;
-
-        .name {
-          max-width: 17rem;
-          font-size: 1.5rem;
-          font-weight: 800;
-          letter-spacing: 2px;
-        }
-        .meta {
-          flex-flow: row;
-          gap: 1rem;
-          font-weight: 500;
-          margin: 0.25rem 0;
-          > * {
-            flex-flow: row;
-          }
-        }
-      }
-      .description {
-        position: relative;
-        max-height: calc(1.25rem * 5);
-        line-height: 1.25rem;
-        letter-spacing: 1px;
-        font-weight: 300;
-        font-size: 0.9rem;
-        text-overflow: ellipsis;
-        overflow-y: scroll;
-        padding: 0 0.5rem 0.5rem 0;
-        word-wrap: break-word;
-        margin: 0.75rem 0 0 0;
-      }
-    }
-  }
   .name {
     white-space: nowrap;
     overflow: hidden;
+    font-weight: 800;
   }
 `;

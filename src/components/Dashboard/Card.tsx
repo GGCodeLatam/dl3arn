@@ -17,7 +17,6 @@ type Get =
 type CardProps = Pick<CourseModel, Get>;
 
 function Card({
-  description,
   id,
   image,
   instructor,
@@ -54,10 +53,7 @@ function Card({
               </p>
             )}
           </div>
-          <p className="description">{description}</p>
         </div>
-
-        <PrimaryButton className="btn">Ver curso</PrimaryButton>
       </footer>
     </Container>
   );

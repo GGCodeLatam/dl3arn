@@ -8,8 +8,9 @@ export const GlobalStyle = createGlobalStyle`
 }
 
 :root {
+  --french-violet: #8bcc8fff;
+
   --amethyst: #9d4eddff;
-  --french-violet: #7b2cbfff;
   --orange-peel: #ff9e00ff;
   --orange: #ff8500ff;
   --persian-indigo: #3c096cff;
