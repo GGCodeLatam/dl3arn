@@ -86,6 +86,7 @@ export interface RamppModel {
   abi_uri: string;
   buttonId: string;
   proof_uri: string;
+  network: string;
 }
 
 export interface VideoModel {
