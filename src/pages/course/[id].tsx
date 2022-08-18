@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import { useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { createElement, useEffect, useState } from "react";
 
 import { getImage } from "services/firebase/storage";
 
@@ -15,6 +15,7 @@ import CourseIntro from "components/Course/CourseIntro";
 
 import { Container } from "styles/course.styles";
 import VideosMenu from "components/Course/VideosMenu";
+import ShareButton from "components/Buttons/ShareButton";
 
 function Course() {
   const [params, setSearchParams] = useSearchParams();
@@ -61,6 +62,16 @@ function Course() {
   const prev = () => handleVideo(getVideo(-1));
   const next = () => handleVideo(getVideo(1));
 
+  useEffect(() => {
+    if (!imgUrl) return () => {};
+    const shareImg = document.createElement("meta") as HTMLMetaElement & {
+      property: string;
+    };
+    shareImg.property = "og:image";
+    shareImg.content = imgUrl;
+    document.head.appendChild(shareImg);
+  }, [imgUrl]);
+
   return (
     <Container>
       <VideosMenu
@@ -73,22 +84,22 @@ function Course() {
       <div className="course-content">
         <Loading isLoading={isLoading} element={<LoadingVideo />}>
           {!video && current && (
-            <>
-              <CourseIntro
-                name={current.name}
-                imgUrl={imgUrl}
-                instructor={current.instructor}
-                description={current.description}
-                prev={prev}
-                next={next}
-              />
-            </>
+            <CourseIntro
+              name={current.name}
+              imgUrl={imgUrl}
+              instructor={current.instructor}
+              description={current.description}
+              prev={prev}
+              next={next}
+            />
           )}
 
-          {video && (
+          {video && current && (
             <VideoContent
               name={video.name}
               videoId={video.id}
+              instructor={current.instructor.name}
+              courseName={current.name}
               next={next}
               prev={prev}
             />

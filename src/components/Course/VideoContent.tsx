@@ -1,13 +1,23 @@
+import ShareButton from "components/Buttons/ShareButton";
 import { VideoContentContainer } from "./VideoContent.styles";
 
 interface Props {
   name?: string;
+  instructor?: string;
+  courseName?: string;
   next: () => void;
   prev: () => void;
   videoId?: string;
 }
 
-function VideoContent({ name, next, prev, videoId }: Props) {
+function VideoContent({
+  courseName,
+  instructor,
+  name,
+  next,
+  prev,
+  videoId,
+}: Props) {
   return (
     <VideoContentContainer>
       <div className="frame-container">
@@ -24,6 +34,12 @@ function VideoContent({ name, next, prev, videoId }: Props) {
       <div className="data">
         <h2>{name}</h2>
         <div className="video-options">
+          <ShareButton
+            url={window.location.href}
+            title={`${instructor} | ${courseName} | ${name}`}
+          >
+            Compartir
+          </ShareButton>
           <button onClick={prev}>Anterior</button>
           <button onClick={next}>Siguiente</button>
         </div>

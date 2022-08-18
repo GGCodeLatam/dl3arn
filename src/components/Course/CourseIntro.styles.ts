@@ -9,8 +9,10 @@ export const CourseIntroContainer = styled.div`
     gap: 1rem;
 
     .course-image {
-      width: 5rem;
-      height: 5rem;
+      object-fit: cover;
+      width: 6rem;
+      height: 6rem;
+      border-radius: 5px;
     }
     .course-name {
       font-size: 1.5rem;

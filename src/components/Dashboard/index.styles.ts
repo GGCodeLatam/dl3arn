@@ -48,16 +48,15 @@ export const FeaturedCourse = styled.article`
   .img-container {
     border-radius: 5px;
     display: flex;
-    height: 15rem;
+    aspect-ratio: 5 / 1;
     overflow: hidden;
     position: relative;
     width: 100%;
 
     img {
-      display: block;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: top;
       width: 100%;
     }
 
