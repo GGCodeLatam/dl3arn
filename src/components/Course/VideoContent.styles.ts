@@ -22,6 +22,11 @@ export const VideoContentContainer = styled.div`
       display: flex;
       flex-flow: row;
       gap: 1rem;
+      .btn {
+        border-radius: 0 !important;
+        font-size: 0.9rem;
+        color: var(--dark);
+      }
     }
   }
 `;

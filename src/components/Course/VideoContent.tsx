@@ -1,3 +1,4 @@
+import { PrimaryButton } from "components/Buttons";
 import ShareButton from "components/Buttons/ShareButton";
 import { VideoContentContainer } from "./VideoContent.styles";
 
@@ -40,8 +41,12 @@ function VideoContent({
           >
             Compartir
           </ShareButton>
-          <button onClick={prev}>Anterior</button>
-          <button onClick={next}>Siguiente</button>
+          <PrimaryButton className="btn" onClick={prev}>
+            Anterior
+          </PrimaryButton>
+          <PrimaryButton className="btn" onClick={next}>
+            Siguiente
+          </PrimaryButton>
         </div>
       </div>
     </VideoContentContainer>

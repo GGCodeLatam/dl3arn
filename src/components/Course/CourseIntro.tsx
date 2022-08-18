@@ -1,3 +1,4 @@
+import { PrimaryButton } from "components/Buttons";
 import { CourseModel } from "utils/types/firebase";
 import { CourseIntroContainer } from "./CourseIntro.styles";
 
@@ -29,8 +30,12 @@ function CourseIntro({
         <p className="description">{description}</p>
       </div>
       <div className="video-options">
-        <button onClick={prev}>Anterior</button>
-        <button onClick={next}>Siguiente</button>
+        <PrimaryButton className="btn" onClick={prev}>
+          Anterior
+        </PrimaryButton>
+        <PrimaryButton className="btn" onClick={next}>
+          Siguiente
+        </PrimaryButton>
       </div>
     </CourseIntroContainer>
   );

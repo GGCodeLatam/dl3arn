@@ -21,5 +21,16 @@ export const CourseIntroContainer = styled.div`
 
   .video-options {
     justify-content: right !important;
+    display: flex;
+    flex-flow: row;
+    gap: 1rem;
+    width: max-content;
+    margin: 1rem 0 0 0;
+
+    .btn {
+      border-radius: 0 !important;
+      font-size: 0.9rem;
+      color: var(--dark);
+    }
   }
 `;
