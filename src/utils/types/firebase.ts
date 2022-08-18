@@ -81,12 +81,13 @@ export interface CourseModel {
   videos: string[];
 }
 
+export type Network = "polygon";
 export interface RamppModel {
   address: string;
   abi_uri: string;
   buttonId: string;
   proof_uri: string;
-  network: string;
+  network: Network;
 }
 
 export interface VideoModel {

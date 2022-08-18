@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import { useSearchParams } from "react-router-dom";
-import { createElement, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { getImage } from "services/firebase/storage";
 
@@ -15,7 +15,7 @@ import CourseIntro from "components/Course/CourseIntro";
 
 import { Container } from "styles/course.styles";
 import VideosMenu from "components/Course/VideosMenu";
-import ShareButton from "components/Buttons/ShareButton";
+import { NetworkBadge } from "components/Badges";
 
 function Course() {
   const [params, setSearchParams] = useSearchParams();
@@ -62,16 +62,6 @@ function Course() {
   const prev = () => handleVideo(getVideo(-1));
   const next = () => handleVideo(getVideo(1));
 
-  useEffect(() => {
-    if (!imgUrl) return () => {};
-    const shareImg = document.createElement("meta") as HTMLMetaElement & {
-      property: string;
-    };
-    shareImg.property = "og:image";
-    shareImg.content = imgUrl;
-    document.head.appendChild(shareImg);
-  }, [imgUrl]);
-
   return (
     <Container>
       <VideosMenu
@@ -108,6 +98,7 @@ function Course() {
       </div>
 
       <div>
+        <NetworkBadge network={current?.rampp?.network} dark toRight />
         <RamppButton rampp={current?.rampp} />
       </div>
     </Container>

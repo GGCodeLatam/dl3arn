@@ -11,6 +11,7 @@ import { getImage } from "services/firebase/storage";
 import { Link } from "react-router-dom";
 
 import Coin from "assets/Coin.png";
+import { NetworkBadge } from "components/Badges";
 
 function Dashboard() {
   const {
@@ -24,6 +25,14 @@ function Dashboard() {
     if (course?.image)
       getImage(course.image).then((url) => setStorageImage(url));
   }, [course]);
+
+  const cards = Array.from({ length: 3 }).map((_, i) =>
+    isLoading ? (
+      <CardPlaceholder key={i} />
+    ) : (
+      others[i] && <Card {...others[i]} />
+    )
+  );
 
   return (
     <PrivateRoute verified>
@@ -41,27 +50,18 @@ function Dashboard() {
                 </div>
               )}
               <div className="info">
-                <h3>{course.name}</h3>
-                <p>{course.instructor.name}</p>
+                <NetworkBadge network={course.rampp?.network} onlyIcon />
+                <div>
+                  <h3>{course.name}</h3>
+                  <p>{course.instructor.name}</p>
+                </div>
               </div>
             </Link>
           </FeaturedCourse>
         )}
 
         <section>
-          <div className="cards">
-            {Array.from({ length: 3 }).map((_, i) =>
-              isLoading ? (
-                <CardPlaceholder key={i} />
-              ) : (
-                others[i] && (
-                  <>
-                    <Card {...others[i]} />
-                  </>
-                )
-              )
-            )}
-          </div>
+          <div className="cards">{cards}</div>
         </section>
       </DashboardContainer>
     </PrivateRoute>

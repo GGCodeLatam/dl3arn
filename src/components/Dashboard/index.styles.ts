@@ -97,7 +97,10 @@ export const FeaturedCourse = styled.article`
   }
 
   .info {
+    display: flex;
+    align-items: center;
     margin: 0.5rem 0;
+
     h3 {
       font-weight: 800;
     }

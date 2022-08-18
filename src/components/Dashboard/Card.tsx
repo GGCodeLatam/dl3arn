@@ -1,9 +1,9 @@
+import { NetworkBadge } from "components/Badges";
 import { useEffect, useState } from "react";
 import { getImage } from "services/firebase/storage";
 import { ClockIcon, FireIcon } from "utils/icons";
 import { CourseModel } from "utils/types/firebase";
 
-import { PrimaryButton } from "../Buttons";
 import { Container } from "./styles";
 
 type Get =
@@ -13,7 +13,8 @@ type Get =
   | "instructor"
   | "name"
   | "score"
-  | "total_duration";
+  | "total_duration"
+  | "rampp";
 type CardProps = Pick<CourseModel, Get>;
 
 function Card({
@@ -23,6 +24,7 @@ function Card({
   name,
   score,
   total_duration,
+  rampp,
 }: CardProps) {
   const [storageImage, setStorageImage] = useState("");
   useEffect(() => {
@@ -37,6 +39,7 @@ function Card({
 
       <footer>
         <div className="info">
+          <NetworkBadge network={rampp?.network} onlyIcon />
           <div>
             <h3 className="name">{name}</h3>
             <p className="instructor">{`by ${instructor.name}`}</p>
