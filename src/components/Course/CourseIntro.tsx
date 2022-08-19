@@ -8,8 +8,8 @@ interface Props {
   instructor: CourseModel["instructor"];
   description: string;
 
-  next: () => any;
-  prev: () => any;
+  next?: () => any;
+  prev?: () => any;
 }
 function CourseIntro({
   description,

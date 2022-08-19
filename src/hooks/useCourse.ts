@@ -21,11 +21,6 @@ function useCourse({ id }: { id?: string }) {
         const course = await getCourse(id);
         if (!course) return null;
 
-        course.videos.sort((a, b) => {
-          if (!a || !b) return 0;
-          return Number(b.free) - Number(a.free);
-        });
-
         setCurrent(course);
         setContract(course.contract);
       } catch (e) {}

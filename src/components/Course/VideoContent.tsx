@@ -6,8 +6,8 @@ interface Props {
   name?: string;
   instructor?: string;
   courseName?: string;
-  next: () => void;
-  prev: () => void;
+  next?: () => void;
+  prev?: () => void;
   videoId?: string;
 }
 

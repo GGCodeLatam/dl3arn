@@ -16,6 +16,7 @@ import CourseIntro from "components/Course/CourseIntro";
 import { Container } from "styles/course.styles";
 import VideosMenu from "components/Course/VideosMenu";
 import { NetworkBadge } from "components/Badges";
+import { VideoSafeProps } from "utils/types/video";
 
 function Course() {
   const [params, setSearchParams] = useSearchParams();
@@ -25,13 +26,18 @@ function Course() {
 
   const { current, locked } = useCourse({ id });
 
-  const isFree = current?.videos.filter((video) => video.id === videoId)![0]
-    ?.free;
+  const videos: VideoSafeProps[] = [];
+
+  Object.values(current?.sections || {})
+    .sort((a, b) => a.position - b.position)
+    .map((section) => section.videos.map((video) => videos.push(video)));
+
+  const isFree = videos.filter((video) => video.id === videoId)![0]?.free;
 
   const { video, isLoading } = useVideo({
     video: {
       id: videoId || "",
-      free: !!isFree,
+      free: isFree,
     },
     locked: locked,
   });
@@ -47,7 +53,9 @@ function Course() {
   }, [current]);
 
   const getVideo = (diff: number) => {
-    const available = current?.videos.filter((video) => !!video.duration);
+    const available = videos
+      .sort((a, b) => Number(b.free) - Number(a.free))
+      .filter((video) => !!video.duration);
     if (available && !videoId) return available[0].id;
 
     const videoIndex = available?.findIndex((video) => video.id === videoId);
@@ -55,8 +63,9 @@ function Course() {
       return null;
 
     const newIndex = videoIndex + diff;
+    console.log({ available, newIndex });
     if (newIndex < 0 || newIndex >= available.length) return null;
-    return available[videoIndex + diff].id;
+    return available[newIndex].id;
   };
 
   const prev = () => handleVideo(getVideo(-1));
@@ -90,8 +99,8 @@ function Course() {
               videoId={video.id}
               instructor={current.instructor.name}
               courseName={current.name}
-              next={next}
               prev={prev}
+              next={next}
             />
           )}
         </Loading>

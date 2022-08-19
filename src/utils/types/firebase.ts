@@ -67,6 +67,14 @@ export interface FirebaseContext {
 
 /* -------------------- STORE -------------------- */
 
+export interface Section {
+  position: number;
+  videos: string[];
+}
+
+export interface Sections<T = Section> {
+  [key: string]: T;
+}
 export interface CourseModel {
   contract: ContractModel;
   description: string;
@@ -78,7 +86,7 @@ export interface CourseModel {
   created_at: number;
   score: number;
   total_duration: string;
-  videos: string[];
+  sections: Sections;
 }
 
 export type Network = "polygon";

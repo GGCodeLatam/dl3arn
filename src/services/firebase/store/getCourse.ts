@@ -1,34 +1,66 @@
 import { doc, getDoc } from "firebase/firestore";
 import { APIGetCourseById } from "utils/types/course";
-import { CourseModel, VideoModel } from "utils/types/firebase";
+import { CourseModel, Sections, VideoModel } from "utils/types/firebase";
+import { Override } from "utils/types/utility";
+import { VideoSafeProps } from "utils/types/video";
 import getVideosDuration from "utils/youtube";
 import { db } from "..";
+import getVideo from "./getVideo";
 
 async function getCourse(id: string): Promise<APIGetCourseById> {
   const ref = await getDoc(doc(db, "courses", id));
 
   const course = { id: ref.id, ...ref.data() } as CourseModel;
-  const videos = await Promise.all(
-    course.videos.map(async (_id) => {
-      const ref = await getDoc(doc(db, "videos", _id));
-      const data = ref.data() as Omit<VideoModel, "id">;
 
-      return { id: ref.id, ...data };
+  type ParsedSections = Override<
+    Sections,
+    { [key: string]: { position: number; videos: VideoSafeProps[] } }
+  >;
+  const newSections: ParsedSections = {};
+  const videos: (VideoModel & { section: string })[] = [];
+
+  await Promise.all(
+    Object.entries(course.sections).map(async ([key, value]) => {
+      const sectionVideos = (await Promise.all(
+        value.videos.map(getVideo)
+      )) as VideoModel[];
+
+      videos.push(
+        ...sectionVideos.map((video) => ({
+          ...video,
+          section: key,
+        }))
+      );
+
+      newSections[key] = {
+        position: value.position,
+        videos: sectionVideos.map((video) => ({
+          id: video.id,
+          name: video.name,
+          free: video.free,
+          duration: "",
+        })),
+      };
+      return null;
     })
   );
 
-  const durations = await getVideosDuration(
-    videos.map(({ videoId, id }) => ({ videoId, id }))
-  );
+  const durations = await getVideosDuration(videos);
+
+  durations.forEach((video) => {
+    newSections[video.section] = {
+      ...newSections[video.section],
+      videos: newSections[video.section].videos.map((current) =>
+        current.id === video.id
+          ? { ...current, duration: video.duration }
+          : current
+      ),
+    };
+  });
 
   const parsed_course: APIGetCourseById = {
     ...course,
-    videos: videos.map((video) => ({
-      id: video.id,
-      free: video.free,
-      name: video.name,
-      duration: durations[video.videoId],
-    })),
+    sections: newSections,
   };
 
   return parsed_course;
