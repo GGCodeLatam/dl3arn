@@ -27,7 +27,7 @@ function VideoContent({
           id="ytplayer"
           width="100%"
           height="100%"
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=0&origin=http://example.com`}
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=0&origin=https://dl3arn.com`}
           frameBorder="0"
         />
       </div>

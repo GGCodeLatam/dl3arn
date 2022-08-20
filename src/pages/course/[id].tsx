@@ -96,7 +96,7 @@ function Course() {
           {video && current && (
             <VideoContent
               name={video.name}
-              videoId={video.id}
+              videoId={video.videoId}
               instructor={current.instructor.name}
               courseName={current.name}
               prev={prev}
