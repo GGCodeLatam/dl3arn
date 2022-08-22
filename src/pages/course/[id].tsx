@@ -17,6 +17,7 @@ import { Container } from "styles/course.styles";
 import VideosMenu from "components/Course/VideosMenu";
 import { NetworkBadge } from "components/Badges";
 import { VideoSafeProps } from "utils/types/video";
+import OpenSeaButton from "components/Buttons/OpenSeaButton";
 
 function Course() {
   const [params, setSearchParams] = useSearchParams();
@@ -114,6 +115,10 @@ function Course() {
             address={current.contract.address}
           />
         </div>
+      )}
+
+      {current && current.opensea && (
+        <OpenSeaButton collection={current.opensea} />
       )}
     </Container>
   );

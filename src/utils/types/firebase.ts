@@ -77,16 +77,17 @@ export interface Sections<T = Section> {
 }
 export interface CourseModel {
   contract: ContractModel;
+  created_at: number;
   description: string;
   id: string;
   image: string;
   instructor: InstructorModel;
   name: string;
+  opensea?: string;
   rampp: RamppModel | null;
-  created_at: number;
   score: number;
-  total_duration: string;
   sections: Sections;
+  total_duration: string;
 }
 
 export type Network = "polygon";

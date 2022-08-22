@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { FiInstagram, FiTwitter, FiYoutube } from "react-icons/fi";
 import { TbBrandSpotify, TbBrandTiktok } from "react-icons/tb";
-import ExtLink from "components/ExtLink";
 import Wave from "components/SVGs/wave";
 
-const Container = styled.footer`
+import contact from "utils/contact.json";
+
+const FooterContainer = styled.footer`
   position: relative;
   color: #fff;
-  text-align: center;
   display: flex;
   flex-flow: column;
   gap: 0;
@@ -19,15 +19,50 @@ const Container = styled.footer`
   .data {
     background-color: #1e1e20;
     position: relative;
-    padding: 5vh 1rem;
+    padding: 5vh 1rem 0 1rem;
+
+    .container {
+      margin: 0 auto;
+      max-width: 1200px;
+    }
+  }
+  .copyright {
+    padding: 1rem 0;
+    text-align: center;
+    font-size: 0.85rem;
+    opacity: 0.5;
+  }
+
+  .sections {
+    display: flex;
+    justify-content: space-between;
+
+    section:not(:last-child) {
+      border-right: 1px solid #fff2;
+    }
+    section {
+      padding: 2rem 2rem 2rem 0;
+
+      > h3 {
+        margin: 0.5rem 0;
+      }
+    }
   }
 
   .contacts {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    margin: 1rem 0;
+    list-style: none;
+    li {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+
+      ::before {
+        content: "";
+        width: 7px;
+        height: 1px;
+        background: #fff;
+      }
+    }
   }
 `;
 
@@ -56,24 +91,29 @@ const contacts = [
 ];
 function Footer() {
   return (
-    <Container>
+    <FooterContainer>
       <Wave className="wave" fill="#1e1e20" />
       <div className="data">
-        <div className="wrapper">
+        <div className="container">
           <h3>DL3ARN</h3>
-        </div>
 
-        <div className="contacts">
-          {contacts.map((contact, i) => (
-            <ExtLink key={contact.href} href={contact.href}>
-              {contact.element}
-            </ExtLink>
-          ))}
-        </div>
+          <div className="sections">
+            <section>
+              <h3>Contacto</h3>
+              <ul className="contacts">
+                <li>
+                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                </li>
+              </ul>
+            </section>
+          </div>
 
-        <p>DL3ARN | © 2022 – Todos los derechos reservados.</p>
+          <p className="copyright">
+            DL3ARN | © 2022 – Todos los derechos reservados.
+          </p>
+        </div>
       </div>
-    </Container>
+    </FooterContainer>
   );
 }
 

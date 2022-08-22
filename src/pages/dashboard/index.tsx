@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import { getImage } from "services/firebase/storage";
 import { Link } from "react-router-dom";
 
+import contact from "utils/contact.json";
+
 import Coin from "assets/Coin.png";
 import { NetworkBadge } from "components/Badges";
 
@@ -37,6 +39,18 @@ function Dashboard() {
   return (
     <PrivateRoute verified>
       <DashboardContainer>
+        <div className="contact-us">
+          <div className="decoration">
+            <div className="tr1" />
+            <div className="tr2" />
+          </div>
+          <div className="info">
+            <p>Si queres subir tu curso a nuestra plataforma contactanos!</p>
+            <a className="dl3arn-mail" href={`mailto:${contact.email}`}>
+              {contact.email}
+            </a>
+          </div>
+        </div>
         {course && (
           <FeaturedCourse>
             <Link to={`/course/${course.id}`}>
