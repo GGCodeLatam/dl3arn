@@ -91,7 +91,6 @@ export interface CourseModel {
 
 export type Network = "polygon";
 export interface RamppModel {
-  address: string;
   abi_uri: string;
   buttonId: string;
   proof_uri: string;

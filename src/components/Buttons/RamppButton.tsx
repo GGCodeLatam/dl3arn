@@ -12,11 +12,11 @@ const Container = styled.div`
 `;
 
 interface Props {
-  address?: string;
-  rampp?: Partial<RamppModel> | null;
+  address: string;
+  rampp: Partial<RamppModel> | null;
 }
-function RamppButton({ rampp }: Props) {
-  const { address, abi_uri, buttonId, proof_uri, network } = rampp || {};
+function RamppButton({ rampp, address }: Props) {
+  const { abi_uri, buttonId, proof_uri, network } = rampp || {};
 
   useEffect(() => {
     if (!address || !buttonId || !proof_uri) return () => {};

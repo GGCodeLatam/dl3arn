@@ -19,7 +19,6 @@ import useChat from "hooks/useChat";
 import { HUBSPOT } from "constants/index";
 import { EmailVerify } from "styles/alerts.styles";
 import { useAuth } from "context/firebase";
-import Test from "pages/test";
 
 function App() {
   useChat({ url: HUBSPOT });

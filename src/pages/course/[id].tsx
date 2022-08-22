@@ -106,10 +106,15 @@ function Course() {
         </Loading>
       </div>
 
-      <div>
-        <NetworkBadge network={current?.rampp?.network} dark toRight />
-        <RamppButton rampp={current?.rampp} />
-      </div>
+      {current && current.rampp && current.contract && (
+        <div>
+          <NetworkBadge network={current?.rampp?.network} dark toRight />
+          <RamppButton
+            rampp={current.rampp}
+            address={current.contract.address}
+          />
+        </div>
+      )}
     </Container>
   );
 }

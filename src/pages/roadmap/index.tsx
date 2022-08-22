@@ -37,6 +37,8 @@ function Roadmap() {
 
   return (
     <RoadmapContainer>
+      <div className="bg" />
+      <div className="overlay" />
       <section className="left">
         <h2>Roadmap</h2>
         <p>

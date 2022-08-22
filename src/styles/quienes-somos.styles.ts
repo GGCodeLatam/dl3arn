@@ -1,10 +1,28 @@
 import styled from "styled-components";
 
 export const QuienesSomosContainer = styled.main`
-  background: var(--gradient);
+  position: relative;
+  padding: 25vh 1rem;
+  border: 1px solid #000;
+  border-bottom: none;
+  border-top: none;
+  height: 100%;
+
   color: #fff;
   height: 100%;
-  padding: 25vh 1rem;
+  padding: 15vh 1rem;
+
+  .bg,
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .bg {
+    background: linear-gradient(#4374ff, #030816);
+  }
 
   h2 {
     text-align: center;
@@ -12,33 +30,38 @@ export const QuienesSomosContainer = styled.main`
     margin: 0 0 5rem 0;
   }
 
+  section {
+    position: relative;
+  }
+
   .members {
     display: grid;
+    max-width: 1200px;
+    margin: 0 auto;
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
     list-style: none;
-    margin: 0 0 10vh 0;
   }
 `;
 
 export const Member = styled.li`
   display: flex;
   flex-flow: column;
-  gap: 2rem;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
+  justify-content: space-between;
+  overflow: hidden;
   background-color: #fff;
-  padding: 2rem;
   color: #000;
   box-shadow: 0 5px 10px #0004;
   transition: transform 0.35s;
 
   :hover {
     z-index: 10;
-    transform: scale(125%);
+    transform: scale(105%);
   }
 
   img {
-    width: 75%;
+    width: 100%;
     margin: 0 auto;
   }
 
@@ -51,5 +74,9 @@ export const Member = styled.li`
     width: 100%;
     text-align: center;
     opacity: 0.5;
+  }
+
+  > div {
+    margin: 1rem 0;
   }
 `;

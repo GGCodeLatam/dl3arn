@@ -1,15 +1,13 @@
 import styled from "styled-components";
 import Flower from "assets/Coin-Flower.png";
 
-export const HomeContainer = styled.div`
-  main {
-    position: relative;
-    padding: 25vh 1rem;
-    border: 1px solid #000;
-    border-bottom: none;
-    border-top: none;
-    height: 100%;
-  }
+export const HomeContainer = styled.main`
+  position: relative;
+  padding: 25vh 1rem;
+  border: 1px solid #000;
+  border-bottom: none;
+  border-top: none;
+  height: 100%;
 
   .content {
     width: 100%;
