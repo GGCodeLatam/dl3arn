@@ -107,18 +107,15 @@ function Course() {
         </Loading>
       </div>
 
-      {current && current.rampp && current.contract && (
+      {current?.rampp && current.contract && (
         <div>
           <NetworkBadge network={current?.rampp?.network} dark toRight />
           <RamppButton
             rampp={current.rampp}
             address={current.contract.address}
           />
+          {current?.opensea && <OpenSeaButton collection={current.opensea} />}
         </div>
-      )}
-
-      {current && current.opensea && (
-        <OpenSeaButton collection={current.opensea} />
       )}
     </Container>
   );

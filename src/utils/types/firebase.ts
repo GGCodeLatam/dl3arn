@@ -6,7 +6,13 @@ import {
 } from "firebase/auth";
 
 /* -------------------- PROVIDERS -------------------- */
-export type Provider = "email" | "google";
+export type Provider =
+  | "email"
+  | "google"
+  | "facebook"
+  | "microsoft"
+  | "apple"
+  | "twitter";
 
 /* -------------------- PARAMS -------------------- */
 export interface RegisterParams {

@@ -1,5 +1,10 @@
 import { FirebaseApp, FirebaseOptions, initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import {
+  FacebookAuthProvider,
+  getAuth,
+  GoogleAuthProvider,
+  TwitterAuthProvider,
+} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -30,4 +35,11 @@ export const storage = getStorage(app);
 export const db = getFirestore(app);
 
 export const googleProvider = new GoogleAuthProvider();
+export const facebookProvider = new FacebookAuthProvider();
+export const twitterProvider = new TwitterAuthProvider();
+
+/**
+ * Apple - Microsoft
+ */
+
 export default app;

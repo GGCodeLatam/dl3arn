@@ -1,30 +1,9 @@
-import { ReactNode } from "react";
 import styled from "styled-components";
 
 import OpenSeaIcon from "assets/opensea.svg";
 import { imageParse } from "utils";
 
-interface Props {
-  collection: string;
-  children?: ReactNode;
-  className?: string;
-}
-function OpenSeaButton({ collection, children, className }: Props) {
-  return (
-    <a
-      className={className}
-      href={`https://opensea.io/collection/${collection}`}
-    >
-      {children || (
-        <>
-          <img src={imageParse(OpenSeaIcon)} alt="opensea" /> OpenSea
-        </>
-      )}
-    </a>
-  );
-}
-
-export default styled(OpenSeaButton)`
+const Container = styled.a`
   display: flex;
   align-items: center;
   width: 100%;
@@ -38,3 +17,16 @@ export default styled(OpenSeaButton)`
     height: 2.5em;
   }
 `;
+
+interface Props {
+  collection: string;
+}
+function OpenSeaButton({ collection }: Props) {
+  return (
+    <Container href={`https://opensea.io/collection/${collection}`}>
+      <img src={imageParse(OpenSeaIcon)} alt="opensea" /> OpenSea
+    </Container>
+  );
+}
+
+export default OpenSeaButton;

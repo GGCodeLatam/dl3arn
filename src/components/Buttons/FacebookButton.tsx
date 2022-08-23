@@ -1,5 +1,6 @@
-import { FcGoogle } from "react-icons/fc";
+import { AiFillFacebook } from "react-icons/ai";
 import { login } from "services/firebase/auth";
+
 import styled from "styled-components";
 import Button from "./Button";
 
@@ -21,17 +22,16 @@ const Container = styled(Button)`
     background-color: #0000000a;
   }
 `;
-
-function GoogleButton() {
+function FacebookButton() {
   const onClick = () => {
-    login!({}, "google");
+    login({}, "facebook");
   };
-
   return (
     <Container onClick={onClick}>
-      <FcGoogle size={20} /> <span>Connect with Google</span>
+      <AiFillFacebook color="#1877F2" size={22} />{" "}
+      <span>Connect with Facebook</span>
     </Container>
   );
 }
 
-export default GoogleButton;
+export default FacebookButton;

@@ -45,7 +45,7 @@ function Dashboard() {
             <div className="tr2" />
           </div>
           <div className="info">
-            <p>Si queres subir tu curso a nuestra plataforma contactanos!</p>
+            <p>Si quieres subir tu curso a nuestra plataforma contactanos!</p>
             <a className="dl3arn-mail" href={`mailto:${contact.email}`}>
               {contact.email}
             </a>
@@ -83,11 +83,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-/*
-            <ExtLink href="https://wa.me/+5493415059981" className="add-course">
-              <p>Si queres lanzar tu curso en la web 3.0, habla aca</p>
-              <span>
-                <TbBrandWhatsapp size={30} className="icon" />
-              </span>
-            </ExtLink>
- */

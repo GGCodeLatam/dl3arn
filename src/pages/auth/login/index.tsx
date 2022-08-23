@@ -9,6 +9,8 @@ import { FormEvent, useEffect, useState } from "react";
 import { useAuth } from "context/firebase";
 import GoogleButton from "components/Buttons/GoogleButton";
 import { Link, useNavigate } from "react-router-dom";
+import FacebookButton from "components/Buttons/FacebookButton";
+import TwitterButton from "components/Buttons/TwitterButton";
 
 function Login() {
   const { inputs, onChange } = useForm(loginInputs);
@@ -46,10 +48,13 @@ function Login() {
           <h1>Login</h1>
 
           <div className="container">
+            {/*<FacebookButton />*/}
             <GoogleButton />
+
             <p className="separator">
               <span>Or</span>
             </p>
+
             <form onSubmit={onSubmit} className="form">
               <div className="inputs">
                 {Object.entries(inputs).map(([name, data]) => (

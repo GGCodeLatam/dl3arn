@@ -1,5 +1,6 @@
-import { FcGoogle } from "react-icons/fc";
+import { AiOutlineTwitter } from "react-icons/ai";
 import { login } from "services/firebase/auth";
+
 import styled from "styled-components";
 import Button from "./Button";
 
@@ -11,27 +12,26 @@ const Container = styled(Button)`
   background-color: transparent;
   color: #000;
   border-radius: 4px;
+  text-align: left;
 
   span {
     font-size: 0.8rem;
-    text-align: left;
     width: 10rem;
   }
   :hover {
     background-color: #0000000a;
   }
 `;
-
-function GoogleButton() {
+function TwitterButton() {
   const onClick = () => {
-    login!({}, "google");
+    login({}, "twitter");
   };
-
   return (
     <Container onClick={onClick}>
-      <FcGoogle size={20} /> <span>Connect with Google</span>
+      <AiOutlineTwitter color="#1DA1F2" size={22} />{" "}
+      <span>Connect with Twitter</span>
     </Container>
   );
 }
 
-export default GoogleButton;
+export default TwitterButton;

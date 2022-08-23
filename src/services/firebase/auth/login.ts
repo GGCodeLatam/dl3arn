@@ -1,5 +1,10 @@
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "services/firebase";
+import {
+  auth,
+  facebookProvider,
+  googleProvider,
+  twitterProvider,
+} from "services/firebase";
 import ErrorMessages from "utils/ErrorsMessages";
 import { Login } from "utils/types/firebase";
 import { login as mixpanelLogin } from "utils/mixpanel";
@@ -11,6 +16,9 @@ export const login: Login = async ({ email, password }, provider = "email") => {
         email && password
           ? await signInWithEmailAndPassword(auth, email, password)
           : null,
+
+      facebook: async () => signInWithPopup(auth, facebookProvider),
+      twitter: async () => signInWithPopup(auth, twitterProvider),
       google: async () => await signInWithPopup(auth, googleProvider),
     };
 
@@ -25,6 +33,8 @@ export const login: Login = async ({ email, password }, provider = "email") => {
   } catch (e: any) {
     const { code } = e as { code: string };
     const message = ErrorMessages[code] || "Something went wrong";
+
+    console.log(e);
 
     return {
       error: { code, message },
