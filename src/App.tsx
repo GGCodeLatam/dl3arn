@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router";
 
-import Home from "pages";
+import Landing from "pages";
 import Roadmap from "pages/roadmap";
 import QuienesSomos from "pages/quienes-somos";
 
-import Dashboard from "pages/dashboard";
+import Home from "pages/home";
 import Course from "pages/course/[id]";
 import Profile from "pages/profile";
 
@@ -19,6 +19,7 @@ import useChat from "hooks/useChat";
 import { HUBSPOT } from "constants/index";
 import { EmailVerify } from "styles/alerts.styles";
 import { useAuth } from "context/firebase";
+import routes from "utils/routes";
 
 function App() {
   useChat({ url: HUBSPOT });
@@ -46,11 +47,12 @@ function App() {
 
   useEffect(() => {
     if (
-      user &&
-      user.emailVerified &&
-      ["/", "/quienes-somos", "/roadmap"].includes(location.pathname)
+      user?.emailVerified &&
+      [routes.landing.path, routes.quienes.path, routes.roadmap.path].includes(
+        location.pathname
+      )
     )
-      navigate(to || "/dashboard", { replace: true });
+      navigate(to || routes.home.path, { replace: true });
   }, [user, navigate, location, to]);
 
   return (
@@ -60,18 +62,9 @@ function App() {
       )}
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/roadmap" element={<Roadmap />} />
-        <Route path="/quienes-somos" element={<QuienesSomos />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/course/:id" element={<Course />} />
-        <Route path="/profile" element={<Profile />} />
-
-        <Route path="/auth/login" element={<Login />} />
-        <Route path="/auth/signup" element={<Signup />} />
-        <Route path="/auth/change/password" element={<ChangePassword />} />
-
-        <Route path="*" element={<p>404</p>} />
+        {Object.values(routes).map((route) => (
+          <Route path={route.path} element={<route.element />} />
+        ))}
       </Routes>
     </FullPage>
   );

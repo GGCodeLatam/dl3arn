@@ -8,4 +8,5 @@ export type APIGetCourseById = Override<
     sections: { [key: string]: { position: number; videos: VideoSafeProps[] } };
   }
 > | null;
-export type APIGetCourses = CourseModel;
+export type APIGetCourses = CourseModel[];
+export type APIQueryCourses = CourseModel[];

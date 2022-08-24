@@ -166,4 +166,11 @@ export const FeaturedCourse = styled.article`
       font-weight: 400;
     }
   }
+
+  .favorite {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1rem;
+  }
 `;

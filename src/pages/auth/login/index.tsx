@@ -5,27 +5,18 @@ import useForm from "hooks/useForm";
 import { loginInputs } from "utils/inputs";
 
 import { Main } from "styles/auth";
-import { FormEvent, useEffect, useState } from "react";
-import { useAuth } from "context/firebase";
+import { FormEvent, useState } from "react";
 import GoogleButton from "components/Buttons/GoogleButton";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FacebookButton from "components/Buttons/FacebookButton";
-import TwitterButton from "components/Buttons/TwitterButton";
+import useRedirectOnAuthenticated from "hooks/useRedirectOnAuthenticated";
+import { login } from "services/firebase/auth";
 
 function Login() {
+  useRedirectOnAuthenticated();
+
   const { inputs, onChange } = useForm(loginInputs);
-  const navigate = useNavigate();
-  const {
-    data: { user, isLoading },
-    login,
-  } = useAuth();
-
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!isLoading && user) navigate("/dashboard");
-  }, [isLoading, user, navigate]);
-  if (isLoading || user) return null;
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -48,7 +39,7 @@ function Login() {
           <h1>Login</h1>
 
           <div className="container">
-            {/*<FacebookButton />*/}
+            <FacebookButton />
             <GoogleButton />
 
             <p className="separator">

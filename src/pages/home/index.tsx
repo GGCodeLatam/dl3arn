@@ -14,8 +14,9 @@ import contact from "utils/contact.json";
 
 import Coin from "assets/Coin.png";
 import { NetworkBadge } from "components/Badges";
+import FavoriteButton from "components/Buttons/FavoriteButton";
 
-function Dashboard() {
+function Home() {
   const {
     data: { courses, isLoading },
   } = useCourses();
@@ -51,6 +52,7 @@ function Dashboard() {
             </a>
           </div>
         </div>
+
         {course && (
           <FeaturedCourse>
             <Link to={`/course/${course.id}`}>
@@ -71,6 +73,9 @@ function Dashboard() {
                 </div>
               </div>
             </Link>
+            <div className="favorite">
+              <FavoriteButton id={course.id} />
+            </div>
           </FeaturedCourse>
         )}
 
@@ -82,4 +87,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Home;

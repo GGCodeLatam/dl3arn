@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { HomeContainer } from "styles/home.styles";
 
-function Home() {
+function Landing() {
   return (
     <HomeContainer>
       <section className="content">
@@ -41,4 +41,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Landing;

@@ -1,5 +1,6 @@
-import { FormEvent, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { FormEvent, useState } from "react";
+
+import { Link } from "react-router-dom";
 
 import { PrimaryButton } from "components/Buttons";
 import Input from "components/Input";
@@ -7,22 +8,16 @@ import Input from "components/Input";
 import useForm from "hooks/useForm";
 import { registerInputs } from "utils/inputs";
 import { Main } from "styles/auth";
-import { useAuth } from "context/firebase";
 import GoogleButton from "components/Buttons/GoogleButton";
+import FacebookButton from "components/Buttons/FacebookButton";
+import useRedirectOnAuthenticated from "hooks/useRedirectOnAuthenticated";
+import { signUp } from "services/firebase/auth";
 
 function Signup() {
-  const navigate = useNavigate();
   const { inputs, onChange } = useForm(registerInputs);
-  const {
-    data: { user, isLoading },
-    signUp,
-  } = useAuth();
-
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!isLoading && user) navigate("/");
-  }, [isLoading, user, navigate]);
+  useRedirectOnAuthenticated();
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -48,6 +43,7 @@ function Signup() {
           <form onSubmit={onSubmit} className="form">
             <h1>Sign up</h1>
             <div className="container">
+              <FacebookButton />
               <GoogleButton />
               <p className="separator">
                 <span>Or</span>
