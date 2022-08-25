@@ -155,7 +155,13 @@ export const FeaturedCourse = styled.article`
   .info {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin: 0.5rem 0;
+
+    .left {
+      display: flex;
+      align-items: center;
+    }
 
     h3 {
       font-weight: 800;
@@ -166,11 +172,22 @@ export const FeaturedCourse = styled.article`
       font-weight: 400;
     }
   }
+`;
 
-  .favorite {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 1rem;
+export const FeaturedPlaceholderContainer = styled.div`
+  .info {
+    margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+
+    > div {
+      display: flex;
+      flex-flow: column;
+      gap: 0.25rem;
+      width: 100%;
+      height: 100%;
+    }
   }
 `;

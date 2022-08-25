@@ -4,6 +4,7 @@ import ChangePassword from "pages/auth/change/password";
 import Login from "pages/auth/login";
 import Signup from "pages/auth/signup";
 import Course from "pages/course/[id]";
+import Favorites from "pages/favorites";
 import Home from "pages/home";
 import Profile from "pages/profile";
 import QuienesSomos from "pages/quienes-somos";
@@ -25,6 +26,7 @@ type Pages = {
   home: Route;
   course: Route;
   profile: Route;
+  favorites: Route;
 
   login: Route;
   signup: Route;
@@ -58,6 +60,10 @@ const routes: Pages = {
   profile: {
     path: "/profile",
     element: Profile,
+  },
+  favorites: {
+    path: "/favorites",
+    element: Favorites,
   },
 
   login: {

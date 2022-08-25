@@ -61,6 +61,10 @@ function Navbar() {
             {!isLoading && user ? (
               <>
                 <li>
+                  <NavLink href="/favorites">Favoritos</NavLink>
+                </li>
+
+                <li>
                   <ConnectButton label="Conectar Wallet" />
                 </li>
 

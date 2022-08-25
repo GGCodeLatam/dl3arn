@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
-import addCourseToFavorite, { isFavorite } from "utils/addCourseToFavorite";
 
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
+import { FAVORITES_KEY } from "hooks/useFavorites";
+import { getLocal, setLocal } from "utils/localStorage";
 
+type Theme = "light" | "dark";
 interface ButtonStyles {
   isFavorite: boolean;
+  theme: Theme;
 }
 const Button = styled.button<ButtonStyles>`
   background-color: transparent;
@@ -14,32 +17,55 @@ const Button = styled.button<ButtonStyles>`
     opacity: 1;
   }
 
-  ${({ isFavorite }) =>
+  ${({ isFavorite, theme }) =>
     isFavorite
       ? css`
           color: #f33;
           opacity: 1;
         `
       : css`
-          color: #fff;
+          color: ${theme === "light" ? "#fff" : "#000"};
         `}
 `;
 
-const size = 32;
+const size = 26;
 interface Props {
   id: string;
+  onClick?: (_?: any) => any;
+  theme?: Theme;
 }
 
-function FavoriteButton({ id }: Props) {
-  const [favorite, setFavorite] = useState<boolean>(isFavorite(id));
+type Ids = string[];
+function FavoriteButton({ id, theme }: Props) {
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+
+  useEffect(() => {
+    const data = getLocal<Ids>(FAVORITES_KEY);
+    if (!data?.includes(id)) return setIsFavorite(false);
+    return setIsFavorite(true);
+  }, [id]);
+
   const handleFavorite = () => {
-    addCourseToFavorite(id);
-    setFavorite(isFavorite(id));
+    const data = getLocal<Ids>(FAVORITES_KEY);
+    if (!data?.includes(id)) {
+      setIsFavorite(true);
+      return setLocal<Ids>(FAVORITES_KEY, [id, ...(data ? data : [])]);
+    }
+
+    setIsFavorite(false);
+    return setLocal<Ids>(
+      FAVORITES_KEY,
+      data.filter((_id) => _id !== id)
+    );
   };
 
   return (
-    <Button isFavorite={favorite} onClick={handleFavorite}>
-      {favorite ? <IoIosHeart size={size} /> : <IoIosHeartEmpty size={size} />}
+    <Button theme={theme} isFavorite={isFavorite} onClick={handleFavorite}>
+      {isFavorite ? (
+        <IoIosHeart size={size} />
+      ) : (
+        <IoIosHeartEmpty size={size} />
+      )}
     </Button>
   );
 }

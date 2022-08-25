@@ -5,6 +5,7 @@ import useCourses from "hooks/useCourses";
 import {
   DashboardContainer,
   FeaturedCourse,
+  FeaturedPlaceholderContainer,
 } from "components/Dashboard/index.styles";
 import { useEffect, useState } from "react";
 import { getImage } from "services/firebase/storage";
@@ -15,6 +16,7 @@ import contact from "utils/contact.json";
 import Coin from "assets/Coin.png";
 import { NetworkBadge } from "components/Badges";
 import FavoriteButton from "components/Buttons/FavoriteButton";
+import Placeholder from "components/Placeholders";
 
 function Home() {
   const {
@@ -53,30 +55,43 @@ function Home() {
           </div>
         </div>
 
-        {course && (
+        {course ? (
           <FeaturedCourse>
             <Link to={`/course/${course.id}`}>
-              {storageImage && (
+              {storageImage ? (
                 <div className="img-container">
                   <div className="badge">
                     <img src={Coin} alt="" />
                     DL3ARN
                   </div>
-                  <img src={storageImage} alt="" />
+                  <img
+                    width="1200px"
+                    height="240px"
+                    src={storageImage}
+                    alt=""
+                  />
                 </div>
+              ) : (
+                <Placeholder width="100%" height="240px" />
               )}
-              <div className="info">
+            </Link>
+
+            <div className="info">
+              <div className="left">
                 <NetworkBadge network={course.rampp?.network} onlyIcon />
                 <div>
                   <h3>{course.name}</h3>
                   <p>{course.instructor.name}</p>
                 </div>
               </div>
-            </Link>
-            <div className="favorite">
-              <FavoriteButton id={course.id} />
+
+              <div className="right">
+                <FavoriteButton id={course.id} />
+              </div>
             </div>
           </FeaturedCourse>
+        ) : (
+          <FeaturedPlaceholder />
         )}
 
         <section>
@@ -88,3 +103,18 @@ function Home() {
 }
 
 export default Home;
+
+function FeaturedPlaceholder() {
+  return (
+    <FeaturedPlaceholderContainer>
+      <Placeholder width="100%" height="240px" />
+      <div className="info">
+        <Placeholder width="3.5rem" height="3.5rem" />
+        <div>
+          <Placeholder width="25%" height="2rem" />
+          <Placeholder width="20%" height="1.5rem" />
+        </div>
+      </div>
+    </FeaturedPlaceholderContainer>
+  );
+}
