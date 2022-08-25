@@ -62,6 +62,9 @@ export const Member = styled.li`
 
   img {
     width: 100%;
+    max-height: 40vh;
+    object-fit: cover;
+    object-position: top;
     margin: 0 auto;
   }
 
