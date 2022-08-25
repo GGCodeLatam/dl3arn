@@ -1,5 +1,7 @@
 import { NetworkBadge } from "components/Badges";
+import FavoriteButton from "components/Buttons/FavoriteButton";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getImage } from "services/firebase/storage";
 import { ClockIcon, FireIcon } from "utils/icons";
 import { CourseModel } from "utils/types/firebase";
@@ -32,32 +34,43 @@ function Card({
   }, [image]);
 
   return (
-    <Container to={`/course/${id}`}>
-      <header>
-        {storageImage && <img className="img" src={storageImage} alt="" />}
-      </header>
+    <Container>
+      <div className="other">
+        <NetworkBadge
+          height="1.5em"
+          width="1.5em"
+          network={rampp?.network}
+          onlyIcon
+        />
+        <FavoriteButton id={id} />
+      </div>
 
-      <footer>
-        <div className="info">
-          <NetworkBadge network={rampp?.network} onlyIcon />
-          <div>
-            <h3 className="name">{name}</h3>
-            <p className="instructor">{`by ${instructor.name}`}</p>
+      <Link className="content" to={`/course/${id}`}>
+        <header>
+          {storageImage && <img className="img" src={storageImage} alt="" />}
+        </header>
+
+        <footer>
+          <div className="info">
+            <div>
+              <h3 className="name">{name}</h3>
+              <p className="instructor">{`by ${instructor.name}`}</p>
+            </div>
+            <div className="meta">
+              {total_duration && (
+                <time>
+                  <ClockIcon size={14} /> {total_duration}
+                </time>
+              )}
+              {score && (
+                <p>
+                  <FireIcon size={14} /> {score}
+                </p>
+              )}
+            </div>
           </div>
-          <div className="meta">
-            {total_duration && (
-              <time>
-                <ClockIcon size={14} /> {total_duration}
-              </time>
-            )}
-            {score && (
-              <p>
-                <FireIcon size={14} /> {score}
-              </p>
-            )}
-          </div>
-        </div>
-      </footer>
+        </footer>
+      </Link>
     </Container>
   );
 }

@@ -3,11 +3,12 @@ import networkIcons from "utils/networkIcons";
 
 interface BadgeProps {
   bg?: string;
+  width?: string;
+  height?: string;
   dark?: boolean;
 }
 const Badge = styled.div<BadgeProps>`
   display: flex;
-  padding: 0.5rem 0.5rem;
   align-items: center;
   gap: 1rem;
   font-weight: 600;
@@ -28,21 +29,44 @@ const Badge = styled.div<BadgeProps>`
     css`
       color: var(--dark);
     `}
+
+  ${({ height }) =>
+    height &&
+    css`
+      img {
+        height: ${height};
+      }
+    `}
+${({ width }) =>
+    width &&
+    css`
+      img {
+        width: ${width};
+      }
+    `}
 `;
 
 interface Props {
   network?: string;
   onlyIcon?: boolean;
   dark?: boolean;
-
+  width?: string;
+  height?: string;
   toRight?: boolean;
 }
-export function NetworkBadge({ network, toRight, onlyIcon, ...styled }: Props) {
+export function NetworkBadge({
+  width,
+  height,
+  network,
+  toRight,
+  onlyIcon,
+  ...styled
+}: Props) {
   if (!network) return null;
   const obj = networkIcons[network];
   if (!obj.icon) return null;
   return (
-    <Badge {...styled}>
+    <Badge width={width} height={height} {...styled}>
       {!onlyIcon && !toRight && <p>{network}</p>}
       {obj && <img src={obj.icon} alt={network} />}
       {!onlyIcon && toRight && <p>{network}</p>}

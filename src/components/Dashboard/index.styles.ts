@@ -17,6 +17,8 @@ export const DashboardContainer = styled.main`
       right: 0;
       height: 100%;
       width: 25%;
+      border-radius: 0 5px 5px 0;
+      overflow: hidden;
     }
 
     .tr1,

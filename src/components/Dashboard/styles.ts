@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const MIN = 200;
@@ -9,18 +8,31 @@ const { r, g, b } = {
   b: Math.floor(Math.random() * (MAX - MIN) + MIN),
 };
 
-export const Container = styled(Link)`
+export const Container = styled.div`
+  position: relative;
+
+  .other {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+  }
+
   font-family: Montserrat;
-  display: flex;
-  gap: 1rem;
-  text-align: left;
-  align-items: center;
+
+  .content {
+    :hover header {
+      transform: scale(110%);
+    }
+    display: flex;
+    gap: 1rem;
+    text-align: left;
+    align-items: center;
+  }
 
   border-radius: 0.25rem;
-
-  :hover header {
-    transform: scale(110%);
-  }
 
   header {
     --img-size: 6rem;
@@ -36,6 +48,7 @@ export const Container = styled(Link)`
     overflow: hidden;
 
     .img {
+      object-fit: cover;
       display: block;
       width: 100%;
       height: 100%;
@@ -43,6 +56,10 @@ export const Container = styled(Link)`
   }
 
   footer {
+    display: flex;
+    height: 100%;
+    position: relative;
+
     .info {
       display: flex;
       flex-flow: row;

@@ -53,19 +53,24 @@ export const Nav = styled.nav<NavProps>`
     font-size: 0.85rem;
   }
   .logo {
-    width: 7rem;
-    filter: drop-shadow(0 0px 2px #000a);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 
     img {
-      object-fit: contain;
-      object-position: center;
-
-      width: 100%;
-      height: 100%;
+      filter: drop-shadow(0 0px 2px #000a);
+      width: 7em;
+      height: auto;
+    }
+    .beta {
+      font-size: 0.75em;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--primary);
     }
   }
 
-  .logo,
   .link {
     display: grid;
     place-items: center;

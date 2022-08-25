@@ -38,6 +38,7 @@ function Navbar() {
               className="logo"
             >
               <img src={Logo} alt="dl3arn" />
+              <p className="beta">beta</p>
             </Link>
           </div>
 
