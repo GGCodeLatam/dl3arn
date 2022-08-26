@@ -8,11 +8,15 @@ export const CourseIntroContainer = styled.div`
     align-items: center;
     gap: 1rem;
 
-    .course-image {
-      object-fit: cover;
+    .img-container {
+      position: relative;
       width: 6rem;
       height: 6rem;
-      border-radius: 5px;
+
+      .course-image {
+        object-fit: cover;
+        border-radius: 5px;
+      }
     }
     .course-name {
       font-size: 1.5rem;

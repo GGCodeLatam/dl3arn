@@ -1,18 +1,19 @@
+import Image from "next/image";
 import styled from "styled-components";
 
 import OpenSeaIcon from "assets/opensea.svg";
-import { imageParse } from "utils";
 
 const Container = styled.a`
   display: flex;
   align-items: center;
   width: 100%;
   height: max-content;
-  padding: 1rem;
+  padding: 0.75em 0;
   gap: 1rem;
   font-weight: 600;
 
-  img {
+  .img-container {
+    position: relative;
     width: 2.5em;
     height: 2.5em;
   }
@@ -24,7 +25,10 @@ interface Props {
 function OpenSeaButton({ collection }: Props) {
   return (
     <Container href={`https://opensea.io/collection/${collection}`}>
-      <img src={imageParse(OpenSeaIcon)} alt="opensea" /> OpenSea
+      <div className="img-container">
+        <Image layout="fill" src={OpenSeaIcon} alt="opensea" />
+      </div>{" "}
+      OpenSea
     </Container>
   );
 }

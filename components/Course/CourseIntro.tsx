@@ -1,4 +1,5 @@
 import { PrimaryButton } from "components/Buttons";
+import Image from "next/image";
 import { CourseModel } from "utils/types/firebase";
 import { CourseIntroContainer } from "./CourseIntro.styles";
 
@@ -22,7 +23,11 @@ function CourseIntro({
   return (
     <CourseIntroContainer>
       <div className="info">
-        {imgUrl && <img className="course-image" src={imgUrl} alt="" />}
+        {imgUrl && (
+          <div className="img-container">
+            <Image layout="fill" className="course-image" src={imgUrl} alt="" />
+          </div>
+        )}
         <div>
           <h2 className="course-name">{name}</h2>
           <p className="instructor">by {instructor?.name}</p>

@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { RamppModel } from "utils/types/firebase";
 
 const Container = styled.div`
-  padding: 0 1rem;
   width: 100% !important;
+  margin: 1rem 0;
   button {
     display: block !important;
     width: 100% !important;
