@@ -37,11 +37,15 @@ export const Badge = styled.div<BadgeProps>`
         height: ${height};
       }
     `}
-${({ width }) =>
+  ${({ width }) =>
     width &&
     css`
       img {
         width: ${width};
       }
     `}
+
+    p {
+    text-transform: capitalize;
+  }
 `;
