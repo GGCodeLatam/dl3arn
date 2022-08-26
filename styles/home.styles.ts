@@ -24,7 +24,7 @@ export const HomeContainer = styled.main`
       background: linear-gradient(#4374ff, #030816);
     }
     .overlay {
-      background-image: url(${Flower});
+      background-image: url(${Flower.src});
       background-position: top center;
       background-repeat: no-repeat;
       background-size: contain;
