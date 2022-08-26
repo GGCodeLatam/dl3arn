@@ -21,7 +21,10 @@ import Router, { useRouter } from "next/router";
 function Course() {
   const router = useRouter();
 
-  const { id, videoId } = router.query;
+  const { id, videoId } = router.query as {
+    id: string;
+    videoId?: string | null;
+  };
 
   const { current, locked } = useCourse({ id: id as string });
 
