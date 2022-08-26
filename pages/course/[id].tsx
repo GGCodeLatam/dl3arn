@@ -1,5 +1,3 @@
-import { useParams } from "react-router";
-import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { getImage } from "services/firebase/storage";
@@ -18,14 +16,14 @@ import VideosMenu from "components/Course/VideosMenu";
 import { NetworkBadge } from "components/Badges";
 import { VideoSafeProps } from "utils/types/video";
 import OpenSeaButton from "components/Buttons/OpenSeaButton";
+import Router, { useRouter } from "next/router";
 
 function Course() {
-  const [params, setSearchParams] = useSearchParams();
+  const router = useRouter();
 
-  const { id } = useParams();
-  const videoId = params.get("videoId");
+  const { id, videoId } = router.query;
 
-  const { current, locked } = useCourse({ id });
+  const { current, locked } = useCourse({ id: id as string });
 
   const videos: VideoSafeProps[] = [];
 
@@ -37,14 +35,19 @@ function Course() {
 
   const { video, isLoading } = useVideo({
     video: {
-      id: videoId || "",
+      id: (videoId as string | undefined) || "",
       free: isFree,
     },
     locked: locked,
   });
 
   const handleVideo = (_id?: string | null) =>
-    _id === null ? null : setSearchParams({ videoId: _id || "" });
+    _id === null
+      ? null
+      : Router.push({
+          pathname: `/course/${id}`,
+          query: { videoId: _id || "" },
+        });
 
   const [imgUrl, setImgUrl] = useState<string | null>(null);
 
