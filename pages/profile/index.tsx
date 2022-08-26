@@ -6,6 +6,7 @@ import ProfileForm from "components/Forms/ProfileForm";
 
 import { BiLogOut } from "react-icons/bi";
 import { User } from "firebase/auth";
+import Image from "next/image";
 
 function Profile() {
   const {
@@ -29,7 +30,7 @@ function Profile() {
           <div className="info">
             {photoURL && (
               <div className="img-container">
-                <img src={photoURL} alt="" />
+                <Image layout="fill" src={photoURL} alt="" />
               </div>
             )}
 
