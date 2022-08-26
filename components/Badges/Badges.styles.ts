@@ -13,7 +13,8 @@ export const Badge = styled.div<BadgeProps>`
   font-weight: 600;
   color: #fff;
 
-  img {
+  .img-container {
+    position: relative;
     width: 2.5rem;
     height: 2.5rem;
   }

@@ -24,7 +24,11 @@ export function NetworkBadge({
   return (
     <Badge width={width} height={height} {...styled}>
       {!onlyIcon && !toRight && <p>{network}</p>}
-      {obj && <Image src={obj.icon} alt={network} />}
+      {obj && (
+        <div className="img-container">
+          <Image layout="fill" src={obj.icon} alt={network} />
+        </div>
+      )}
       {!onlyIcon && toRight && <p>{network}</p>}
     </Badge>
   );
