@@ -107,7 +107,7 @@ export const Nav = styled.nav<NavProps>`
     justify-content: space-between;
 
     .close {
-      padding: 2em;
+      padding: calc(2em + 2vw);
       position: absolute;
       top: 0;
       right: 0;

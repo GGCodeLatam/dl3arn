@@ -110,6 +110,7 @@ function Navbar() {
             <button onClick={hide} className="btn close">
               <FaTimes />
             </button>
+
             <div className="top">
               <Link
                 href={
