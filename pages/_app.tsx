@@ -15,7 +15,7 @@ import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import Head from "next/head";
 import useChat from "hooks/useChat";
-import { HUBSPOT } from "constants";
+import { HUBSPOT } from "constants/index";
 
 const { chains, provider, webSocketProvider } = configureChains(
   [chain.mainnet, chain.polygon, chain.rinkeby],
