@@ -17,16 +17,23 @@ import { NetworkBadge } from "components/Badges";
 import { VideoSafeProps } from "utils/types/video";
 import OpenSeaButton from "components/Buttons/OpenSeaButton";
 import Router, { useRouter } from "next/router";
+import { GetServerSidePropsContext } from "next";
+import getCourse from "services/firebase/store/getCourse";
+import { APIGetCourseById } from "utils/types/course";
+import Head from "next/head";
 
-function Course() {
+interface Props {
+  course: APIGetCourseById;
+}
+function Course({ course }: Props) {
   const router = useRouter();
 
-  const { id, videoId } = router.query as {
+  const { videoId } = router.query as {
     id: string;
     videoId?: string | null;
   };
 
-  const { current, locked } = useCourse({ id: id as string });
+  const { course: current, locked } = useCourse({ course: course });
 
   const videos: VideoSafeProps[] = [];
 
@@ -48,7 +55,7 @@ function Course() {
     _id === null
       ? null
       : Router.push({
-          pathname: `/course/${id}`,
+          pathname: `/course/${course.id}`,
           query: { videoId: _id || "" },
         });
 
@@ -80,6 +87,10 @@ function Course() {
 
   return (
     <Container>
+      <Head>
+        <meta property="og:image" content={current.image} />
+        <meta property="og:url" content={window.location.href} />
+      </Head>
       <VideosMenu
         current={current}
         videoId={videoId}
@@ -128,6 +139,20 @@ function Course() {
 }
 
 export default Course;
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { id } = context.query as { id: string };
+  const course = await getCourse(id);
+  const image = await getImage(course.image);
+
+  const props: APIGetCourseById = {
+    ...course,
+    image: image || "",
+  };
+  return {
+    props,
+  };
+}
 
 function LoadingVideo() {
   return (
