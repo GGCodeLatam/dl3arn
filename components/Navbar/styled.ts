@@ -83,7 +83,7 @@ export const Nav = styled.nav<NavProps>`
   }
   .mobile {
     z-index: 9999;
-    padding: 3em 1em;
+    padding: 3em 1em 10vh 1em;
     background-color: #fff;
     width: 75vw;
     height: 100vh;
