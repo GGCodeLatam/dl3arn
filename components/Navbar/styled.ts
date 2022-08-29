@@ -10,7 +10,7 @@ export const Nav = styled.nav<NavProps>`
   width: 100%;
   background-color: #fff;
   height: var(--nav-size);
-  font-size: calc(1rem + 0.25vw);
+  font-size: calc(1rem + 0.75vw);
 
   .btn {
     padding: 1em;
@@ -107,9 +107,10 @@ export const Nav = styled.nav<NavProps>`
     justify-content: space-between;
 
     .close {
+      padding: 2em;
       position: absolute;
       top: 0;
-      left: 0;
+      right: 0;
     }
 
     ${({ isBlue }) =>
@@ -166,7 +167,7 @@ export const Nav = styled.nav<NavProps>`
       }
       .user {
         display: flex;
-        justify-content: right;
+        justify-content: left;
         gap: 1em;
         .login {
           width: 100%;
