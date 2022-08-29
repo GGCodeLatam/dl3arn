@@ -144,9 +144,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const course = await getCourse(id);
   const image = await getImage(course.image);
 
-  const props: APIGetCourseById = {
-    ...course,
-    image: image || "",
+  console.log(course, image);
+
+  const props: { course: APIGetCourseById } = {
+    course: {
+      ...course,
+      image: image || "",
+    },
   };
   return {
     props,
