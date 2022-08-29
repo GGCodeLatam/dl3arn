@@ -96,7 +96,8 @@ export const Nav = styled.nav<NavProps>`
     padding: 3em 1em 10vh 1em;
     background-color: #fff;
     width: 90%;
-    max-width: max-content;
+    min-width: 320px;
+    max-width: 480px;
     height: 100vh;
     position: fixed;
     top: 0;
