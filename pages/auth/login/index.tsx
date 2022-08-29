@@ -11,6 +11,7 @@ import Link from "next/link";
 import FacebookButton from "components/Buttons/FacebookButton";
 import useRedirectOnAuthenticated from "hooks/useRedirectOnAuthenticated";
 import { login } from "services/firebase/auth";
+import Head from "next/head";
 
 function Login() {
   useRedirectOnAuthenticated();
@@ -33,7 +34,10 @@ function Login() {
   };
 
   return (
-    <div>
+    <>
+      <Head>
+        <title>DL3ARN | Login</title>
+      </Head>
       <Main>
         <div>
           <h1>Login</h1>
@@ -69,13 +73,13 @@ function Login() {
             <p className="signup">
               Don&apos;t have an account?{" "}
               <Link href="/auth/signup">
-                <a>Sign up</a>
+                <a className="link">Sign up</a>
               </Link>
             </p>
           </div>
         </div>
       </Main>
-    </div>
+    </>
   );
 }
 

@@ -11,6 +11,12 @@ export const Nav = styled.nav<NavProps>`
   background-color: #fff;
   height: var(--nav-size);
 
+  .btn {
+    padding: 1em;
+    background-color: transparent;
+    color: #000;
+  }
+
   .wrapper,
   .left,
   .right,
@@ -48,7 +54,8 @@ export const Nav = styled.nav<NavProps>`
   .left {
     gap: 1rem;
   }
-  .right {
+  .right,
+  .middle {
     display: none;
   }
   .login {
@@ -93,6 +100,12 @@ export const Nav = styled.nav<NavProps>`
     display: flex;
     flex-flow: column;
     justify-content: space-between;
+
+    .close {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
 
     ${({ isBlue }) =>
       isBlue &&
@@ -141,15 +154,28 @@ export const Nav = styled.nav<NavProps>`
     }
   }
 
+  ul,
+  li {
+    list-style: none;
+  }
+
   ${({ isBlue }) =>
     isBlue &&
     css`
-      background: #3f6ef2;
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      color: #fff;
+
+      &,
+      .mobile,
+      .btn {
+        color: #fff;
+      }
+      &,
+      .mobile {
+        background: #3f6ef2;
+      }
 
       .right .link {
         opacity: 0.75;

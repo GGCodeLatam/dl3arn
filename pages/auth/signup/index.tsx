@@ -1,7 +1,5 @@
 import { FormEvent, useState } from "react";
 
-import { Link } from "react-router-dom";
-
 import { PrimaryButton } from "components/Buttons";
 import Input from "components/Input";
 
@@ -12,6 +10,7 @@ import GoogleButton from "components/Buttons/GoogleButton";
 import FacebookButton from "components/Buttons/FacebookButton";
 import useRedirectOnAuthenticated from "hooks/useRedirectOnAuthenticated";
 import { signUp } from "services/firebase/auth";
+import Link from "next/link";
 
 function Signup() {
   const { inputs, onChange } = useForm(registerInputs);
@@ -37,39 +36,40 @@ function Signup() {
   };
 
   return (
-    <div>
-      <Main>
-        <div>
-          <form onSubmit={onSubmit} className="form">
-            <h1>Sign up</h1>
-            <div className="container">
-              <FacebookButton />
-              <GoogleButton />
-              <p className="separator">
-                <span>Or</span>
-              </p>
-              <div className="inputs">
-                {Object.entries(inputs).map(([name, data]) => (
-                  <Input
-                    key={name}
-                    name={name}
-                    value={data.value}
-                    onChange={onChange}
-                    {...data.inputProps}
-                  />
-                ))}
-              </div>
-              <PrimaryButton>Next</PrimaryButton>
+    <Main>
+      <div>
+        <form onSubmit={onSubmit} className="form">
+          <h1>Sign up</h1>
+          <div className="container">
+            <FacebookButton />
+            <GoogleButton />
+            <p className="separator">
+              <span>Or</span>
+            </p>
+            <div className="inputs">
+              {Object.entries(inputs).map(([name, data]) => (
+                <Input
+                  key={name}
+                  name={name}
+                  value={data.value}
+                  onChange={onChange}
+                  {...data.inputProps}
+                />
+              ))}
             </div>
-          </form>
-          {error && <p className="error">{error}</p>}
+            <PrimaryButton>Next</PrimaryButton>
+          </div>
+        </form>
+        {error && <p className="error">{error}</p>}
 
-          <p className="signup">
-            Already have an account? <Link to="/auth/login">Login</Link>
-          </p>
-        </div>
-      </Main>
-    </div>
+        <p className="signup">
+          Already have an account?{" "}
+          <Link href="/auth/login">
+            <a className="link">Login</a>
+          </Link>
+        </p>
+      </div>
+    </Main>
   );
 }
 

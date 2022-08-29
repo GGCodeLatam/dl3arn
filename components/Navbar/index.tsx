@@ -1,4 +1,6 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { FaTimes } from "react-icons/fa";
+import { BiMenuAltRight } from "react-icons/bi";
 import { PrimaryButton } from "components/Buttons";
 import { useAuth } from "context/firebase";
 import { ReactNode } from "react";
@@ -11,6 +13,8 @@ import Logo from "assets/Logo.png";
 import routes from "utils/routes";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import useShow from "hooks/useShow";
+import Menu from "./Menu";
 
 const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
   <Link href={href}>
@@ -26,8 +30,15 @@ const blue_theme: { [key: string]: boolean } = {
 
 function Navbar() {
   const router = useRouter();
+
   const { data } = useAuth();
   const { user, isLoading } = data;
+
+  const {
+    state: showMenu,
+    show,
+    hide,
+  } = useShow({ hideOnChange: [router.pathname] });
 
   return (
     <>
@@ -46,7 +57,7 @@ function Navbar() {
             </Link>
           </div>
 
-          <div>{/*<SearchBar />*/}</div>
+          <div className="middle">{/*<SearchBar />*/}</div>
 
           <ul className="right">
             {!isLoading && !user && (
@@ -89,59 +100,69 @@ function Navbar() {
               </Link>
             )}
           </ul>
+          <button onClick={show} className="btn open">
+            <BiMenuAltRight size={20} />
+          </button>
         </div>
 
-        <div className="mobile">
-          <div className="top">
-            <Link
-              href={!isLoading && user ? routes.home.path : routes.landing.path}
-            >
-              <a className="logo">
-                <div className="img">
-                  <Image layout="fill" src={Logo} alt="dl3arn" />
-                </div>
-                <p className="beta">beta</p>
-              </a>
-            </Link>
-          </div>
+        {showMenu ? (
+          <div className="mobile">
+            <button onClick={hide} className="btn close">
+              <FaTimes />
+            </button>
+            <div className="top">
+              <Link
+                href={
+                  !isLoading && user ? routes.home.path : routes.landing.path
+                }
+              >
+                <a className="logo">
+                  <div className="img">
+                    <Image layout="fill" src={Logo} alt="dl3arn" />
+                  </div>
+                  <p className="beta">beta</p>
+                </a>
+              </Link>
+            </div>
 
-          <div className="bottom">
-            {!isLoading && !user ? (
-              <>
-                <li>
-                  <NavLink href={routes.landing.path}>Home</NavLink>
-                </li>
-                <li>
-                  <NavLink href={routes.roadmap.path}>Roadmap</NavLink>
-                </li>
-                <li>
-                  <NavLink href={routes.quienes.path}>Quienes Somos</NavLink>
-                </li>
-              </>
-            ) : (
-              <NavLink href="/favorites">Favoritos</NavLink>
-            )}
-
-            <div className="user">
-              {!isLoading && user ? (
+            <div className="bottom">
+              {!isLoading && !user ? (
                 <>
-                  <ConnectButton label="Conectar Wallet" />
-                  <Avatar
-                    onClick={() => router.push(routes.profile.path)}
-                    img={user.photoURL}
-                    isLoading={isLoading}
-                  />
+                  <li>
+                    <NavLink href={routes.landing.path}>Home</NavLink>
+                  </li>
+                  <li>
+                    <NavLink href={routes.roadmap.path}>Roadmap</NavLink>
+                  </li>
+                  <li>
+                    <NavLink href={routes.quienes.path}>Quienes Somos</NavLink>
+                  </li>
                 </>
               ) : (
-                <Link href="/auth/login">
-                  <PrimaryButton as="a" className="login">
-                    Login
-                  </PrimaryButton>
-                </Link>
+                <NavLink href="/favorites">Favoritos</NavLink>
               )}
+
+              <div className="user">
+                {!isLoading && user ? (
+                  <>
+                    <ConnectButton label="Conectar Wallet" />
+                    <Avatar
+                      onClick={() => router.push(routes.profile.path)}
+                      img={user.photoURL}
+                      isLoading={isLoading}
+                    />
+                  </>
+                ) : (
+                  <Link href="/auth/login">
+                    <PrimaryButton as="a" className="login">
+                      Login
+                    </PrimaryButton>
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        ) : null}
       </Nav>
     </>
   );

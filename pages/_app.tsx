@@ -13,6 +13,7 @@ import {
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
+import Head from "next/head";
 
 const { chains, provider, webSocketProvider } = configureChains(
   [chain.mainnet, chain.polygon, chain.rinkeby],
@@ -43,6 +44,9 @@ const App = ({ Component, pageProps }: AppProps) => {
     <FirebaseProvider>
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains} theme={darkTheme()}>
+          <Head>
+            <title>DL3ARN</title>
+          </Head>
           <GlobalStyle />
           <Layout>
             <Component {...pageProps} />

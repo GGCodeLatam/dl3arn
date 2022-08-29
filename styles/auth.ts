@@ -3,9 +3,17 @@ import styled from "styled-components";
 export const Main = styled.main`
   display: grid;
   place-items: center;
-  width: 100%;
-  height: calc(100vh - var(--nav-size));
+
+  width: 90%;
+
+  max-width: 1200px;
   margin: 0 auto;
+
+  height: calc(100vh - var(--nav-size));
+
+  h1 {
+    font-size: 0.95em;
+  }
 
   .link {
     font-weight: 600;
@@ -13,7 +21,8 @@ export const Main = styled.main`
   }
   > div {
     position: relative;
-    width: 481px;
+    width: 100%;
+    max-width: 481px;
   }
 
   .signup {
