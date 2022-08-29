@@ -5,6 +5,7 @@ export const AvatarContainer = styled.button`
   border: none;
   display: flex;
   flex-flow: row;
+  width: max-content;
   align-items: center;
   gap: 1rem;
 
@@ -18,7 +19,7 @@ export const AvatarContainer = styled.button`
     width: 2.5rem;
     height: 2.5rem;
 
-    img {
+    .img {
       border-radius: 4px;
       width: 100%;
       height: 100%;

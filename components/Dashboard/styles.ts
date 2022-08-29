@@ -8,7 +8,7 @@ const { r, g, b } = {
   b: Math.floor(Math.random() * (MAX - MIN) + MIN),
 };
 
-export const Container = styled.div`
+export const CardContainer = styled.div`
   position: relative;
 
   .other {
@@ -35,7 +35,7 @@ export const Container = styled.div`
   border-radius: 0.25rem;
 
   header {
-    --img-size: 6rem;
+    --img-size: 4em;
     position: relative;
     display: flex;
     width: var(--img-size);
@@ -74,11 +74,11 @@ export const Container = styled.div`
       .name {
         max-width: 15rem;
         text-overflow: ellipsis;
-        font-size: 1.1rem;
+        font-size: 0.85em;
         letter-spacing: 0.5px;
       }
       .instructor {
-        font-size: 0.8rem;
+        font-size: 0.65em;
         opacity: 0.5;
         font-weight: 400;
       }

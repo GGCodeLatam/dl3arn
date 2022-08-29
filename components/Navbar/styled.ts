@@ -4,7 +4,6 @@ interface NavProps {
   isBlue: boolean;
 }
 export const Nav = styled.nav<NavProps>`
-  position: relative;
   top: 0;
   left: 0;
   z-index: 9999;
@@ -49,6 +48,9 @@ export const Nav = styled.nav<NavProps>`
   .left {
     gap: 1rem;
   }
+  .right {
+    display: none;
+  }
   .login {
     padding: 0.75rem 1.5rem;
     font-size: 0.85rem;
@@ -78,6 +80,54 @@ export const Nav = styled.nav<NavProps>`
     display: grid;
     place-items: center;
     height: 100%;
+  }
+  .mobile {
+    z-index: 9999;
+    padding: 1em;
+    background-color: #fff;
+    width: 75vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+
+    .logo {
+      margin: 0 auto;
+      width: max-content;
+    }
+    ul,
+    .link {
+      width: 100%;
+      display: flex;
+      flex-flow: column;
+      justify-content: space-between;
+    }
+
+    ul {
+      list-style: none;
+    }
+    .link {
+      display: block;
+      text-align: right;
+      padding: 0.5em 0;
+    }
+
+    .bottom {
+      display: flex;
+      flex-flow: column;
+      gap: 1em;
+
+      .link {
+        font-size: 0.85em;
+      }
+      .user {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
   }
 
   ${({ isBlue }) =>

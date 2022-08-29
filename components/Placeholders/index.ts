@@ -1,13 +1,19 @@
 import styled, { css } from "styled-components";
 
-const Placeholder = styled.span<{ width: string; height: string }>`
+interface Props {
+  width: string;
+  height?: string;
+  aspectRatio?: string;
+}
+const Placeholder = styled.span<Props>`
   display: block;
   border-radius: 5px;
 
-  ${({ width, height }) =>
+  ${({ width, height, aspectRatio }) =>
     css`
       width: ${width};
       height: ${height};
+      aspect-ratio: ${aspectRatio};
     `}
 
   --bg: #ddd;

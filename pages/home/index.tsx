@@ -3,10 +3,11 @@ import CardPlaceholder from "components/Placeholders/Card";
 import PrivateRoute from "components/PrivateRoute";
 import useCourses from "hooks/useCourses";
 import {
-  DashboardContainer,
+  ContactUs,
   FeaturedCourse,
   FeaturedPlaceholderContainer,
-} from "components/Dashboard/index.styles";
+  HomeContainer,
+} from "styles/home.styles";
 import { useEffect, useState } from "react";
 import { getImage } from "services/firebase/storage";
 import Link from "next/link";
@@ -24,7 +25,8 @@ function Home() {
     data: { courses, isLoading },
   } = useCourses();
 
-  const [course, ...others] = courses;
+  const newCourses = [...courses];
+  const [course, ...others] = newCourses.reverse();
 
   const [storageImage, setStorageImage] = useState<string | null>("");
   useEffect(() => {
@@ -42,8 +44,8 @@ function Home() {
 
   return (
     <PrivateRoute verified>
-      <DashboardContainer>
-        <div className="contact-us">
+      <HomeContainer>
+        <ContactUs>
           <div className="decoration">
             <div className="tr1" />
             <div className="tr2" />
@@ -54,34 +56,50 @@ function Home() {
               {contact.email}
             </a>
           </div>
-        </div>
+        </ContactUs>
 
         {course ? (
           <FeaturedCourse>
             <Link href={`/course/${course.id}`}>
-              <a>
+              <a className="header-container">
                 {storageImage ? (
-                  <div className="img-container">
+                  <div>
                     <div className="badge">
-                      <Image width="1em" height="1em" src={Coin} alt="" />
+                      <div className="badge-img-container">
+                        <Image
+                          layout="responsive"
+                          className="img"
+                          width="1em"
+                          height="1em"
+                          src={Coin}
+                          alt=""
+                        />
+                      </div>
                       DL3ARN
                     </div>
-                    <Image
-                      width="1200px"
-                      height="240px"
-                      src={storageImage}
-                      alt=""
-                    />
+                    <div className="hero-img">
+                      <Image
+                        className="img"
+                        width="1200px"
+                        height="240px"
+                        src={storageImage}
+                        alt=""
+                      />
+                    </div>
                   </div>
                 ) : (
-                  <Placeholder width="100%" height="240px" />
+                  <Placeholder width="100%" className="img-container" />
                 )}
               </a>
             </Link>
 
             <div className="info">
               <div className="left">
-                <NetworkBadge network={course.rampp?.network} onlyIcon />
+                <NetworkBadge
+                  network={course.rampp?.network}
+                  onlyIcon
+                  className="network"
+                />
                 <div>
                   <h3>{course.name}</h3>
                   <p>{course.instructor.name}</p>
@@ -98,9 +116,10 @@ function Home() {
         )}
 
         <section>
+          <h2>Cursos</h2>
           <div className="cards">{cards}</div>
         </section>
-      </DashboardContainer>
+      </HomeContainer>
     </PrivateRoute>
   );
 }

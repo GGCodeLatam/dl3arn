@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HomeContainer } from "styles/home.styles";
+import { HomeContainer } from "styles/landing.styles";
 
 function Landing() {
   return (

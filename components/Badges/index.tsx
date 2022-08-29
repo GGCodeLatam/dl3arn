@@ -9,6 +9,7 @@ interface Props {
   width?: string;
   height?: string;
   toRight?: boolean;
+  className?: string;
 }
 export function NetworkBadge({
   width,

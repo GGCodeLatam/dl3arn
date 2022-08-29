@@ -1,6 +1,5 @@
 import Placeholder from "components/Placeholders";
 import Image from "next/image";
-import styled from "styled-components";
 import { AvatarContainer } from "./Avatar.styles";
 
 interface Props {
@@ -20,8 +19,6 @@ function Avatar({ img, isLoading, to, username, onClick }: Props) {
 
   return (
     <AvatarContainer as={tag} onClick={onClick}>
-      {(!to || to === "left") && name}
-
       {img ? (
         <div className="image-container">
           <Image
@@ -35,8 +32,6 @@ function Avatar({ img, isLoading, to, username, onClick }: Props) {
       ) : (
         <Placeholder width="2rem" height="2rem" />
       )}
-
-      {to === "right" && name}
     </AvatarContainer>
   );
 }

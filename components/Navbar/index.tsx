@@ -90,6 +90,44 @@ function Navbar() {
             )}
           </ul>
         </div>
+
+        <div className="mobile">
+          <div className="top">
+            <Link
+              href={!isLoading && user ? routes.home.path : routes.landing.path}
+            >
+              <a className="logo">
+                <div className="img">
+                  <Image layout="fill" src={Logo} alt="dl3arn" />
+                </div>
+                <p className="beta">beta</p>
+              </a>
+            </Link>
+          </div>
+
+          <div className="bottom">
+            <NavLink href="/favorites">Favoritos</NavLink>
+
+            <div className="user">
+              {!isLoading && user ? (
+                <>
+                  <ConnectButton label="Conectar Wallet" />
+                  <Avatar
+                    onClick={() => router.push(routes.profile.path)}
+                    img={user.photoURL}
+                    isLoading={isLoading}
+                  />
+                </>
+              ) : (
+                <Link href="/auth/login">
+                  <PrimaryButton as="a" className="login">
+                    Login
+                  </PrimaryButton>
+                </Link>
+              )}
+            </div>
+          </div>
+        </div>
       </Nav>
     </>
   );

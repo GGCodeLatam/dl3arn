@@ -33,10 +33,11 @@ interface Props {
   id: string;
   onClick?: (_?: any) => any;
   theme?: Theme;
+  className?: string;
 }
 
 type Ids = string[];
-function FavoriteButton({ id, theme }: Props) {
+function FavoriteButton({ id, theme, className }: Props) {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   useEffect(() => {
@@ -60,11 +61,16 @@ function FavoriteButton({ id, theme }: Props) {
   };
 
   return (
-    <Button theme={theme} isFavorite={isFavorite} onClick={handleFavorite}>
+    <Button
+      theme={theme}
+      isFavorite={isFavorite}
+      onClick={handleFavorite}
+      className={className}
+    >
       {isFavorite ? (
-        <IoIosHeart size={size} />
+        <IoIosHeart size={size} className="icon" />
       ) : (
-        <IoIosHeartEmpty size={size} />
+        <IoIosHeartEmpty size={size} className="icon" />
       )}
     </Button>
   );

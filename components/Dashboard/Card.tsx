@@ -6,7 +6,7 @@ import { getImage } from "services/firebase/storage";
 import { ClockIcon, FireIcon } from "utils/icons";
 import { CourseModel } from "utils/types/firebase";
 
-import { Container } from "./styles";
+import { CardContainer } from "./styles";
 import Image from "next/image";
 
 type Get =
@@ -35,7 +35,7 @@ function Card({
   }, [image]);
 
   return (
-    <Container>
+    <CardContainer>
       <div className="other">
         <NetworkBadge
           height="1.5em"
@@ -83,7 +83,7 @@ function Card({
           </footer>
         </a>
       </Link>
-    </Container>
+    </CardContainer>
   );
 }
 
