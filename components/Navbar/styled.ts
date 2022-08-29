@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import breakpoints from "utils/breakpoints";
 
 interface NavProps {
   isBlue: boolean;
@@ -211,7 +212,8 @@ export const Nav = styled.nav<NavProps>`
       }
     `}
 
-  @media screen and (min-width: 720px) {
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    font-size: 1rem;
     .right {
       display: flex;
       gap: 0.25rem;

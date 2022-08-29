@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import breakpoints from "utils/breakpoints";
 
 const MIN = 200;
 const MAX = 255;
@@ -27,12 +28,12 @@ export const CardContainer = styled.div`
       transform: scale(110%);
     }
     display: flex;
-    gap: 1rem;
+    gap: 1em;
     text-align: left;
     align-items: center;
   }
 
-  border-radius: 0.25rem;
+  border-radius: 0.25em;
 
   header {
     --img-size: 4em;
@@ -60,6 +61,7 @@ export const CardContainer = styled.div`
   }
 
   footer {
+    font-size: 1em;
     display: flex;
     height: 100%;
     position: relative;
@@ -107,5 +109,14 @@ export const CardContainer = styled.div`
     white-space: nowrap;
     overflow: hidden;
     font-weight: 800;
+  }
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    font-size: 1rem;
+    header {
+      --img-size: 5em;
+    }
+    footer {
+      font-size: 1.35em;
+    }
   }
 `;
