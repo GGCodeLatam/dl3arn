@@ -90,7 +90,7 @@ export const Nav = styled.nav<NavProps>`
     height: 100%;
   }
   .mobile {
-    box-shadow: -0.5em 0 0.5em #0002;
+    box-shadow: 0.5em 0 0.5em #0002;
     z-index: 9999;
     padding: 3em 1em 10vh 1em;
     background-color: #fff;
