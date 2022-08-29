@@ -25,7 +25,7 @@ function Home() {
     isLoading ? (
       <CardPlaceholder key={i} />
     ) : (
-      others[i] && <Card {...others[i]} />
+      others[i] && <Card key={i} {...others[i]} />
     )
   );
 
