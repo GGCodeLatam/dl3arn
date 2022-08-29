@@ -77,7 +77,6 @@ function Course({ course }: Props) {
       return null;
 
     const newIndex = videoIndex + diff;
-    console.log({ available, newIndex });
     if (newIndex < 0 || newIndex >= available.length) return null;
     return available[newIndex].id;
   };
@@ -88,7 +87,7 @@ function Course({ course }: Props) {
   return (
     <Container>
       <Head>
-        <meta property="og:image" content={current.image} />
+        <meta property="og:image" content={current?.image} />
         <meta property="og:url" content={window.location.href} />
       </Head>
       <VideosMenu
