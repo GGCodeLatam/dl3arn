@@ -106,7 +106,21 @@ function Navbar() {
           </div>
 
           <div className="bottom">
-            <NavLink href="/favorites">Favoritos</NavLink>
+            {!isLoading && !user ? (
+              <>
+                <li>
+                  <NavLink href={routes.landing.path}>Home</NavLink>
+                </li>
+                <li>
+                  <NavLink href={routes.roadmap.path}>Roadmap</NavLink>
+                </li>
+                <li>
+                  <NavLink href={routes.quienes.path}>Quienes Somos</NavLink>
+                </li>
+              </>
+            ) : (
+              <NavLink href="/favorites">Favoritos</NavLink>
+            )}
 
             <div className="user">
               {!isLoading && user ? (

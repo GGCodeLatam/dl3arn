@@ -83,7 +83,7 @@ export const Nav = styled.nav<NavProps>`
   }
   .mobile {
     z-index: 9999;
-    padding: 1em;
+    padding: 3em 1em;
     background-color: #fff;
     width: 75vw;
     height: 100vh;
@@ -93,6 +93,13 @@ export const Nav = styled.nav<NavProps>`
     display: flex;
     flex-flow: column;
     justify-content: space-between;
+
+    ${({ isBlue }) =>
+      isBlue &&
+      css`
+        list-style: none;
+        background: #3f6ef2;
+      `}
 
     .logo {
       margin: 0 auto;
@@ -126,6 +133,10 @@ export const Nav = styled.nav<NavProps>`
       .user {
         display: flex;
         justify-content: space-between;
+        .login {
+          width: 100%;
+          text-align: center;
+        }
       }
     }
   }
