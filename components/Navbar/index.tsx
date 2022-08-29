@@ -14,7 +14,7 @@ import routes from "utils/routes";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import useShow from "hooks/useShow";
-import Menu from "./Menu";
+import { IoIosHeartEmpty } from "react-icons/io";
 
 const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
   <Link href={href}>
@@ -145,12 +145,12 @@ function Navbar() {
               <div className="user">
                 {!isLoading && user ? (
                   <>
-                    <ConnectButton label="Conectar Wallet" />
                     <Avatar
                       onClick={() => router.push(routes.profile.path)}
                       img={user.photoURL}
                       isLoading={isLoading}
                     />
+                    <ConnectButton label="Conectar Wallet" />
                   </>
                 ) : (
                   <Link href="/auth/login">

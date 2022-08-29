@@ -58,6 +58,7 @@ export const Nav = styled.nav<NavProps>`
   .middle {
     display: none;
   }
+
   .login {
     padding: 0.75rem 1.5rem;
     font-size: 0.85rem;
@@ -89,14 +90,16 @@ export const Nav = styled.nav<NavProps>`
     height: 100%;
   }
   .mobile {
+    box-shadow: -0.5em 0 0.5em #0002;
     z-index: 9999;
     padding: 3em 1em 10vh 1em;
     background-color: #fff;
-    width: 75vw;
+    width: 90%;
+    max-width: max-content;
     height: 100vh;
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     display: flex;
     flex-flow: column;
     justify-content: space-between;
@@ -104,7 +107,7 @@ export const Nav = styled.nav<NavProps>`
     .close {
       position: absolute;
       top: 0;
-      right: 0;
+      left: 0;
     }
 
     ${({ isBlue }) =>
@@ -129,23 +132,40 @@ export const Nav = styled.nav<NavProps>`
     ul {
       list-style: none;
     }
-    .link {
-      display: block;
-      text-align: right;
-      padding: 0.5em 0;
-    }
 
     .bottom {
       display: flex;
       flex-flow: column;
-      gap: 1em;
+      gap: 1.75em;
 
       .link {
-        font-size: 0.85em;
+        position: relative;
+        font-size: 0.95em;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: left;
+        gap: 1em;
+        padding: 0.5em 0 0.5em 1em;
+        > * {
+          z-index: 2;
+        }
+
+        ::before {
+          z-index: 1;
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 2px;
+          height: 100%;
+          background-color: var(--dark);
+        }
       }
       .user {
         display: flex;
-        justify-content: space-between;
+        justify-content: right;
+        gap: 1em;
         .login {
           width: 100%;
           text-align: center;
@@ -187,6 +207,17 @@ export const Nav = styled.nav<NavProps>`
         filter: none;
       }
     `}
+
+  @media screen and (min-width: 720px) {
+    .right {
+      display: flex;
+      gap: 0.25rem;
+    }
+    .btn,
+    .mobile {
+      display: none;
+    }
+  }
 `;
 
 export const Verify = styled.button`

@@ -14,6 +14,8 @@ import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import Head from "next/head";
+import useChat from "hooks/useChat";
+import { HUBSPOT } from "constants";
 
 const { chains, provider, webSocketProvider } = configureChains(
   [chain.mainnet, chain.polygon, chain.rinkeby],
@@ -40,6 +42,7 @@ const wagmiClient = createClient({
 });
 
 const App = ({ Component, pageProps }: AppProps) => {
+  useChat({ url: HUBSPOT });
   return (
     <FirebaseProvider>
       <WagmiConfig client={wagmiClient}>
