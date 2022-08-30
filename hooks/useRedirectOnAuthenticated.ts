@@ -13,7 +13,7 @@ function useRedirectOnAuthenticated() {
     if (!isLoading && user) router.replace(routes.home.path);
   }, [router, isLoading, user]);
 
-  return isLoading;
+  return { user, isLoading };
 }
 
 export default useRedirectOnAuthenticated;

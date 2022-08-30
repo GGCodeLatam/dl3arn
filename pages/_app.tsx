@@ -48,7 +48,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains} theme={darkTheme()}>
           <Head>
-            <title>DL3ARN</title>
+            <title key="title">DL3ARN</title>
           </Head>
           <GlobalStyle />
           <Layout>

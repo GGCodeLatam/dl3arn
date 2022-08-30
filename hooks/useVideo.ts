@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import getVideo from "services/firebase/store/getVideo";
-import TypedFetch from "utils/TypedFetch";
 import { APIGetVideoById } from "utils/types/video";
 
 interface Params {

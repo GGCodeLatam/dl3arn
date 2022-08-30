@@ -17,7 +17,7 @@ function PrivateRoute({ children, verified }: Props) {
     if (!user) router.replace("/");
   }, [user, isLoading, verified, router]);
 
-  return <>{children}</>;
+  return <>{!isLoading && children}</>;
 }
 
 export default PrivateRoute;

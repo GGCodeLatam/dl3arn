@@ -12,6 +12,7 @@ import contact from "utils/contact.json";
 
 import Placeholder from "components/Placeholders";
 import Featured from "components/Dashboard/Featured";
+import Head from "next/head";
 
 function Home() {
   const {
@@ -30,29 +31,38 @@ function Home() {
   );
 
   return (
-    <PrivateRoute verified>
-      <HomeContainer>
-        <ContactUs>
-          <div className="decoration">
-            <div className="tr1" />
-            <div className="tr2" />
-          </div>
-          <div className="info">
-            <p>Si quieres subir tu curso a nuestra plataforma contactanos!</p>
-            <a className="dl3arn-mail" href={`mailto:${contact.email}`}>
-              {contact.email}
-            </a>
-          </div>
-        </ContactUs>
+    <>
+      <Head>
+        <title key="title">DL3ARN | Home</title>
+      </Head>
+      <PrivateRoute verified>
+        <HomeContainer>
+          <ContactUs>
+            <div className="decoration">
+              <div className="tr1" />
+              <div className="tr2" />
+            </div>
+            <div className="info">
+              <p>Si quieres subir tu curso a nuestra plataforma contactanos!</p>
+              <a className="dl3arn-mail" href={`mailto:${contact.email}`}>
+                {contact.email}
+              </a>
+            </div>
+          </ContactUs>
 
-        {course ? <Featured course={course} badge /> : <FeaturedPlaceholder />}
+          {course ? (
+            <Featured course={course} badge />
+          ) : (
+            <FeaturedPlaceholder />
+          )}
 
-        <section>
-          <h2>Cursos</h2>
-          <div className="cards">{cards}</div>
-        </section>
-      </HomeContainer>
-    </PrivateRoute>
+          <section>
+            <h2>Cursos</h2>
+            <div className="cards">{cards}</div>
+          </section>
+        </HomeContainer>
+      </PrivateRoute>
+    </>
   );
 }
 
