@@ -65,6 +65,7 @@ function Course({ course, path }: Props) {
         });
 
   const getVideo = (diff: number) => {
+    if (!videos.length) return null;
     const available = videos
       .sort((a, b) => Number(b.free) - Number(a.free))
       .filter((video) => !!video.duration);
@@ -169,6 +170,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query as { id: string };
 
   const course = await getCourse(id);
+  console.log(course);
 
   const host = context.req.headers.host;
   const path = context.resolvedUrl;

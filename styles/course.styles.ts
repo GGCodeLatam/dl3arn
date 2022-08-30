@@ -54,6 +54,7 @@ export const Container = styled.main<Props>`
     background-color: #fafafa;
     box-shadow: 0.5em 0 0.5em #0002;
     left: 0;
+    height: 100vh;
     max-height: 100vh;
     overflow: scroll;
     position: fixed;
@@ -61,6 +62,7 @@ export const Container = styled.main<Props>`
     transform: translate(-100%, 0);
     transition: transform 100ms ease;
     z-index: 9999;
+    width: 75%;
 
     .close {
       background-color: #fafafa;
@@ -137,6 +139,7 @@ export const Container = styled.main<Props>`
       display: none;
     }
     .left {
+      width: 100%;
       position: relative;
       transform: translate(0, 0);
 
@@ -145,6 +148,9 @@ export const Container = styled.main<Props>`
       .close {
         display: none;
       }
+    }
+    .middle {
+      margin: 0 0 0 0;
     }
     .right {
       flex-flow: column;

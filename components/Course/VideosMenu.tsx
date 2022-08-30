@@ -30,48 +30,59 @@ function VideosMenu({ hasNFT, current, videoId, handleVideo }: Props) {
       <button className="course" onClick={() => handleVideo()}>
         {current?.name}
       </button>
-      <section>
-        <h2>gratuitos</h2>
 
-        {Object.entries(free)
-          .sort(([, a], [, b]) => a.position - b.position)
-          .map(([section, { videos }]) => {
-            return (
-              <section key={`free-${section}`} className="videos">
-                <h3>{section}</h3>
-                {videos.map((video) => (
-                  <Video
-                    key={video.id}
-                    selected={videoId === video.id}
-                    onClick={() => handleVideo(video.id)}
-                    hasNFT={hasNFT}
-                    video={video}
-                  />
-                ))}
-              </section>
-            );
-          })}
-      </section>
+      {!!Object.keys(pay).length && (
+        <section>
+          <h2>gratuitos</h2>
 
-      <section>
-        <h2>pagos</h2>
-        {Object.entries(pay)
-          .sort(([, a], [, b]) => a.position - b.position)
-          .map(([section, { videos }]) => (
-            <section key={`pay-${section}`} className="videos">
-              <h3>{section}</h3>
-              {videos.map((video) => (
-                <Video
-                  key={video.id}
-                  selected={videoId === video.id}
-                  onClick={() => handleVideo(video.id)}
-                  hasNFT={hasNFT}
-                  video={video}
-                />
-              ))}
-            </section>
-          ))}
-      </section>
+          {Object.entries(free)
+            .sort(([, a], [, b]) => a.position - b.position)
+            .map(
+              ([section, { videos }]) =>
+                videos.length && (
+                  <section key={`free-${section}`} className="videos">
+                    <h3>{section}</h3>
+                    {videos.map((video) => (
+                      <Video
+                        key={video.id}
+                        selected={videoId === video.id}
+                        onClick={() => handleVideo(video.id)}
+                        hasNFT={hasNFT}
+                        video={video}
+                      />
+                    ))}
+                  </section>
+                )
+            )
+            .filter((video) => !!video)}
+        </section>
+      )}
+
+      {!!Object.keys(pay).length && (
+        <section>
+          <h2>pagos</h2>
+          {Object.entries(pay)
+            .sort(([, a], [, b]) => a.position - b.position)
+            .map(
+              ([section, { videos }]) =>
+                videos.length && (
+                  <section key={`pay-${section}`} className="videos">
+                    <h3>{section}</h3>
+                    {videos.map((video) => (
+                      <Video
+                        key={video.id}
+                        selected={videoId === video.id}
+                        onClick={() => handleVideo(video.id)}
+                        hasNFT={hasNFT}
+                        video={video}
+                      />
+                    ))}
+                  </section>
+                )
+            )
+            .filter((video) => !!video)}
+        </section>
+      )}
     </VideosContainer>
   );
 }

@@ -7,6 +7,8 @@ export const VideosContainer = styled.div`
   display: flex;
   flex-flow: column;
   box-shadow: inset 0 -1.25rem 0.5rem -1rem #0008;
+  padding: 0 0 0.5em 0;
+  height: 100%;
 
   section {
     position: relative;

@@ -51,7 +51,13 @@ async function getCourse(id: string): Promise<APIGetCourseById> {
       newSections[section] = { position: value.position, videos: [] };
     });
 
-    return { ...course, sections: newSections };
+    const image = await getImage(course.image);
+    const parsed_course: APIGetCourseById = {
+      ...course,
+      sections: newSections,
+    };
+    if (!image) return { ...parsed_course, image: "" };
+    return { ...parsed_course, image };
   }
 
   const durations = await getVideosDuration(videos);
@@ -67,22 +73,13 @@ async function getCourse(id: string): Promise<APIGetCourseById> {
     };
   });
 
-  try {
-    const image = await getImage(course.image);
-    const parsed_course: APIGetCourseById = {
-      ...course,
-      sections: newSections,
-      image: image || "",
-    };
-    return parsed_course;
-  } catch (e) {
-    const parsed_course: APIGetCourseById = {
-      ...course,
-      sections: newSections,
-      image: "",
-    };
-    return parsed_course;
-  }
+  const image = await getImage(course.image);
+  const parsed_course: APIGetCourseById = {
+    ...course,
+    sections: newSections,
+  };
+  if (!image) return { ...parsed_course, image: "" };
+  return { ...parsed_course, image };
 }
 
 export default getCourse;
