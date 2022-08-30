@@ -26,7 +26,6 @@ interface Props {
   course: APIGetCourseById;
 }
 function Course({ course }: Props) {
-  console.log(typeof course);
   const router = useRouter();
 
   const { videoId } = router.query as {
@@ -135,10 +134,9 @@ export default Course;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query as { id: string };
+
   const course = await getCourse(id);
   const image = await getImage(course.image);
-
-  console.log(course, image);
 
   const props: { course: APIGetCourseById } = {
     course: {

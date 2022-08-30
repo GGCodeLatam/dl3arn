@@ -21,6 +21,7 @@ async function getCourse(id: string): Promise<APIGetCourseById> {
 
   await Promise.all(
     Object.entries(course.sections).map(async ([key, value]) => {
+      console.log(value.videos);
       const sectionVideos = (await Promise.all(
         value.videos.map(getVideo)
       )) as VideoModel[];
@@ -44,6 +45,14 @@ async function getCourse(id: string): Promise<APIGetCourseById> {
       return null;
     })
   );
+
+  if (!videos.length) {
+    Object.entries(course.sections).forEach(([section, value]) => {
+      newSections[section] = { position: value.position, videos: [] };
+    });
+
+    return { ...course, sections: newSections };
+  }
 
   const durations = await getVideosDuration(videos);
 
