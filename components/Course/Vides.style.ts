@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const VideosContainer = styled.aside`
+export const VideosContainer = styled.div`
   min-height: calc(95vh - var(--nav-size));
 
   background-color: #fafafa;

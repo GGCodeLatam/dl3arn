@@ -9,6 +9,7 @@ function useShow({ init, hideOnChange }: Props) {
 
   const show = () => setState(true);
   const hide = () => setState(false);
+  const toggle = () => setState((old) => !old);
 
   const hideDep = hideOnChange || [];
 
@@ -16,7 +17,7 @@ function useShow({ init, hideOnChange }: Props) {
     hide();
   }, hideDep);
 
-  return { state, show, hide };
+  return { state, show, hide, toggle };
 }
 
 export default useShow;

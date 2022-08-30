@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const VideoContentContainer = styled.div`
   .frame-container {
+    width: 100%;
     height: 40rem;
     min-height: 40rem;
     display: flex;

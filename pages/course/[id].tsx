@@ -1,5 +1,3 @@
-import { getImage } from "services/firebase/storage";
-
 import useCourse from "hooks/useCourse";
 import useVideo from "hooks/useVideo";
 
@@ -20,12 +18,16 @@ import getCourse from "services/firebase/store/getCourse";
 import { APIGetCourseById } from "utils/types/course";
 import { useAuth } from "context/firebase";
 import OGTags from "components/SEO";
+import useShow from "hooks/useShow";
+import { BiChevronRight } from "react-icons/bi";
+import { FaTimes } from "react-icons/fa";
 
 interface Props {
   course: APIGetCourseById;
   path: string;
 }
 function Course({ course, path }: Props) {
+  const { state, show, hide, toggle } = useShow({});
   const router = useRouter();
   const {
     data: { isLoading: userIsLoading },
@@ -36,14 +38,14 @@ function Course({ course, path }: Props) {
     videoId?: string | null;
   };
 
-  const { course: current, locked } = useCourse({ course: course });
+  const { locked } = useCourse({ course: course });
 
   const videos: VideoSafeProps[] = [];
 
-  Object.values(current?.sections || {})
+  Object.values(course?.sections || {})
     .sort((a, b) => a.position - b.position)
     .map((section) => section.videos.map((video) => videos.push(video)));
-
+  course;
   const isFree = videos.filter((video) => video.id === videoId)![0]?.free;
 
   const { video, isLoading } = useVideo({
@@ -91,33 +93,43 @@ function Course({ course, path }: Props) {
       />
 
       {!userIsLoading && (
-        <Container>
-          <VideosMenu
-            current={current}
-            videoId={videoId}
-            handleVideo={handleVideo}
-            hasNFT={!locked}
-          />
+        <Container showMenu={state}>
+          <button className="show-menu" onClick={show}>
+            Videos
+            <BiChevronRight size={16} className="icon" />
+          </button>
 
-          <div className="course-content">
+          <div className="left">
+            <button className="close" onClick={hide}>
+              <FaTimes />
+            </button>
+            <VideosMenu
+              current={course}
+              videoId={videoId}
+              handleVideo={handleVideo}
+              hasNFT={!locked}
+            />
+          </div>
+
+          <div className="middle">
             <Loading isLoading={isLoading} element={<LoadingVideo />}>
-              {!video && current && (
+              {!video && course && (
                 <CourseIntro
-                  name={current.name}
+                  name={course.name}
                   imgUrl={course.image}
-                  instructor={current.instructor}
-                  description={current.description}
+                  instructor={course.instructor}
+                  description={course.description}
                   prev={prev}
                   next={next}
                 />
               )}
 
-              {video && current && (
+              {video && course && (
                 <VideoContent
                   name={video.name}
                   videoId={video.videoId}
-                  instructor={current.instructor.name}
-                  courseName={current.name}
+                  instructor={course.instructor.name}
+                  courseName={course.name}
                   prev={prev}
                   next={next}
                 />
@@ -125,18 +137,20 @@ function Course({ course, path }: Props) {
             </Loading>
           </div>
 
-          {current?.rampp && current.contract && (
-            <div>
-              <NetworkBadge network={current?.rampp?.network} dark toRight />
-              <RamppButton
-                rampp={current.rampp}
-                address={current.contract.address}
-              />
-              {current?.opensea && (
-                <OpenSeaButton collection={current.opensea} />
-              )}
-            </div>
-          )}
+          <div className="right">
+            {course?.rampp && course.contract && (
+              <>
+                <NetworkBadge network={course.rampp.network} dark toRight />
+                <RamppButton
+                  rampp={course.rampp}
+                  address={course.contract.address}
+                />
+                {course?.opensea && (
+                  <OpenSeaButton collection={course.opensea} />
+                )}
+              </>
+            )}
+          </div>
         </Container>
       )}
     </>
@@ -149,7 +163,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query as { id: string };
 
   const course = await getCourse(id);
-  const image = await getImage(course.image);
 
   const host = context.req.headers.host;
   const path = context.resolvedUrl;
@@ -159,10 +172,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }://${host}${path}`;
 
   const props: Props = {
-    course: {
-      ...course,
-      image: image || "",
-    },
+    course,
     path: fullURL,
   };
   return {

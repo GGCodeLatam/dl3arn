@@ -5,6 +5,7 @@ import { Override } from "utils/types/utility";
 import { VideoSafeProps } from "utils/types/video";
 import getVideosDuration from "utils/youtube";
 import { db } from "..";
+import { getImage } from "../storage";
 import getVideo from "./getVideo";
 
 async function getCourse(id: string): Promise<APIGetCourseById> {
@@ -66,12 +67,22 @@ async function getCourse(id: string): Promise<APIGetCourseById> {
     };
   });
 
-  const parsed_course: APIGetCourseById = {
-    ...course,
-    sections: newSections,
-  };
-
-  return parsed_course;
+  try {
+    const image = await getImage(course.image);
+    const parsed_course: APIGetCourseById = {
+      ...course,
+      sections: newSections,
+      image: image || "",
+    };
+    return parsed_course;
+  } catch (e) {
+    const parsed_course: APIGetCourseById = {
+      ...course,
+      sections: newSections,
+      image: "",
+    };
+    return parsed_course;
+  }
 }
 
 export default getCourse;
