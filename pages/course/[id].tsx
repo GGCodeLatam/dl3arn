@@ -27,7 +27,7 @@ interface Props {
   path: string;
 }
 function Course({ course, path }: Props) {
-  const { state, show, hide, toggle } = useShow({});
+  const { state, show, hide } = useShow({});
   const router = useRouter();
   const {
     data: { isLoading: userIsLoading },
@@ -126,6 +126,7 @@ function Course({ course, path }: Props) {
 
               {video && course && (
                 <VideoContent
+                  course={course}
                   name={video.name}
                   videoId={video.videoId}
                   instructor={course.instructor.name}
@@ -140,7 +141,12 @@ function Course({ course, path }: Props) {
           <div className="right">
             {course?.rampp && course.contract && (
               <>
-                <NetworkBadge network={course.rampp.network} dark toRight />
+                <NetworkBadge
+                  network={course.rampp.network}
+                  dark
+                  toRight
+                  onlyIcon
+                />
                 <RamppButton
                   rampp={course.rampp}
                   address={course.contract.address}

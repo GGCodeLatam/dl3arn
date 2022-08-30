@@ -1,5 +1,5 @@
 import Image from "next/image";
-import networkIcons from "utils/networkIcons";
+import networkIcons, { NetworkNames } from "utils/networkIcons";
 import { Badge } from "./Badges.styles";
 
 interface Props {
@@ -20,12 +20,11 @@ export function NetworkBadge({
   ...styled
 }: Props) {
   if (!network) return null;
-  const obj = networkIcons[network];
-  if (!obj.icon) return null;
+  const obj = networkIcons[network as NetworkNames];
   return (
     <Badge width={width} height={height} {...styled}>
       {!onlyIcon && !toRight && <p>{network}</p>}
-      {obj && (
+      {obj?.icon && (
         <div className="img-container">
           <Image layout="fill" src={obj.icon} alt={network} />
         </div>

@@ -1,5 +1,6 @@
 import { PrimaryButton } from "components/Buttons";
 import ShareButton from "components/Buttons/ShareButton";
+import { APIGetCourseById } from "utils/types/course";
 import { VideoContentContainer } from "./VideoContent.styles";
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
   next?: () => void;
   prev?: () => void;
   videoId?: string;
+  course?: APIGetCourseById;
 }
 
 function VideoContent({
@@ -29,6 +31,7 @@ function VideoContent({
           height="100%"
           src={`https://www.youtube.com/embed/${videoId}?autoplay=0&origin=https://dl3arn.com`}
           frameBorder="0"
+          allowFullScreen
         />
       </div>
 

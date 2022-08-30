@@ -14,9 +14,10 @@ export const Badge = styled.div<BadgeProps>`
   color: #fff;
 
   .img-container {
+    --size: 2em;
     position: relative;
-    width: 100%;
-    height: 100%;
+    height: var(--size);
+    width: var(--size);
   }
 
   ${({ bg }) =>
