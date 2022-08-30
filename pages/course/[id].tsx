@@ -81,11 +81,7 @@ function Course({ course }: Props) {
   return (
     <Container>
       <Head>
-        <meta
-          property="og:image"
-          itemProp="image"
-          content="https://firebasestorage.googleapis.com/v0/b/dev-dl3arn.appspot.com/o/images%2Fdiploma%20nft.jpg?alt=media&token=74299926-4317-4af8-b4d7-1b513a8f7863"
-        />
+        <meta property="og:image" itemProp="image" content={course.image} />
         <meta property="og:type" content="website" />
       </Head>
       <VideosMenu
