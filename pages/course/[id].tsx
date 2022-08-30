@@ -21,12 +21,16 @@ import { GetServerSidePropsContext } from "next";
 import getCourse from "services/firebase/store/getCourse";
 import { APIGetCourseById } from "utils/types/course";
 import Head from "next/head";
+import { useAuth } from "context/firebase";
 
 interface Props {
   course: APIGetCourseById;
 }
 function Course({ course }: Props) {
   const router = useRouter();
+  const {
+    data: { isLoading: userIsLoading },
+  } = useAuth();
 
   const { videoId } = router.query as {
     id: string;
@@ -78,7 +82,7 @@ function Course({ course }: Props) {
   const next = () => handleVideo(getVideo(1));
 
   return (
-    <Container>
+    <>
       <Head>
         <meta name="image" property="og:image" content={course.image} />
         <meta property="og:type" content="website" />
@@ -92,51 +96,56 @@ function Course({ course }: Props) {
       <Head>
         <meta property="og:title" content={course.name} key="title" />
       </Head>
-
-      <VideosMenu
-        current={current}
-        videoId={videoId}
-        handleVideo={handleVideo}
-        hasNFT={!locked}
-      />
-
-      <div className="course-content">
-        <Loading isLoading={isLoading} element={<LoadingVideo />}>
-          {!video && current && (
-            <CourseIntro
-              name={current.name}
-              imgUrl={course.image}
-              instructor={current.instructor}
-              description={current.description}
-              prev={prev}
-              next={next}
-            />
-          )}
-
-          {video && current && (
-            <VideoContent
-              name={video.name}
-              videoId={video.videoId}
-              instructor={current.instructor.name}
-              courseName={current.name}
-              prev={prev}
-              next={next}
-            />
-          )}
-        </Loading>
-      </div>
-
-      {current?.rampp && current.contract && (
-        <div>
-          <NetworkBadge network={current?.rampp?.network} dark toRight />
-          <RamppButton
-            rampp={current.rampp}
-            address={current.contract.address}
+      {!userIsLoading && (
+        <Container>
+          <VideosMenu
+            current={current}
+            videoId={videoId}
+            handleVideo={handleVideo}
+            hasNFT={!locked}
           />
-          {current?.opensea && <OpenSeaButton collection={current.opensea} />}
-        </div>
+
+          <div className="course-content">
+            <Loading isLoading={isLoading} element={<LoadingVideo />}>
+              {!video && current && (
+                <CourseIntro
+                  name={current.name}
+                  imgUrl={course.image}
+                  instructor={current.instructor}
+                  description={current.description}
+                  prev={prev}
+                  next={next}
+                />
+              )}
+
+              {video && current && (
+                <VideoContent
+                  name={video.name}
+                  videoId={video.videoId}
+                  instructor={current.instructor.name}
+                  courseName={current.name}
+                  prev={prev}
+                  next={next}
+                />
+              )}
+            </Loading>
+          </div>
+
+          {current?.rampp && current.contract && (
+            <div>
+              <NetworkBadge network={current?.rampp?.network} dark toRight />
+              <RamppButton
+                rampp={current.rampp}
+                address={current.contract.address}
+              />
+              {current?.opensea && (
+                <OpenSeaButton collection={current.opensea} />
+              )}
+            </div>
+          )}
+        </Container>
       )}
-    </Container>
+    </>
   );
 }
 

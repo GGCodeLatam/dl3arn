@@ -59,7 +59,7 @@ function FirebaseProvider({ children }: Props) {
 
   return (
     <firebaseContext.Provider value={value}>
-      {!data.isLoading && children}
+      {children}
     </firebaseContext.Provider>
   );
 }
