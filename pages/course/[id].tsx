@@ -26,6 +26,7 @@ interface Props {
   course: APIGetCourseById;
 }
 function Course({ course }: Props) {
+  console.log(typeof course);
   const router = useRouter();
 
   const { videoId } = router.query as {
@@ -87,7 +88,7 @@ function Course({ course }: Props) {
   return (
     <Container>
       <Head>
-        <meta property="og:image" content={current?.image} />
+        <meta property="og:image" content={course?.image} />
         <meta property="og:url" content={window.location.href} />
       </Head>
       <VideosMenu
