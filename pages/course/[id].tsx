@@ -82,7 +82,15 @@ function Course({ course }: Props) {
       <Head>
         <meta property="og:image" itemProp="image" content={course.image} />
         <meta property="og:type" content="website" />
-        <meta property="og:title" itemProp="image" content={course.name} />
+        <meta property="og:title" content={course.name} key="title" />
+      </Head>
+      <Head>
+        <meta
+          property="og:title"
+          itemProp="image"
+          content={course.name}
+          key="title"
+        />
       </Head>
 
       <VideosMenu
