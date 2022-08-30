@@ -60,13 +60,6 @@ function Course({ course }: Props) {
           query: { videoId: _id || "" },
         });
 
-  const [imgUrl, setImgUrl] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (current && current.image)
-      getImage(current.image).then((url) => setImgUrl(url));
-  }, [current]);
-
   const getVideo = (diff: number) => {
     const available = videos
       .sort((a, b) => Number(b.free) - Number(a.free))
@@ -88,7 +81,10 @@ function Course({ course }: Props) {
   return (
     <Container>
       <Head>
-        <meta property="og:image" content={course?.image} />
+        <meta
+          property="og:image"
+          content="https://firebasestorage.googleapis.com/v0/b/dev-dl3arn.appspot.com/o/images%2Fdiploma%20nft.jpg?alt=media&token=74299926-4317-4af8-b4d7-1b513a8f7863"
+        />
         <meta property="og:url" content={window.location.href} />
       </Head>
       <VideosMenu
@@ -103,7 +99,7 @@ function Course({ course }: Props) {
           {!video && current && (
             <CourseIntro
               name={current.name}
-              imgUrl={imgUrl}
+              imgUrl={course.image}
               instructor={current.instructor}
               description={current.description}
               prev={prev}
