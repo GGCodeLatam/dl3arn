@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import { getImage } from "services/firebase/storage";
 
 import useCourse from "hooks/useCourse";
@@ -20,13 +18,14 @@ import Router, { useRouter } from "next/router";
 import { GetServerSidePropsContext } from "next";
 import getCourse from "services/firebase/store/getCourse";
 import { APIGetCourseById } from "utils/types/course";
-import Head from "next/head";
 import { useAuth } from "context/firebase";
+import OGTags from "components/SEO";
 
 interface Props {
   course: APIGetCourseById;
+  path: string;
 }
-function Course({ course }: Props) {
+function Course({ course, path }: Props) {
   const router = useRouter();
   const {
     data: { isLoading: userIsLoading },
@@ -83,19 +82,14 @@ function Course({ course }: Props) {
 
   return (
     <>
-      <Head>
-        <meta name="image" property="og:image" content={course.image} />
-        <meta property="og:type" content="website" />
-        <meta
-          name="title"
-          property="og:title"
-          content={course.name}
-          key="title"
-        />
-      </Head>
-      <Head>
-        <meta property="og:title" content={course.name} key="title" />
-      </Head>
+      <OGTags
+        description={course.description}
+        image={course.image}
+        title={course.name}
+        type="website"
+        url={path}
+      />
+
       {!userIsLoading && (
         <Container>
           <VideosMenu
@@ -157,11 +151,19 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const course = await getCourse(id);
   const image = await getImage(course.image);
 
-  const props: { course: APIGetCourseById } = {
+  const host = context.req.headers.host;
+  const path = context.resolvedUrl;
+
+  const fullURL = `${
+    host?.includes("localhost") ? "http" : "https"
+  }://${host}${path}`;
+
+  const props: Props = {
     course: {
       ...course,
       image: image || "",
     },
+    path: fullURL,
   };
   return {
     props,

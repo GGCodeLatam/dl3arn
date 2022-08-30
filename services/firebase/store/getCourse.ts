@@ -21,7 +21,6 @@ async function getCourse(id: string): Promise<APIGetCourseById> {
 
   await Promise.all(
     Object.entries(course.sections).map(async ([key, value]) => {
-      console.log(value.videos);
       const sectionVideos = (await Promise.all(
         value.videos.map(getVideo)
       )) as VideoModel[];
