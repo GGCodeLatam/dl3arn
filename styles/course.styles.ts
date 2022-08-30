@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import breakpoints from "utils/breakpoints";
 
 // grid-template-columns: minmax(15rem, 20rem) 1fr minmax(10rem, 15rem);
 interface Props {
@@ -11,7 +12,10 @@ export const Container = styled.main<Props>`
   width: 100%;
 
   .show-menu {
+    --icon-width: 2.5em;
+
     align-items: center;
+    justify-content: flex-end;
     background-color: #fff;
     border-radius: 0 0.5em 0.5em 0;
     color: #000;
@@ -19,42 +23,47 @@ export const Container = styled.main<Props>`
     flex-flow: row;
     font-size: 0.8em;
     font-weight: 600;
-    gap: 1em;
-    justify-content: space-between;
     margin: 1.25em 0;
-    padding: 1em 1em 1em 2em;
     position: fixed;
-    top: var(--nav-size);
+    top: 3.5em;
     left: 0;
-    width: 25%;
+    width: 7em;
+    min-width: max-content;
+    z-index: 999;
+    box-shadow: 0 0 0.75em #0003;
+    transition: width 100ms ease;
+
+    transform: translate(calc(-100% + var(--icon-width)), 0);
+    transition: transform 250ms ease;
 
     .icon {
       transform: translate(0, 0);
-      transition: transform 100ms ease;
+      transition: transform 250ms ease;
+      width: 2.5em;
+      height: 2.5em;
+      padding: 0.5em;
     }
     :hover {
       background-color: var(--primary);
       color: #fff;
-      .icon {
-        transform: translate(5px, 0);
-      }
+      transform: translate(0, 0);
     }
   }
 
   .left {
     background-color: #fafafa;
-    position: fixed;
-    top: 0;
-    left: 0;
-    transform: translate(-100%, 0);
-    transition: transform 100ms ease;
     box-shadow: 0.5em 0 0.5em #0002;
-    z-index: 9999;
+    left: 0;
     max-height: 100vh;
     overflow: scroll;
+    position: fixed;
+    top: 0;
+    transform: translate(-100%, 0);
+    transition: transform 100ms ease;
+    z-index: 9999;
 
     .close {
-      background-color: #fff;
+      background-color: #fafafa;
       display: block;
       padding: 1em 2em;
       position: sticky;
@@ -67,6 +76,7 @@ export const Container = styled.main<Props>`
   }
 
   .middle {
+    margin: 2.75em 0 0 0;
     .instructor {
       font-size: 0.85em;
       opacity: 0.5;
@@ -103,9 +113,13 @@ export const Container = styled.main<Props>`
     display: flex;
     justify-content: space-between;
     gap: 1rem;
+    align-items: center;
+    padding: 0 1em;
 
     button {
       padding: 0.75rem 1rem;
+      font-size: 0.75em;
+      height: max-content;
     }
   }
 
@@ -116,4 +130,27 @@ export const Container = styled.main<Props>`
         transform: translate(0, 0);
       }
     `}
+
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    grid-template-columns: minmax(15rem, 20rem) 1fr minmax(10rem, 15rem);
+    .show-menu {
+      display: none;
+    }
+    .left {
+      position: relative;
+      transform: translate(0, 0);
+
+      max-height: 100%;
+      box-shadow: none;
+      .close {
+        display: none;
+      }
+    }
+    .right {
+      flex-flow: column;
+      justify-content: flex-start;
+      gap: 0.25em;
+      padding: 0 0.5em;
+    }
+  }
 `;

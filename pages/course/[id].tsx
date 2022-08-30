@@ -94,11 +94,6 @@ function Course({ course, path }: Props) {
 
       {!userIsLoading && (
         <Container showMenu={state}>
-          <button className="show-menu" onClick={show}>
-            Videos
-            <BiChevronRight size={16} className="icon" />
-          </button>
-
           <div className="left">
             <button className="close" onClick={hide}>
               <FaTimes />
@@ -110,6 +105,11 @@ function Course({ course, path }: Props) {
               hasNFT={!locked}
             />
           </div>
+
+          <button className="show-menu" onClick={show}>
+            Videos
+            <BiChevronRight size={16} className="icon" />
+          </button>
 
           <div className="middle">
             <Loading isLoading={isLoading} element={<LoadingVideo />}>

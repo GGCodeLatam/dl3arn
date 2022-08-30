@@ -1,5 +1,11 @@
 import { PrimaryButton } from "components/Buttons";
 import ShareButton from "components/Buttons/ShareButton";
+import {
+  BiChevronLeft,
+  BiChevronRight,
+  BiShare,
+  BiShareAlt,
+} from "react-icons/bi";
 import { APIGetCourseById } from "utils/types/course";
 import { VideoContentContainer } from "./VideoContent.styles";
 
@@ -42,13 +48,13 @@ function VideoContent({
             url={window.location.href}
             title={`${instructor} | ${courseName} | ${name}`}
           >
-            Compartir
+            <BiShareAlt size={16} />
           </ShareButton>
-          <PrimaryButton className="btn" onClick={prev}>
-            Anterior
+          <PrimaryButton onClick={prev}>
+            <BiChevronLeft size={20} />
           </PrimaryButton>
-          <PrimaryButton className="btn" onClick={next}>
-            Siguiente
+          <PrimaryButton onClick={next}>
+            <BiChevronRight size={20} />
           </PrimaryButton>
         </div>
       </div>

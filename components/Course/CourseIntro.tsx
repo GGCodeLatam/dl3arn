@@ -34,13 +34,10 @@ function CourseIntro({
         </div>
         <p className="description">{description}</p>
       </div>
+
       <div className="video-options">
-        <PrimaryButton className="btn" onClick={prev}>
-          Anterior
-        </PrimaryButton>
-        <PrimaryButton className="btn" onClick={next}>
-          Siguiente
-        </PrimaryButton>
+        <PrimaryButton onClick={prev}>Anterior</PrimaryButton>
+        <PrimaryButton onClick={next}>Siguiente</PrimaryButton>
       </div>
     </CourseIntroContainer>
   );
