@@ -1,5 +1,6 @@
 import { PrimaryButton } from "components/Buttons";
 import Image from "next/image";
+import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { CourseModel } from "utils/types/firebase";
 import { CourseIntroContainer } from "./CourseIntro.styles";
 
@@ -35,8 +36,16 @@ function CourseIntro({
       </div>
       <p className="description">{description}</p>
       <div className="video-options">
-        {prev && <PrimaryButton onClick={prev}>Anterior</PrimaryButton>}
-        {next && <PrimaryButton onClick={next}>Siguiente</PrimaryButton>}
+        {prev && (
+          <PrimaryButton onClick={prev}>
+            <BiChevronLeft size={20} />
+          </PrimaryButton>
+        )}
+        {next && (
+          <PrimaryButton onClick={next}>
+            <BiChevronRight size={20} />
+          </PrimaryButton>
+        )}
       </div>
     </CourseIntroContainer>
   );

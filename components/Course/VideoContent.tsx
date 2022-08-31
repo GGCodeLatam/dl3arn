@@ -45,12 +45,16 @@ function VideoContent({
           >
             <BiShareAlt size={16} />
           </ShareButton>
-          <PrimaryButton onClick={prev}>
-            <BiChevronLeft size={20} />
-          </PrimaryButton>
-          <PrimaryButton onClick={next}>
-            <BiChevronRight size={20} />
-          </PrimaryButton>
+          {prev && (
+            <PrimaryButton onClick={prev}>
+              <BiChevronLeft size={20} />
+            </PrimaryButton>
+          )}
+          {next && (
+            <PrimaryButton onClick={next}>
+              <BiChevronRight size={20} />
+            </PrimaryButton>
+          )}
         </div>
       </div>
     </VideoContentContainer>
