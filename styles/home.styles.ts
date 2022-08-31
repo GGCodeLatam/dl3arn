@@ -47,6 +47,17 @@ export const HomeContainer = styled.main`
     }
   }
 
+  .list {
+    display: flex;
+    flex-flow: column;
+    gap: 1em;
+    margin: 0.25em 0 0 0;
+  }
+
+  section:last-child {
+    margin: 0 auto 10vh auto;
+  }
+
   @media screen and (min-width: ${breakpoints.tablet}) {
     section {
       h2 {
@@ -59,7 +70,7 @@ export const HomeContainer = styled.main`
   }
 `;
 
-export const ContactUs = styled.div`
+export const ContactUs = styled.section`
   font-size: calc(1rem + 0.75vw);
   padding: 20vw 0;
   margin: 1rem 0;

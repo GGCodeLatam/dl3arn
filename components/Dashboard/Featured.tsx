@@ -5,8 +5,6 @@ import Coin from "assets/Coin.png";
 import { NetworkBadge } from "components/Badges";
 import { CourseModel } from "utils/types/firebase";
 import FavoriteButton from "components/Buttons/FavoriteButton";
-import { useEffect, useState } from "react";
-import { getImage } from "services/firebase/storage";
 import Placeholder from "components/Placeholders";
 import { FeaturedContainer } from "./Featured.styles";
 
@@ -15,17 +13,11 @@ interface Props {
   course: CourseModel;
 }
 function Featured({ badge, course }: Props) {
-  const [storageImage, setStorageImage] = useState<string | null>("");
-  useEffect(() => {
-    if (course?.image)
-      getImage(course.image).then((url) => setStorageImage(url));
-  }, [course]);
-
   return (
     <FeaturedContainer>
       <Link href={`/course/${course.id}`}>
         <a className="header-container">
-          {storageImage ? (
+          {course.image ? (
             <div>
               {badge ? (
                 <div className="badge">
@@ -47,7 +39,7 @@ function Featured({ badge, course }: Props) {
                   className="img"
                   width="1200px"
                   height="240px"
-                  src={storageImage}
+                  src={course.image}
                   alt=""
                 />
               </div>

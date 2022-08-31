@@ -14,7 +14,7 @@ import { VideoSafeProps } from "utils/types/video";
 import OpenSeaButton from "components/Buttons/OpenSeaButton";
 import Router, { useRouter } from "next/router";
 import { GetServerSidePropsContext } from "next";
-import getCourse from "services/firebase/store/getCourse";
+import getCourseDetails from "services/firebase/store/getCourseDetails";
 import { APIGetCourseById } from "utils/types/course";
 import { useAuth } from "context/firebase";
 import OGTags from "components/SEO";
@@ -172,8 +172,7 @@ export default Course;
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query as { id: string };
 
-  const course = await getCourse(id);
-  console.log(course);
+  const course = await getCourseDetails(id);
 
   const host = context.req.headers.host;
   const path = context.resolvedUrl;

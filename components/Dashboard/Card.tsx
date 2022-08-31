@@ -29,11 +29,6 @@ function Card({
   total_duration,
   rampp,
 }: CardProps) {
-  const [storageImage, setStorageImage] = useState<string | null>(null);
-  useEffect(() => {
-    if (image) getImage(image).then((url) => setStorageImage(url));
-  }, [image]);
-
   return (
     <CardContainer>
       <div className="other">
@@ -44,14 +39,9 @@ function Card({
       <Link href={`/course/${id}`}>
         <a className="content">
           <header>
-            {storageImage && (
+            {image && (
               <div className="img-container">
-                <Image
-                  className="img"
-                  layout="fill"
-                  src={storageImage}
-                  alt=""
-                />
+                <Image className="img" layout="fill" src={image} alt="" />
               </div>
             )}
           </header>

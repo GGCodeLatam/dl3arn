@@ -8,7 +8,7 @@ import { db } from "..";
 import { getImage } from "../storage";
 import getVideo from "./getVideo";
 
-async function getCourse(id: string): Promise<APIGetCourseById> {
+async function getCourseDetails(id: string): Promise<APIGetCourseById> {
   const ref = await getDoc(doc(db, "courses", id));
 
   const course = { id: ref.id, ...ref.data() } as CourseModel;
@@ -82,4 +82,4 @@ async function getCourse(id: string): Promise<APIGetCourseById> {
   return { ...parsed_course, image };
 }
 
-export default getCourse;
+export default getCourseDetails;

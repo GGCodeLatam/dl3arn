@@ -1,7 +1,5 @@
 import Card from "components/Dashboard/Card";
-import CardPlaceholder from "components/Placeholders/Card";
 import PrivateRoute from "components/PrivateRoute";
-import useCourses from "hooks/useCourses";
 import {
   ContactUs,
   FeaturedPlaceholderContainer,
@@ -13,20 +11,21 @@ import contact from "utils/contact.json";
 import Placeholder from "components/Placeholders";
 import Featured from "components/Dashboard/Featured";
 import Head from "next/head";
+import { GetServerSidePropsContext } from "next";
+import { CourseModel } from "utils/types/firebase";
+import getCourses from "services/firebase/store/getCourses";
+import getDl3arn from "services/firebase/store/getDl3arn";
+import getCoursesByIds from "services/firebase/store/getCoursesByIds";
+import { getImage } from "services/firebase/storage";
 
-function Home() {
-  const {
-    data: { courses, isLoading },
-  } = useCourses();
-
-  const [course, ...others] = courses;
-
-  const cards = Array.from({ length: 3 }).map((_, i) =>
-    isLoading ? (
-      <CardPlaceholder key={i} />
-    ) : (
-      others[i] && <Card key={i} {...others[i]} />
-    )
+interface Props {
+  featured: CourseModel[];
+  courses: CourseModel[];
+}
+function Home({ featured, courses }: Props) {
+  const [main, ...others] = featured;
+  const cards = Array.from({ length: 3 }).map(
+    (_, i) => others[i] && <Card key={i} {...others[i]} />
   );
 
   return (
@@ -49,15 +48,22 @@ function Home() {
             </div>
           </ContactUs>
 
-          {course ? (
-            <Featured course={course} badge />
-          ) : (
-            <FeaturedPlaceholder />
-          )}
+          <section>
+            {featured ? (
+              <Featured course={main} badge />
+            ) : (
+              <FeaturedPlaceholder />
+            )}
+            <div className="cards">{cards}</div>
+          </section>
 
           <section>
-            <h2>Cursos</h2>
-            <div className="cards">{cards}</div>
+            <h2>cursos</h2>
+            <ul className="list">
+              {courses.map((course) => (
+                <Card key={course.id} {...course} />
+              ))}
+            </ul>
           </section>
         </HomeContainer>
       </PrivateRoute>
@@ -66,6 +72,31 @@ function Home() {
 }
 
 export default Home;
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const dl3arn = await getDl3arn("home");
+
+  const [featured, courses] = await Promise.all([
+    getCoursesByIds(dl3arn.pinned),
+    getCourses(),
+  ]);
+
+  const response: Props = {
+    featured: await Promise.all(
+      featured.map(async (course) => ({
+        ...course,
+        image: (await getImage(course.image)) || "",
+      }))
+    ),
+    courses: await Promise.all(
+      courses.map(async (course) => ({
+        ...course,
+        image: (await getImage(course.image)) || "",
+      }))
+    ),
+  };
+  return { props: response };
+}
 
 function FeaturedPlaceholder() {
   return (
