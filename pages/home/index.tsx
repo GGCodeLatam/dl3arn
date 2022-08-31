@@ -19,8 +19,7 @@ function Home() {
     data: { courses, isLoading },
   } = useCourses();
 
-  const newCourses = [...courses];
-  const [course, ...others] = newCourses.reverse();
+  const [course, ...others] = courses;
 
   const cards = Array.from({ length: 3 }).map((_, i) =>
     isLoading ? (
