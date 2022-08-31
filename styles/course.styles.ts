@@ -136,9 +136,11 @@ export const Container = styled.main<Props>`
       width: 100%;
       position: relative;
       transform: translate(0, 0);
-
-      max-height: 100%;
+      max-height: max-content;
+      height: max-content;
       box-shadow: none;
+      overflow: auto;
+
       .close {
         display: none;
       }

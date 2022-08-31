@@ -41,7 +41,7 @@ function VideosMenu({ hasNFT, current, videoId, handleVideo }: Props) {
               ([section, { videos }]) =>
                 videos.length && (
                   <section key={`free-${section}`} className="videos">
-                    <h3>{section}</h3>
+                    {section !== current?.name && <h3>{section}</h3>}
                     {videos.map((video) => (
                       <Video
                         key={video.id}
@@ -67,7 +67,7 @@ function VideosMenu({ hasNFT, current, videoId, handleVideo }: Props) {
               ([section, { videos }]) =>
                 videos.length && (
                   <section key={`pay-${section}`} className="videos">
-                    <h3>{section}</h3>
+                    {section !== current?.name && <h3>{section}</h3>}
                     {videos.map((video) => (
                       <Video
                         key={video.id}
