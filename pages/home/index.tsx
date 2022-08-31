@@ -89,10 +89,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       }))
     ),
     courses: await Promise.all(
-      courses.map(async (course) => ({
-        ...course,
-        image: (await getImage(course.image)) || "",
-      }))
+      courses
+        .filter((course) => !!featured.findIndex((v) => v.id === course.id))
+        .map(async (course) => ({
+          ...course,
+          image: (await getImage(course.image)) || "",
+        }))
     ),
   };
   return { props: response };
