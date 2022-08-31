@@ -37,12 +37,7 @@ function Card({
   return (
     <CardContainer>
       <div className="other">
-        <NetworkBadge
-          height="1.5em"
-          width="1.5em"
-          network={rampp?.network}
-          onlyIcon
-        />
+        <NetworkBadge size={1.5} network={rampp?.network} onlyIcon />
         <FavoriteButton id={id} />
       </div>
 

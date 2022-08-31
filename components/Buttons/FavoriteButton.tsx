@@ -28,7 +28,7 @@ const Button = styled.button<ButtonStyles>`
         `}
 `;
 
-const size = 26;
+const size = 20;
 interface Props {
   id: string;
   onClick?: (_?: any) => any;

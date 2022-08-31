@@ -19,6 +19,8 @@ export const HomeContainer = styled.main`
       margin: 0.5rem 0 2rem 0;
       display: grid;
       grid-template-columns: repeat(1, 1fr);
+      gap: 1em;
+
       .add-course {
         display: flex;
         flex-flow: column;

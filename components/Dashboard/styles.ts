@@ -19,6 +19,7 @@ export const CardContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 0.75em;
+    z-index: 1;
   }
 
   font-family: Montserrat;

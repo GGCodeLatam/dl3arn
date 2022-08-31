@@ -10,6 +10,7 @@ interface Props {
   height?: string;
   toRight?: boolean;
   className?: string;
+  size?: string | number;
 }
 export function NetworkBadge({
   width,
@@ -17,12 +18,13 @@ export function NetworkBadge({
   network,
   toRight,
   onlyIcon,
+  size,
   ...styled
 }: Props) {
   if (!network) return null;
   const obj = networkIcons[network as NetworkNames];
   return (
-    <Badge width={width} height={height} {...styled}>
+    <Badge size={size} width={width} height={height} {...styled}>
       {!onlyIcon && !toRight && <p>{network}</p>}
       {obj?.icon && (
         <div className="img-container">

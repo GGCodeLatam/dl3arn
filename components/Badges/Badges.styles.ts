@@ -4,6 +4,7 @@ export interface BadgeProps {
   bg?: string;
   width?: string;
   height?: string;
+  size?: string | number;
   dark?: boolean;
 }
 export const Badge = styled.div<BadgeProps>`
@@ -31,6 +32,13 @@ export const Badge = styled.div<BadgeProps>`
       color: var(--dark);
     `}
 
+    ${({ size }) =>
+    size &&
+    css`
+      .img-container {
+        --size: ${size}em;
+      }
+    `}
   ${({ height }) =>
     height &&
     css`

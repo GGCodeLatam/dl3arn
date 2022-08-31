@@ -31,7 +31,7 @@ function VideosMenu({ hasNFT, current, videoId, handleVideo }: Props) {
         {current?.name}
       </button>
 
-      {!!Object.keys(pay).length && (
+      {!!Object.keys(free).length && (
         <section>
           <h2>gratuitos</h2>
 

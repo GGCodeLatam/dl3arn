@@ -84,10 +84,6 @@ export const FeaturedContainer = styled.div`
         font-weight: 400;
       }
     }
-    .right .icon {
-      width: 1.5em;
-      height: 1.5em;
-    }
   }
 
   @media screen and (min-width: ${breakpoints.tablet}) {
