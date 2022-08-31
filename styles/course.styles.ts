@@ -83,12 +83,6 @@ export const Container = styled.main<Props>`
       font-size: 0.85em;
       opacity: 0.5;
     }
-    .description {
-      font-size: 1rem;
-      letter-spacing: 0.25px;
-      line-height: 1.75em;
-      padding: 1em 0 0 0;
-    }
   }
 
   .right {
@@ -116,7 +110,7 @@ export const Container = styled.main<Props>`
     justify-content: space-between;
     gap: 1rem;
     align-items: center;
-    padding: 0 1em;
+    width: max-content;
 
     button {
       padding: 0.75rem 1rem;

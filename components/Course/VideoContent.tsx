@@ -1,11 +1,6 @@
 import { PrimaryButton } from "components/Buttons";
 import ShareButton from "components/Buttons/ShareButton";
-import {
-  BiChevronLeft,
-  BiChevronRight,
-  BiShare,
-  BiShareAlt,
-} from "react-icons/bi";
+import { BiChevronLeft, BiChevronRight, BiShareAlt } from "react-icons/bi";
 import { APIGetCourseById } from "utils/types/course";
 import { VideoContentContainer } from "./VideoContent.styles";
 
@@ -13,8 +8,8 @@ interface Props {
   name?: string;
   instructor?: string;
   courseName?: string;
-  next?: () => void;
-  prev?: () => void;
+  next?: null | (() => any);
+  prev?: null | (() => any);
   videoId?: string;
   course?: APIGetCourseById;
 }

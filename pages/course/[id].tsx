@@ -83,6 +83,9 @@ function Course({ course, path }: Props) {
   const prev = () => handleVideo(getVideo(-1));
   const next = () => handleVideo(getVideo(1));
 
+  const hasPrev = () => getVideo(-1);
+  const hasNext = () => getVideo(1);
+
   return (
     <>
       <OGTags
@@ -120,8 +123,8 @@ function Course({ course, path }: Props) {
                   imgUrl={course.image}
                   instructor={course.instructor}
                   description={course.description}
-                  prev={prev}
-                  next={next}
+                  prev={hasPrev() ? prev : null}
+                  next={hasNext() ? next : null}
                 />
               )}
 
@@ -132,8 +135,8 @@ function Course({ course, path }: Props) {
                   videoId={video.videoId}
                   instructor={course.instructor.name}
                   courseName={course.name}
-                  prev={prev}
-                  next={next}
+                  prev={hasPrev() ? prev : null}
+                  next={hasNext() ? next : null}
                 />
               )}
             </Loading>

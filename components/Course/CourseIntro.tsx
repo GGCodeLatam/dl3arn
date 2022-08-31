@@ -9,8 +9,8 @@ interface Props {
   instructor: CourseModel["instructor"];
   description: string;
 
-  next?: () => any;
-  prev?: () => any;
+  next?: null | (() => any);
+  prev?: null | (() => any);
 }
 function CourseIntro({
   description,
@@ -32,12 +32,11 @@ function CourseIntro({
           <h2 className="course-name">{name}</h2>
           <p className="instructor">by {instructor?.name}</p>
         </div>
-        <p className="description">{description}</p>
       </div>
-
+      <p className="description">{description}</p>
       <div className="video-options">
-        <PrimaryButton onClick={prev}>Anterior</PrimaryButton>
-        <PrimaryButton onClick={next}>Siguiente</PrimaryButton>
+        {prev && <PrimaryButton onClick={prev}>Anterior</PrimaryButton>}
+        {next && <PrimaryButton onClick={next}>Siguiente</PrimaryButton>}
       </div>
     </CourseIntroContainer>
   );
