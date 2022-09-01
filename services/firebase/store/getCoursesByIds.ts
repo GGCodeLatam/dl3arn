@@ -4,7 +4,7 @@ import { db } from "..";
 
 async function getCoursesByIds(ids: string[]) {
   const snapshots = await Promise.all(
-    ids.map((id) => getDoc(doc(db, "courses", id)))
+    ids?.map((id) => getDoc(doc(db, "courses", id))) || []
   );
 
   const courses: CourseModel[] = [];
