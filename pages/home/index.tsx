@@ -78,7 +78,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const [featured, courses] = await Promise.all([
     getCoursesByIds(dl3arn.pinned),
-    getCourses(),
+    getCourses({}),
   ]);
 
   const response: Props = {
@@ -88,15 +88,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         image: (await getImage(course.image)) || "",
       }))
     ),
-    courses: await Promise.all(
-      courses
-        .filter((course) => !!featured.findIndex((v) => v.id === course.id))
-        .map(async (course) => ({
+    courses: (
+      await Promise.all(
+        courses.map(async (course) => ({
           ...course,
           image: (await getImage(course.image)) || "",
         }))
-    ),
+      )
+    ).filter((course) => !!featured.findIndex((f) => f.name === course.name)),
   };
+
   return { props: response };
 }
 

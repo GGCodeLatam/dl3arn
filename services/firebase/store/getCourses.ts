@@ -4,7 +4,10 @@ import { coursesCollection } from "./collections";
 
 const q = query(coursesCollection, orderBy("created_at", "desc"));
 
-async function getCourses() {
+interface Props {
+  pinned?: string[];
+}
+async function getCourses({}: Props) {
   const snapshots = await getDocs(q);
 
   const courses: CourseModel[] = [];
