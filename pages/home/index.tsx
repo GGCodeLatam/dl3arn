@@ -95,7 +95,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           image: (await getImage(course.image)) || "",
         }))
       )
-    ).filter((course) => !!featured.findIndex((f) => f.name === course.name)),
+    ).filter((course) =>
+      featured.findIndex((f) => f.id === course.id) === -1 ? true : false
+    ),
   };
 
   return { props: response };
