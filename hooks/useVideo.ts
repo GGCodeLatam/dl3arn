@@ -13,7 +13,7 @@ interface Params {
 interface Data {
   error: { message: string } | null;
   isLoading: boolean;
-  video: Partial<APIGetVideoById>;
+  video: Partial<APIGetVideoById> | null;
 }
 
 const empty: Data = {
