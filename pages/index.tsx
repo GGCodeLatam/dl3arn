@@ -34,6 +34,10 @@ function Home({ featured, courses }: Props) {
       </Head>
       <>
         <HomeContainer>
+          <h1>
+            Bienvenidos a la primer plataforma de cursos online con tecnología
+            blockchain!
+          </h1>
           <ContactUs>
             <div className="decoration">
               <div className="tr1" />
