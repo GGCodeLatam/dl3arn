@@ -42,7 +42,7 @@ function Signup() {
           <h1>Sign up</h1>
           <div className="container">
             <FacebookButton />
-            <GoogleButton />
+            <GoogleButton onError={(err) => setError(err.message)} />
             <p className="separator">
               <span>Or</span>
             </p>
