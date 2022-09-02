@@ -24,7 +24,7 @@ interface Props {
 }
 function Home({ featured, courses }: Props) {
   const [main, ...others] = featured;
-  const cards = Array.from({ length: 3 }).map(
+  const cards = Array.from({ length: 3 })?.map(
     (_, i) => others[i] && <Card key={i} {...others[i]} />
   );
 
@@ -85,14 +85,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     featured: await Promise.all(
       featured.map(async (course) => ({
         ...course,
-        image: (await getImage(course.image)) || "",
+        image: await getImage(course.image),
       }))
     ),
     courses: (
       await Promise.all(
         courses.map(async (course) => ({
           ...course,
-          image: (await getImage(course.image)) || "",
+          image: await getImage(course.image),
         }))
       )
     ).filter((course) =>

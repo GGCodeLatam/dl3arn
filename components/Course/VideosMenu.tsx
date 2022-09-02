@@ -4,6 +4,13 @@ import { VideoSafeProps } from "utils/types/video";
 import Video from "./Video";
 import { VideosContainer } from "./Vides.style";
 
+type SectionOrNull = Sections<{
+  position: number;
+  videos: VideoSafeProps[];
+}>;
+
+type ArrayOrNull = VideoSafeProps[];
+
 interface Props {
   videoId?: string | null;
   hasNFT: boolean;
@@ -11,19 +18,33 @@ interface Props {
   handleVideo: (_?: string) => any;
 }
 function VideosMenu({ hasNFT, current, videoId, handleVideo }: Props) {
-  const free: Sections<{ position: number; videos: VideoSafeProps[] }> = {};
-  const pay: Sections<{ position: number; videos: VideoSafeProps[] }> = {};
+  const free: SectionOrNull = {};
+  const pay: SectionOrNull = {};
 
-  Object.entries(current?.sections || {}).forEach(([name, data]) => {
-    const freeVideos = data.videos.filter((video) => video.free);
-    const payVideos = data.videos.filter((video) => !video.free);
+  const freeArray: ArrayOrNull = [];
+  const payArray: ArrayOrNull = [];
 
-    if (freeVideos.length)
-      free[name] = { position: data.position, videos: freeVideos };
+  if (
+    typeof current?.sections === "object" &&
+    Array.isArray(current?.sections)
+  ) {
+    freeArray.push(...current.sections.filter((video) => video.free));
+    payArray.push(...current.sections.filter((video) => !video.free));
+  }
+  if (
+    typeof current?.sections === "object" &&
+    !Array.isArray(current?.sections)
+  ) {
+    Object.entries(current?.sections || {}).forEach(([name, data]) => {
+      const freeVideos = data.videos.filter((video) => video.free);
+      const payVideos = data.videos.filter((video) => !video.free);
 
-    if (payVideos.length)
-      pay[name] = { position: data.position, videos: payVideos };
-  });
+      if (freeVideos.length)
+        free[name] = { position: data.position, videos: freeVideos };
+      if (payVideos.length)
+        pay[name] = { position: data.position, videos: payVideos };
+    });
+  }
 
   return (
     <VideosContainer>
@@ -31,7 +52,7 @@ function VideosMenu({ hasNFT, current, videoId, handleVideo }: Props) {
         {current?.name}
       </button>
 
-      {!!Object.keys(free).length && (
+      {free && !!Object.keys(free).length && (
         <section>
           <h2>gratuitos</h2>
 
@@ -58,7 +79,7 @@ function VideosMenu({ hasNFT, current, videoId, handleVideo }: Props) {
         </section>
       )}
 
-      {!!Object.keys(pay).length && (
+      {pay && !!Object.keys(pay).length && (
         <section>
           <h2>pagos</h2>
           {Object.entries(pay)
@@ -83,6 +104,25 @@ function VideosMenu({ hasNFT, current, videoId, handleVideo }: Props) {
             .filter((video) => !!video)}
         </section>
       )}
+
+      {freeArray?.map((video) => (
+        <Video
+          key={video.id}
+          selected={videoId === video.id}
+          onClick={() => handleVideo(video.id)}
+          hasNFT={hasNFT}
+          video={video}
+        />
+      ))}
+      {payArray?.map((video) => (
+        <Video
+          key={video.id}
+          selected={videoId === video.id}
+          onClick={() => handleVideo(video.id)}
+          hasNFT={hasNFT}
+          video={video}
+        />
+      ))}
     </VideosContainer>
   );
 }

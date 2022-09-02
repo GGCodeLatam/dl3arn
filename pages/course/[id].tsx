@@ -24,9 +24,15 @@ import { FaTimes } from "react-icons/fa";
 
 interface Props {
   course: APIGetCourseById;
-  path: string;
+  meta: {
+    description: string;
+    image: string;
+    title: string;
+    type: string;
+    url: string;
+  };
 }
-function Course({ course, path }: Props) {
+function Course({ course, meta }: Props) {
   const { state, show, hide } = useShow({});
   const router = useRouter();
   const {
@@ -42,10 +48,15 @@ function Course({ course, path }: Props) {
 
   const videos: VideoSafeProps[] = [];
 
-  Object.values(course?.sections || {})
-    .sort((a, b) => a.position - b.position)
-    .map((section) => section.videos.map((video) => videos.push(video)));
-  course;
+  if (typeof course?.sections === "object" && Array.isArray(course.sections)) {
+    videos.push(...course.sections);
+  }
+  if (typeof course?.sections === "object" && !Array.isArray(course.sections)) {
+    Object.values(course?.sections || {})
+      .sort((a, b) => a.position - b.position)
+      .map((section) => section.videos.map((video) => videos.push(video)));
+  }
+
   const isFree = videos.filter((video) => video.id === videoId)![0]?.free;
 
   const { video, isLoading } = useVideo({
@@ -60,7 +71,7 @@ function Course({ course, path }: Props) {
     _id === null
       ? null
       : Router.push({
-          pathname: `/course/${course.id}`,
+          pathname: `/course/${course?.id}`,
           query: { videoId: _id || "" },
         });
 
@@ -89,11 +100,11 @@ function Course({ course, path }: Props) {
   return (
     <>
       <OGTags
-        description={course.description}
-        image={course.image}
-        title={course.name}
-        type="website"
-        url={path}
+        description={meta.description}
+        image={meta.image}
+        title={meta.title}
+        type={meta.type}
+        url={meta.url}
       />
 
       {!userIsLoading && (
@@ -183,7 +194,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const props: Props = {
     course,
-    path: fullURL,
+    meta: {
+      description: course?.description || "",
+      image: course?.image || "",
+      title: course?.name || "",
+      type: "website",
+      url: fullURL,
+    },
   };
   return {
     props,
