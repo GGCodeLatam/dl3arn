@@ -1,8 +1,6 @@
 import { NetworkBadge } from "components/Badges";
 import FavoriteButton from "components/Buttons/FavoriteButton";
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getImage } from "services/firebase/storage";
 import { ClockIcon, FireIcon } from "utils/icons";
 import { CourseModel } from "utils/types/firebase";
 
@@ -58,7 +56,7 @@ function Card({
                     <ClockIcon size={14} /> {total_duration}
                   </time>
                 )}
-                {score && (
+                {!!Number(score) && (
                   <p>
                     <FireIcon size={14} /> {score}
                   </p>
