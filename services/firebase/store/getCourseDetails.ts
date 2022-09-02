@@ -1,27 +1,13 @@
 import { doc, getDoc } from "firebase/firestore";
+import { APIGetCourseById } from "utils/types/course";
 import { CourseModel, VideoModel } from "utils/types/firebase";
-import { Override } from "utils/types/utility";
 import { VideoSafeProps } from "utils/types/video";
 import { addDurationToVideos } from "utils/youtube";
 import { db } from "..";
 import { getImage } from "../storage";
 import getVideo from "./getVideo";
 
-type Course = Override<
-  CourseModel,
-  {
-    sections:
-      | {
-          [key: string]: {
-            position: number;
-            videos: Partial<VideoSafeProps>[];
-          };
-        }
-      | Partial<VideoSafeProps>[]
-      | null;
-  }
->;
-async function getCourseDetails(id: string): Promise<Course | null> {
+async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
   try {
     const courseRef = await getDoc(doc(db, "courses", id));
     const course = { id: courseRef.id, ...courseRef.data() } as CourseModel;
