@@ -23,6 +23,7 @@ const new_course: Omit<Replace, Not> = {
   },
   score: 0,
   total_duration: "",
+  opensea: "",
   sections: {
     "Curso de prueba": {
       position: 0,
