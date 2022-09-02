@@ -8,9 +8,12 @@ export type APIGetCourseById = Override<
   {
     sections:
       | {
-          [key: string]: { position: number; videos: VideoSafeProps[] };
+          [key: string]: {
+            position: number;
+            videos: Partial<VideoSafeProps>[];
+          };
         }
-      | VideoSafeProps[]
+      | Partial<VideoSafeProps>[]
       | null;
   }
 > | null;

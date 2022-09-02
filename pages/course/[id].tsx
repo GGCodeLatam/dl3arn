@@ -46,7 +46,7 @@ function Course({ course, meta }: Props) {
 
   const { locked } = useCourse({ course: course });
 
-  const videos: VideoSafeProps[] = [];
+  const videos: Partial<VideoSafeProps>[] = [];
 
   if (typeof course?.sections === "object" && Array.isArray(course.sections)) {
     videos.push(...course.sections);
@@ -62,7 +62,7 @@ function Course({ course, meta }: Props) {
   const { video, isLoading } = useVideo({
     video: {
       id: (videoId as string | undefined) || "",
-      free: isFree,
+      free: isFree || false,
     },
     locked: locked,
   });
