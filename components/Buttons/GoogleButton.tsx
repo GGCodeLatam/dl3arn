@@ -1,5 +1,6 @@
+import { useAuth } from "context/firebase";
+import { useRouter } from "next/router";
 import { FcGoogle } from "react-icons/fc";
-import { login } from "services/firebase/auth";
 import styled from "styled-components";
 import Button from "./Button";
 
@@ -22,13 +23,21 @@ const Container = styled(Button)`
   }
 `;
 
-function GoogleButton() {
-  const onClick = () => {
-    login!({}, "google");
+interface Props {
+  onError(_: any): any;
+}
+function GoogleButton({ onError }: Props) {
+  const { login } = useAuth();
+  const router = useRouter();
+
+  const onClick = async () => {
+    const res = await login!({}, "google");
+    if (!res.error) return router.back();
+    return onError(res.error);
   };
 
   return (
-    <Container onClick={onClick}>
+    <Container type="button" onClick={onClick}>
       <FcGoogle size={20} /> <span>Connect with Google</span>
     </Container>
   );

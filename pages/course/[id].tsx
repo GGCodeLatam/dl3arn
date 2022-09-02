@@ -21,6 +21,7 @@ import OGTags from "components/SEO";
 import useShow from "hooks/useShow";
 import { BiChevronRight } from "react-icons/bi";
 import { FaTimes } from "react-icons/fa";
+import PrivateRoute from "components/PrivateRoute";
 
 interface Props {
   course: APIGetCourseById;
@@ -107,7 +108,7 @@ function Course({ course, meta }: Props) {
         url={meta.url}
       />
 
-      {!userIsLoading && (
+      <PrivateRoute verified>
         <Container showMenu={state}>
           <div className="left">
             <button className="close" onClick={hide}>
@@ -173,7 +174,7 @@ function Course({ course, meta }: Props) {
             )}
           </div>
         </Container>
-      )}
+      </PrivateRoute>
     </>
   );
 }
@@ -182,6 +183,7 @@ export default Course;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query as { id: string };
+  console.log(context);
 
   const course = await getCourseDetails(id);
 

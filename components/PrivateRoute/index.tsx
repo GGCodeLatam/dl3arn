@@ -1,6 +1,7 @@
 import { useAuth } from "context/firebase";
 import { useRouter } from "next/router";
 import { ReactNode, useEffect } from "react";
+import routes from "utils/routes";
 
 interface Props {
   children: ReactNode;
@@ -14,10 +15,10 @@ function PrivateRoute({ children, verified }: Props) {
 
   useEffect(() => {
     if (isLoading) return;
-    if (!user) router.replace("/");
+    if (!user) router.push(routes.login.path);
   }, [user, isLoading, verified, router]);
 
-  return <>{!isLoading && children}</>;
+  return <>{!isLoading && user && children}</>;
 }
 
 export default PrivateRoute;

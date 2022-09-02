@@ -22,7 +22,6 @@ const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
 );
 
 const blue_theme: { [key: string]: boolean } = {
-  [routes.landing.path]: true,
   [routes.roadmap.path]: true,
   [routes.quienes.path]: true,
 };
@@ -44,9 +43,7 @@ function Navbar() {
       <Nav isBlue={!!blue_theme[router.pathname]}>
         <div className="wrapper">
           <div className="left">
-            <Link
-              href={!isLoading && user ? routes.home.path : routes.landing.path}
-            >
+            <Link href={routes.landing.path}>
               <a className="logo">
                 <div className="img">
                   <Image layout="fill" src={Logo} alt="dl3arn" />
@@ -59,20 +56,6 @@ function Navbar() {
           <div className="middle">{/*<SearchBar />*/}</div>
 
           <ul className="right">
-            {!isLoading && !user && (
-              <>
-                <li>
-                  <NavLink href={routes.landing.path}>Home</NavLink>
-                </li>
-                <li>
-                  <NavLink href={routes.roadmap.path}>Roadmap</NavLink>
-                </li>
-                <li>
-                  <NavLink href={routes.quienes.path}>Quienes Somos</NavLink>
-                </li>
-              </>
-            )}
-
             {!isLoading && user ? (
               <>
                 <li>

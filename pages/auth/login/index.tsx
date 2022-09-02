@@ -9,12 +9,13 @@ import { FormEvent, useState } from "react";
 import GoogleButton from "components/Buttons/GoogleButton";
 import Link from "next/link";
 import FacebookButton from "components/Buttons/FacebookButton";
-import useRedirectOnAuthenticated from "hooks/useRedirectOnAuthenticated";
-import { login } from "services/firebase/auth";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { useAuth } from "context/firebase";
 
 function Login() {
-  useRedirectOnAuthenticated();
+  const router = useRouter();
+  const { login } = useAuth();
 
   const { inputs, onChange } = useForm(loginInputs);
   const [error, setError] = useState<string | null>(null);
@@ -25,12 +26,15 @@ function Login() {
       email: inputs.email.value,
       password: inputs.password.value,
     };
+
     const res = await login!(values, "email");
 
     if (res.error) {
       setError(res.error.message);
       setTimeout(() => setError(null), 5000);
-    } else setError(null);
+    } else {
+      router.back();
+    }
   };
 
   return (
@@ -44,7 +48,7 @@ function Login() {
 
           <div className="container">
             <FacebookButton />
-            <GoogleButton />
+            <GoogleButton onError={(err) => setError(err.message)} />
 
             <p className="separator">
               <span>Or</span>

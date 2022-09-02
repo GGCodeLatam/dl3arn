@@ -1,7 +1,6 @@
 import { useAuth } from "context/firebase";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import routes from "utils/routes";
 
 function useRedirectOnAuthenticated() {
   const router = useRouter();
@@ -10,7 +9,7 @@ function useRedirectOnAuthenticated() {
   } = useAuth();
 
   useEffect(() => {
-    if (!isLoading && user) router.replace(routes.home.path);
+    if (!isLoading && user) router.back();
   }, [router, isLoading, user]);
 
   return { user, isLoading };

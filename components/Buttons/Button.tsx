@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { HTMLAttributes, HTMLProps, ReactNode } from "react";
 import styled from "styled-components";
 
 const BaseButton = styled.button`
@@ -20,6 +20,7 @@ const BaseButton = styled.button`
 `;
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
+  type?: "button" | "submit" | "reset";
 }
 
 function Button({ children, ...other }: ButtonProps) {
