@@ -5,7 +5,7 @@ import { VideoSafeProps } from "utils/types/video";
 import { Container } from "./Video.style";
 
 interface Props {
-  video: VideoSafeProps | null;
+  video: Partial<VideoSafeProps> | null;
   onClick(): any;
   selected: boolean;
   hasNFT: boolean;

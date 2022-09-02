@@ -6,10 +6,10 @@ import { VideosContainer } from "./Vides.style";
 
 type SectionOrNull = Sections<{
   position: number;
-  videos: VideoSafeProps[];
+  videos: Partial<VideoSafeProps>[];
 }>;
 
-type ArrayOrNull = VideoSafeProps[];
+type ArrayOrNull = Partial<VideoSafeProps>[];
 
 interface Props {
   videoId?: string | null;
