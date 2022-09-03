@@ -49,7 +49,7 @@ function VideosMenu({ hasNFT, current, videoId, handleVideo }: Props) {
   return (
     <VideosContainer>
       <button className="course" onClick={() => handleVideo()}>
-        {current?.name}
+        <h1>{current?.name}</h1>
       </button>
 
       {free && !!Object.keys(free).length && (
