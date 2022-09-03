@@ -30,20 +30,28 @@ function Home({ featured, courses }: Props) {
   return (
     <>
       <Head>
-        <title key="title">DL3ARN | Home</title>
+        <title key="title">
+          Cursos online con tecnología blockchain | DL3ARN
+        </title>
+        <meta
+          key="desciption"
+          name="description"
+          content="Bienvenidos a la primer plataforma de cursos online con tecnología
+          blockchain!"
+        />
       </Head>
       <>
         <HomeContainer>
-          <h1>
-            Bienvenidos a la primer plataforma de cursos online con tecnología
-            blockchain!
-          </h1>
           <ContactUs>
             <div className="decoration">
               <div className="tr1" />
               <div className="tr2" />
             </div>
             <div className="info">
+              <h1>
+                Bienvenidos a la primer plataforma de cursos online con
+                tecnología blockchain!
+              </h1>
               <p>Si quieres subir tu curso a nuestra plataforma contactanos!</p>
               <a className="dl3arn-mail" href={`mailto:${contact.email}`}>
                 {contact.email}

@@ -112,10 +112,18 @@ export const ContactUs = styled.section`
     position: relative;
     padding: 0 1em;
 
+    h1,
     p {
-      font-weight: bold;
-      font-size: 0.9em;
       text-align: center;
+    }
+
+    h1 {
+      font-size: 1em;
+      margin: 1em 0;
+    }
+    p {
+      font-weight: light;
+      font-size: 0.7em;
     }
     .dl3arn-mail {
       background-color: var(--primary);
@@ -123,9 +131,9 @@ export const ContactUs = styled.section`
       box-shadow: -48px -61px 52px -40px #ffd700 inset;
       color: #fff;
       display: block;
-      font-size: 0.65em;
+      font-size: 0.6em;
       font-weight: 500;
-      margin: 1rem auto 0 auto;
+      margin: 0.75em auto 0 auto;
       padding: 0.5em 1em;
       width: max-content;
     }
@@ -139,12 +147,21 @@ export const ContactUs = styled.section`
       display: block;
     }
     .info {
+      h1,
       p {
         text-align: left;
         width: 85%;
       }
+      h1 {
+        font-size: 1em;
+      }
+      p {
+        font-size: 0.55em;
+        margin: 0.5em 0;
+      }
       .dl3arn-mail {
-        margin: 1rem 0 0 0;
+        font-size: 0.55em;
+        margin: 0 0 0 0;
       }
     }
   }
