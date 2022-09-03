@@ -49,9 +49,6 @@ const App = ({ Component, pageProps }: AppProps) => {
     <FirebaseProvider>
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains} theme={darkTheme()}>
-          <Head>
-            <title key="title">DL3ARN</title>
-          </Head>
           <GlobalStyle />
           <Layout>
             <Component {...pageProps} />

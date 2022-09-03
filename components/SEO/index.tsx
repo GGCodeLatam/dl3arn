@@ -10,6 +10,8 @@ interface Props {
 function OGTags({ image, type, title, url, description }: Props) {
   return (
     <Head>
+      <title key="title">{title}</title>
+      <meta key="description" name="description" content={description} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
       <meta property="og:title" content={title} />

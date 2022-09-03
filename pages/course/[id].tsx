@@ -183,7 +183,6 @@ export default Course;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query as { id: string };
-  console.log(context);
 
   const course = await getCourseDetails(id);
 
@@ -199,7 +198,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     meta: {
       description: course?.description || "",
       image: course?.image || "",
-      title: course?.name || "",
+      title: `${course?.name ? `${course.name} |` : ""}  DL3ARN`,
       type: "website",
       url: fullURL,
     },

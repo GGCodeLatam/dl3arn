@@ -40,44 +40,42 @@ function Home({ featured, courses }: Props) {
           blockchain!"
         />
       </Head>
-      <>
-        <HomeContainer>
-          <ContactUs>
-            <div className="decoration">
-              <div className="tr1" />
-              <div className="tr2" />
-            </div>
-            <div className="info">
-              <h1>
-                Bienvenidos a la primer plataforma de cursos online con
-                tecnología blockchain!
-              </h1>
-              <p>Si quieres subir tu curso a nuestra plataforma contactanos!</p>
-              <a className="dl3arn-mail" href={`mailto:${contact.email}`}>
-                {contact.email}
-              </a>
-            </div>
-          </ContactUs>
+      <HomeContainer>
+        <ContactUs>
+          <div className="decoration">
+            <div className="tr1" />
+            <div className="tr2" />
+          </div>
+          <div className="info">
+            <h1>
+              Bienvenidos a la primer plataforma de cursos online con tecnología
+              blockchain!
+            </h1>
+            <p>Si quieres subir tu curso a nuestra plataforma contactanos!</p>
+            <a className="dl3arn-mail" href={`mailto:${contact.email}`}>
+              {contact.email}
+            </a>
+          </div>
+        </ContactUs>
 
-          <section>
-            {featured ? (
-              <Featured course={main} badge />
-            ) : (
-              <FeaturedPlaceholder />
-            )}
-            <div className="cards">{cards}</div>
-          </section>
+        <section>
+          {featured ? (
+            <Featured course={main} badge />
+          ) : (
+            <FeaturedPlaceholder />
+          )}
+          <div className="cards">{cards}</div>
+        </section>
 
-          <section>
-            <h2>cursos</h2>
-            <ul className="list">
-              {courses.map((course) => (
-                <Card key={course.id} {...course} />
-              ))}
-            </ul>
-          </section>
-        </HomeContainer>
-      </>
+        <section>
+          <h2>cursos</h2>
+          <ul className="list">
+            {courses.map((course) => (
+              <Card key={course.id} {...course} />
+            ))}
+          </ul>
+        </section>
+      </HomeContainer>
     </>
   );
 }

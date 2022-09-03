@@ -16,7 +16,6 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
       const ids = course.sections.map((id) => id);
 
       const videos = await Promise.all(ids.map(getVideo));
-      console.log(videos);
 
       const videosWithDuration = videos.length
         ? await addDurationToVideos(
