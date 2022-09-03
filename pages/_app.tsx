@@ -43,7 +43,6 @@ const wagmiClient = createClient({
 
 const App = ({ Component, pageProps }: AppProps) => {
   useChat({ url: HUBSPOT });
-  console.log("DL3ARN");
 
   return (
     <FirebaseProvider>

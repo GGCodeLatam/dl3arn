@@ -7,21 +7,20 @@ import Placeholder from "components/Placeholders";
 import VideoContent from "components/Course/VideoContent";
 import CourseIntro from "components/Course/CourseIntro";
 
-import { Container } from "styles/course.styles";
+import OGTags from "components/SEO";
+import OpenSeaButton from "components/Buttons/OpenSeaButton";
+import PrivateRoute from "components/PrivateRoute";
+import Router, { useRouter } from "next/router";
 import VideosMenu from "components/Course/VideosMenu";
+import getCourseDetails from "services/firebase/store/getCourseDetails";
+import useShow from "hooks/useShow";
+import { APIGetCourseById } from "utils/types/course";
+import { BiChevronRight } from "react-icons/bi";
+import { Container } from "styles/course.styles";
+import { FaTimes } from "react-icons/fa";
+import { GetServerSidePropsContext } from "next";
 import { NetworkBadge } from "components/Badges";
 import { VideoSafeProps } from "utils/types/video";
-import OpenSeaButton from "components/Buttons/OpenSeaButton";
-import Router, { useRouter } from "next/router";
-import { GetServerSidePropsContext } from "next";
-import getCourseDetails from "services/firebase/store/getCourseDetails";
-import { APIGetCourseById } from "utils/types/course";
-import { useAuth } from "context/firebase";
-import OGTags from "components/SEO";
-import useShow from "hooks/useShow";
-import { BiChevronRight } from "react-icons/bi";
-import { FaTimes } from "react-icons/fa";
-import PrivateRoute from "components/PrivateRoute";
 
 interface Props {
   course: APIGetCourseById;
@@ -36,9 +35,6 @@ interface Props {
 function Course({ course, meta }: Props) {
   const { state, show, hide } = useShow({});
   const router = useRouter();
-  const {
-    data: { isLoading: userIsLoading },
-  } = useAuth();
 
   const { videoId } = router.query as {
     id: string;
@@ -198,11 +194,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     meta: {
       description: course?.description || "",
       image: course?.image || "",
-      title: `${course?.name ? `${course.name} |` : ""}  DL3ARN`,
+      title: `${course?.name ? `${course.name} | ` : ""}DL3ARN`,
       type: "website",
       url: fullURL,
     },
   };
+  console.log(props.meta.title);
   return {
     props,
   };
