@@ -1,16 +1,20 @@
-import { doc, getDoc } from "firebase/firestore";
+import { getDocs, query, where } from "firebase/firestore";
 import { APIGetCourseById } from "utils/types/course";
 import { CourseModel, VideoModel } from "utils/types/firebase";
 import { VideoSafeProps } from "utils/types/video";
 import { addDurationToVideos } from "utils/youtube";
-import { db } from "..";
 import { getImage } from "../storage";
+import { coursesCollection } from "./collections";
 import getVideo from "./getVideo";
 
 async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
   try {
-    const courseRef = await getDoc(doc(db, "courses", id));
-    const course = { id: courseRef.id, ...courseRef.data() } as CourseModel;
+    const q = query(coursesCollection, where("url", "==", id));
+    const qsnap = await getDocs(q);
+    const course = {
+      id: qsnap.docs[0].id,
+      ...qsnap.docs[0].data(),
+    } as CourseModel;
 
     if (Array.isArray(course.sections)) {
       const ids = course.sections.map((id) => id);

@@ -68,7 +68,7 @@ function Course({ course, meta }: Props) {
     _id === null
       ? null
       : Router.push({
-          pathname: `/course/${course?.id}`,
+          pathname: `/course/${course?.url}`,
           query: { videoId: _id || "" },
         });
 

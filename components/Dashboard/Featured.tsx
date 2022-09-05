@@ -15,7 +15,7 @@ interface Props {
 function Featured({ badge, course }: Props) {
   return (
     <FeaturedContainer>
-      <Link href={`/course/${course.id}`}>
+      <Link href={`/course/${course.url}`}>
         <a className="header-container">
           {course.image ? (
             <div>

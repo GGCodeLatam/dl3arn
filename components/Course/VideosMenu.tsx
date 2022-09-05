@@ -2,7 +2,7 @@ import { APIGetCourseById } from "utils/types/course";
 import { Sections } from "utils/types/firebase";
 import { VideoSafeProps } from "utils/types/video";
 import Video from "./Video";
-import { VideosContainer } from "./Vides.style";
+import { VideosContainer } from "./Videos.style";
 
 type SectionOrNull = Sections<{
   position: number;

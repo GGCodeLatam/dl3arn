@@ -15,6 +15,7 @@ type Get =
   | "name"
   | "score"
   | "total_duration"
+  | "url"
   | "rampp";
 type CardProps = Pick<CourseModel, Get>;
 
@@ -26,6 +27,7 @@ function Card({
   score,
   total_duration,
   rampp,
+  url,
 }: CardProps) {
   return (
     <CardContainer>
@@ -34,7 +36,7 @@ function Card({
         <FavoriteButton id={id} />
       </div>
 
-      <Link href={`/course/${id}`}>
+      <Link href={`/course/${url}`}>
         <a className="content">
           <header>
             {image && (

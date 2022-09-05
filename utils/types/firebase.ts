@@ -94,6 +94,7 @@ export interface CourseModel {
   score: number;
   sections: Sections;
   total_duration: string | null;
+  url: string;
 }
 
 export type Network = "polygon";

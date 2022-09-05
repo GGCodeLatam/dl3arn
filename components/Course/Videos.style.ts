@@ -51,11 +51,14 @@ export const VideosContainer = styled.div`
     position: relative;
     background-color: transparent;
     border: none;
-    font-size: 1.25rem;
-    font-weight: 800;
     padding: 1.5rem 1rem;
     text-align: left;
     width: 100%;
+
+    h1 {
+      font-size: 1.5em;
+      font-weight: 800;
+    }
   }
 
   .course.active {
