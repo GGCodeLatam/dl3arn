@@ -8,7 +8,9 @@ const event = (name: string, params?: Params) => {
     if (!MIXPANEL_KEY) return null;
     mixpanel.init(MIXPANEL_KEY);
     mixpanel.track(name, params);
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const signUp = (params?: Params) => event("signup", params);

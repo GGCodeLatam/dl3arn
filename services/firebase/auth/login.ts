@@ -25,10 +25,9 @@ export const login: Login = async ({ email, password }, provider = "email") => {
     const handler = providers[provider];
     const data = await handler();
 
-    if (!data || !data.user) return { error: null, user: null };
-
     mixpanelLogin({ email: data.user.email });
 
+    if (!data || !data.user) return { error: null, user: null };
     return { error: null, user: data };
   } catch (e: any) {
     const { code } = e as { code: string };
