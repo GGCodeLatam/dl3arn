@@ -36,9 +36,9 @@ function Course({ course, meta }: Props) {
   const { state, show, hide } = useShow({});
   const router = useRouter();
 
-  const { videoId } = router.query as {
+  const { v } = router.query as {
     id: string;
-    videoId?: string | null;
+    v?: string | null;
   };
 
   const { locked } = useCourse({ course: course });
@@ -54,11 +54,11 @@ function Course({ course, meta }: Props) {
       .map((section) => section.videos.map((video) => videos.push(video)));
   }
 
-  const isFree = videos.filter((video) => video.id === videoId)![0]?.free;
+  const isFree = videos.filter((video) => video.id === v)![0]?.free;
 
   const { video, isLoading } = useVideo({
     video: {
-      id: (videoId as string | undefined) || "",
+      id: (v as string | undefined) || "",
       free: isFree || false,
     },
     locked: locked,
@@ -69,7 +69,7 @@ function Course({ course, meta }: Props) {
       ? null
       : Router.push({
           pathname: `/course/${course?.url}`,
-          query: { videoId: _id || "" },
+          query: { v: _id || "" },
         });
 
   const getVideo = (diff: number) => {
@@ -77,9 +77,9 @@ function Course({ course, meta }: Props) {
     const available = videos
       .sort((a, b) => Number(b.free) - Number(a.free))
       .filter((video) => !!video.duration);
-    if (available && !videoId) return available[0].id;
+    if (available && !v) return available[0].id;
 
-    const videoIndex = available?.findIndex((video) => video.id === videoId);
+    const videoIndex = available?.findIndex((video) => video.id === v);
     if (typeof videoIndex !== "number" || videoIndex === -1 || !available)
       return null;
 
@@ -112,7 +112,7 @@ function Course({ course, meta }: Props) {
             </button>
             <VideosMenu
               current={course}
-              videoId={videoId}
+              videoId={v}
               handleVideo={handleVideo}
               hasNFT={!locked}
             />
@@ -199,7 +199,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       url: fullURL,
     },
   };
-  console.log(props.meta.title);
   return {
     props,
   };
