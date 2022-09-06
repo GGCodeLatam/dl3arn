@@ -61,12 +61,12 @@ function Navbar() {
             </Link>
 
             <div className="categories">
-              <button>categorias</button>
+              <button className="link">categorias</button>
               <ul className="categories-list">
                 {categories.map((category) => (
                   <li key={category}>
                     <Link href={`/courses/${category}`}>
-                      <a>{category}</a>
+                      <a className="link">{category}</a>
                     </Link>
                   </li>
                 ))}

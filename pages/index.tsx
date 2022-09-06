@@ -13,12 +13,8 @@ import { getImage } from "services/firebase/storage";
 
 import { CourseModel } from "utils/types/firebase";
 
-import {
-  FeaturedPlaceholderContainer,
-  HomeContainer,
-} from "styles/home.styles";
+import { HomeContainer } from "styles/home.styles";
 import OurCourses from "components/Landing/OurCourses";
-import Categories from "components/Landing/Categories";
 
 interface Props {
   data: {

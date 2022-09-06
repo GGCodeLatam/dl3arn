@@ -22,6 +22,7 @@ function Category({ category, courses, meta }: Props) {
     <>
       <Head>
         <title key="title">{meta.title}</title>
+        <meta key="desciption" name="description" content={meta.description} />
       </Head>
 
       <CategoryContainer>

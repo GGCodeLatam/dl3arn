@@ -186,10 +186,13 @@ export const Nav = styled.nav<NavProps>`
   .categories {
     position: relative;
 
+    height: 75%;
+
     button {
       display: flex;
       align-items: center;
       background-color: transparent;
+      height: 100%;
     }
 
     .categories-list {
@@ -201,17 +204,23 @@ export const Nav = styled.nav<NavProps>`
 
       position: absolute;
       top: 100%;
-      left: 0;
+      left: 50%;
+      transform: translate(-50%, 0);
       z-index: 9999;
       font-size: 0.75em;
-      width: max-content;
+      width: 150px;
+      min-width: max-content;
+      max-width: 300px;
       padding: 0.5em;
+      background-color: #fff;
 
       a {
-        opacity: 0.75;
+        opacity: 0.5;
         display: flex;
         align-items: center;
         padding: 0.5em 0.75em;
+        width: 100%;
+        font-size: 1em;
       }
       a:hover {
         opacity: 1;
