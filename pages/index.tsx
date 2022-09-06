@@ -37,8 +37,6 @@ function Home({ data, meta }: Props) {
         <OurCourses main={main} more={more} />
 
         <section>
-          <h2>Cursos</h2>
-
           <ul className="list">
             {courses.map((course) => (
               <Card key={course.id} {...course} />

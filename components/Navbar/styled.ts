@@ -180,6 +180,7 @@ export const Nav = styled.nav<NavProps>`
         flex-flow: row;
         align-items: center;
         justify-content: left;
+        text-transform: capitalize;
         gap: 1em;
         padding: 0.5em 0 0.5em 0;
         > * {
