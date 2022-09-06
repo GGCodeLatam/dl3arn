@@ -1,7 +1,7 @@
 Sitemap: http://www.dl3arn.com/sitemap.xml
 
-user-agent:*
-allow: /
-disallow: /auth/login/
-disallow: /auth/signup/
-disallow: /course/*/*?
+user-agent: *
+Allow: /
+Disallow: /auth/*
+Disallow: /courses/*?
+Disallow: /course/*?*
