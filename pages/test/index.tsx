@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { ContractModel, CourseModel, VideoModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
 
-type Not = "id" | "duration";
+type Not = "id" | "duration" | "url";
 type Replace = Override<CourseModel, { contract: ContractModel | null }>;
 const new_course: Omit<Replace, Not> = {
   contract: null,
