@@ -9,7 +9,7 @@ interface Props {
 function OurCourses({ main, more }: Props) {
   return (
     <section>
-      <h2>Nuestos cursos</h2>
+      <h2>Nuestros cursos</h2>
 
       <Featured course={main} badge />
 
