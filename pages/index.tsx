@@ -40,7 +40,6 @@ function Home({ data, meta }: Props) {
       <HomeContainer>
         <Intro />
         <OurCourses main={main} more={more} />
-        <Categories />
 
         <section>
           <h2>Cursos</h2>
@@ -94,19 +93,4 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   };
 
   return { props };
-}
-
-function FeaturedPlaceholder() {
-  return (
-    <FeaturedPlaceholderContainer>
-      <Placeholder width="100%" height="240px" />
-      <div className="info">
-        <Placeholder width="3.5rem" height="3.5rem" />
-        <div>
-          <Placeholder width="25%" height="2rem" />
-          <Placeholder width="20%" height="1.5rem" />
-        </div>
-      </div>
-    </FeaturedPlaceholderContainer>
-  );
 }
