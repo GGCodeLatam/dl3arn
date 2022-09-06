@@ -13,7 +13,6 @@ export const HomeContainer = styled.main`
     h2 {
       font-size: 0.75em;
       font-weight: 700;
-      text-transform: lowercase;
       margin: 0.25em 0;
     }
 

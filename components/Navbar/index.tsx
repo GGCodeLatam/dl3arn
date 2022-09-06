@@ -1,6 +1,6 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { FaTimes } from "react-icons/fa";
-import { BiMenuAltRight } from "react-icons/bi";
+import { BiChevronRight, BiMenuAltRight } from "react-icons/bi";
 import { PrimaryButton } from "components/Buttons";
 import { useAuth } from "context/firebase";
 import { ReactNode } from "react";
@@ -39,13 +39,6 @@ function Navbar() {
     hide,
   } = useShow({ hideOnChange: [router.pathname] });
 
-  const {
-    show: showCategories,
-    hide: hideCategories,
-    toggle: toggleCategories,
-    state: stateCategories,
-  } = useShow({});
-
   return (
     <>
       <Nav isBlue={!!blue_theme[router.pathname]}>
@@ -60,17 +53,19 @@ function Navbar() {
               </a>
             </Link>
 
-            <div className="categories">
-              <button className="link">categorias</button>
-              <ul className="categories-list">
-                {categories.map((category) => (
-                  <li key={category}>
-                    <Link href={`/courses/${category}`}>
-                      <a className="link">{category}</a>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+            <div className="links">
+              <div className="categories">
+                <button className="link">Categorias</button>
+                <ul className="categories-list">
+                  {categories.map((category) => (
+                    <li key={category}>
+                      <NavLink href={`/courses/${category}`}>
+                        {category}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
 
@@ -130,21 +125,32 @@ function Navbar() {
             </div>
 
             <div className="bottom">
-              {!isLoading && !user ? (
-                <>
-                  <li>
-                    <NavLink href={routes.landing.path}>Home</NavLink>
-                  </li>
-                  <li>
-                    <NavLink href={routes.roadmap.path}>Roadmap</NavLink>
-                  </li>
-                  <li>
-                    <NavLink href={routes.quienes.path}>Quienes Somos</NavLink>
-                  </li>
-                </>
-              ) : (
-                <NavLink href="/favorites">Favoritos</NavLink>
-              )}
+              <div className="links">
+                {!isLoading && !user ? (
+                  <>
+                    <li>
+                      <NavLink href={routes.landing.path}>Home</NavLink>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <p className="category">Categorias</p>
+                    <div className="categories">
+                      {categories.map((category) => (
+                        <NavLink key={category} href={`/courses/${category}`}>
+                          <BiChevronRight />
+                          {category}
+                        </NavLink>
+                      ))}
+                    </div>
+
+                    <NavLink href="/favorites">
+                      <BiChevronRight />
+                      Favoritos
+                    </NavLink>
+                  </>
+                )}
+              </div>
 
               <div className="user">
                 {!isLoading && user ? (

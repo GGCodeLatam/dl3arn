@@ -4,7 +4,6 @@ import Head from "next/head";
 import Card from "components/Landing/Card";
 
 import Intro from "components/Landing/Intro";
-import Placeholder from "components/Placeholders";
 
 import getCourses from "services/firebase/store/getCourses";
 import getDl3arn from "services/firebase/store/getDl3arn";

@@ -42,6 +42,7 @@ export const Nav = styled.nav<NavProps>`
     height: 100%;
 
     .link {
+      text-transform: capitalize;
       display: block;
       font-size: 0.9em;
       opacity: 0.5;
@@ -56,6 +57,7 @@ export const Nav = styled.nav<NavProps>`
   .left {
     gap: 1rem;
   }
+  .left .links,
   .right,
   .middle {
     display: none;
@@ -90,7 +92,9 @@ export const Nav = styled.nav<NavProps>`
     display: grid;
     place-items: center;
     height: 100%;
+    font-weight: 400;
   }
+
   .mobile {
     box-shadow: 0.5em 0 0.5em #0002;
     z-index: 9999;
@@ -140,30 +144,46 @@ export const Nav = styled.nav<NavProps>`
     .bottom {
       display: flex;
       flex-flow: column;
-      gap: 1.75em;
+      gap: 1em;
+
+      .links,
+      .categories {
+        display: flex;
+        flex-flow: column;
+        gap: 0.5em;
+      }
+
+      .category {
+        font-size: 0.75em;
+        font-weight: bold;
+      }
+
+      .categories {
+        position: relative;
+        padding: 0 0.75em;
+
+        ::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 1px;
+          height: 100%;
+          background-color: #0005;
+        }
+      }
 
       .link {
         position: relative;
-        font-size: 0.95em;
+        font-size: 0.85em;
         display: flex;
         flex-flow: row;
         align-items: center;
         justify-content: left;
         gap: 1em;
-        padding: 0.5em 0 0.5em 1em;
+        padding: 0.5em 0 0.5em 0;
         > * {
           z-index: 2;
-        }
-
-        ::before {
-          z-index: 1;
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 2px;
-          height: 100%;
-          background-color: var(--dark);
         }
       }
       .user {
@@ -263,10 +283,12 @@ export const Nav = styled.nav<NavProps>`
 
   @media screen and (min-width: ${breakpoints.tablet}) {
     font-size: 1rem;
+    .left .links,
     .right {
       display: flex;
       gap: 0.25rem;
     }
+
     .btn,
     .mobile {
       display: none;
