@@ -183,6 +183,46 @@ export const Nav = styled.nav<NavProps>`
     list-style: none;
   }
 
+  .categories {
+    position: relative;
+
+    button {
+      display: flex;
+      align-items: center;
+      background-color: transparent;
+    }
+
+    .categories-list {
+      display: none;
+      flex-flow: column;
+      box-shadow: 0 5px 10px #0002;
+      background-color: transparent;
+      border-radius: 2px;
+
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 9999;
+      font-size: 0.75em;
+      width: max-content;
+      padding: 0.5em;
+
+      a {
+        opacity: 0.75;
+        display: flex;
+        align-items: center;
+        padding: 0.5em 0.75em;
+      }
+      a:hover {
+        opacity: 1;
+      }
+    }
+
+    :hover .categories-list {
+      display: block;
+    }
+  }
+
   ${({ isBlue }) =>
     isBlue &&
     css`

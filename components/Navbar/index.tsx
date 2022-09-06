@@ -14,6 +14,7 @@ import routes from "utils/routes";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import useShow from "hooks/useShow";
+import categories from "utils/categories";
 
 const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
   <Link href={href}>
@@ -38,6 +39,13 @@ function Navbar() {
     hide,
   } = useShow({ hideOnChange: [router.pathname] });
 
+  const {
+    show: showCategories,
+    hide: hideCategories,
+    toggle: toggleCategories,
+    state: stateCategories,
+  } = useShow({});
+
   return (
     <>
       <Nav isBlue={!!blue_theme[router.pathname]}>
@@ -51,6 +59,19 @@ function Navbar() {
                 <p className="beta">beta</p>
               </a>
             </Link>
+
+            <div className="categories">
+              <button>categorias</button>
+              <ul className="categories-list">
+                {categories.map((category) => (
+                  <li key={category}>
+                    <Link href={`/courses/${category}`}>
+                      <a>{category}</a>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <div className="middle">{/*<SearchBar />*/}</div>

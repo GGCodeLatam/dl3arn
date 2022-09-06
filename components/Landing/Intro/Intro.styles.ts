@@ -2,8 +2,8 @@ import styled from "styled-components";
 import breakpoints from "utils/breakpoints";
 
 export const ContactUs = styled.section`
-  font-size: calc(1rem + 0.75vw);
-  padding: 20vw 0;
+  font-size: calc(1rem + 0.5vw);
+  padding: 1em 0;
   margin: 1rem 0;
   position: relative;
 
@@ -41,7 +41,6 @@ export const ContactUs = styled.section`
 
   .info {
     position: relative;
-    padding: 0 1em;
 
     h1,
     p {
@@ -71,8 +70,8 @@ export const ContactUs = styled.section`
   }
 
   @media screen and (min-width: ${breakpoints.tablet}) {
-    padding: 5em 0;
-    font-size: 1.5em;
+    padding: 0.5em 0;
+    font-size: 1.35em;
 
     .decoration {
       display: block;
@@ -87,12 +86,12 @@ export const ContactUs = styled.section`
         font-size: 1em;
       }
       p {
-        font-size: 0.55em;
+        font-size: 0.6em;
         margin: 0.5em 0;
       }
       .dl3arn-mail {
         font-size: 0.55em;
-        margin: 0 0 0 0;
+        margin: 0;
       }
     }
   }

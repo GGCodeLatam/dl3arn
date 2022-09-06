@@ -1,7 +1,7 @@
 import Link from "next/link";
+import categories from "utils/categories";
 import { NavCategories } from "./Categories.styles";
 
-const categories = ["diseño", "nfts", "marketing"];
 function Categories() {
   return (
     <section>

@@ -14,6 +14,7 @@ interface Props {
   category: string;
   meta: {
     title: string;
+    description: string;
   };
 }
 function Category({ category, courses, meta }: Props) {
@@ -70,7 +71,8 @@ export const getServerSideProps = async (context: Context) => {
     ),
     category: capitalized_category,
     meta: {
-      title: `Los mejores cursos de ${capitalized_category}`,
+      title: `Los mejores cursos de ${capitalized_category} | DL3ARN`,
+      description: `Obten los mejores cursos de ${id}`,
     },
   };
   return {
