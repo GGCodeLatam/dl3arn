@@ -72,11 +72,7 @@ function Navbar() {
 
             <div className="links">
               <div className="categories">
-                <button
-                  onClick={toggleCategories}
-                  onMouseEnter={showCategories}
-                  className="link"
-                >
+                <button onClick={toggleCategories} className="link">
                   Categorias
                 </button>
 
