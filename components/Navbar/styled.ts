@@ -217,7 +217,7 @@ export const Nav = styled.nav<NavProps>`
     }
 
     .categories-list {
-      display: none;
+      display: block;
       flex-flow: column;
       box-shadow: 0 5px 10px #0002;
       background-color: transparent;
@@ -246,10 +246,6 @@ export const Nav = styled.nav<NavProps>`
       a:hover {
         opacity: 1;
       }
-    }
-
-    :hover .categories-list {
-      display: block;
     }
   }
 

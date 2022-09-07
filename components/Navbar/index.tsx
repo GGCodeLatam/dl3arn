@@ -3,7 +3,7 @@ import { FaTimes } from "react-icons/fa";
 import { BiChevronRight, BiMenuAltRight } from "react-icons/bi";
 import { PrimaryButton } from "components/Buttons";
 import { useAuth } from "context/firebase";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import Avatar from "../Avatar";
 import { Nav } from "./styled";
 
@@ -16,9 +16,19 @@ import { useRouter } from "next/router";
 import useShow from "hooks/useShow";
 import categories from "utils/categories";
 
-const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
+const NavLink = ({
+  children,
+  href,
+  onClick,
+}: {
+  onClick?(_: any): any;
+  children: ReactNode;
+  href: string;
+}) => (
   <Link href={href}>
-    <a className="link">{children}</a>
+    <a onClick={onClick} className="link">
+      {children}
+    </a>
   </Link>
 );
 
@@ -39,6 +49,13 @@ function Navbar() {
     hide,
   } = useShow({ hideOnChange: [router.pathname] });
 
+  const {
+    state: stateCategories,
+    show: showCategories,
+    hide: hideCategories,
+    toggle: toggleCategories,
+  } = useShow({});
+
   return (
     <>
       <Nav isBlue={!!blue_theme[router.pathname]}>
@@ -56,20 +73,27 @@ function Navbar() {
             <div className="links">
               <div className="categories">
                 <button
-                  onClick={(e) => e.currentTarget.blur()}
+                  onClick={toggleCategories}
+                  onMouseEnter={showCategories}
                   className="link"
                 >
                   Categorias
                 </button>
-                <ul className="categories-list">
-                  {categories.map((category) => (
-                    <li key={category}>
-                      <NavLink href={`/courses/${category}`}>
-                        {category}
-                      </NavLink>
-                    </li>
-                  ))}
-                </ul>
+
+                {stateCategories && (
+                  <ul className="categories-list">
+                    {categories.map((category) => (
+                      <li key={category}>
+                        <NavLink
+                          onClick={hideCategories}
+                          href={`/courses/${category}`}
+                        >
+                          {category}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </div>
           </div>

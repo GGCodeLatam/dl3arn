@@ -14,6 +14,7 @@ import { CourseModel } from "utils/types/firebase";
 
 import { HomeContainer } from "styles/home.styles";
 import OurCourses from "components/Landing/OurCourses";
+import ListCourses from "components/Landing/ListCourses";
 
 interface Props {
   data: {
@@ -37,11 +38,7 @@ function Home({ data, meta }: Props) {
         <OurCourses main={main} more={more} />
 
         <section>
-          <ul className="list">
-            {courses.map((course) => (
-              <Card key={course.id} {...course} />
-            ))}
-          </ul>
+          <ListCourses courses={courses} className="list" />
         </section>
       </HomeContainer>
     </>
