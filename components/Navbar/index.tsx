@@ -55,7 +55,12 @@ function Navbar() {
 
             <div className="links">
               <div className="categories">
-                <button className="link">Categorias</button>
+                <button
+                  onClick={(e) => e.currentTarget.blur()}
+                  className="link"
+                >
+                  Categorias
+                </button>
                 <ul className="categories-list">
                   {categories.map((category) => (
                     <li key={category}>
