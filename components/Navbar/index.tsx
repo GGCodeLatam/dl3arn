@@ -51,10 +51,24 @@ function Navbar() {
 
   const {
     state: stateCategories,
-    show: showCategories,
     hide: hideCategories,
     toggle: toggleCategories,
   } = useShow({});
+
+  const refCategoriesContainer = useRef<HTMLUListElement>(null);
+  const refCategoriesButton = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const listener = (e: MouseEvent) => {
+      const target = e.target as Node;
+      const isButton = refCategoriesButton.current?.isSameNode(target);
+      const isCategory = refCategoriesButton.current?.isSameNode(target);
+      if (!isButton && !isCategory) hideCategories();
+    };
+
+    document.addEventListener("click", listener);
+    return () => document.removeEventListener("click", listener);
+  }, [refCategoriesContainer, refCategoriesButton]);
 
   return (
     <>
@@ -72,12 +86,17 @@ function Navbar() {
 
             <div className="links">
               <div className="categories">
-                <button onClick={toggleCategories} className="link">
+                <button
+                  ref={refCategoriesButton}
+                  id="btn-categories"
+                  onClick={toggleCategories}
+                  className="link"
+                >
                   Categorias
                 </button>
 
                 {stateCategories && (
-                  <ul className="categories-list">
+                  <ul ref={refCategoriesContainer} className="categories-list">
                     {categories.map((category) => (
                       <li key={category}>
                         <NavLink
