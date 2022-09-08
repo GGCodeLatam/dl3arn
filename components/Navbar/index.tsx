@@ -182,14 +182,14 @@ function Navbar() {
                     <div className="categories">
                       {categories.map((category) => (
                         <NavLink key={category} href={`/courses/${category}`}>
-                          <BiChevronRight />
+                          <BiChevronRight className="icon" />
                           {category}
                         </NavLink>
                       ))}
                     </div>
 
                     <NavLink href="/favorites">
-                      <BiChevronRight />
+                      <BiChevronRight className="icon" />
                       Favoritos
                     </NavLink>
                   </>

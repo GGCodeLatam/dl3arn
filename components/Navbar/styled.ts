@@ -153,6 +153,18 @@ export const Nav = styled.nav<NavProps>`
         gap: 0.5em;
       }
 
+      .links {
+        .icon {
+          transition: all 100ms;
+        }
+        .link:hover {
+          color: var(--primary);
+          .icon {
+            color: var(--primary);
+          }
+        }
+      }
+
       .category {
         font-size: 0.75em;
         font-weight: bold;
@@ -187,6 +199,7 @@ export const Nav = styled.nav<NavProps>`
           z-index: 2;
         }
       }
+
       .user {
         display: flex;
         justify-content: left;
