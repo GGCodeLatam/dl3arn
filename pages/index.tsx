@@ -35,6 +35,7 @@ function Home({ data, meta }: Props) {
       </Head>
       <HomeContainer>
         <Intro />
+
         <OurCourses main={main} more={more} />
 
         <section>
