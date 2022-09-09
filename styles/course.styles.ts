@@ -61,7 +61,7 @@ export const Container = styled.main<Props>`
     top: 0;
     transform: translate(-100%, 0);
     transition: transform 100ms ease;
-    z-index: 9999;
+    z-index: 100;
     width: 75%;
 
     .close {
