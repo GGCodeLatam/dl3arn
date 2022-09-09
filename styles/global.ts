@@ -22,12 +22,14 @@ export const GlobalStyle = createGlobalStyle`
 
 
   --primary: var(--orange);
+  --primary-rgb: 255, 132, 0;
   --primary-contrast: #fff;
+
+  --gradient: linear-gradient(#4374ff, #030816);
+
   --dark-primary: var(--persian-indigo);
   --dark: #1e1e20;
   --light: #fafaff;
-
-  --gradient: linear-gradient(#4374ff, #030816);
 
   --nav-size: 56px;
 }

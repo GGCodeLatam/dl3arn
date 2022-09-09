@@ -16,6 +16,10 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
       ...qsnap.docs[0].data(),
     } as CourseModel;
 
+    const image = (await getImage(course.image)) || "";
+
+    if (!course.sections) return { ...course, image, sections: [] };
+
     if (Array.isArray(course.sections)) {
       const ids = course.sections.map((id) => id);
 
@@ -35,11 +39,7 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
         })
       );
 
-      return {
-        ...course,
-        image: (await getImage(course.image)) || "",
-        sections: sanitized,
-      };
+      return { ...course, image, sections: sanitized };
     }
 
     const videos: (Partial<VideoSafeProps> & { section: string })[] = [];
@@ -74,7 +74,7 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
       });
     });
 
-    return { ...course, image: (await getImage(course.image)) || "", sections };
+    return { ...course, image, sections };
   } catch (e) {
     console.log(e);
     return null;
