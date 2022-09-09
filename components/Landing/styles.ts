@@ -75,13 +75,13 @@ export const CardContainer = styled.div`
       width: 100%;
 
       .name {
-        max-width: 15rem;
+        max-width: 100%;
         text-overflow: ellipsis;
-        font-size: 0.85em;
+        font-size: 0.75em;
         letter-spacing: 0.5px;
       }
       .instructor {
-        font-size: 0.65em;
+        font-size: 0.55em;
         opacity: 0.5;
         font-weight: 400;
       }

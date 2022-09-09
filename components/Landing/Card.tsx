@@ -50,7 +50,7 @@ function Card({
             <div className="info">
               <div>
                 <h3 className="name">{name}</h3>
-                <p className="instructor">{`by ${instructor.name}`}</p>
+                <p className="instructor">{instructor.name}</p>
               </div>
               <div className="meta">
                 {total_duration && (
