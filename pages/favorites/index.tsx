@@ -25,7 +25,7 @@ function Favorites() {
           <h1>Sin favoritos</h1>
           <p>Tus cursos marcados como favoritos apareceran en esta seccion.</p>
 
-          <Link href="/home">
+          <Link href="/">
             <PrimaryButton as="a" className="link">
               Comienza a agregar cursos!
             </PrimaryButton>
