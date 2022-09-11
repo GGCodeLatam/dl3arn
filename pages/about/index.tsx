@@ -1,17 +1,29 @@
+import Head from "next/head";
 import InversionCrypto from "components/About/InversionCrypto";
+import PreguntasFrecuentes from "components/About/PreguntasFrecuentes";
+import { AboutContainer } from "styles/about.styles";
 // import NuestrosValores from "components/About/NuestrosValores";
-// import PreguntasFrecuentes from "components/About/PrguntasFrecuentes";
 
 function About() {
   return (
-    <main>
-      <h1>
-        Our mission at DL3ARN is to decentralize learning, so that each
-        individual chooses what they want to learn and how.
-      </h1>
+    <>
+      <Head>
+        <title>Sobre DL3ARN | DL3ARN</title>
+      </Head>
 
-      <InversionCrypto />
-    </main>
+      <AboutContainer>
+        <div className="intro">
+          <h1>Aprendizaje descentralizado</h1>
+          <p>
+            Nuestra mision en DL3ARN es descentralizar el aprendizaje, para que
+            cada persona pueda elegir que quiere aprender y como.
+          </p>
+        </div>
+
+        <InversionCrypto />
+        <PreguntasFrecuentes />
+      </AboutContainer>
+    </>
   );
 }
 

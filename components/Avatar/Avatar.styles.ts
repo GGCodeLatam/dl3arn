@@ -1,6 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { UserModel } from "utils/types/firebase";
 
-export const AvatarContainer = styled.button`
+interface Props {
+  userRole?: UserModel["role"];
+}
+export const AvatarContainer = styled.button<Props>`
   background-color: transparent;
   border: none;
   display: flex;
@@ -18,11 +22,21 @@ export const AvatarContainer = styled.button`
     position: relative;
     width: 2.5rem;
     height: 2.5rem;
+    border-radius: 4px;
+    overflow: hidden;
 
     .img {
-      border-radius: 4px;
       width: 100%;
       height: 100%;
     }
   }
+
+  ${({ userRole }) =>
+    userRole === "admin" &&
+    css`
+      .image-container {
+        outline: 2px solid #d63af9;
+        outline-offset: 2px;
+      }
+    `}
 `;

@@ -7,6 +7,7 @@ export const CategoryContainer = styled.main`
 
   h1 {
     font-size: 1.25em;
+    margin: 0 0 0.5em 0;
 
     .category {
       color: var(--primary);

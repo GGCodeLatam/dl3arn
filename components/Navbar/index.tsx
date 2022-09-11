@@ -40,7 +40,7 @@ const blue_theme: { [key: string]: boolean } = {
 function Navbar() {
   const router = useRouter();
 
-  const { data } = useAuth();
+  const { data, userData } = useAuth();
   const { user, isLoading } = data;
 
   const {
@@ -131,6 +131,7 @@ function Navbar() {
                     onClick={() => router.push(routes.profile.path)}
                     img={user.photoURL}
                     isLoading={isLoading}
+                    role={userData?.role}
                   />
                 </li>
               </>
@@ -203,6 +204,7 @@ function Navbar() {
                       onClick={() => router.push(routes.profile.path)}
                       img={user.photoURL}
                       isLoading={isLoading}
+                      role={userData?.role}
                     />
                     <ConnectButton label="Conectar Wallet" />
                   </>

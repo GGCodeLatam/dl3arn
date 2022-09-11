@@ -1,14 +1,20 @@
+import { PrimaryButton } from "components/Buttons";
+import { PreguntasFrecuentesContainer } from "./PreguntasFrecuentes.styles";
+
+import { BsCheck } from "react-icons/bs";
+
 function PreguntasFrecuentes() {
   return (
-    <section>
+    <PreguntasFrecuentesContainer>
       <h2>Preguntas Frecuentes</h2>
+
       <p>
         Presentamos aquí una guía de preguntas y respuestas que ayudan a
         despejar dudas de forma sencilla. No dejes de contactarnos en caso que
         requieras mas información o surjan nuevas inquietudes.
       </p>
 
-      <div>
+      <div className="columns">
         <section>
           <h3>¿Qué es Ethereum 2.0?</h3>
           <p>
@@ -17,8 +23,14 @@ function PreguntasFrecuentes() {
           </p>
 
           <ul>
-            <li>artículo en www.iproup.com</li>
-            <li>artículo en www.professionalreview.com.com</li>
+            <li>
+              <BsCheck size={24} className="icon" />
+              <a>www.iproup.com</a>
+            </li>
+            <li>
+              <BsCheck size={24} className="icon" />
+              <a>www.professionalreview.com.com</a>
+            </li>
           </ul>
         </section>
 
@@ -32,10 +44,13 @@ function PreguntasFrecuentes() {
             acercar estos pagos de rendimiento mensual a nuestros clientes en
             dólares billete tomando la cotización del día de Ethereum a USD.
           </p>
-          <button>Leer más preguntas</button>
         </section>
       </div>
-    </section>
+
+      <PrimaryButton className="more-questions">
+        Leer más preguntas
+      </PrimaryButton>
+    </PreguntasFrecuentesContainer>
   );
 }
 

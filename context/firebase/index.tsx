@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { FirebaseContext, UserData } from "utils/types/firebase";
+import { FirebaseContext, UserData, UserModel } from "utils/types/firebase";
 import { auth } from "services/firebase";
 
 import {
@@ -16,6 +16,8 @@ import {
   updateCredentials,
   updateUser,
 } from "services/firebase/auth";
+import getUserData from "services/firebase/store/getUserData";
+import { setLocal } from "utils/localStorage";
 
 const initial = {
   auth: {
@@ -23,6 +25,7 @@ const initial = {
       user: null,
       isLoading: true,
     },
+    userData: null,
     logout,
     signUp,
     login,
@@ -38,17 +41,31 @@ interface Props {
 }
 function FirebaseProvider({ children }: Props) {
   const [data, setData] = useState<UserData>(initial.auth.data);
+  const [userData, setUserData] = useState<UserModel | null>(null);
 
   useEffect(() => {
-    const unsuscribe = auth.onAuthStateChanged((user: User | null) => {
+    const unsuscribe = auth.onAuthStateChanged(async (user: User | null) => {
+      if (user) {
+        getUserData(user.email).then((data) => {
+          setUserData(data);
+          setLocal("-user-data", data);
+        });
+      } else {
+        setUserData(null);
+        setLocal("-user-data", null);
+      }
+
       setData({ user, isLoading: false });
     });
-    return unsuscribe;
+    return () => {
+      unsuscribe();
+    };
   }, []);
 
   const value: FirebaseContext = {
     auth: {
       data,
+      userData,
       login,
       logout,
       signUp,

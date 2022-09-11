@@ -5,12 +5,6 @@ export const InversionCryptoContainer = styled.section`
   max-width: 1200px;
   margin: 0 auto;
 
-  h2 {
-    font-size: 2em;
-    text-align: center;
-    margin: 7vh;
-  }
-
   .content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -24,7 +18,7 @@ export const InversionCryptoContainer = styled.section`
 
     .left {
       box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.5),
-        0 0 10px rgba(var(--primary-rgb), 0.5);
+        0 0 10px rgba(var(--primary-rgb), 0.75);
       padding: 3em 1em;
       position: relative;
       align-items: center;
@@ -55,6 +49,13 @@ export const InversionCryptoContainer = styled.section`
         margin: 0.5em auto 1em auto;
         max-width: 25em;
       }
+    }
+
+    .services {
+      width: max-content;
+      padding: 0.75em 5em;
+      margin: 2em auto 0 auto;
+      font-size: 0.85em;
     }
   }
 

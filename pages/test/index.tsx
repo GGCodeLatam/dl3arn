@@ -1,7 +1,9 @@
+import CreateCourseForm from "components/Test/CreateCourseForm";
 import { useAuth } from "context/firebase";
 import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from "services/firebase";
+import getUserData from "services/firebase/store/getUserData";
 import styled from "styled-components";
 import { ContractModel, CourseModel, VideoModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
@@ -40,11 +42,17 @@ const videos: Omit<VideoModel, Not>[] = [
   { free: true, name: "So High", videoId: "uvLSj4gRq-Q" },
 ];
 
+const Container = styled.div`
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
 function Test() {
   const [videosId, setVideosId] = useState<string[]>([]);
   const [courseId, setCourseId] = useState<string>("");
   const {
     data: { user, isLoading },
+    userData,
   } = useAuth();
 
   const uploadVideos = async () => {
@@ -96,185 +104,15 @@ function Test() {
   };
 
   return (
-    <div>
-      {!isLoading && user?.email === "estebanorlandi4@gmail.com" && (
+    <Container>
+      {!isLoading && userData?.role === "admin" && (
         <div>
-          <h2>{user.email}</h2>
-          <CreateCourse />
+          <h2>{user?.email}</h2>
+          <CreateCourseForm />
         </div>
       )}
-    </div>
+    </Container>
   );
 }
 
 export default Test;
-
-const Form = styled.div``;
-function CreateCourse() {
-  const [inputs, setInputs] = useState<{
-    name: string;
-    instructor: {
-      name: string;
-    };
-    description: string;
-    contract: {
-      address: string;
-      chain: string;
-    };
-    rampp: {};
-    opensea: string;
-    score: number;
-    videos: { free: boolean; videoId: string; name: string }[];
-  }>({
-    name: "",
-    instructor: {
-      name: "",
-    },
-    description: "",
-    contract: {
-      address: "",
-      chain: "",
-    },
-    rampp: {},
-    opensea: "",
-    score: 0,
-    videos: [],
-  });
-
-  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    console.log(e.target.value);
-  };
-
-  return (
-    <Form>
-      <input
-        type="text"
-        name="name"
-        placeholder="Nombre del curso"
-        value={inputs.name}
-        onChange={onChange}
-      />
-      <input
-        type="text"
-        name="instructor"
-        placeholder="Nombre del instructor"
-        value={inputs.instructor.name}
-        onChange={onChange}
-      />
-      <textarea
-        placeholder="Descripcion"
-        name="description"
-        value={inputs.description}
-        onChange={onChange}
-      />
-
-      <div>
-        <h3>Contract</h3>
-        <input
-          type="text"
-          name="address"
-          placeholder="address"
-          value={inputs.contract.address}
-          onChange={onChange}
-        />
-        <input
-          type="chainId"
-          name="chain"
-          placeholder="Chain"
-          value={inputs.contract.chain}
-          onChange={onChange}
-        />
-      </div>
-
-      <input
-        type="text"
-        name="opensea"
-        placeholder="OpenSea"
-        value={inputs.opensea}
-        onChange={onChange}
-      />
-      <input
-        type="number"
-        name="score"
-        placeholder="Score"
-        value={inputs.score}
-        onChange={onChange}
-      />
-
-      <div>
-        <h3>Videos</h3>
-        <table>
-          <thead>
-            <th>Is Free</th>
-            <th>Nombre</th>
-            <th>ID</th>
-          </thead>
-          {inputs.videos.map((video, i) => (
-            <tr key={i}>
-              <td>{video.free.toString()}</td>
-              <td>{video.name}</td>
-              <td>{video.videoId}</td>
-            </tr>
-          ))}
-        </table>
-
-        <CreateVideo
-          onSubmit={(video) =>
-            setInputs((old) => ({ ...old, videos: [...old.videos, video] }))
-          }
-        />
-      </div>
-
-      <button type="submit">Submit</button>
-    </Form>
-  );
-}
-function CreateVideo({ onSubmit }: { onSubmit(_: any): any }) {
-  const [video, setVideo] = useState<{
-    free: boolean;
-    name: string;
-    videoId: string;
-  }>({
-    free: false,
-    name: "",
-    videoId: "",
-  });
-
-  const onChange = ({
-    target: { type, name, value, checked },
-  }: ChangeEvent<HTMLInputElement>) => {
-    if (type === "checkbox")
-      return setVideo((old) => ({ ...old, [name]: checked }));
-    return setVideo((old) => ({ ...old, [name]: value }));
-  };
-  const _onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    onSubmit(video);
-  };
-
-  return (
-    <form onSubmit={_onSubmit}>
-      <input
-        type="checkbox"
-        name="free"
-        checked={video.free}
-        onChange={onChange}
-      />
-      <input
-        type="text"
-        name="name"
-        placeholder="Nombre del video"
-        value={video.name}
-        onChange={onChange}
-      />
-      <input
-        type="text"
-        name="videoId"
-        placeholder="ID del video"
-        value={video.videoId}
-        onChange={onChange}
-      />
-      <button type="submit">Add video</button>
-    </form>
-  );
-}

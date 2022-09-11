@@ -63,6 +63,7 @@ export interface UserData {
 export interface FirebaseContext {
   auth: {
     data: UserData;
+    userData: UserModel | null;
     logout: () => void;
     signUp: EmailRegister;
     login: Login;
@@ -73,6 +74,7 @@ export interface FirebaseContext {
 
 /* -------------------- STORE -------------------- */
 
+/* --- CURSOS --- */
 export interface Section {
   position: number;
   videos: string[];
@@ -120,4 +122,12 @@ export interface ContractModel {
 
 export interface InstructorModel {
   name: string;
+}
+
+/* --- USER --- */
+
+type Role = "admin" | "user";
+export interface UserModel {
+  role: Role;
+  email: string;
 }

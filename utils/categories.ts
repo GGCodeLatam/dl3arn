@@ -1,2 +1,2 @@
-const categories = ["diseño", "nfts", "marketing", "trading"];
+const categories = ["diseño", "marketing", "nfts", "programacion", "trading"];
 export default categories;

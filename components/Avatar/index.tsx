@@ -1,5 +1,6 @@
 import Placeholder from "components/Placeholders";
 import Image from "next/image";
+import { UserModel } from "utils/types/firebase";
 import { AvatarContainer } from "./Avatar.styles";
 
 interface Props {
@@ -8,8 +9,9 @@ interface Props {
   to?: "left" | "right";
   onClick?(): any;
   isLoading: boolean;
+  role?: UserModel["role"];
 }
-function Avatar({ img, isLoading, to, username, onClick }: Props) {
+function Avatar({ role, img, isLoading, to, username, onClick }: Props) {
   const name = !isLoading ? (
     <span className="name">{username}</span>
   ) : (
@@ -18,7 +20,7 @@ function Avatar({ img, isLoading, to, username, onClick }: Props) {
   const tag = onClick ? "button" : "div";
 
   return (
-    <AvatarContainer as={tag} onClick={onClick}>
+    <AvatarContainer userRole={role} as={tag} onClick={onClick}>
       {img ? (
         <div className="image-container">
           <Image

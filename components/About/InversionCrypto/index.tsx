@@ -1,4 +1,5 @@
 import { InversionCryptoContainer } from "./InversionCrypto.styles";
+import { PrimaryButton } from "components/Buttons";
 
 function InversionCrypto() {
   return (
@@ -25,7 +26,7 @@ function InversionCrypto() {
             Nos encargamos de todo: adquirí tu rig con nosotros y comenzá a
             minar
           </p>
-          <button>Servicios</button>
+          <PrimaryButton className="services">Servicios</PrimaryButton>
         </div>
       </section>
     </InversionCryptoContainer>
