@@ -1,9 +1,13 @@
+import Layout from "components/Layouts";
+
 function NotFound() {
   return (
-    <div>
-      <h1>404</h1>
-      <p>Pagina no encontrada</p>
-    </div>
+    <Layout>
+      <div>
+        <h1>404</h1>
+        <p>Pagina no encontrada</p>
+      </div>
+    </Layout>
   );
 }
 

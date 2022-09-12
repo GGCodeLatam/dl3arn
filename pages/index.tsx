@@ -15,6 +15,7 @@ import { CourseModel } from "utils/types/firebase";
 import { HomeContainer } from "styles/home.styles";
 import OurCourses from "components/Landing/OurCourses";
 import ListCourses from "components/Landing/ListCourses";
+import Layout from "components/Layouts";
 
 interface Props {
   data: {
@@ -33,15 +34,17 @@ function Home({ data, meta }: Props) {
         <title key="title">{meta.title}</title>
         <meta key="desciption" name="description" content={meta.description} />
       </Head>
-      <HomeContainer>
-        <Intro />
+      <Layout>
+        <HomeContainer>
+          <Intro />
 
-        <OurCourses main={main} more={more} />
+          <OurCourses main={main} more={more} />
 
-        <section>
-          <ListCourses courses={courses} className="list" />
-        </section>
-      </HomeContainer>
+          <section>
+            <ListCourses courses={courses} className="list" />
+          </section>
+        </HomeContainer>
+      </Layout>
     </>
   );
 }

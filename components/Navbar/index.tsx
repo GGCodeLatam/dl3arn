@@ -9,12 +9,12 @@ import { Nav } from "./styled";
 
 import Link from "next/link";
 
-import Logo from "assets/Logo.png";
 import routes from "utils/routes";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import useShow from "hooks/useShow";
 import categories from "utils/categories";
+import Logo from "components/Logo";
+import { NODE_ENV } from "constants";
 
 const NavLink = ({
   children,
@@ -75,14 +75,7 @@ function Navbar() {
       <Nav isBlue={!!blue_theme[router.pathname]}>
         <div className="wrapper">
           <div className="left">
-            <Link href={routes.landing.path}>
-              <a className="logo">
-                <div className="img">
-                  <Image layout="fill" src={Logo} alt="dl3arn" />
-                </div>
-                <p className="beta">beta</p>
-              </a>
-            </Link>
+            <Logo />
 
             <div className="links">
               <div className="categories">
@@ -118,6 +111,16 @@ function Navbar() {
           <ul className="right">
             {!isLoading && user ? (
               <>
+                {NODE_ENV === "development" && userData?.role === "user" && (
+                  <li>
+                    <NavLink href="/teaching">Trabaja con nosotros</NavLink>
+                  </li>
+                )}
+                {NODE_ENV === "development" && userData?.role === "admin" && (
+                  <li>
+                    <NavLink href="/admin">Instructores</NavLink>
+                  </li>
+                )}
                 <li>
                   <NavLink href="/favorites">Favoritos</NavLink>
                 </li>
@@ -155,18 +158,7 @@ function Navbar() {
             </button>
 
             <div className="top">
-              <Link
-                href={
-                  !isLoading && user ? routes.home.path : routes.landing.path
-                }
-              >
-                <a className="logo">
-                  <div className="img">
-                    <Image layout="fill" src={Logo} alt="dl3arn" />
-                  </div>
-                  <p className="beta">beta</p>
-                </a>
-              </Link>
+              <Logo />
             </div>
 
             <div className="bottom">

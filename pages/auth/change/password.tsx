@@ -1,4 +1,6 @@
+import Layout from "components/Layouts";
 import { sendPasswordResetEmail } from "firebase/auth";
+import Head from "next/head";
 import { FormEvent, useState } from "react";
 import { auth } from "services/firebase";
 import { InputChange } from "utils/types";
@@ -21,17 +23,24 @@ function ChangePassword() {
   };
 
   return (
-    <div style={style}>
-      <form onSubmit={reset}>
-        <input
-          onChange={handleEmail}
-          value={email}
-          type="text"
-          placeholder="email"
-        />
-        <button type="submit">submit</button>
-      </form>
-    </div>
+    <>
+      <Head>
+        <title key="title">Reestablecer la contraseña | DL3ARN</title>
+      </Head>
+      <Layout>
+        <div style={style}>
+          <form onSubmit={reset}>
+            <input
+              onChange={handleEmail}
+              value={email}
+              type="text"
+              placeholder="email"
+            />
+            <button type="submit">submit</button>
+          </form>
+        </div>
+      </Layout>
+    </>
   );
 }
 

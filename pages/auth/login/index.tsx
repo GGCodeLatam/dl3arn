@@ -12,6 +12,7 @@ import FacebookButton from "components/Buttons/FacebookButton";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useAuth } from "context/firebase";
+import Layout from "components/Layouts";
 
 function Login() {
   const router = useRouter();
@@ -40,49 +41,51 @@ function Login() {
   return (
     <>
       <Head>
-        <title>DL3ARN | Login</title>
+        <title key="title">Login | DL3ARN </title>
       </Head>
-      <Main>
-        <div>
-          <h1>Login</h1>
+      <Layout>
+        <Main>
+          <div>
+            <h1>Login</h1>
 
-          <div className="container">
-            <FacebookButton />
-            <GoogleButton onError={(err) => setError(err.message)} />
+            <div className="container">
+              <FacebookButton />
+              <GoogleButton onError={(err) => setError(err.message)} />
 
-            <p className="separator">
-              <span>Or</span>
-            </p>
+              <p className="separator">
+                <span>Or</span>
+              </p>
 
-            <form onSubmit={onSubmit} className="form">
-              <div className="inputs">
-                {Object.entries(inputs).map(([name, data]) => (
-                  <Input
-                    key={name}
-                    name={name}
-                    value={data.value}
-                    onChange={onChange}
-                    {...data.inputProps}
-                  />
-                ))}
-              </div>
-              <PrimaryButton>Next</PrimaryButton>
+              <form onSubmit={onSubmit} className="form">
+                <div className="inputs">
+                  {Object.entries(inputs).map(([name, data]) => (
+                    <Input
+                      key={name}
+                      name={name}
+                      value={data.value}
+                      onChange={onChange}
+                      {...data.inputProps}
+                    />
+                  ))}
+                </div>
+                <PrimaryButton>Next</PrimaryButton>
 
-              <Link href="/auth/change/password">
-                <a className="link">Forgot password?</a>
-              </Link>
-            </form>
-            {error && <p className="error">{error}</p>}
+                <Link href="/auth/change/password">
+                  <a className="link">Forgot password?</a>
+                </Link>
+              </form>
+              {error && <p className="error">{error}</p>}
 
-            <p className="signup">
-              Don&apos;t have an account?{" "}
-              <Link href="/auth/signup">
-                <a className="link">Sign up</a>
-              </Link>
-            </p>
+              <p className="signup">
+                Don&apos;t have an account?{" "}
+                <Link href="/auth/signup">
+                  <a className="link">Sign up</a>
+                </Link>
+              </p>
+            </div>
           </div>
-        </div>
-      </Main>
+        </Main>
+      </Layout>
     </>
   );
 }

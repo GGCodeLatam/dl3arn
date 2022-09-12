@@ -7,6 +7,7 @@ import ProfileForm from "components/Forms/ProfileForm";
 import { BiLogOut } from "react-icons/bi";
 import { User } from "firebase/auth";
 import Image from "next/image";
+import Layout from "components/Layouts";
 
 function Profile() {
   const {
@@ -18,31 +19,33 @@ function Profile() {
 
   return (
     <PrivateRoute>
-      <ProfileContainer>
-        <div className="left">
-          <SecondaryButton style={{ textAlign: "left" }} onClick={logout}>
-            <BiLogOut />
-            Logout
-          </SecondaryButton>
-        </div>
-
-        <div className="right">
-          <div className="info">
-            {photoURL && (
-              <div className="img-container">
-                <Image layout="fill" src={photoURL} alt="" />
-              </div>
-            )}
-
-            <div className="names">
-              {displayName && <h2 className="name">{displayName}</h2>}
-              <p className="email">{email}</p>
-            </div>
+      <Layout>
+        <ProfileContainer>
+          <div className="left">
+            <SecondaryButton style={{ textAlign: "left" }} onClick={logout}>
+              <BiLogOut />
+              Logout
+            </SecondaryButton>
           </div>
 
-          <ProfileForm />
-        </div>
-      </ProfileContainer>
+          <div className="right">
+            <div className="info">
+              {photoURL && (
+                <div className="img-container">
+                  <Image layout="fill" src={photoURL} alt="" />
+                </div>
+              )}
+
+              <div className="names">
+                {displayName && <h2 className="name">{displayName}</h2>}
+                <p className="email">{email}</p>
+              </div>
+            </div>
+
+            <ProfileForm />
+          </div>
+        </ProfileContainer>
+      </Layout>
     </PrivateRoute>
   );
 }

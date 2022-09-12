@@ -9,6 +9,7 @@ import Link from "next/link";
 import { getImage } from "services/firebase/storage";
 import { FavoriteContainer, FavoritesContainer } from "styles/favorites.styles";
 import { CourseModel } from "utils/types/firebase";
+import Layout from "components/Layouts";
 
 function Favorites() {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,26 +20,30 @@ function Favorites() {
   }, [refetch]);
 
   return (
-    <FavoritesContainer>
-      {!isLoading && !favorites.length ? (
-        <div className="message">
-          <h1>Sin favoritos</h1>
-          <p>Tus cursos marcados como favoritos apareceran en esta seccion.</p>
+    <Layout>
+      <FavoritesContainer>
+        {!isLoading && !favorites.length ? (
+          <div className="message">
+            <h1>Sin favoritos</h1>
+            <p>
+              Tus cursos marcados como favoritos apareceran en esta seccion.
+            </p>
 
-          <Link href="/">
-            <PrimaryButton as="a" className="link">
-              Comienza a agregar cursos!
-            </PrimaryButton>
-          </Link>
-        </div>
-      ) : (
-        <div className="favorites">
-          {favorites.map((favorite) => (
-            <Favorite key={favorite.id} {...favorite} />
-          ))}
-        </div>
-      )}
-    </FavoritesContainer>
+            <Link href="/">
+              <PrimaryButton as="a" className="link">
+                Comienza a agregar cursos!
+              </PrimaryButton>
+            </Link>
+          </div>
+        ) : (
+          <div className="favorites">
+            {favorites.map((favorite) => (
+              <Favorite key={favorite.id} {...favorite} />
+            ))}
+          </div>
+        )}
+      </FavoritesContainer>
+    </Layout>
   );
 }
 
@@ -51,7 +56,7 @@ function Favorite(favorite: CourseModel) {
   }, [favorite.image]);
   return (
     <FavoriteContainer key={favorite.id}>
-      <Link href={`/course/${favorite.id}`}>
+      <Link href={`/course/${favorite.url}`}>
         <a className="link">
           {img ? (
             <div className="img-container">

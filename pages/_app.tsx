@@ -1,4 +1,3 @@
-import Layout from "components/Layouts";
 import FirebaseProvider from "context/firebase";
 import { AppProps } from "next/app";
 import { GlobalStyle } from "styles/global";
@@ -13,7 +12,6 @@ import {
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
-import Head from "next/head";
 import useChat from "hooks/useChat";
 import { HUBSPOT } from "constants/index";
 
@@ -49,9 +47,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains} theme={darkTheme()}>
           <GlobalStyle />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <Component {...pageProps} />
         </RainbowKitProvider>
       </WagmiConfig>
     </FirebaseProvider>

@@ -21,6 +21,7 @@ import { FaTimes } from "react-icons/fa";
 import { GetServerSidePropsContext } from "next";
 import { NetworkBadge } from "components/Badges";
 import { VideoSafeProps } from "utils/types/video";
+import Layout from "components/Layouts";
 
 interface Props {
   course: APIGetCourseById;
@@ -105,71 +106,73 @@ function Course({ course, meta }: Props) {
       />
 
       <PrivateRoute verified>
-        <Container showMenu={state}>
-          <div className="left">
-            <button className="close" onClick={hide}>
-              <FaTimes />
+        <Layout>
+          <Container showMenu={state}>
+            <div className="left">
+              <button className="close" onClick={hide}>
+                <FaTimes />
+              </button>
+              <VideosMenu
+                current={course}
+                videoId={v}
+                handleVideo={handleVideo}
+                hasNFT={!locked}
+              />
+            </div>
+
+            <button className="show-menu" onClick={show}>
+              Videos
+              <BiChevronRight size={16} className="icon" />
             </button>
-            <VideosMenu
-              current={course}
-              videoId={v}
-              handleVideo={handleVideo}
-              hasNFT={!locked}
-            />
-          </div>
 
-          <button className="show-menu" onClick={show}>
-            Videos
-            <BiChevronRight size={16} className="icon" />
-          </button>
-
-          <div className="middle">
-            <Loading isLoading={isLoading} element={<LoadingVideo />}>
-              {!video && course && (
-                <CourseIntro
-                  name={course.name}
-                  imgUrl={course.image}
-                  instructor={course.instructor}
-                  description={course.description}
-                  prev={hasPrev() ? prev : null}
-                  next={hasNext() ? next : null}
-                />
-              )}
-
-              {video && course && (
-                <VideoContent
-                  course={course}
-                  name={video.name}
-                  videoId={video.videoId}
-                  instructor={course.instructor.name}
-                  courseName={course.name}
-                  prev={hasPrev() ? prev : null}
-                  next={hasNext() ? next : null}
-                />
-              )}
-            </Loading>
-          </div>
-
-          <div className="right">
-            {course?.rampp && course.contract && (
-              <>
-                <NetworkBadge
-                  network={course.rampp.network}
-                  dark
-                  toRight
-                  onlyIcon
-                />
-                <RamppButton
-                  rampp={course.rampp}
-                  address={course.contract.address}
-                />
-                {course?.opensea && (
-                  <OpenSeaButton collection={course.opensea} />
+            <div className="middle">
+              <Loading isLoading={isLoading} element={<LoadingVideo />}>
+                {!video && course && (
+                  <CourseIntro
+                    name={course.name}
+                    imgUrl={course.image}
+                    instructor={course.instructor}
+                    description={course.description}
+                    prev={hasPrev() ? prev : null}
+                    next={hasNext() ? next : null}
+                  />
                 )}
-              </>
-            )}
-          </div>
-        </Container>
+
+                {video && course && (
+                  <VideoContent
+                    course={course}
+                    name={video.name}
+                    videoId={video.videoId}
+                    instructor={course.instructor.name}
+                    courseName={course.name}
+                    prev={hasPrev() ? prev : null}
+                    next={hasNext() ? next : null}
+                  />
+                )}
+              </Loading>
+            </div>
+
+            <div className="right">
+              {course?.rampp && course.contract && (
+                <>
+                  <NetworkBadge
+                    network={course.rampp.network}
+                    dark
+                    toRight
+                    onlyIcon
+                  />
+                  <RamppButton
+                    rampp={course.rampp}
+                    address={course.contract.address}
+                  />
+                  {course?.opensea && (
+                    <OpenSeaButton collection={course.opensea} />
+                  )}
+                </>
+              )}
+            </div>
+          </Container>
+        </Layout>
       </PrivateRoute>
     </>
   );

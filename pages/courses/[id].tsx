@@ -8,6 +8,7 @@ import { CourseModel } from "utils/types/firebase";
 import { NextContext } from "utils/types/next";
 import { CategoryContainer } from "styles/category.styles";
 import getCoursesByCategory from "services/firebase/store/getCoursesByCategory";
+import Layout from "components/Layouts";
 
 interface Props {
   courses: CourseModel[];
@@ -25,17 +26,20 @@ function Category({ category, courses, meta }: Props) {
         <meta key="desciption" name="description" content={meta.description} />
       </Head>
 
-      <CategoryContainer>
-        <h1>
-          Los mejores cursos sobre <span className="category">{category}</span>
-        </h1>
+      <Layout>
+        <CategoryContainer>
+          <h1>
+            Los mejores cursos sobre{" "}
+            <span className="category">{category}</span>
+          </h1>
 
-        <div>
-          {courses.map((course) => (
-            <Card key={course.id} {...course} />
-          ))}
-        </div>
-      </CategoryContainer>
+          <div>
+            {courses.map((course) => (
+              <Card key={course.id} {...course} />
+            ))}
+          </div>
+        </CategoryContainer>
+      </Layout>
     </>
   );
 }
