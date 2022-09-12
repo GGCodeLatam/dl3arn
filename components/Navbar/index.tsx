@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 import useShow from "hooks/useShow";
 import categories from "utils/categories";
 import Logo from "components/Logo";
-import { NODE_ENV } from "constants";
+import { NODE_ENV } from "constants/index";
 
 const NavLink = ({
   children,
