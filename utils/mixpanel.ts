@@ -21,4 +21,4 @@ interface Props {
   id: string;
   name: string;
 }
-export const course = ({ id, name }: Props) => event("course", { id, name });
+export const course = ({ id, name }: Props) => event(name, { id });

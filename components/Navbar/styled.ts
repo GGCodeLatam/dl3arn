@@ -67,26 +67,6 @@ export const Nav = styled.nav<NavProps>`
     padding: 0.75rem 1.5rem;
     font-size: 0.85rem;
   }
-  .logo {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    height: 100%;
-
-    .img {
-      position: relative;
-      filter: drop-shadow(0 0px 2px #000a);
-      width: 7em;
-      height: 2em;
-    }
-    .beta {
-      font-size: 0.75em;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      color: var(--primary);
-    }
-  }
 
   .link {
     display: grid;
