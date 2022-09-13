@@ -4,22 +4,26 @@ import { Override } from "./types/utility";
 type Route = Override<RouteObject, { path: string }>;
 
 type Page =
-  | "landing"
-  | "roadmap"
-  | "quienes"
-  | "home"
+  | "about"
   | "course"
-  | "profile"
   | "favorites"
+  | "home"
+  | "landing"
   | "login"
-  | "signup"
+  | "notfound"
   | "password"
-  | "notfound";
+  | "profile"
+  | "quienes"
+  | "roadmap"
+  | "signup";
 type Pages = { [key in Page]: Route };
 
 const routes: Pages = {
   landing: {
     path: "/",
+  },
+  about: {
+    path: "/about",
   },
   roadmap: {
     path: "/roadmap",

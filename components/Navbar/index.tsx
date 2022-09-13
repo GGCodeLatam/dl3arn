@@ -16,7 +16,7 @@ import categories from "utils/categories";
 import Logo from "components/Logo";
 import { NODE_ENV } from "constants/index";
 
-const NavLink = ({
+export const NavLink = ({
   children,
   href,
   onClick,
