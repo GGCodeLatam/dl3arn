@@ -112,11 +112,22 @@ export interface VideoModel {
   free: boolean;
   name: string;
   id: string;
+
+  /**
+   * Video id (youtube)
+   **/
   videoId: string;
 }
 
 export interface ContractModel {
+  /**
+   * Address of contract
+   **/
   address: string;
+
+  /**
+   * Network chain id
+   **/
   chainId: number;
 }
 

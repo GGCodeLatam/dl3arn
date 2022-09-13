@@ -68,10 +68,14 @@ function Course({ course, meta }: Props) {
   const handleVideo = (_id?: string | null) =>
     _id === null
       ? null
-      : Router.push({
-          pathname: `/course/${course?.url}`,
-          query: { v: _id || "" },
-        });
+      : Router.push(
+          {
+            pathname: `/course/${course?.url}`,
+            query: { v: _id || "" },
+          },
+          undefined,
+          { shallow: true }
+        );
 
   const getVideo = (diff: number) => {
     if (!videos.length) return null;
@@ -202,6 +206,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       url: fullURL,
     },
   };
+  console.log({ contract: course?.contract });
   return {
     props,
   };

@@ -126,7 +126,12 @@ function Navbar() {
                 </li>
 
                 <li>
-                  <ConnectButton label="Conectar Wallet" />
+                  <ConnectButton
+                    chainStatus="icon"
+                    accountStatus="address"
+                    label="Conectar Wallet"
+                    showBalance={false}
+                  />
                 </li>
 
                 <li>
