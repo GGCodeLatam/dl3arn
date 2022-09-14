@@ -109,23 +109,22 @@ function Navbar() {
           <div className="middle">{/*<SearchBar />*/}</div>
 
           <ul className="right">
+            <li>
+              <NavLink href="/about">sobre DL3ARN</NavLink>
+            </li>
+            {NODE_ENV === "development" && userData?.role === "user" && (
+              <li>
+                <NavLink href="/teaching">Trabaja con nosotros</NavLink>
+              </li>
+            )}
             {!isLoading && user ? (
               <>
-                {NODE_ENV === "development" && userData?.role === "user" && (
-                  <li>
-                    <NavLink href="/about">sobre DL3ARN</NavLink>
-                  </li>
-                )}
-                {NODE_ENV === "development" && userData?.role === "user" && (
-                  <li>
-                    <NavLink href="/teaching">Trabaja con nosotros</NavLink>
-                  </li>
-                )}
                 {NODE_ENV === "development" && userData?.role === "admin" && (
                   <li>
                     <NavLink href="/admin">Instructores</NavLink>
                   </li>
                 )}
+
                 <li>
                   <NavLink href="/favorites">Favoritos</NavLink>
                 </li>
