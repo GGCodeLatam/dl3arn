@@ -113,6 +113,11 @@ function Navbar() {
               <>
                 {NODE_ENV === "development" && userData?.role === "user" && (
                   <li>
+                    <NavLink href="/about">sobre DL3ARN</NavLink>
+                  </li>
+                )}
+                {NODE_ENV === "development" && userData?.role === "user" && (
+                  <li>
                     <NavLink href="/teaching">Trabaja con nosotros</NavLink>
                   </li>
                 )}

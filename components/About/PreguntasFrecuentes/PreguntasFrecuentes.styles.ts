@@ -24,7 +24,8 @@ export const PreguntasFrecuentesContainer = styled.section`
     list-style: none;
 
     a {
-      color: #66f;
+      color: #fff;
+      text-decoration: underline;
     }
 
     li {

@@ -8,16 +8,12 @@ export const RoadmapContainer = styled.main`
   color: #fff;
   padding: 25vh 1rem;
 
-  .bg,
   .overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-  }
-  .bg {
-    background: linear-gradient(#4374ff, #030816);
   }
   > section {
     position: relative;

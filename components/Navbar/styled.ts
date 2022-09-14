@@ -98,13 +98,6 @@ export const Nav = styled.nav<NavProps>`
       right: 0;
     }
 
-    ${({ isBlue }) =>
-      isBlue &&
-      css`
-        list-style: none;
-        background: #3f6ef2;
-      `}
-
     .logo {
       margin: 0 auto;
       width: max-content;
@@ -241,35 +234,6 @@ export const Nav = styled.nav<NavProps>`
       }
     }
   }
-
-  ${({ isBlue }) =>
-    isBlue &&
-    css`
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-
-      &,
-      .mobile,
-      .btn {
-        color: #fff;
-      }
-      &,
-      .mobile {
-        background: #3f6ef2;
-      }
-
-      .right .link {
-        opacity: 0.75;
-      }
-      .link:hover {
-        opacity: 1;
-      }
-      .logo {
-        filter: none;
-      }
-    `}
 
   @media screen and (min-width: ${breakpoints.tablet}) {
     font-size: 1rem;

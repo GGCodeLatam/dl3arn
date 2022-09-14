@@ -6,11 +6,16 @@ import { NFTabi } from "abis/NFTabi";
 import { course as mixpanelCourse } from "utils/mixpanel";
 
 function useCourse({ course }: { course: APIGetCourseById }) {
-  const [contract] = useState<ContractModel | null>(course?.contract || null);
+  const [contract, setContract] = useState<ContractModel | null>(
+    course?.contract || null
+  );
   const [firstTime, setFirstTime] = useState<boolean>(true);
   const [locked, setLocked] = useState(true);
   const [readEnable, setReadEnable] = useState(false);
 
+  useEffect(() => {
+    if (course) setContract(course.contract);
+  }, [course]);
   useEffect(() => {
     if (course && firstTime) {
       setFirstTime(false);
@@ -27,7 +32,6 @@ function useCourse({ course }: { course: APIGetCourseById }) {
       setReadEnable(true);
     },
   });
-  console.log({ address });
 
   const { data: hasNft, error: fetchError } = useContractRead({
     addressOrName: contract?.address || "",
@@ -39,7 +43,7 @@ function useCourse({ course }: { course: APIGetCourseById }) {
     chainId: contract?.chainId,
   });
 
-  console.log({ hasNft: hasNft?.toNumber() });
+  console.log({ address, hasNft: hasNft?.toNumber() });
 
   useEffect(() => {
     if (!isConnected) return;

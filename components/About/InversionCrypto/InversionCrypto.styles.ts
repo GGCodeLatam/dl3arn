@@ -17,12 +17,10 @@ export const InversionCryptoContainer = styled.section`
     }
 
     .left {
-      box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.5),
-        0 0 10px rgba(var(--primary-rgb), 0.75);
       padding: 3em 1em;
       position: relative;
       align-items: center;
-      background-color: var(--primary);
+      background: linear-gradient(-45deg, var(--primary) 75%, #fca);
       color: #fff;
       display: flex;
       justify-content: space-around;

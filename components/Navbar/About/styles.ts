@@ -1,6 +1,33 @@
 import styled from "styled-components";
 
 export const NavbarAboutContainer = styled.nav`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  list-style: none;
+  background: #3f6ef2;
+
+  &,
+  .mobile,
+  .btn {
+    color: #fff;
+  }
+  &,
+  .mobile {
+    background: #3f6ef2;
+  }
+
+  .right .link {
+    opacity: 0.75;
+  }
+  .link:hover {
+    opacity: 1;
+  }
+  .logo {
+    filter: none;
+  }
+
   display: flex;
   align-items: center;
   height: var(--nav-size);

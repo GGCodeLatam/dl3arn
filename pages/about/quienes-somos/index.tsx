@@ -6,7 +6,8 @@ import Franco from "assets/Quienes-somos/Franco.jpeg";
 import Joan from "assets/Quienes-somos/Joan.jpeg";
 import Lucio from "assets/Quienes-somos/Lucio.jpeg";
 import Ignacio from "assets/Quienes-somos/Ignacio.jpg";
-import Layout from "components/Layouts";
+
+import LayoutAbout from "components/Layouts/About";
 
 const members = [
   { name: "Joan Duarte", role: "Co-Founder", photo: Joan },
@@ -17,7 +18,7 @@ const members = [
 
 function QuienesSomos() {
   return (
-    <Layout>
+    <LayoutAbout>
       <QuienesSomosContainer>
         <div className="bg" />
         <div className="overlay" />
@@ -44,7 +45,7 @@ function QuienesSomos() {
           </ul>
         </section>
       </QuienesSomosContainer>
-    </Layout>
+    </LayoutAbout>
   );
 }
 

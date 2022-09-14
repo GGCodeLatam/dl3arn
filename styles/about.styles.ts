@@ -5,6 +5,8 @@ export const AboutContainer = styled.main`
   display: flex;
   flex-flow: column;
   gap: 10vh;
+  position: relative;
+  color: #fff;
 
   .intro {
     h1 {
