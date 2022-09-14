@@ -240,7 +240,15 @@ export const Nav = styled.nav<NavProps>`
     .left .links,
     .right {
       display: flex;
-      gap: 0.75rem;
+      gap: 0.5rem;
+    }
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+    .link {
+      padding: 0 0.25em !important;
     }
 
     .btn,

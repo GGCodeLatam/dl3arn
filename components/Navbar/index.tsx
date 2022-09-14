@@ -130,16 +130,14 @@ function Navbar() {
                   <NavLink href="/favorites">Favoritos</NavLink>
                 </li>
 
-                <li>
+                <li className="user">
                   <ConnectButton
                     chainStatus="icon"
                     accountStatus="address"
                     label="Conectar Wallet"
                     showBalance={false}
                   />
-                </li>
 
-                <li>
                   <Avatar
                     onClick={() => router.push(routes.profile.path)}
                     img={user.photoURL}
