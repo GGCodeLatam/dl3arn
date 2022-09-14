@@ -13,7 +13,7 @@ export const AboutContainer = styled.main`
       width: 90%;
       max-width: 1200px;
       text-align: center;
-      margin: 0 auto 0 auto;
+      margin: 0 auto;
     }
 
     > p {
@@ -23,6 +23,15 @@ export const AboutContainer = styled.main`
       margin: 1em auto 0 auto;
       opacity: 0.6;
       font-size: 0.9em;
+    }
+    iframe {
+      display: block;
+      width: 90%;
+      max-width: 480px;
+      aspect-ratio: 16 / 9;
+      margin: 2em auto;
+      border-radius: 7px;
+      box-shadow: 0 0.5em 0.5em -0.5em #000a;
     }
   }
 
