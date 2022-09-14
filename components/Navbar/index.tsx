@@ -192,6 +192,11 @@ function Navbar() {
                       <BiChevronRight className="icon" />
                       Favoritos
                     </NavLink>
+
+                    <NavLink href="/about">
+                      <BiChevronRight className="icon" />
+                      sobre DL3ARN
+                    </NavLink>
                   </>
                 )}
               </div>
