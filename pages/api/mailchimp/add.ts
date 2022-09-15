@@ -24,9 +24,6 @@ async function addUser(req: Req, res: Res) {
     .post(`/lists/3b4f9177d1/members`, {
       email_address: email,
       status: "subscribed",
-      merge_filed: {
-        NAME: displayName || "",
-      },
     })
     .then((results) => {
       res.json(results);

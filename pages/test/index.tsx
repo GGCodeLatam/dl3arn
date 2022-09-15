@@ -1,6 +1,5 @@
 import axios from "axios";
 import Layout from "components/Layouts";
-import CreateCourseForm from "components/Test/CreateCourseForm";
 import { useAuth } from "context/firebase";
 import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
 import { useState } from "react";
