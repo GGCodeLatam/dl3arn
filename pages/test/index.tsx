@@ -109,7 +109,7 @@ function Test() {
   const onClick = async () => {
     if (!user) return null;
 
-    const { data } = await axios.post("/api/mailchimp/add", {
+    const { data } = await axios.post("/api/mailchimp/get", {
       email: user.email,
       displayName: user.displayName,
     });

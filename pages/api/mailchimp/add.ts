@@ -1,9 +1,9 @@
 import Mailchimp from "mailchimp-api-v3";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Override } from "utils/types/utility";
+import { MAILCHIMP_API_KEY } from "constants/index";
 
-const API_KEY = "899eb91e5e877cf6873dedba79440340-us10";
-const mailchimp = new Mailchimp(API_KEY);
+const mailchimp = new Mailchimp(MAILCHIMP_API_KEY);
 
 type Req = Override<
   NextApiRequest,

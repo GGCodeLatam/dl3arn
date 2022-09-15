@@ -35,3 +35,7 @@ export const HUBSPOT = process.env.NEXT_PUBLIC_HUBSPOT;
 
 export const AUTH_EMAIL = process.env.NEXT_PUBLIC_AUTH_EMAIL;
 export const AUTH_PASSWORD = process.env.NEXT_PUBLIC_AUTH_PASSWORD;
+
+/* -------------------- TESTING -------------------- */
+
+export const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY as string;
