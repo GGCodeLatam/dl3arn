@@ -43,8 +43,6 @@ function useCourse({ course }: { course: APIGetCourseById }) {
     chainId: contract?.chainId,
   });
 
-  console.log({ address, hasNft: hasNft?.toNumber() });
-
   useEffect(() => {
     if (!isConnected) return;
 

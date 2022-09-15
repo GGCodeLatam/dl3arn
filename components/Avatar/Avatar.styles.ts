@@ -3,8 +3,10 @@ import { UserModel } from "utils/types/firebase";
 
 interface Props {
   userRole?: UserModel["role"];
+  to?: "left" | "right";
 }
 export const AvatarContainer = styled.button<Props>`
+  position: relative;
   background-color: transparent;
   border: none;
   display: flex;
@@ -12,10 +14,19 @@ export const AvatarContainer = styled.button<Props>`
   width: max-content;
   align-items: center;
   gap: 1rem;
+  font-size: 1rem;
 
-  .name {
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
+  .user {
+    display: flex;
+    flex-flow: column;
+
+    .name {
+      font-weight: bold;
+      font-size: 0.85em;
+    }
+    .email {
+      font-size: 0.8em;
+    }
   }
 
   .image-container {
@@ -30,13 +41,43 @@ export const AvatarContainer = styled.button<Props>`
       height: 100%;
     }
   }
+  ::before {
+    display: none;
+    content: "";
+    z-index: 1;
 
-  ${({ userRole }) =>
-    userRole === "admin" &&
+    position: absolute;
+
+    outline: 2px solid #fff;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+  }
+
+  ${({ userRole, to }: Props) =>
+    userRole &&
     css`
-      .image-container {
-        outline: 2px solid #d63af9;
-        outline-offset: 2px;
+      ::before {
+        ${to === "right" &&
+        `
+          top: 0; 
+          left: 0; 
+          transform: translate(-25%, -25%);
+        `}
+
+        ${to === "left" &&
+        `
+          top: 0; 
+          left: 0; 
+          transform: translate(-25%, -25%);
+        `}
+
+        display: block;
+        ${userRole === "instructor"
+          ? "background: #5df;"
+          : userRole === "admin"
+          ? "background-color: var(--primary)"
+          : ""}
       }
     `}
 `;

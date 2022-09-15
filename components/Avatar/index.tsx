@@ -10,17 +10,25 @@ interface Props {
   onClick?(): any;
   isLoading: boolean;
   role?: UserModel["role"];
+
+  name?: string;
+  email?: string;
 }
-function Avatar({ role, img, isLoading, to, username, onClick }: Props) {
-  const name = !isLoading ? (
-    <span className="name">{username}</span>
-  ) : (
-    <Placeholder width="20rem" height="1.25rem" />
+function Avatar({ email, img, name, role, to, username, onClick }: Props) {
+  const _name = <span className="name">{name}</span>;
+  const _email = <span className="email">{email}</span>;
+
+  const user = (
+    <div className="user">
+      {name && _name} {email && _email}
+    </div>
   );
+
   const tag = onClick ? "button" : "div";
 
   return (
-    <AvatarContainer userRole={role} as={tag} onClick={onClick}>
+    <AvatarContainer to={to} userRole={role} as={tag} onClick={onClick}>
+      {to === "left" && user}
       {img ? (
         <div className="image-container">
           <Image
@@ -34,6 +42,7 @@ function Avatar({ role, img, isLoading, to, username, onClick }: Props) {
       ) : (
         <Placeholder width="2rem" height="2rem" />
       )}
+      {to === "right" && user}
     </AvatarContainer>
   );
 }

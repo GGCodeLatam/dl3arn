@@ -8,10 +8,12 @@ import { BiLogOut } from "react-icons/bi";
 import { User } from "firebase/auth";
 import Image from "next/image";
 import Layout from "components/Layouts";
+import Avatar from "components/Avatar";
 
 function Profile() {
   const {
-    data: { user },
+    data: { user, isLoading },
+    userData,
     logout,
   } = useAuth();
 
@@ -29,18 +31,14 @@ function Profile() {
           </div>
 
           <div className="right">
-            <div className="info">
-              {photoURL && (
-                <div className="img-container">
-                  <Image layout="fill" src={photoURL} alt="" />
-                </div>
-              )}
-
-              <div className="names">
-                {displayName && <h2 className="name">{displayName}</h2>}
-                <p className="email">{email}</p>
-              </div>
-            </div>
+            <Avatar
+              isLoading={isLoading}
+              role={userData?.role}
+              img={user?.photoURL}
+              to="right"
+              name={user?.displayName || ""}
+              email={user?.email || ""}
+            />
 
             <ProfileForm />
           </div>

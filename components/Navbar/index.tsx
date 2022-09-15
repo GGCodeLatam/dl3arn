@@ -110,7 +110,7 @@ function Navbar() {
 
           <ul className="right">
             <li>
-              <NavLink href="/about">sobre DL3ARN</NavLink>
+              <NavLink href="/about">acerca de DL3ARN</NavLink>
             </li>
             {NODE_ENV === "development" && userData?.role === "user" && (
               <li>
@@ -138,6 +138,7 @@ function Navbar() {
                   />
 
                   <Avatar
+                    to="left"
                     onClick={() => router.push(routes.profile.path)}
                     img={user.photoURL}
                     isLoading={isLoading}
@@ -195,7 +196,7 @@ function Navbar() {
 
                     <NavLink href="/about">
                       <BiChevronRight className="icon" />
-                      sobre DL3ARN
+                      acerca de DL3ARN
                     </NavLink>
                   </>
                 )}
@@ -205,6 +206,7 @@ function Navbar() {
                 {!isLoading && user ? (
                   <>
                     <Avatar
+                      to="right"
                       onClick={() => router.push(routes.profile.path)}
                       img={user.photoURL}
                       isLoading={isLoading}

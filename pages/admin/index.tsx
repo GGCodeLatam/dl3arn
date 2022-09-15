@@ -1,3 +1,4 @@
+import Users from "components/Admin/Users";
 import { useAuth } from "context/firebase";
 import Head from "next/head";
 import { AdminContainer } from "styles/admin.styles";
@@ -18,7 +19,9 @@ function Admin() {
           <aside className="options">hola</aside>
           <div className="content">
             <h1>Admin dashboard</h1>
-            <div></div>
+            <div>
+              <Users />
+            </div>
           </div>
         </AdminContainer>
       )}
@@ -27,5 +30,3 @@ function Admin() {
 }
 
 export default Admin;
-
-function adminPetitions() {}

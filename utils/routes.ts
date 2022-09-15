@@ -1,7 +1,6 @@
-import { RouteObject } from "react-router";
 import { Override } from "./types/utility";
 
-type Route = Override<RouteObject, { path: string }>;
+type Route = { path: string };
 
 type Page =
   | "about"

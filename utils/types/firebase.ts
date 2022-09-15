@@ -137,7 +137,7 @@ export interface InstructorModel {
 
 /* --- USER --- */
 
-type Role = "admin" | "user";
+type Role = "admin" | "instructor" | "user";
 export interface UserModel {
   role: Role;
   email: string;

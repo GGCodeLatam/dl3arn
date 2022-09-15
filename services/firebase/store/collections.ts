@@ -15,3 +15,4 @@ export const coursesCollection =
 export const videosCollection =
   collectionFactory<Omit<VideoModel, "id">>("videos");
 export const dl3arnCollection = collection(db, "dl3arn");
+export const usersCollection = collection(db, "users");

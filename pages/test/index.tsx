@@ -1,9 +1,10 @@
+import axios from "axios";
+import Layout from "components/Layouts";
 import CreateCourseForm from "components/Test/CreateCourseForm";
 import { useAuth } from "context/firebase";
 import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { db } from "services/firebase";
-import getUserData from "services/firebase/store/getUserData";
 import styled from "styled-components";
 import { ContractModel, CourseModel, VideoModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
@@ -103,15 +104,31 @@ function Test() {
     setCourseId("");
   };
 
+  const [response, setResponse] = useState<any>(null);
+
+  const onClick = async () => {
+    if (!user) return null;
+
+    const { data } = await axios.post("/api/mailchimp/add", {
+      email: user.email,
+      displayName: user.displayName,
+    });
+
+    setResponse(data);
+  };
+
   return (
-    <Container>
-      {!isLoading && userData?.role === "admin" && (
-        <div>
-          <h2>{user?.email}</h2>
-          <CreateCourseForm />
-        </div>
-      )}
-    </Container>
+    <Layout>
+      <Container>
+        {!isLoading && userData?.role === "admin" && (
+          <div>
+            <h2>{user?.email}</h2>
+            <button onClick={onClick}>Añadirme a Mailchimp</button>
+            <pre>{response && JSON.stringify(response, undefined, 2)}</pre>
+          </div>
+        )}
+      </Container>
+    </Layout>
   );
 }
 
