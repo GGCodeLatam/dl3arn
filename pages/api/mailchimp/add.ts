@@ -23,7 +23,7 @@ async function addUser(req: Req, res: Res) {
   mailchimp
     .post(`/lists/3b4f9177d1/members`, {
       email_address: email,
-      status: "suscribed",
+      status: "subscribed",
       merge_filed: {
         NAME: displayName || "",
       },
