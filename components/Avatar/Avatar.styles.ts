@@ -68,8 +68,9 @@ export const AvatarContainer = styled.button<Props>`
         ${to === "left" &&
         `
           top: 0; 
-          left: 0; 
-          transform: translate(-25%, -25%);
+          left: auto; 
+          right: 0;
+          transform: translate(25%, -25%);
         `}
 
         display: block;
