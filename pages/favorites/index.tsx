@@ -52,7 +52,10 @@ export default Favorites;
 function Favorite(favorite: CourseModel) {
   const [img, setImg] = useState<string | null>(null);
   useEffect(() => {
-    if (favorite.image) getImage(favorite.image).then(setImg);
+    if (favorite.image)
+      getImage(favorite.image).then((img) => {
+        typeof img === "string" ? img : img?.md || "";
+      });
   }, [favorite.image]);
   return (
     <FavoriteContainer key={favorite.id}>
