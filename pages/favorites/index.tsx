@@ -54,7 +54,7 @@ function Favorite(favorite: CourseModel) {
   useEffect(() => {
     if (favorite.image)
       getImage(favorite.image).then((img) => {
-        typeof img === "string" ? img : img?.md || "";
+        setImg(typeof img === "string" ? img : img?.md || "");
       });
   }, [favorite.image]);
   return (
