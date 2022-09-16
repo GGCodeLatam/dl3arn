@@ -1,8 +1,6 @@
 import { PrimaryButton } from "components/Buttons";
 import { PreguntasFrecuentesContainer } from "./PreguntasFrecuentes.styles";
 
-import { BsCheck } from "react-icons/bs";
-
 function PreguntasFrecuentes() {
   return (
     <PreguntasFrecuentesContainer>
@@ -16,33 +14,45 @@ function PreguntasFrecuentes() {
 
       <div className="columns">
         <section>
-          <h3>¿Qué es Ethereum 2.0?</h3>
+          <h3>¿Qué es DL3ARN?</h3>
           <p>
-            A continuación, citamos dos fuentes de calidad donde podrás
-            encontrar información detallada sobre Ethereum 2.0:
+            Una plataforma de multiples cursos online que utiliza la tecnología
+            blockchain para ayudar a los creadores de cursos a lograr nuevas
+            metas.
           </p>
-
-          <ul>
-            <li>
-              <BsCheck size={24} className="icon" />
-              <a>www.iproup.com</a>
-            </li>
-            <li>
-              <BsCheck size={24} className="icon" />
-              <a>www.professionalreview.com.com</a>
-            </li>
-          </ul>
         </section>
 
         <section>
-          <h3>¿Los retornos son en Dólares?</h3>
+          <h3>¿Quienes pueden subir un curso?</h3>
           <p>
-            La ganancia de la minería de cada moneda se percibe en la misma
-            moneda, por lo tanto, la ganancia de la minería de Ethereum se
-            deposita a la cuenta de Binance de propiedad del cliente. De todos
-            modos, desde Inception Crypto también ofrecemos la posibilidad de
-            acercar estos pagos de rendimiento mensual a nuestros clientes en
-            dólares billete tomando la cotización del día de Ethereum a USD.
+            Cualquier persona que desea enseñar algo. Cualquier categoría es
+            aceptada en esta plataforma.
+          </p>
+        </section>
+        <section>
+          <h3>¿En qué redes se puede lanzar el NFTs?</h3>
+          <p>
+            Ethereum y Polygon. Buscamos expandirnos a mas redes proximamente.
+          </p>
+        </section>
+        <section>
+          <h3>¿Cuánto cuesta usar DL3ARN?</h3>
+          <p>
+            La filosofía de DL3ARN es ganar cuando vos ganas. Por esas razones,
+            subir el curso es gratis. DL3ARN cobra un 5% cuando se venden los
+            NFT en el lanzamiento y un 2.5% por la venta del NFT en el
+            marketplace
+          </p>
+        </section>
+        <section>
+          <h3>
+            ¿Una vez que lanzó la colección de NFTs para mi curso, se puede
+            comprar en otros marketplaces?
+          </h3>
+          <p>
+            DL3ARN crea los NFTs en la blockchain deseada por el creador.
+            Cualquier marketplace que muestre colecciones de esa blockchain va a
+            poder comerciar tu colección.
           </p>
         </section>
       </div>

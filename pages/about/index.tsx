@@ -4,11 +4,18 @@ import PreguntasFrecuentes from "components/About/PreguntasFrecuentes";
 import { AboutContainer } from "styles/about.styles";
 import LayoutAbout from "components/Layouts/About";
 
-function About() {
+interface Props {
+  meta: {
+    description: string;
+  };
+}
+
+function About({ meta }: Props) {
   return (
     <>
       <Head>
         <title>Sobre DL3ARN | DL3ARN</title>
+        <meta key="desciption" name="description" content={meta.description} />
       </Head>
 
       <LayoutAbout>
@@ -38,6 +45,16 @@ function About() {
       </LayoutAbout>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  const props: Props = {
+    meta: {
+      description:
+        "Primer plataforma de cursos online que utiliza tecnología web 3.0. Ayudamos a los creadores de cursos a lanzar su colección de NFT que sirve como llave de acceso a su curso online.",
+    },
+  };
+  return { props };
 }
 
 export default About;

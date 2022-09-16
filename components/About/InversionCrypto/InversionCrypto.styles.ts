@@ -27,6 +27,7 @@ export const InversionCryptoContainer = styled.section`
       gap: 2em;
       border-radius: 5px;
       font-weight: 600;
+      text-align: center;
 
       span {
         display: block;

@@ -1,8 +1,6 @@
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 
-import Card from "components/Landing/Card";
-
 import Intro from "components/Landing/Intro";
 
 import getCourses from "services/firebase/store/getCourses";

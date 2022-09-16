@@ -4,30 +4,29 @@ import { PrimaryButton } from "components/Buttons";
 function InversionCrypto() {
   return (
     <InversionCryptoContainer>
-      <h2>La inversíon Crypto de menor riesgo</h2>
+      <h2>Creadores de cursos que confian en nosotros</h2>
 
       <section className="content">
         <div className="left">
-          <p>
-            <span>105+</span> Placas Activas
-          </p>
+          <div>
+            <span>105+</span>
+            <p>Cursos</p>
+          </div>
 
           <div className="divider" />
 
           <div>
             <span>40+</span>
-            <p>Clientes</p>
+            <p>Usuarios Activos</p>
           </div>
         </div>
 
-        <div className="right">
-          <h3>Los rigs son propiedad del inversor</h3>
-          <p>
-            Nos encargamos de todo: adquirí tu rig con nosotros y comenzá a
-            minar
-          </p>
-          <PrimaryButton className="services">Servicios</PrimaryButton>
-        </div>
+        <section className="right">
+          <h3>Si quieres subir tu curso a nuestra plataforma contactanos!</h3>
+          <PrimaryButton className="services">
+            contacto@dl3arn.com
+          </PrimaryButton>
+        </section>
       </section>
     </InversionCryptoContainer>
   );

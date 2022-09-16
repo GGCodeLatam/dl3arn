@@ -15,7 +15,7 @@ export const PreguntasFrecuentesContainer = styled.section`
   }
   p {
     line-height: 1.75em;
-    opacity: 0.6;
+    opacity: 0.75;
     font-size: 0.95em;
   }
 
@@ -40,10 +40,9 @@ export const PreguntasFrecuentesContainer = styled.section`
   }
 
   .columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 2em;
-    margin: 1em 0 0 0;
+    margin: 2em 0 0 0;
+    border-radius: 1em;
   }
 
   .icon {
