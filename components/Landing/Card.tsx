@@ -29,6 +29,7 @@ function Card({
   rampp,
   url,
 }: CardProps) {
+  const img = typeof image === "string" ? image : image?.md || "";
   return (
     <CardContainer>
       <div className="other">
@@ -39,9 +40,9 @@ function Card({
       <Link href={`/course/${url}`}>
         <a className="content">
           <header>
-            {image && (
+            {img && (
               <div className="img-container">
-                <Image className="img" layout="fill" src={image} alt="" />
+                <Image className="img" layout="fill" src={img} alt="" />
               </div>
             )}
           </header>
