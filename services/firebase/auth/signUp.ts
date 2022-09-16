@@ -9,6 +9,7 @@ import { auth } from "services/firebase";
 import ErrorMessages from "utils/ErrorsMessages";
 
 import { EmailRegister } from "utils/types/firebase";
+import axios from "axios";
 
 export const signUp: EmailRegister = async ({ email, password }) => {
   try {
@@ -21,6 +22,10 @@ export const signUp: EmailRegister = async ({ email, password }) => {
     await sendEmailVerification(auth.currentUser);
 
     mixpanelSignUp();
+    await axios.post("/api/mailchimp/add", {
+      email: auth.currentUser?.email,
+      displayName: auth.currentUser?.displayName,
+    });
 
     return { error: null, user: data };
   } catch (e: any) {

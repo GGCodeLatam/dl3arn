@@ -103,17 +103,23 @@ function Test() {
     setCourseId("");
   };
 
-  const [response, setResponse] = useState<any>(null);
+  const [mailFetch, setMailFetch] = useState<{ error: any; data: any }>({
+    error: null,
+    data: null,
+  });
 
   const onClick = async () => {
     if (!user) return null;
 
-    const { data } = await axios.post("/api/mailchimp/add", {
-      email: user.email,
-      displayName: user.displayName,
-    });
+    const { data } = await axios.post<{ error: null; data: null }>(
+      "/api/mailchimp/add",
+      {
+        email: user.email,
+        displayName: user.displayName,
+      }
+    );
 
-    setResponse(data);
+    setMailFetch(data);
   };
 
   return (
@@ -123,7 +129,12 @@ function Test() {
           <div>
             <h2>{user?.email}</h2>
             <button onClick={onClick}>Añadirme a Mailchimp</button>
-            <pre>{response && JSON.stringify(response, undefined, 2)}</pre>
+            {mailFetch.data && (
+              <pre>{JSON.stringify(mailFetch.data, undefined, 2)}</pre>
+            )}
+            {mailFetch.error && (
+              <pre>{JSON.stringify(mailFetch.error, undefined, 2)}</pre>
+            )}
           </div>
         )}
       </Container>

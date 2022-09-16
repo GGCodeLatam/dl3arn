@@ -8,6 +8,7 @@ import {
 import ErrorMessages from "utils/ErrorsMessages";
 import { Login } from "utils/types/firebase";
 import { login as mixpanelLogin } from "utils/mixpanel";
+import axios from "axios";
 
 export const login: Login = async ({ email, password }, provider = "email") => {
   try {
@@ -26,6 +27,10 @@ export const login: Login = async ({ email, password }, provider = "email") => {
     const data = await handler();
 
     mixpanelLogin({ email: data.user.email });
+    await axios.post("/api/mailchimp/add", {
+      email: auth.currentUser?.email,
+      displayName: auth.currentUser?.displayName,
+    });
 
     if (!data || !data.user) return { error: null, user: null };
     return { error: null, user: data };
