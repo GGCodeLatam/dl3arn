@@ -22,13 +22,12 @@ import { GetServerSidePropsContext } from "next";
 import { NetworkBadge } from "components/Badges";
 import { VideoSafeProps } from "utils/types/video";
 import Layout from "components/Layouts";
-import { CourseModel } from "utils/types/firebase";
 
 interface Props {
   course: APIGetCourseById;
   meta: {
     description: string;
-    image: CourseModel["image"];
+    image: string;
     title: string;
     type: string;
     url: string;
@@ -201,14 +200,17 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     host?.includes("localhost") ? "http" : "https"
   }://${host}${path}`;
 
+  const image =
+    typeof course?.image === "string" ? course.image : course?.image?.md || "";
+
   const props: Props = {
     course,
     meta: {
       description: course?.description || "",
-      image: course?.image || "",
       title: `${course?.name ? `${course.name} | ` : ""}DL3ARN`,
       type: "website",
       url: fullURL,
+      image,
     },
   };
   console.log({ contract: course?.contract });
