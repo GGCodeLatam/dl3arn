@@ -22,12 +22,13 @@ import { GetServerSidePropsContext } from "next";
 import { NetworkBadge } from "components/Badges";
 import { VideoSafeProps } from "utils/types/video";
 import Layout from "components/Layouts";
+import { CourseModel } from "utils/types/firebase";
 
 interface Props {
   course: APIGetCourseById;
   meta: {
     description: string;
-    image: string;
+    image: CourseModel["image"];
     title: string;
     type: string;
     url: string;
