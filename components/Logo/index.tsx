@@ -9,14 +9,20 @@ const Container = styled.a`
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
   height: 100%;
 
-  .img {
+  .img-container {
     position: relative;
-    filter: drop-shadow(0 0px 2px #000a);
     width: 7em;
     height: 2em;
+
+    .img {
+      object-fit: cover;
+      object-position: center;
+      transform: scale(125%);
+      display: block;
+      margin: 0 auto;
+    }
   }
   .beta {
     font-size: 0.75em;
@@ -29,8 +35,8 @@ function Logo() {
   return (
     <Link href={routes.landing.path}>
       <Container>
-        <div className="img">
-          <Image layout="fill" src={LogoImg} alt="dl3arn" />
+        <div className="img-container">
+          <Image className="img" layout="fill" src={LogoImg} alt="dl3arn" />
         </div>
         <p className="beta">beta</p>
       </Container>
