@@ -134,7 +134,11 @@ function Course({ course, meta }: Props) {
                 {!video && course && (
                   <CourseIntro
                     name={course.name}
-                    imgUrl={course.image}
+                    imgUrl={
+                      typeof course.image === "string"
+                        ? course.image
+                        : course?.image?.md || ""
+                    }
                     instructor={course.instructor}
                     description={course.description}
                     prev={hasPrev() ? prev : null}

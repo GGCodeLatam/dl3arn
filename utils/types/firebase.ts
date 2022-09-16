@@ -83,12 +83,19 @@ export interface Section {
 export interface Sections<T = Section> {
   [key: string]: T;
 }
+export type ImageType = "banner" | "sm" | "md" | "lg";
+export interface Images {
+  banner?: string | null;
+  sm?: string | null;
+  md?: string | null;
+  lg?: string | null;
+}
 export interface CourseModel {
   contract: ContractModel | null;
   created_at: number;
   description: string;
   id: string;
-  image: string | null;
+  image: Images | string | null;
   instructor: InstructorModel;
   name: string;
   opensea: string | null;

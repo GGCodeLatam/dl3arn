@@ -123,7 +123,7 @@ export const Nav = styled.nav<NavProps>`
       .categories {
         display: flex;
         flex-flow: column;
-        gap: 0.5em;
+        gap: 0.75em;
       }
 
       .links {
@@ -203,16 +203,16 @@ export const Nav = styled.nav<NavProps>`
     }
 
     .categories-list {
-      display: block;
+      display: flex;
       flex-flow: column;
+      gap: 0.25em;
       box-shadow: 0 5px 10px #0002;
       background-color: transparent;
       border-radius: 2px;
 
       position: absolute;
       top: 100%;
-      left: 50%;
-      transform: translate(-50%, 0);
+      left: 0;
       z-index: 9999;
       font-size: 0.75em;
       width: 150px;

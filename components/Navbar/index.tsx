@@ -121,7 +121,7 @@ function Navbar() {
               <>
                 {NODE_ENV === "development" && userData?.role === "admin" && (
                   <li>
-                    <NavLink href="/admin">Instructores</NavLink>
+                    <NavLink href="/admin">Admin</NavLink>
                   </li>
                 )}
 
@@ -197,6 +197,10 @@ function Navbar() {
                     <NavLink href="/about">
                       <BiChevronRight className="icon" />
                       acerca de DL3ARN
+                    </NavLink>
+                    <NavLink href="/admin">
+                      <BiChevronRight className="icon" />
+                      admin
                     </NavLink>
                   </>
                 )}

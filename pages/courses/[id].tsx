@@ -33,7 +33,7 @@ function Category({ category, courses, meta }: Props) {
             <span className="category">{category}</span>
           </h1>
 
-          <div>
+          <div className="list">
             {courses.map((course) => (
               <Card key={course.id} {...course} />
             ))}

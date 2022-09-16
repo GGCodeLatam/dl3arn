@@ -13,6 +13,10 @@ interface Props {
   course: CourseModel;
 }
 function Featured({ badge, course }: Props) {
+  const banner =
+    typeof course.image === "string"
+      ? course.image
+      : course?.image?.banner || "";
   return (
     <FeaturedContainer>
       <Link href={`/course/${course.url}`}>
@@ -39,7 +43,7 @@ function Featured({ badge, course }: Props) {
                   className="img"
                   width="1200px"
                   height="240px"
-                  src={course.image}
+                  src={banner}
                   alt=""
                 />
               </div>

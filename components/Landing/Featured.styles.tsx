@@ -8,6 +8,8 @@ export const FeaturedContainer = styled.div`
 
   .hero-img {
     border-radius: 5px;
+    object-position: left;
+    object-fit: contain;
     display: flex;
     overflow: hidden;
     position: relative;
@@ -93,7 +95,8 @@ export const FeaturedContainer = styled.div`
     }
 
     .hero-img {
-      aspect-ratio: 4 / 1;
+      object-fit: contain;
+      aspect-ratio: 5 / 1;
     }
     .info {
       margin: 0.75em 0;
