@@ -119,11 +119,9 @@ function Navbar() {
             )}
             {!isLoading && user ? (
               <>
-                {NODE_ENV === "development" && userData?.role === "admin" && (
-                  <li>
-                    <NavLink href="/admin">Admin</NavLink>
-                  </li>
-                )}
+                <li>
+                  <NavLink href="/admin">Admin</NavLink>
+                </li>
 
                 <li>
                   <NavLink href="/favorites">Favoritos</NavLink>
@@ -140,7 +138,7 @@ function Navbar() {
                   <Avatar
                     to="left"
                     onClick={() => router.push(routes.profile.path)}
-                    img={user.photoURL}
+                    img={userData?.avatar || user?.photoURL}
                     isLoading={isLoading}
                     role={userData?.role}
                   />

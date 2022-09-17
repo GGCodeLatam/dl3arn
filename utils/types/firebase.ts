@@ -69,6 +69,7 @@ export interface FirebaseContext {
     login: Login;
     updateCredentials: UpdateCredentials;
     updateUser: UpdateUser;
+    updateUserData: () => any;
   };
 }
 
@@ -148,4 +149,5 @@ type Role = "admin" | "instructor" | "user";
 export interface UserModel {
   role: Role;
   email: string;
+  avatar?: string | null;
 }

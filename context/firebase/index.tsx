@@ -17,7 +17,7 @@ import {
   updateUser,
 } from "services/firebase/auth";
 import getUserData from "services/firebase/store/getUserData";
-import { setLocal } from "utils/localStorage";
+import { getLocal, setLocal } from "utils/localStorage";
 
 const initial = {
   auth: {
@@ -25,6 +25,7 @@ const initial = {
       user: null,
       isLoading: true,
     },
+    updatedUserData: () => {},
     userData: null,
     logout,
     signUp,
@@ -62,10 +63,13 @@ function FirebaseProvider({ children }: Props) {
     };
   }, []);
 
+  const updateUserData = () => setUserData(getLocal("-user-data"));
+
   const value: FirebaseContext = {
     auth: {
       data,
       userData,
+      updateUserData,
       login,
       logout,
       signUp,

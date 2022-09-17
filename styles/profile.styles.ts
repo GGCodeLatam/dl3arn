@@ -11,6 +11,18 @@ export const ProfileContainer = styled.div`
 
   .left {
     font-size: 0.8rem;
+    display: flex;
+    flex-flow: column;
+
+    .btn {
+      text-align: left;
+      padding: 0.75em 0.25em;
+      background-color: transparent;
+      display: flex;
+      gap: 0.25em;
+      align-items: center;
+      margin: 0 0 0.25em 0;
+    }
   }
   .right {
     display: flex;
