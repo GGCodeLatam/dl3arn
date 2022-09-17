@@ -33,9 +33,11 @@ export const AdminContainer = styled.div`
   .users {
     margin: 1em 0 0 0;
     max-width: 480px;
+
     li {
       padding: 0.25em 0;
-      display: grid;
+      display: flex;
+      align-items: center;
       grid-template-columns: minmax(50px, 75px) 1fr;
       gap: 1em;
 
@@ -43,24 +45,31 @@ export const AdminContainer = styled.div`
         width: 100%;
         font-weight: bold;
       }
+      .avatar {
+        width: 2.5em;
+        height: 2.5em;
+        position: relative;
+        .img {
+          object-fit: contain;
+        }
+      }
       .role {
-        font-size: 0.75em;
-        font-weight: bold;
         background-color: #1e1e2e;
         color: #fff;
-        padding: 0.35em 0.75em;
-        border-radius: 5px;
-        text-align: center;
+        border-radius: 100%;
+        width: 10px;
+        height: 10px;
+        display: block;
       }
 
       .role.user {
-        background-color: #5a5;
-      }
-      .role.admin {
-        background-color: var(--primary);
+        background-color: var(--user);
       }
       .role.instructor {
-        background-color: #a5f;
+        background-color: var(--instructor);
+      }
+      .role.admin {
+        background-color: var(--admin);
       }
     }
   }

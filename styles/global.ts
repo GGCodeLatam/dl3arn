@@ -31,6 +31,10 @@ export const GlobalStyle = createGlobalStyle`
   --dark: #1e1e20;
   --light: #fafaff;
 
+  --instructor: #a5f;
+  --user: #5a5;
+  --admin: var(--primary);
+
   --nav-size: 56px;
 }
 

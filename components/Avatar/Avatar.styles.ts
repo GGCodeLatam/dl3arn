@@ -44,9 +44,10 @@ export const AvatarContainer = styled.button<Props>`
   ::before {
     display: none;
     content: "";
-    z-index: 1;
 
     position: absolute;
+    background-color: #5c5;
+    z-index: 2;
 
     outline: 2px solid #fff;
     width: 10px;

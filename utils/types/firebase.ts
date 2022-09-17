@@ -150,4 +150,5 @@ export interface UserModel {
   role: Role;
   email: string;
   avatar?: string | null;
+  name?: string | null;
 }

@@ -25,7 +25,7 @@ const initial = {
       user: null,
       isLoading: true,
     },
-    updatedUserData: () => {},
+    updateUserData: () => {},
     userData: null,
     logout,
     signUp,
@@ -47,7 +47,7 @@ function FirebaseProvider({ children }: Props) {
   useEffect(() => {
     const unsuscribe = auth.onAuthStateChanged(async (user: User | null) => {
       if (user) {
-        getUserData(user.email).then((data) => {
+        getUserData(user).then((data) => {
           setUserData(data);
           setLocal("-user-data", data);
         });

@@ -119,9 +119,11 @@ function Navbar() {
             )}
             {!isLoading && user ? (
               <>
-                <li>
-                  <NavLink href="/admin">Admin</NavLink>
-                </li>
+                {userData?.role === "admin" && (
+                  <li>
+                    <NavLink href="/admin">Admin</NavLink>
+                  </li>
+                )}
 
                 <li>
                   <NavLink href="/favorites">Favoritos</NavLink>
@@ -196,10 +198,11 @@ function Navbar() {
                       <BiChevronRight className="icon" />
                       acerca de DL3ARN
                     </NavLink>
-                    <NavLink href="/admin">
-                      <BiChevronRight className="icon" />
-                      admin
-                    </NavLink>
+                    {userData?.role === "admin" && (
+                      <li>
+                        <NavLink href="/admin">Admin</NavLink>
+                      </li>
+                    )}
                   </>
                 )}
               </div>

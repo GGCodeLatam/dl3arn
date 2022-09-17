@@ -11,7 +11,7 @@ interface Props {
   isLoading: boolean;
   role?: UserModel["role"];
 
-  name?: string;
+  name?: string | null;
   email?: string;
 }
 function Avatar({ email, img, name, role, to, username, onClick }: Props) {

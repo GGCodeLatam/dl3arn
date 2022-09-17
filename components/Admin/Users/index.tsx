@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import getUsers from "services/firebase/store/getUsers";
 import { UserModel } from "utils/types/firebase";
@@ -12,11 +13,22 @@ function Users() {
     };
     p();
   }, []);
+
   return (
     <div className="users">
       {users?.map((user) => (
         <li key={user.email}>
-          <span className={`role ${user.role}`}>{user.role}</span>
+          <span className={`role ${user.role}`} />
+          {user.avatar && (
+            <div className="avatar">
+              <Image
+                layout="fill"
+                className="img"
+                src={user.avatar}
+                alt={user.email}
+              />
+            </div>
+          )}
           <p className="email">{user.email}</p>
         </li>
       ))}

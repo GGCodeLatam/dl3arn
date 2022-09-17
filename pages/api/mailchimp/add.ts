@@ -29,7 +29,7 @@ async function addUser(req: Req, res: Res) {
       }
     );
     const { response } = data;
-    if (!response) return res.status(404).json({ error: null, data: null });
+    if (!response) return res.status(200).json({ error: null, data: null });
 
     return res.json({ error: null, data });
   } catch (err: any) {
