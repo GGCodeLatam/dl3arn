@@ -3,5 +3,6 @@ Sitemap: http://www.dl3arn.com/sitemap.xml
 user-agent: *
 Allow: /
 Disallow: /auth/*
+Disallow: /admin
 Disallow: /courses/*?
 Disallow: /course/*?*

@@ -62,6 +62,8 @@ function Profile() {
                 email={user?.email || ""}
               />
 
+              {userData?.bio}
+
               {sections[section].element}
             </div>
           </ProfileContainer>

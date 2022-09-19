@@ -3,9 +3,10 @@ import Button from "./Button";
 
 interface ButtonProps {
   isLight?: boolean;
+  noHover?: boolean;
 }
 
-export const PrimaryButton = styled(Button)`
+export const PrimaryButton = styled(Button)<ButtonProps>`
   color: #fff;
 
   background-color: var(--primary);
@@ -15,9 +16,13 @@ export const PrimaryButton = styled(Button)`
 
   transition: transform 0.15s;
 
-  :hover {
-    transform: scale(110%);
-  }
+  ${({ noHover }) =>
+    !noHover &&
+    css`
+      :hover {
+        transform: scale(110%);
+      }
+    `}
 `;
 
 export const SecondaryButton = styled(Button)<ButtonProps>`

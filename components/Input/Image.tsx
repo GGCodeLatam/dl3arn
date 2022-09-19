@@ -15,7 +15,6 @@ const Overlay = styled.div`
   left: 0;
   position: absolute;
   top: 0;
-  width: 100%;
   .icon {
     width: 1.5em;
     height: 1.5em;
@@ -29,7 +28,7 @@ const Overlay = styled.div`
 interface Props extends HTMLProps<HTMLInputElement> {
   init?: string | null;
 }
-function ImageInput({ init, className, onChange }: Props) {
+function ImageInput({ init, onChange, className, ...props }: Props) {
   const [data, setData] = useState<File | null>();
   const [preview, setPreview] = useState<string | null>(null);
 
@@ -52,7 +51,7 @@ function ImageInput({ init, className, onChange }: Props) {
   }, [data]);
 
   return (
-    <label className={className} htmlFor="avatar">
+    <label htmlFor="avatar" className={className}>
       <div className="img-preview">
         <>
           {preview ? (
@@ -77,12 +76,18 @@ function ImageInput({ init, className, onChange }: Props) {
             )) || <span className="no-image" />
           )}
 
-          <Overlay className="remove">
+          <Overlay className="overlay">
             <AiOutlineCamera className="icon" />
           </Overlay>
         </>
       </div>
-      <input onChange={_onChange} id="avatar" name="avatar" type="file" />
+      <input
+        onChange={_onChange}
+        id="avatar"
+        name="avatar"
+        type="file"
+        {...props}
+      />
     </label>
   );
 }

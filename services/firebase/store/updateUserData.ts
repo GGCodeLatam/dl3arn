@@ -5,13 +5,17 @@ import { Override } from "utils/types/utility";
 import { auth, db, storage } from "..";
 
 type Update = Override<Omit<UserModel, "role">, { avatar?: File | null }>;
-async function updateUserData(
-  current: UserModel | null,
-  { avatar }: Partial<Update>
-) {
-  if (!current || !avatar || !auth.currentUser?.email) return null;
+interface Props {
+  current: UserModel | null;
+  update: Partial<Update>;
+}
+async function updateUserData({
+  current,
+  update: { avatar, bio, name },
+}: Props) {
+  if (!current || !auth.currentUser?.email) return null;
 
-  const updatedData: Partial<UserModel> = { ...current };
+  const updatedData: Partial<UserModel> = { ...current } as Partial<UserModel>;
 
   if (avatar) {
     const storageRef = ref(storage, `${auth.currentUser.email}/avatar`);
@@ -19,6 +23,10 @@ async function updateUserData(
     const imgUrl = await getDownloadURL(avatarRef.ref);
     updatedData.avatar = imgUrl;
   }
+
+  if (name) updatedData.name = name;
+  else if (auth.currentUser?.displayName) updatedData.name = name;
+  if (bio) updatedData.bio = bio;
 
   await setDoc(doc(db, "users", auth.currentUser.email), updatedData, {
     merge: true,

@@ -145,10 +145,11 @@ export interface InstructorModel {
 
 /* --- USER --- */
 
-type Role = "admin" | "instructor" | "user";
+export type Role = "admin" | "instructor" | "user";
 export interface UserModel {
   role: Role;
   email: string;
   avatar?: string | null;
   name?: string | null;
+  bio?: string | null;
 }
