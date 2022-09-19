@@ -1,7 +1,7 @@
 import { InformationContainer } from "components/Admin/Information.styles";
 import ImageInput from "components/Input/Image";
 import { useAuth } from "context/firebase";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import updateUserData from "services/firebase/store/updateUserData";
 import { setLocal } from "utils/localStorage";
 import { PrimaryButton } from "components/Buttons";
@@ -27,9 +27,11 @@ function Information() {
     name: userData?.name || "",
   });
 
-  const _handleImage = ({ target: { files } }: InputChange) => {
-    if (files)
-      return setInputs((old) => ({ ...old, avatar: files[0] || null }));
+  const _handleImage = (e: File | null | string) => {
+    if (!e) return setInputs((old) => ({ ...old, avatar: null }));
+    if (typeof e === "string")
+      return setInputs((old) => ({ ...old, avatar: e }));
+    return setInputs((old) => ({ ...old, avatar: e }));
   };
   const _handleName = ({ target: { name, value } }: InputChange) => {
     return setInputs((old) => ({ ...old, [name]: value }));
@@ -47,6 +49,14 @@ function Information() {
     setLocal("-user-data", updated);
     contextUpdateUser();
   };
+
+  useEffect(() => {
+    if (!inputs.avatar && userData)
+      return setInputs((old) => ({
+        ...old,
+        avatar: userData.avatar || null,
+      }));
+  }, [userData, inputs.avatar]);
 
   console.log(inputs);
 

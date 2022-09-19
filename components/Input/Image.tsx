@@ -25,9 +25,10 @@ const Overlay = styled.div`
   }
 `;
 
-interface Props extends HTMLProps<HTMLInputElement> {
+interface Props extends Omit<HTMLProps<HTMLInputElement>, "onChange"> {
   init?: string | null;
   defaultImages?: (string | null)[];
+  onChange(e: File | null | string): any;
 }
 function ImageInput({
   init,
@@ -36,7 +37,7 @@ function ImageInput({
   className,
   ...props
 }: Props) {
-  const [data, setData] = useState<File | null | string>(null);
+  const [data, setData] = useState<File | null | string>(init || null);
   const [preview, setPreview] = useState<string | null>(null);
 
   const _onChange = (e: InputChange) => {
@@ -45,7 +46,6 @@ function ImageInput({
     } = e;
     if (!files) return;
     setData(files[0]);
-    onChange!(e);
   };
 
   useEffect(() => {
@@ -55,6 +55,10 @@ function ImageInput({
     setPreview(objectUrl);
 
     return () => URL.revokeObjectURL(objectUrl);
+  }, [data]);
+
+  useEffect(() => {
+    onChange!(data);
   }, [data]);
 
   return (
@@ -102,7 +106,8 @@ function ImageInput({
       <div className="defaults">
         {defaultImages?.map(
           (img) =>
-            img && (
+            img &&
+            img !== preview && (
               <button
                 onClick={() => setData(img)}
                 type="button"
@@ -114,13 +119,15 @@ function ImageInput({
             )
         )}
 
-        <button
-          onClick={() => setData(init || "")}
-          type="button"
-          className="default-img"
-        >
-          <Image layout="fill" className="img" alt={init || ""} src={init} />
-        </button>
+        {init && init !== preview && !defaultImages?.includes(init) && (
+          <button
+            onClick={() => setData(init)}
+            type="button"
+            className="default-img"
+          >
+            <Image layout="fill" className="img" alt={init} src={init} />
+          </button>
+        )}
       </div>
     </div>
   );
