@@ -16,7 +16,6 @@ function createUserData({ email, photoURL, displayName }: User) {
 }
 
 async function getUserData(user: User) {
-  console.debug(user);
   try {
     if (!user.email) return null;
 
@@ -24,7 +23,6 @@ async function getUserData(user: User) {
     if (!userRef.data()) return createUserData(user);
 
     const userData = userRef.data() as UserModel;
-    console.debug(userData);
     return userData;
   } catch (e) {
     console.error(e);

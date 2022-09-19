@@ -8,7 +8,7 @@ interface Props {
   username?: string | null;
   to?: "left" | "right";
   onClick?(): any;
-  isLoading: boolean;
+  isLoading?: boolean;
   role?: UserModel["role"];
 
   name?: string | null;
@@ -31,6 +31,7 @@ function Avatar({ email, img, name, role, to, username, onClick }: Props) {
       {to === "left" && user}
       {img ? (
         <div className="image-container">
+          <span className="role" />
           <Image
             layout="fill"
             className="img"

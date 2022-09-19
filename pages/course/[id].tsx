@@ -213,7 +213,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       image,
     },
   };
-  console.log({ contract: course?.contract });
   return {
     props,
   };
