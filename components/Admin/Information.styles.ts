@@ -39,8 +39,8 @@ export const InformationContainer = styled.div`
 
   .img-input {
     display: block;
-    width: 4em;
-    height: 4em;
+    width: 7em;
+    height: 7em;
 
     .overlay {
       width: 100%;
@@ -70,6 +70,38 @@ export const InformationContainer = styled.div`
     .img {
       object-fit: cover;
       object-position: center;
+    }
+  }
+  .input-container {
+    position: relative;
+    display: grid;
+    gap: 0.25em;
+  }
+
+  .defaults {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    gap: 0.25em;
+    height: 40%;
+    place-items: center;
+    padding: 0.25em;
+  }
+
+  .default-img {
+    position: relative;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0.25em 0.5em #0008;
+
+    .img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
     }
   }
 `;

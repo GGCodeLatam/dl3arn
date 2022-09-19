@@ -21,6 +21,8 @@ async function getUserData(user: User) {
 
     const userRef = await getDoc(doc(db, "users", user.email));
     if (!userRef.data()) return createUserData(user);
+    if (userRef.data() && !userRef.data()?.avatar && user.photoURL)
+      return createUserData(user);
 
     const userData = userRef.data() as UserModel;
     return userData;

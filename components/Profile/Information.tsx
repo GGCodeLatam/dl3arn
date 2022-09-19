@@ -6,16 +6,21 @@ import updateUserData from "services/firebase/store/updateUserData";
 import { setLocal } from "utils/localStorage";
 import { PrimaryButton } from "components/Buttons";
 import { InputChange } from "utils/types";
+import Image from "next/image";
 
 interface Inputs {
-  avatar: null | File;
+  avatar: null | File | string;
   bio: string;
   name: string;
 }
 
 const MAX_LENGTH = 240;
 function Information() {
-  const { userData, updateUserData: contextUpdateUser } = useAuth();
+  const {
+    data: { user },
+    userData,
+    updateUserData: contextUpdateUser,
+  } = useAuth();
   const [inputs, setInputs] = useState<Inputs>({
     avatar: null,
     bio: userData?.bio || "",
@@ -43,6 +48,8 @@ function Information() {
     contextUpdateUser();
   };
 
+  console.log(inputs);
+
   return (
     <InformationContainer>
       <form onSubmit={_onSubmit}>
@@ -51,6 +58,7 @@ function Information() {
             init={userData?.avatar || null}
             className="img-input"
             onChange={_handleImage}
+            defaultImages={user ? [user?.photoURL] : []}
           />
           <input
             name="name"

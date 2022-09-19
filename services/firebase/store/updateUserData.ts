@@ -4,7 +4,10 @@ import { UserModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
 import { auth, db, storage } from "..";
 
-type Update = Override<Omit<UserModel, "role">, { avatar?: File | null }>;
+type Update = Override<
+  Omit<UserModel, "role">,
+  { avatar?: File | null | string }
+>;
 interface Props {
   current: UserModel | null;
   update: Partial<Update>;
@@ -17,12 +20,15 @@ async function updateUserData({
 
   const updatedData: Partial<UserModel> = { ...current } as Partial<UserModel>;
 
-  if (avatar) {
+  if (avatar && typeof avatar !== "string") {
     const storageRef = ref(storage, `${auth.currentUser.email}/avatar`);
     const avatarRef = await uploadBytes(storageRef, avatar);
     const imgUrl = await getDownloadURL(avatarRef.ref);
     updatedData.avatar = imgUrl;
   }
+  if (avatar && typeof avatar === "string") updatedData.avatar = avatar;
+  if (!avatar && auth.currentUser?.photoURL)
+    updatedData.avatar = auth.currentUser?.photoURL;
 
   if (name) updatedData.name = name;
   else if (auth.currentUser?.displayName) updatedData.name = name;
