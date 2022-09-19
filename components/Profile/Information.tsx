@@ -1,7 +1,7 @@
 import { InformationContainer } from "components/Admin/Information.styles";
 import ImageInput from "components/Input/Image";
 import { useAuth } from "context/firebase";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import updateUserData from "services/firebase/store/updateUserData";
 import { setLocal } from "utils/localStorage";
 import { InputChange } from "utils/types";
@@ -11,11 +11,7 @@ interface Inputs {
 }
 
 function Information() {
-  const {
-    data: { user },
-    userData,
-    updateUserData: contextUpdateUser,
-  } = useAuth();
+  const { userData, updateUserData: contextUpdateUser } = useAuth();
   const [inputs, setInputs] = useState<Inputs>({
     image: null,
   });
@@ -35,7 +31,7 @@ function Information() {
     <InformationContainer>
       <form onSubmit={_onSubmit}>
         <ImageInput
-          init={userData?.avatar || user?.photoURL}
+          init={userData?.avatar || null}
           className="img-input"
           onChange={_onChange}
         />

@@ -24,6 +24,7 @@ async function getUserData(user: User) {
     if (!userRef.data()) return createUserData(user);
 
     const userData = userRef.data() as UserModel;
+    console.debug(userData);
     return userData;
   } catch (e) {
     console.error(e);

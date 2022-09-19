@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const AdminContainer = styled.div`
+  --avatar-size: 2em;
   display: grid;
   grid-template-columns: auto 1fr;
   min-height: 100vh;
@@ -46,31 +47,62 @@ export const AdminContainer = styled.div`
         font-weight: bold;
       }
       .avatar {
-        width: 2.5em;
-        height: 2.5em;
+        min-width: var(--avatar-size);
+        min-height: var(--avatar-size);
         position: relative;
         .img {
           object-fit: contain;
         }
       }
       .role {
+        position: relative;
         background-color: #1e1e2e;
         color: #fff;
         border-radius: 100%;
-        width: 10px;
-        height: 10px;
+        --dot-size: 12px;
+        min-width: var(--dot-size);
+        min-height: var(--dot-size);
         display: block;
+
+        ::after {
+          position: absolute;
+          top: -100%;
+          left: 50%;
+          transform: translate(-50%, -75%);
+          background-color: #000;
+          color: #fff;
+          font-weight: bold;
+          font-size: 0.75em;
+          padding: 0.25em 0.75em;
+          border-radius: 5px;
+        }
       }
 
       .role.user {
         background-color: var(--user);
+        :hover::after {
+          content: "user";
+        }
       }
       .role.instructor {
         background-color: var(--instructor);
+        :hover::after {
+          content: "instructor";
+        }
       }
       .role.admin {
         background-color: var(--admin);
+        :hover::after {
+          content: "admin";
+        }
       }
     }
+  }
+
+  .no-image {
+    min-width: var(--avatar-size);
+    min-height: var(--avatar-size);
+    background-color: #ddd;
+    border-radius: 5px;
   }
 `;

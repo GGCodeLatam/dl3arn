@@ -56,7 +56,7 @@ function Profile() {
               <Avatar
                 isLoading={isLoading}
                 role={userData?.role}
-                img={userData?.avatar || user?.photoURL}
+                img={userData?.avatar || null}
                 to="right"
                 name={userData?.name || user?.displayName}
                 email={user?.email || ""}

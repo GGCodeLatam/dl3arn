@@ -19,7 +19,7 @@ function Users() {
       {users?.map((user) => (
         <li key={user.email}>
           <span className={`role ${user.role}`} />
-          {user.avatar && (
+          {user.avatar ? (
             <div className="avatar">
               <Image
                 layout="fill"
@@ -28,6 +28,8 @@ function Users() {
                 alt={user.email}
               />
             </div>
+          ) : (
+            <span className="no-image" />
           )}
           <p className="email">{user.email}</p>
         </li>

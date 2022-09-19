@@ -65,7 +65,7 @@ function ImageInput({ init, className, onChange }: Props) {
               />
             </div>
           ) : (
-            init && (
+            (init && (
               <div className="img-container">
                 <Image
                   layout="fill"
@@ -74,7 +74,7 @@ function ImageInput({ init, className, onChange }: Props) {
                   alt={data?.name}
                 />
               </div>
-            )
+            )) || <span className="no-image" />
           )}
 
           <Overlay className="remove">

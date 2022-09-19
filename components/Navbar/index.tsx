@@ -140,7 +140,7 @@ function Navbar() {
                   <Avatar
                     to="left"
                     onClick={() => router.push(routes.profile.path)}
-                    img={userData?.avatar || user?.photoURL}
+                    img={userData?.avatar || null}
                     isLoading={isLoading}
                     role={userData?.role}
                   />
@@ -213,7 +213,7 @@ function Navbar() {
                     <Avatar
                       to="right"
                       onClick={() => router.push(routes.profile.path)}
-                      img={user.photoURL}
+                      img={userData?.avatar || null}
                       isLoading={isLoading}
                       role={userData?.role}
                     />
