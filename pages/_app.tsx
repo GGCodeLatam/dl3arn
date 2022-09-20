@@ -7,6 +7,9 @@ import {
   RainbowKitProvider,
   getDefaultWallets,
   darkTheme,
+  lightTheme,
+  connectorsForWallets,
+  wallet,
 } from "@rainbow-me/rainbowkit";
 
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
@@ -31,10 +34,22 @@ const { connectors } = getDefaultWallets({
   appName: "Dl3arn",
   chains,
 });
+const connectors2 = connectorsForWallets([
+  {
+    groupName: "Popular",
+    wallets: [
+      wallet.rainbow({ chains }),
+      wallet.trust({ chains }),
+      wallet.metaMask({ chains }),
+      wallet.coinbase({ appName: "dl3arn", chains }),
+      wallet.walletConnect({ chains }),
+    ],
+  },
+]);
 
 const wagmiClient = createClient({
   autoConnect: true,
-  connectors,
+  connectors: connectors2,
   provider,
   webSocketProvider,
 });
@@ -45,7 +60,13 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <FirebaseProvider>
       <WagmiConfig client={wagmiClient}>
-        <RainbowKitProvider chains={chains} theme={darkTheme()}>
+        <RainbowKitProvider
+          chains={chains}
+          modalSize="compact"
+          theme={lightTheme({
+            accentColor: "#ba9050",
+          })}
+        >
           <GlobalStyle />
           <Component {...pageProps} />
         </RainbowKitProvider>
