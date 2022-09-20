@@ -1,6 +1,16 @@
+import Logo from "components/Logo";
 import Wave from "components/SVGs/wave";
+import Link from "next/link";
+import { BiChevronRight } from "react-icons/bi";
+import {
+  IoLogoInstagram,
+  IoLogoTwitter,
+  IoLogoWhatsapp,
+  IoLogoYoutube,
+} from "react-icons/io";
 
 import contact from "utils/contact.json";
+import routes from "utils/routes";
 import { FooterContainer } from "./Footer.styles";
 
 function Footer() {
@@ -9,33 +19,55 @@ function Footer() {
       <Wave className="wave" fill="#1e1e20" />
       <div className="data">
         <div className="container">
-          <h3>DL3ARN</h3>
-
           <div className="sections">
+            <Logo />
             <section>
-              <h3>Contacto</h3>
+              <nav className="pages">
+                <Link href={routes.landing.path}>
+                  <a className="link">
+                    <BiChevronRight /> Home
+                  </a>
+                </Link>
+                <Link href={routes.about.path}>
+                  <a className="link">
+                    <BiChevronRight /> Acerca de DL3ARN
+                  </a>
+                </Link>
+                <Link href={routes.roadmap.path}>
+                  <a className="link">
+                    <BiChevronRight /> Roadmap
+                  </a>
+                </Link>
+                <Link href={routes.quienes.path}>
+                  <a className="link">
+                    <BiChevronRight /> Quienes Somos
+                  </a>
+                </Link>
+              </nav>
+            </section>
+            <section>
               <ul className="contacts">
                 <li>
-                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
-                </li>
-                <li>
-                  <a href={`https://www.instagram.com/${contact.instagram}`}>
-                    Instagram
-                  </a>
-                </li>
-                <li>
-                  <a href={`https://www.twitter.com/${contact.instagram}`}>
-                    Twitter
+                  <a className="contact" href={`mailto:${contact.email}`}>
+                    {contact.email}
                   </a>
                 </li>
                 <li>
                   <a
-                    href={`https://www.youtube.com/channel/${contact.youtube}`}
+                    className="contact"
+                    href={`https://www.instagram.com/${contact.instagram}`}
                   >
-                    YouTube
+                    <IoLogoInstagram /> @{contact.instagram}
                   </a>
                 </li>
-                <li>WhatsApp: {contact.whatsapp}</li>
+                <li>
+                  <a
+                    className="contact"
+                    href={`https://www.twitter.com/${contact.instagram}`}
+                  >
+                    <IoLogoTwitter /> @{contact.twitter}
+                  </a>
+                </li>
               </ul>
             </section>
           </div>

@@ -97,7 +97,7 @@ export interface CourseModel {
   description: string;
   id: string;
   image: Images | string | null;
-  instructor: InstructorModel;
+  instructor: UserModel | string;
   name: string;
   opensea: string | null;
   rampp: RamppModel | null;

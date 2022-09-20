@@ -20,6 +20,7 @@ async function getUserData(user: User) {
     if (!user.email) return null;
 
     const userRef = await getDoc(doc(db, "users", user.email));
+
     if (!userRef.data()) return createUserData(user);
     if (userRef.data() && !userRef.data()?.avatar && user.photoURL)
       return createUserData(user);

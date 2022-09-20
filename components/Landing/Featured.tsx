@@ -7,6 +7,7 @@ import { CourseModel } from "utils/types/firebase";
 import FavoriteButton from "components/Buttons/FavoriteButton";
 import Placeholder from "components/Placeholders";
 import { FeaturedContainer } from "./Featured.styles";
+import Avatar from "components/Avatar";
 
 interface Props {
   badge?: boolean;
@@ -62,7 +63,16 @@ function Featured({ badge, course }: Props) {
           />
           <div>
             <h3>{course.name}</h3>
-            <p>{course.instructor.name}</p>
+            {course.instructor && typeof course.instructor !== "string" && (
+              <Avatar
+                fontSize=".45em"
+                to="right"
+                role={course.instructor.role}
+                img={course.instructor.avatar}
+                name={course.instructor.name}
+                rounded
+              />
+            )}
           </div>
         </div>
         <div className="right">

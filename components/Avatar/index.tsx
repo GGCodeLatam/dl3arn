@@ -13,8 +13,19 @@ interface Props {
 
   name?: string | null;
   email?: string;
+  fontSize?: string;
+  rounded?: boolean;
 }
-function Avatar({ email, img, name, role, to, username, onClick }: Props) {
+function Avatar({
+  email,
+  img,
+  name,
+  role,
+  to,
+  onClick,
+  fontSize = "1em",
+  rounded,
+}: Props) {
   const _name = <span className="name">{name}</span>;
   const _email = <span className="email">{email}</span>;
 
@@ -27,7 +38,14 @@ function Avatar({ email, img, name, role, to, username, onClick }: Props) {
   const tag = onClick ? "button" : "div";
 
   return (
-    <AvatarContainer to={to} userRole={role} as={tag} onClick={onClick}>
+    <AvatarContainer
+      rounded={rounded}
+      to={to}
+      userRole={role}
+      as={tag}
+      onClick={onClick}
+      style={{ fontSize }}
+    >
       {to === "left" && user}
       {img ? (
         <div className="image-container">

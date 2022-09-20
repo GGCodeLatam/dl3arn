@@ -4,6 +4,7 @@ import { UserModel } from "utils/types/firebase";
 interface Props {
   userRole?: UserModel["role"];
   to?: "left" | "right";
+  rounded?: boolean;
 }
 export const AvatarContainer = styled.button<Props>`
   position: relative;
@@ -13,7 +14,7 @@ export const AvatarContainer = styled.button<Props>`
   flex-flow: row;
   width: max-content;
   align-items: center;
-  gap: 1rem;
+  gap: 1em;
   font-size: 1rem;
 
   .user {
@@ -31,8 +32,8 @@ export const AvatarContainer = styled.button<Props>`
 
   .image-container {
     position: relative;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.5em;
+    height: 2.5em;
     border-radius: 4px;
     overflow: hidden;
 
@@ -51,8 +52,8 @@ export const AvatarContainer = styled.button<Props>`
     z-index: 2;
 
     outline: 2px solid #fff;
-    width: 10px;
-    height: 10px;
+    width: 0.5em;
+    height: 0.5em;
     border-radius: 100%;
   }
 

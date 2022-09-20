@@ -6,6 +6,7 @@ import { CourseModel } from "utils/types/firebase";
 
 import { CardContainer } from "./styles";
 import Image from "next/image";
+import Avatar from "components/Avatar";
 
 type Get =
   | "description"
@@ -51,7 +52,13 @@ function Card({
             <div className="info">
               <div>
                 <h3 className="name">{name}</h3>
-                <p className="instructor">{instructor.name}</p>
+                {instructor && typeof instructor !== "string" && (
+                  <Avatar
+                    to="right"
+                    img={instructor.avatar}
+                    name={instructor.name}
+                  />
+                )}
               </div>
               <div className="meta">
                 {total_duration && (

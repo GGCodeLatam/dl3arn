@@ -28,18 +28,28 @@ export const FooterContainer = styled.footer`
     opacity: 0.5;
   }
 
+  .pages {
+    display: flex;
+    flex-flow: column;
+    .link {
+      min-width: max-content;
+    }
+  }
+
   .sections {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     gap: 2rem;
+    margin: 7vh 0;
 
     section:not(:last-child) {
       border-right: 1px solid #fff2;
     }
-    section {
-      margin: 2rem 0;
-      padding: 0rem 2rem 0rem 0;
 
+    section {
+      padding: 0 1em;
+      width: 100%;
       > h3 {
         margin: 0.5rem 0;
       }
@@ -50,19 +60,19 @@ export const FooterContainer = styled.footer`
     list-style: none;
     display: flex;
     flex-flow: column;
+    align-items: flex-start;
     gap: 0.25rem;
 
     li {
       display: flex;
       gap: 0.5rem;
       align-items: center;
+    }
 
-      ::before {
-        content: "";
-        width: 7px;
-        height: 1px;
-        background: #fff;
-      }
+    .contact {
+      display: flex;
+      align-items: center;
+      gap: 0.25em;
     }
   }
 `;

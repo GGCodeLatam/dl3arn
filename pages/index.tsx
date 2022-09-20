@@ -8,17 +8,19 @@ import getDl3arn from "services/firebase/store/getDl3arn";
 import getCoursesByIds from "services/firebase/store/getCoursesByIds";
 import { getImage } from "services/firebase/storage";
 
-import { CourseModel } from "utils/types/firebase";
+import { CourseModel, UserModel } from "utils/types/firebase";
 
 import { HomeContainer } from "styles/home.styles";
 import OurCourses from "components/Landing/OurCourses";
 import ListCourses from "components/Landing/ListCourses";
 import Layout from "components/Layouts";
+import getUserByEmail from "services/firebase/store/getUserByEmail";
+import { Override } from "utils/types/utility";
 
 interface Props {
   data: {
-    featured: CourseModel[];
-    courses: CourseModel[];
+    featured: Override<CourseModel, { instructor: UserModel | null }>[];
+    courses: Override<CourseModel, { instructor: UserModel | null }>[];
   };
   meta: { description: string; title: string };
 }
@@ -63,6 +65,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         featured.map(async (course) => ({
           ...course,
           image: await getImage(course.image),
+          instructor:
+            typeof course.instructor === "string"
+              ? await getUserByEmail(course.instructor)
+              : null,
         }))
       ),
       courses: (
@@ -70,6 +76,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           courses.map(async (course) => ({
             ...course,
             image: await getImage(course.image),
+            instructor:
+              typeof course.instructor === "string"
+                ? await getUserByEmail(course.instructor)
+                : null,
           }))
         )
       ).filter((course) =>
