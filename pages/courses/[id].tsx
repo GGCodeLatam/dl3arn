@@ -4,14 +4,16 @@ import { getImage } from "services/firebase/storage";
 
 import Card from "components/Landing/Card";
 
-import { CourseModel } from "utils/types/firebase";
+import { CourseModel, UserModel } from "utils/types/firebase";
 import { NextContext } from "utils/types/next";
 import { CategoryContainer } from "styles/category.styles";
 import getCoursesByCategory from "services/firebase/store/getCoursesByCategory";
 import Layout from "components/Layouts";
+import { Override } from "utils/types/utility";
+import getUserByEmail from "services/firebase/store/getUserByEmail";
 
 interface Props {
-  courses: CourseModel[];
+  courses: Override<CourseModel, { instructor: UserModel | null }>[];
   category: string;
   meta: {
     title: string;
@@ -72,6 +74,10 @@ export const getServerSideProps = async (context: Context) => {
       courses.map(async (course) => ({
         ...course,
         image: await getImage(course.image),
+        instructor:
+          typeof course.instructor === "string"
+            ? await getUserByEmail(course.instructor)
+            : course.instructor,
       }))
     ),
     category: capitalized_category,
