@@ -46,7 +46,12 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
         })
       );
 
-      return { ...course, image, sections: sanitized };
+      return {
+        ...course,
+        image,
+        sections: sanitized,
+        instructor: await getUserByEmail(course.instructor as string),
+      };
     }
 
     const videos: (Partial<VideoSafeProps> & { section: string })[] = [];
@@ -81,7 +86,12 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
       });
     });
 
-    return { ...course, image, sections };
+    return {
+      ...course,
+      image,
+      sections,
+      instructor: await getUserByEmail(course.instructor as string),
+    };
   } catch (e) {
     console.log(e);
     return null;
