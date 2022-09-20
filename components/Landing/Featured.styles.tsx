@@ -14,7 +14,7 @@ export const FeaturedContainer = styled.div`
     overflow: hidden;
     position: relative;
     width: 100%;
-    aspect-ratio: 2 / 1;
+    aspect-ratio: 5 / 1;
 
     .img {
       height: 100%;
@@ -52,7 +52,7 @@ export const FeaturedContainer = styled.div`
     font-size: 0.7em;
     color: #fff;
 
-    transform: translate(-7.5em, 1.25em) rotate(-45deg);
+    transform: translate(-10.5em, 1.75em) rotate(-45deg);
 
     .badge-img-container {
       display: block;
