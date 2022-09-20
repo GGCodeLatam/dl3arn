@@ -7,7 +7,7 @@ import { CourseIntroContainer } from "./CourseIntro.styles";
 interface Props {
   imgUrl: string | null;
   name: string;
-  instructor: CourseModel["instructor"];
+  instructor: CourseModel["instructor"] | null;
   description: string;
 
   next?: null | (() => any);

@@ -151,7 +151,11 @@ function Course({ course, meta }: Props) {
                     course={course}
                     name={video.name}
                     videoId={video.videoId}
-                    instructor={course.instructor.name}
+                    instructor={
+                      typeof course.instructor !== "string"
+                        ? course?.instructor?.name || ""
+                        : ""
+                    }
                     courseName={course.name}
                     prev={hasPrev() ? prev : null}
                     next={hasNext() ? next : null}
