@@ -54,7 +54,7 @@ function Card({
                 <h3 className="name">{name}</h3>
                 {instructor && typeof instructor !== "string" && (
                   <Avatar
-                    fontSize=".5em"
+                    fontSize={{ img: ".65em", name: ".75em" }}
                     to="right"
                     img={instructor.avatar}
                     name={instructor.name}

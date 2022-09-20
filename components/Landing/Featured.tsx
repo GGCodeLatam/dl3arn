@@ -65,7 +65,7 @@ function Featured({ badge, course }: Props) {
             <h3>{course.name}</h3>
             {course.instructor && typeof course.instructor !== "string" && (
               <Avatar
-                fontSize=".45em"
+                fontSize={{ img: ".65em", name: ".75em" }}
                 to="right"
                 img={course.instructor.avatar}
                 name={course.instructor.name}

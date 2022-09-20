@@ -5,6 +5,7 @@ interface Props {
   userRole?: UserModel["role"];
   to?: "left" | "right";
   rounded?: boolean;
+  fontSize?: { img?: string; name?: string; email?: string };
 }
 export const AvatarContainer = styled.button<Props>`
   position: relative;
@@ -23,7 +24,6 @@ export const AvatarContainer = styled.button<Props>`
 
     .name {
       font-weight: bold;
-      font-size: 0.85em;
     }
     .email {
       font-size: 0.8em;
@@ -82,6 +82,16 @@ export const AvatarContainer = styled.button<Props>`
           : userRole === "admin"
           ? "background-color: var(--primary)"
           : ""}
+      }
+    `}
+
+  ${({ fontSize }) =>
+    css`
+      .image-container {
+        font-size: ${fontSize?.img || "1rem"};
+      }
+      .name {
+        font-size: ${fontSize?.name || "1rem"}!important;
       }
     `}
 `;

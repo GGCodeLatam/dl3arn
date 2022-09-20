@@ -147,8 +147,8 @@ export interface InstructorModel {
 
 export type Role = "admin" | "instructor" | "user";
 export interface UserModel {
-  role: Role;
-  email: string;
+  role?: Role;
+  email?: string;
   avatar?: string | null;
   name?: string | null;
   bio?: string | null;

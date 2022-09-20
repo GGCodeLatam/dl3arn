@@ -68,7 +68,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           instructor:
             typeof course.instructor === "string"
               ? await getUserByEmail(course.instructor)
-              : null,
+              : course.instructor,
         }))
       ),
       courses: (
@@ -79,7 +79,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             instructor:
               typeof course.instructor === "string"
                 ? await getUserByEmail(course.instructor)
-                : null,
+                : course.instructor,
           }))
         )
       ).filter((course) =>
