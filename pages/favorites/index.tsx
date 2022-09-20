@@ -8,8 +8,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getImage } from "services/firebase/storage";
 import { FavoriteContainer, FavoritesContainer } from "styles/favorites.styles";
-import { CourseModel } from "utils/types/firebase";
+import { CourseModel, UserModel } from "utils/types/firebase";
 import Layout from "components/Layouts";
+import { Override } from "utils/types/utility";
 
 function Favorites() {
   const [isLoading, setIsLoading] = useState(true);
@@ -49,7 +50,8 @@ function Favorites() {
 
 export default Favorites;
 
-function Favorite(favorite: CourseModel) {
+type CourseType = Override<CourseModel, { instructor: UserModel | null }>;
+function Favorite(favorite: CourseType) {
   const [img, setImg] = useState<string | null>(null);
   useEffect(() => {
     if (favorite.image)
@@ -70,7 +72,7 @@ function Favorite(favorite: CourseModel) {
           )}
           <div className="info">
             <h3>{favorite.name}</h3>
-            <p>{favorite.instructor.name}</p>
+            <p>{favorite.instructor?.name}</p>
           </div>
         </a>
       </Link>

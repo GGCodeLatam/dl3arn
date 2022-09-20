@@ -1,8 +1,11 @@
 import { useCallback, useState } from "react";
 import getCoursesByIds from "services/firebase/store/getCoursesByIds";
+import getUserByEmail from "services/firebase/store/getUserByEmail";
 import { getLocal, setLocal } from "utils/localStorage";
-import { CourseModel } from "utils/types/firebase";
+import { CourseModel, UserModel } from "utils/types/firebase";
+import { Override } from "utils/types/utility";
 
+type CourseType = Override<CourseModel, { instructor: UserModel | null }>;
 type Ids = string[];
 export const FAVORITES_KEY = "-favorite-courses";
 interface Props {
@@ -10,13 +13,22 @@ interface Props {
   onClick?: (_?: any) => any;
 }
 function useFavorites({ onClick }: Props) {
-  const [favorites, setFavorites] = useState<CourseModel[]>([]);
+  const [favorites, setFavorites] = useState<CourseType[]>([]);
 
   const refetch = useCallback(async () => {
     const ids = getLocal<string[]>(FAVORITES_KEY);
     if (!ids) return setFavorites([]);
     const courses = await getCoursesByIds(ids);
-    setFavorites(courses);
+    const parsed = await Promise.all(
+      courses.map(async (course) => ({
+        ...course,
+        instructor:
+          typeof course.instructor === "string"
+            ? await getUserByEmail(course.instructor)
+            : course.instructor,
+      }))
+    );
+    setFavorites(parsed);
   }, []);
 
   const handleFavorite = (id: string) => {
