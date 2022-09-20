@@ -41,7 +41,7 @@ const connectors2 = connectorsForWallets([
       wallet.rainbow({ chains }),
       wallet.trust({ chains }),
       wallet.metaMask({ chains }),
-      wallet.coinbase({ appName: "dl3arn", chains }),
+      wallet.coinbase({ appName: "DL3ARN", chains }),
       wallet.walletConnect({ chains }),
     ],
   },
@@ -62,6 +62,10 @@ const App = ({ Component, pageProps }: AppProps) => {
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider
           chains={chains}
+          appInfo={{
+            appName: "DL3ARN",
+            learnMoreUrl: "https://dl3arn.com/about",
+          }}
           modalSize="compact"
           theme={lightTheme({
             accentColor: "#ba9050",
