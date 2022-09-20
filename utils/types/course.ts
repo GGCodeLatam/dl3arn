@@ -1,4 +1,4 @@
-import { CourseModel, Sections } from "./firebase";
+import { CourseModel, Sections, UserModel } from "./firebase";
 import { Override } from "./utility";
 import { VideoSafeProps } from "./video";
 
@@ -6,6 +6,7 @@ export type SafeSection = Override<Sections, { videos: VideoSafeProps[] }>;
 export type APIGetCourseById = Override<
   CourseModel,
   {
+    instructor: UserModel | null;
     sections:
       | {
           [key: string]: {

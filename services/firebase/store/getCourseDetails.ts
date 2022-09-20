@@ -5,6 +5,7 @@ import { VideoSafeProps } from "utils/types/video";
 import { addDurationToVideos } from "utils/youtube";
 import { getImage } from "../storage";
 import { coursesCollection } from "./collections";
+import getUserByEmail from "./getUserByEmail";
 import getVideo from "./getVideo";
 
 async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
@@ -18,7 +19,13 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
 
     const image = (await getImage(course.image)) || "";
 
-    if (!course.sections) return { ...course, image, sections: [] };
+    if (!course.sections)
+      return {
+        ...course,
+        image,
+        sections: [],
+        instructor: await getUserByEmail(course.instructor as string),
+      };
 
     if (Array.isArray(course.sections)) {
       const ids = course.sections.map((id) => id);
