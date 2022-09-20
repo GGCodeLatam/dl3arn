@@ -24,7 +24,10 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
         ...course,
         image,
         sections: [],
-        instructor: await getUserByEmail(course.instructor as string),
+        instructor:
+          typeof course.instructor === "string"
+            ? await getUserByEmail(course.instructor)
+            : course.instructor,
       };
 
     if (Array.isArray(course.sections)) {
@@ -50,7 +53,10 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
         ...course,
         image,
         sections: sanitized,
-        instructor: await getUserByEmail(course.instructor as string),
+        instructor:
+          typeof course.instructor === "string"
+            ? await getUserByEmail(course.instructor)
+            : course.instructor,
       };
     }
 
@@ -90,7 +96,10 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
       ...course,
       image,
       sections,
-      instructor: await getUserByEmail(course.instructor as string),
+      instructor:
+        typeof course.instructor === "string"
+          ? await getUserByEmail(course.instructor)
+          : course.instructor,
     };
   } catch (e) {
     console.log(e);
