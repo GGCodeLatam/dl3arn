@@ -79,6 +79,7 @@ export const CardContainer = styled.div`
         text-overflow: ellipsis;
         font-size: 0.75em;
         letter-spacing: 0.5px;
+        margin: 0 0 0.25em 0;
       }
       .instructor {
         font-size: 0.55em;

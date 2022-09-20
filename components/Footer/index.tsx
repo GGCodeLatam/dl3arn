@@ -2,16 +2,14 @@ import Logo from "components/Logo";
 import Wave from "components/SVGs/wave";
 import Link from "next/link";
 import { BiChevronRight } from "react-icons/bi";
-import {
-  IoLogoInstagram,
-  IoLogoTwitter,
-  IoLogoWhatsapp,
-  IoLogoYoutube,
-} from "react-icons/io";
+import { IoLogoInstagram, IoLogoTwitter } from "react-icons/io";
+import Polygon from "assets/networks/matic.svg";
+import Ethereum from "assets/networks/eth.svg";
 
 import contact from "utils/contact.json";
 import routes from "utils/routes";
 import { FooterContainer } from "./Footer.styles";
+import Image from "next/image";
 
 function Footer() {
   return (
@@ -20,7 +18,28 @@ function Footer() {
       <div className="data">
         <div className="container">
           <div className="sections">
-            <Logo />
+            <section className="logo">
+              <Logo />
+              <div className="icons">
+                <div className="icon-container">
+                  <Image
+                    layout="fill"
+                    className="icon"
+                    src={Polygon}
+                    alt="Polygon"
+                  />
+                </div>
+                <div className="icon-container">
+                  <Image
+                    layout="fill"
+                    className="icon"
+                    src={Ethereum}
+                    alt="Ethereum"
+                  />
+                </div>
+              </div>
+            </section>
+
             <section>
               <nav className="pages">
                 <Link href={routes.landing.path}>

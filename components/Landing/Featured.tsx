@@ -67,7 +67,6 @@ function Featured({ badge, course }: Props) {
               <Avatar
                 fontSize=".45em"
                 to="right"
-                role={course.instructor.role}
                 img={course.instructor.avatar}
                 name={course.instructor.name}
                 rounded

@@ -33,6 +33,7 @@ export const FooterContainer = styled.footer`
     flex-flow: column;
     .link {
       min-width: max-content;
+      padding: 0.25em 0;
     }
   }
 
@@ -50,8 +51,24 @@ export const FooterContainer = styled.footer`
     section {
       padding: 0 1em;
       width: 100%;
+
       > h3 {
         margin: 0.5rem 0;
+      }
+    }
+
+    .logo {
+      .icons {
+        margin: 0.5em 0.5em;
+        display: flex;
+        gap: 1em;
+        height: 3em;
+
+        .icon-container {
+          position: relative;
+          width: 1.5em;
+          height: 1.5em;
+        }
       }
     }
   }
