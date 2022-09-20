@@ -3,15 +3,17 @@ import Image from "next/image";
 import Coin from "assets/Coin.png";
 
 import { NetworkBadge } from "components/Badges";
-import { CourseModel } from "utils/types/firebase";
+import { CourseModel, UserModel } from "utils/types/firebase";
 import FavoriteButton from "components/Buttons/FavoriteButton";
 import Placeholder from "components/Placeholders";
 import { FeaturedContainer } from "./Featured.styles";
 import Avatar from "components/Avatar";
+import { Override } from "utils/types/utility";
 
+type CourseType = Override<CourseModel, { instructor: UserModel | null }>;
 interface Props {
   badge?: boolean;
-  course: CourseModel;
+  course: CourseType;
 }
 function Featured({ badge, course }: Props) {
   const banner =

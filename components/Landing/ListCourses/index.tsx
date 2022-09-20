@@ -1,9 +1,12 @@
 import { HTMLProps } from "react";
-import { CourseModel } from "utils/types/firebase";
+import { CourseModel, UserModel } from "utils/types/firebase";
+import { Override } from "utils/types/utility";
 import Card from "../Card";
 
+type CourseType = Override<CourseModel, { instructor: UserModel | null }>;
+
 interface Props extends HTMLProps<HTMLUListElement> {
-  courses: CourseModel[];
+  courses: CourseType[];
 }
 function ListCourses({ courses, ...props }: Props) {
   return (

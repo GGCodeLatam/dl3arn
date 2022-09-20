@@ -1,10 +1,12 @@
-import { CourseModel } from "utils/types/firebase";
+import { CourseModel, UserModel } from "utils/types/firebase";
+import { Override } from "utils/types/utility";
 import Card from "../Card";
 import Featured from "../Featured";
 
+type CourseType = Override<CourseModel, { instructor: UserModel | null }>;
 interface Props {
-  main: CourseModel;
-  more: CourseModel[];
+  main: CourseType;
+  more: CourseType[];
 }
 function OurCourses({ main, more }: Props) {
   return (

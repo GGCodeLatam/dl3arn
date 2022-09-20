@@ -2,11 +2,12 @@ import { NetworkBadge } from "components/Badges";
 import FavoriteButton from "components/Buttons/FavoriteButton";
 import Link from "next/link";
 import { ClockIcon, FireIcon } from "utils/icons";
-import { CourseModel } from "utils/types/firebase";
+import { CourseModel, UserModel } from "utils/types/firebase";
 
 import { CardContainer } from "./styles";
 import Image from "next/image";
 import Avatar from "components/Avatar";
+import { Override } from "utils/types/utility";
 
 type Get =
   | "description"
@@ -18,7 +19,10 @@ type Get =
   | "total_duration"
   | "url"
   | "rampp";
-type CardProps = Pick<CourseModel, Get>;
+type CardProps = Override<
+  Pick<CourseModel, Get>,
+  { instructor: UserModel | null }
+>;
 
 function Card({
   id,

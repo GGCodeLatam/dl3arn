@@ -36,7 +36,6 @@ function Avatar({
   );
 
   const tag = onClick ? "button" : "div";
-  console.log(fontSize);
 
   return (
     <AvatarContainer
