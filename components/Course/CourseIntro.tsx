@@ -31,7 +31,9 @@ function CourseIntro({
         )}
         <div>
           <h2 className="course-name">{name}</h2>
-          <p className="instructor">by {instructor?.name}</p>
+          <p className="instructor">
+            by {typeof instructor === "string" ? instructor : instructor?.name}
+          </p>
         </div>
       </div>
       <p className="description">{description}</p>
