@@ -18,7 +18,7 @@ function Admin() {
       <Head>
         <title key="title">Admin dashboard | DL3ARN</title>
       </Head>
-      {!isLoading && userData?.role && (
+      {!isLoading && userData?.role === "admin" && (
         <AdminContainer>
           <aside className="options">
             <Link href="/">
