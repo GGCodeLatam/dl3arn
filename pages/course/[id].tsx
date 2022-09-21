@@ -110,12 +110,9 @@ function Course({ course, meta }: Props) {
         url={meta.url}
       />
 
-      <PrivateRoute verified>
-        <Layout>
+      <Layout>
+        <PrivateRoute verified>
           <Container showMenu={state}>
-            <h1>
-              {meta.name} {video?.name ? `| ${video.name}` : ""}
-            </h1>
             <div className="grid">
               <div className="left">
                 <button className="close" onClick={hide}>
@@ -190,8 +187,8 @@ function Course({ course, meta }: Props) {
               </div>
             </div>
           </Container>
-        </Layout>
-      </PrivateRoute>
+        </PrivateRoute>
+      </Layout>
     </>
   );
 }

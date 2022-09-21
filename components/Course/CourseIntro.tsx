@@ -1,3 +1,4 @@
+import Avatar from "components/Avatar";
 import { PrimaryButton } from "components/Buttons";
 import Image from "next/image";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
@@ -21,6 +22,7 @@ function CourseIntro({
   next,
   prev,
 }: Props) {
+  console.log(instructor);
   return (
     <CourseIntroContainer>
       <div className="info">
@@ -31,12 +33,10 @@ function CourseIntro({
         )}
         <div>
           <h2 className="course-name">{name}</h2>
-          <p className="instructor">
-            by {typeof instructor === "string" ? instructor : instructor?.name}
-          </p>
         </div>
       </div>
       <p className="description">{description}</p>
+
       <div className="video-options">
         {prev && (
           <PrimaryButton onClick={prev}>
@@ -49,6 +49,17 @@ function CourseIntro({
           </PrimaryButton>
         )}
       </div>
+
+      {instructor && typeof instructor === "object" ? (
+        <section>
+          <Avatar
+            to="right"
+            img={instructor.avatar}
+            name={instructor.name}
+            email={instructor.email}
+          />
+        </section>
+      ) : null}
     </CourseIntroContainer>
   );
 }
