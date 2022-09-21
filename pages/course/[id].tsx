@@ -31,6 +31,7 @@ interface Props {
     title: string;
     type: string;
     url: string;
+    name: string;
   };
 }
 function Course({ course, meta }: Props) {
@@ -113,7 +114,7 @@ function Course({ course, meta }: Props) {
         <Layout>
           <Container showMenu={state}>
             <h1>
-              {course?.name} {video?.name ? `| ${video.name}` : ""}
+              {meta.name} {video?.name ? `| ${video.name}` : ""}
             </h1>
             <div className="grid">
               <div className="left">
@@ -220,6 +221,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       type: "website",
       url: fullURL,
       image,
+      name: course?.name || "",
     },
   };
   return {
