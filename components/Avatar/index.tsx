@@ -59,7 +59,11 @@ function Avatar({
           />
         </div>
       ) : (
-        <Placeholder width="2rem" height="2rem" />
+        <Placeholder
+          className="image-container"
+          width={fontSize.img || "2.5em"}
+          height={fontSize.img || "2.5em"}
+        />
       )}
       {to === "right" && user}
     </AvatarContainer>
