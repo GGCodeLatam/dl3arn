@@ -48,7 +48,7 @@ export const AvatarContainer = styled.button<Props>`
     content: "";
 
     position: absolute;
-    background-color: #5c5;
+    background-color: var(--user);
     z-index: 2;
 
     outline: 2px solid #fff;
@@ -78,9 +78,9 @@ export const AvatarContainer = styled.button<Props>`
 
         display: block;
         ${userRole === "instructor"
-          ? "background: #5df;"
+          ? "background: var(--instructor);"
           : userRole === "admin"
-          ? "background-color: var(--primary)"
+          ? "background-color: var(--admin)"
           : ""}
       }
     `}
