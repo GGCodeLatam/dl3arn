@@ -25,10 +25,10 @@ const routes: Pages = {
     path: "/about",
   },
   roadmap: {
-    path: "/roadmap",
+    path: "/about/roadmap",
   },
   quienes: {
-    path: "/quienes-somos",
+    path: "/about/quienes-somos",
   },
 
   home: {
