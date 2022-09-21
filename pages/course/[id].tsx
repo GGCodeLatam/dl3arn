@@ -112,76 +112,81 @@ function Course({ course, meta }: Props) {
       <PrivateRoute verified>
         <Layout>
           <Container showMenu={state}>
-            <div className="left">
-              <button className="close" onClick={hide}>
-                <FaTimes />
+            <h1>
+              {course?.name} {video?.name ? `| ${video.name}` : ""}
+            </h1>
+            <div className="grid">
+              <div className="left">
+                <button className="close" onClick={hide}>
+                  <FaTimes />
+                </button>
+                <VideosMenu
+                  current={course}
+                  videoId={v}
+                  handleVideo={handleVideo}
+                  hasNFT={!locked}
+                />
+              </div>
+
+              <button className="show-menu" onClick={show}>
+                Videos
+                <BiChevronRight size={16} className="icon" />
               </button>
-              <VideosMenu
-                current={course}
-                videoId={v}
-                handleVideo={handleVideo}
-                hasNFT={!locked}
-              />
-            </div>
 
-            <button className="show-menu" onClick={show}>
-              Videos
-              <BiChevronRight size={16} className="icon" />
-            </button>
-
-            <div className="middle">
-              <Loading isLoading={isLoading} element={<LoadingVideo />}>
-                {!video && course && (
-                  <CourseIntro
-                    name={course.name}
-                    imgUrl={
-                      typeof course.image === "string"
-                        ? course.image
-                        : course?.image?.md || ""
-                    }
-                    instructor={course.instructor}
-                    description={course.description}
-                    prev={hasPrev() ? prev : null}
-                    next={hasNext() ? next : null}
-                  />
-                )}
-
-                {video && course && (
-                  <VideoContent
-                    course={course}
-                    name={video.name}
-                    videoId={video.videoId}
-                    instructor={
-                      typeof course.instructor !== "string"
-                        ? course?.instructor?.name || ""
-                        : ""
-                    }
-                    courseName={course.name}
-                    prev={hasPrev() ? prev : null}
-                    next={hasNext() ? next : null}
-                  />
-                )}
-              </Loading>
-            </div>
-
-            <div className="right">
-              {course?.rampp && course.contract && (
-                <>
-                  <NetworkBadge
-                    network={course.rampp.network}
-                    dark
-                    toRight
-                    onlyIcon
-                  />
-                  <RamppButton
-                    rampp={course.rampp}
-                    address={course.contract.address}
-                  />
-                  {course?.opensea && (
-                    <OpenSeaButton collection={course.opensea} />
+              <div className="middle">
+                <Loading isLoading={isLoading} element={<LoadingVideo />}>
+                  {!video && course && (
+                    <CourseIntro
+                      name={course.name}
+                      imgUrl={
+                        typeof course.image === "string"
+                          ? course.image
+                          : course?.image?.md || ""
+                      }
+                      instructor={course.instructor}
+                      description={course.description}
+                      prev={hasPrev() ? prev : null}
+                      next={hasNext() ? next : null}
+                    />
                   )}
-                </>
-              )}
+
+                  {video && course && (
+                    <VideoContent
+                      course={course}
+                      name={video.name}
+                      videoId={video.videoId}
+                      instructor={
+                        typeof course.instructor !== "string"
+                          ? course?.instructor?.name || ""
+                          : ""
+                      }
+                      courseName={course.name}
+                      prev={hasPrev() ? prev : null}
+                      next={hasNext() ? next : null}
+                    />
+                  )}
+                </Loading>
+              </div>
+
+              <div className="right">
+                {course?.rampp && course.contract && (
+                  <>
+                    <NetworkBadge
+                      network={course.rampp.network}
+                      dark
+                      toRight
+                      onlyIcon
+                    />
+                    <RamppButton
+                      rampp={course.rampp}
+                      address={course.contract.address}
+                    />
+                    {course?.opensea && (
+                      <OpenSeaButton collection={course.opensea} />
+                    )}
+                  </>
+                )}
+              </div>
             </div>
           </Container>
         </Layout>

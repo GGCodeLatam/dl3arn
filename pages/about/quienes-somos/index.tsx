@@ -8,6 +8,7 @@ import Lucio from "assets/Quienes-somos/Lucio.jpeg";
 import Ignacio from "assets/Quienes-somos/Ignacio.jpg";
 
 import LayoutAbout from "components/Layouts/About";
+import Head from "next/head";
 
 const members = [
   { name: "Joan Duarte", role: "Co-Founder", photo: Joan },
@@ -18,34 +19,44 @@ const members = [
 
 function QuienesSomos() {
   return (
-    <LayoutAbout>
-      <QuienesSomosContainer>
-        <div className="bg" />
-        <div className="overlay" />
-        <section>
-          <h2>Conocé al equipo DL3ARN</h2>
-          <ul className="members">
-            {members.map((member) => (
-              <Member key={member.name}>
-                <div>
-                  <h3>{member.name}</h3>
-                  <span>{member.role}</span>
-                </div>
+    <>
+      <Head>
+        <title key="title">Quienes somos | DL3ARN</title>
+        <meta
+          key="description"
+          name="description"
+          content="Conocé al equipo DL3ARN"
+        />
+      </Head>
+      <LayoutAbout>
+        <QuienesSomosContainer>
+          <div className="bg" />
+          <div className="overlay" />
+          <section>
+            <h1>Conocé al equipo DL3ARN</h1>
+            <ul className="members">
+              {members.map((member) => (
+                <Member key={member.name}>
+                  <div>
+                    <h3>{member.name}</h3>
+                    <span>{member.role}</span>
+                  </div>
 
-                <div className="img-container">
-                  <Image
-                    className="img"
-                    layout="fill"
-                    src={member.photo}
-                    alt={member.name}
-                  />
-                </div>
-              </Member>
-            ))}
-          </ul>
-        </section>
-      </QuienesSomosContainer>
-    </LayoutAbout>
+                  <div className="img-container">
+                    <Image
+                      className="img"
+                      layout="fill"
+                      src={member.photo}
+                      alt={member.name}
+                    />
+                  </div>
+                </Member>
+              ))}
+            </ul>
+          </section>
+        </QuienesSomosContainer>
+      </LayoutAbout>
+    </>
   );
 }
 

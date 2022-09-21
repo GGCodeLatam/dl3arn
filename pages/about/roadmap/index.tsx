@@ -9,6 +9,7 @@ import LightImg from "assets/Light.png";
 import TeamImg from "assets/Team.png";
 import Image from "next/image";
 import LayoutAbout from "components/Layouts/About";
+import Head from "next/head";
 
 const cards = [
   { element: <Bases />, img: FlowerImg, title: "Las bases", num: "01" },
@@ -38,49 +39,59 @@ function Roadmap() {
   };
 
   return (
-    <LayoutAbout>
-      <RoadmapContainer>
-        <div className="overlay" />
-        <section className="left">
-          <h2>Roadmap</h2>
-          <p>
-            Somos <span>DLEARN</span>. Conocé nuestra historia y nuestros planes
-            para el futuro
-          </p>
-        </section>
-
-        <section>
-          <div className="cards">
-            {cards.map((card, i) => (
-              <Card
-                key={card.title}
-                className={`card${i + 1}`}
-                onClick={() => setCurrent(i)}
-              >
-                <div className="img">
-                  <Image layout="responsive" src={card.img} alt="" />
-                </div>
-                <div className="title">
-                  <span>0{i + 1}</span>
-                  <h3>{card.title}</h3>
-                </div>
-              </Card>
-            ))}
+    <>
+      <Head>
+        <title key="title">Roadmap | DL3ARN</title>
+        <meta
+          key="description"
+          name="description"
+          content="Somos DL3ARN. Conocé nuestra historia y nuestros planes a futuro"
+        />
+      </Head>
+      <LayoutAbout>
+        <RoadmapContainer>
+          <div className="overlay" />
+          <div className="left">
+            <h1>Roadmap</h1>
+            <p>
+              Somos <span>DL3ARN</span>. Conocé nuestra historia y nuestros
+              planes para el futuro
+            </p>
           </div>
-        </section>
 
-        {current !== null && (
-          <Wrapper
-            onExit={() => setCurrent(null)}
-            onPrev={prev}
-            onNext={next}
-            current={current}
-          >
-            {cards[current].element}
-          </Wrapper>
-        )}
-      </RoadmapContainer>
-    </LayoutAbout>
+          <section>
+            <div className="cards">
+              {cards.map((card, i) => (
+                <Card
+                  key={card.title}
+                  className={`card${i + 1}`}
+                  onClick={() => setCurrent(i)}
+                >
+                  <div className="img">
+                    <Image layout="responsive" src={card.img} alt="" />
+                  </div>
+                  <div className="title">
+                    <span>0{i + 1}</span>
+                    <h3>{card.title}</h3>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </section>
+
+          {current !== null && (
+            <Wrapper
+              onExit={() => setCurrent(null)}
+              onPrev={prev}
+              onNext={next}
+              current={current}
+            >
+              {cards[current].element}
+            </Wrapper>
+          )}
+        </RoadmapContainer>
+      </LayoutAbout>
+    </>
   );
 }
 

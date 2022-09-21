@@ -1,15 +1,22 @@
 import styled, { css } from "styled-components";
 import breakpoints from "utils/breakpoints";
 
-// grid-template-columns: minmax(15rem, 20rem) 1fr minmax(10rem, 15rem);
 interface Props {
   showMenu: boolean;
 }
 export const Container = styled.main<Props>`
-  display: grid;
-  grid-template-columns: 1fr;
   margin: 0 auto 10vh auto;
   width: 100%;
+  h1 {
+    padding: 0.5em 0;
+    font-size: 1.5em;
+    text-align: center;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
 
   .show-menu {
     --icon-width: 2.5em;
@@ -128,7 +135,9 @@ export const Container = styled.main<Props>`
     `}
 
   @media screen and (min-width: ${breakpoints.tablet}) {
-    grid-template-columns: minmax(15rem, 20rem) 1fr minmax(10rem, 15rem);
+    .grid {
+      grid-template-columns: minmax(15rem, 20rem) 1fr minmax(10rem, 15rem);
+    }
     .show-menu {
       display: none;
     }

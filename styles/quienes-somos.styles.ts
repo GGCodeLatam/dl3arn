@@ -24,7 +24,7 @@ export const QuienesSomosContainer = styled.main`
     background: linear-gradient(#4374ff, #030816);
   }
 
-  h2 {
+  h1 {
     text-align: center;
     font-size: 2rem;
     margin: 0 0 5rem 0;

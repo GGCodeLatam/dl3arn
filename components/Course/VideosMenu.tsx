@@ -48,10 +48,6 @@ function VideosMenu({ hasNFT, current, videoId, handleVideo }: Props) {
 
   return (
     <VideosContainer>
-      <button className="course" onClick={() => handleVideo()}>
-        <h1>{current?.name}</h1>
-      </button>
-
       {free && !!Object.keys(free).length && (
         <section>
           <h2>gratuitos</h2>

@@ -15,13 +15,14 @@ export const RoadmapContainer = styled.main`
     width: 100%;
     height: 100%;
   }
-  > section {
+  > section,
+  .left {
     position: relative;
   }
 
   .left {
     width: 100%;
-    h2 {
+    h1 {
       font-size: 4rem;
     }
     p {
