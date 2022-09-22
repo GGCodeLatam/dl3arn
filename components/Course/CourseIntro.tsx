@@ -51,13 +51,14 @@ function CourseIntro({
       </div>
 
       {instructor && typeof instructor === "object" ? (
-        <section>
+        <section className="instructor-data">
           <Avatar
             to="right"
             img={instructor.avatar}
             name={instructor.name}
             email={instructor.email}
           />
+          <p className="description">{instructor.bio}</p>
         </section>
       ) : null}
     </CourseIntroContainer>

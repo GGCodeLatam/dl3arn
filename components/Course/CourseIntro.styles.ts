@@ -29,4 +29,11 @@ export const CourseIntroContainer = styled.div`
     max-width: 720px;
     margin: 2em 0;
   }
+
+  .instructor-data {
+    margin: 1em 0;
+    .description {
+      margin: 1em 0;
+    }
+  }
 `;

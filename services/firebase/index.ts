@@ -16,6 +16,7 @@ import {
   FIREBASE_PROJECT_ID,
   FIREBASE_STORAGE_BUCKET,
 } from "constants/index";
+import { setCookie, deleteCookie } from "cookies-next";
 
 const config: FirebaseOptions = {
   apiKey: FIREBASE_API_KEY,
@@ -33,6 +34,14 @@ const app: FirebaseApp = initializeApp(config, NAME);
 export const auth = getAuth(app);
 export const storage = getStorage(app);
 export const db = getFirestore(app);
+
+auth.onIdTokenChanged(async (user) => {
+  if (!user) return deleteCookie("-user-firebase");
+  return setCookie("__user_token", await user.getIdToken(), {
+    path: "/",
+    sameSite: true,
+  });
+});
 
 export const googleProvider = new GoogleAuthProvider();
 export const facebookProvider = new FacebookAuthProvider();

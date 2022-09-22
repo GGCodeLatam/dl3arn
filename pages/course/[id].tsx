@@ -196,6 +196,10 @@ function Course({ course, meta }: Props) {
 export default Course;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { __user_token } = context.req.cookies;
+  if (!__user_token)
+    return { redirect: { permanent: false, destination: "/auth/login" } };
+
   const { id } = context.query as { id: string };
 
   const course = await getCourseDetails(id);
