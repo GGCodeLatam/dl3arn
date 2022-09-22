@@ -22,6 +22,7 @@ import { GetServerSidePropsContext } from "next";
 import { NetworkBadge } from "components/Badges";
 import { VideoSafeProps } from "utils/types/video";
 import Layout from "components/Layouts";
+import authenticated from "utils/authenticated";
 
 interface Props {
   course: APIGetCourseById;
@@ -111,83 +112,81 @@ function Course({ course, meta }: Props) {
       />
 
       <Layout>
-        <PrivateRoute verified>
-          <Container showMenu={state}>
-            <div className="grid">
-              <div className="left">
-                <button className="close" onClick={hide}>
-                  <FaTimes />
-                </button>
-                <VideosMenu
-                  current={course}
-                  videoId={v}
-                  handleVideo={handleVideo}
-                  hasNFT={!locked}
-                />
-              </div>
-
-              <button className="show-menu" onClick={show}>
-                Videos
-                <BiChevronRight size={16} className="icon" />
+        <Container showMenu={state}>
+          <div className="grid">
+            <div className="left">
+              <button className="close" onClick={hide}>
+                <FaTimes />
               </button>
-
-              <div className="middle">
-                <Loading isLoading={isLoading} element={<LoadingVideo />}>
-                  {!video && course && (
-                    <CourseIntro
-                      name={course.name}
-                      imgUrl={
-                        typeof course.image === "string"
-                          ? course.image
-                          : course?.image?.md || ""
-                      }
-                      instructor={course.instructor}
-                      description={course.description}
-                      prev={hasPrev() ? prev : null}
-                      next={hasNext() ? next : null}
-                    />
-                  )}
-
-                  {video && course && (
-                    <VideoContent
-                      course={course}
-                      name={video.name}
-                      videoId={video.videoId}
-                      instructor={
-                        typeof course.instructor !== "string"
-                          ? course?.instructor?.name || ""
-                          : ""
-                      }
-                      courseName={course.name}
-                      prev={hasPrev() ? prev : null}
-                      next={hasNext() ? next : null}
-                    />
-                  )}
-                </Loading>
-              </div>
-
-              <div className="right">
-                {course?.rampp && course.contract && (
-                  <>
-                    <NetworkBadge
-                      network={course.rampp.network}
-                      dark
-                      toRight
-                      onlyIcon
-                    />
-                    <RamppButton
-                      rampp={course.rampp}
-                      address={course.contract.address}
-                    />
-                    {course?.opensea && (
-                      <OpenSeaButton collection={course.opensea} />
-                    )}
-                  </>
-                )}
-              </div>
+              <VideosMenu
+                current={course}
+                videoId={v}
+                handleVideo={handleVideo}
+                hasNFT={!locked}
+              />
             </div>
-          </Container>
-        </PrivateRoute>
+
+            <button className="show-menu" onClick={show}>
+              Videos
+              <BiChevronRight size={16} className="icon" />
+            </button>
+
+            <div className="middle">
+              <Loading isLoading={isLoading} element={<LoadingVideo />}>
+                {!video && course && (
+                  <CourseIntro
+                    name={course.name}
+                    imgUrl={
+                      typeof course.image === "string"
+                        ? course.image
+                        : course?.image?.md || ""
+                    }
+                    instructor={course.instructor}
+                    description={course.description}
+                    prev={hasPrev() ? prev : null}
+                    next={hasNext() ? next : null}
+                  />
+                )}
+
+                {video && course && (
+                  <VideoContent
+                    course={course}
+                    name={video.name}
+                    videoId={video.videoId}
+                    instructor={
+                      typeof course.instructor !== "string"
+                        ? course?.instructor?.name || ""
+                        : ""
+                    }
+                    courseName={course.name}
+                    prev={hasPrev() ? prev : null}
+                    next={hasNext() ? next : null}
+                  />
+                )}
+              </Loading>
+            </div>
+
+            <div className="right">
+              {course?.rampp && course.contract && (
+                <>
+                  <NetworkBadge
+                    network={course.rampp.network}
+                    dark
+                    toRight
+                    onlyIcon
+                  />
+                  <RamppButton
+                    rampp={course.rampp}
+                    address={course.contract.address}
+                  />
+                  {course?.opensea && (
+                    <OpenSeaButton collection={course.opensea} />
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+        </Container>
       </Layout>
     </>
   );
@@ -197,7 +196,8 @@ export default Course;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { __user_token } = context.req.cookies;
-  if (!__user_token)
+
+  if (!(await authenticated({ token: __user_token, verified: true })))
     return { redirect: { permanent: false, destination: "/auth/login" } };
 
   const { id } = context.query as { id: string };

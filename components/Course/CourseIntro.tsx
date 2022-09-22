@@ -22,7 +22,6 @@ function CourseIntro({
   next,
   prev,
 }: Props) {
-  console.log(instructor);
   return (
     <CourseIntroContainer>
       <div className="info">

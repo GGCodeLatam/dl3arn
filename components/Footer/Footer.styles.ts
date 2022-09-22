@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import breakpoints from "utils/breakpoints";
 
 export const FooterContainer = styled.footer`
   position: relative;
@@ -39,13 +40,14 @@ export const FooterContainer = styled.footer`
 
   .sections {
     display: flex;
+    flex-flow: column;
     justify-content: flex-start;
     align-items: center;
     gap: 2rem;
     margin: 7vh 0;
 
     section:not(:last-child) {
-      border-right: 1px solid #fff2;
+      border-right: none;
     }
 
     section {
@@ -58,6 +60,10 @@ export const FooterContainer = styled.footer`
     }
 
     .logo {
+      width: max-content;
+      .logo-img {
+        font-size: 1.5rem;
+      }
       .icons {
         margin: 0.5em 0.5em;
         display: flex;
@@ -89,7 +95,27 @@ export const FooterContainer = styled.footer`
     .contact {
       display: flex;
       align-items: center;
-      gap: 0.25em;
+      gap: 0.5em;
+
+      .icon {
+        width: 1.25em;
+        height: 1.25em;
+      }
+    }
+  }
+
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    section:not(:last-child) {
+      border-right: 1px solid #fff2 !important;
+    }
+    .sections {
+      flex-flow: row;
+    }
+    .logo {
+      width: 100%;
+    }
+    .icons {
+      position: absolute;
     }
   }
 `;

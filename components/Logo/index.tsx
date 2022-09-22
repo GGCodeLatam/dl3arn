@@ -4,6 +4,7 @@ import Image from "next/image";
 import { default as LogoImg } from "assets/Logo.png";
 
 import routes from "utils/routes";
+import { HTMLProps } from "react";
 
 const Container = styled.a`
   width: 100%;
@@ -31,10 +32,11 @@ const Container = styled.a`
     color: var(--primary);
   }
 `;
-function Logo() {
+interface Props extends HTMLProps<HTMLAnchorElement> {}
+function Logo(props: Props) {
   return (
     <Link href={routes.landing.path}>
-      <Container>
+      <Container className={props.className}>
         <div className="img-container">
           <Image className="img" layout="fill" src={LogoImg} alt="dl3arn" />
         </div>
