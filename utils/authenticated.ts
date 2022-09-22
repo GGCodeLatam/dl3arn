@@ -5,7 +5,9 @@ try {
   admin.initializeApp({
     credential: cert(JSON.parse(process.env.FIREBASE_ADMIN_CONFIG as string)),
   });
-} catch (e) {}
+} catch (e) {
+  console.error(e);
+}
 
 interface Props {
   token?: string;
@@ -18,6 +20,7 @@ async function authenticated({ token, verified }: Props) {
     if (!verified && !!user) return true;
     return false;
   } catch (e) {
+    console.error(e);
     return false;
   }
 }
