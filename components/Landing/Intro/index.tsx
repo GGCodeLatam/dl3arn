@@ -1,5 +1,6 @@
 import { ContactUs } from "./Intro.styles";
 import contact from "utils/contact.json";
+import { PrimaryButton } from "components/Buttons";
 
 function Intro() {
   return (
@@ -14,9 +15,13 @@ function Intro() {
           blockchain!
         </h1>
         <p>Si quieres subir tu curso a nuestra plataforma contactanos!</p>
-        <a className="dl3arn-mail" href={`mailto:${contact.email}`}>
+        <PrimaryButton
+          className="dl3arn-mail"
+          as="a"
+          href={`mailto:${contact.email}`}
+        >
           {contact.email}
-        </a>
+        </PrimaryButton>
       </div>
     </ContactUs>
   );

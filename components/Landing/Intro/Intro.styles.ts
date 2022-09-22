@@ -33,7 +33,7 @@ export const ContactUs = styled.section`
     .tr2 {
       width: 100%;
       height: 100%;
-      background-color: #ffe141;
+      background: linear-gradient(var(--beige), var(--primary));
       clip-path: polygon(0 0, 100% 0, 100% 100%);
       filter: drop-shadow(0 0.5rem 0.5rem #000a);
     }
@@ -56,9 +56,7 @@ export const ContactUs = styled.section`
       font-size: 0.7em;
     }
     .dl3arn-mail {
-      background-color: var(--primary);
       border-radius: 5px;
-      box-shadow: -48px -61px 52px -40px #ffd700 inset;
       color: #fff;
       display: block;
       font-size: 0.6em;

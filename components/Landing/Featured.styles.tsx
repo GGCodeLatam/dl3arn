@@ -5,6 +5,9 @@ export const FeaturedContainer = styled.div`
   position: relative;
   font-size: 16px;
   overflow: hidden;
+  > div {
+    overflow: hidden;
+  }
 
   .hero-img {
     border-radius: 5px;
@@ -46,13 +49,14 @@ export const FeaturedContainer = styled.div`
     transform: rotate(0);
 
     background: var(--primary);
-    padding: 1.25em 0;
-    width: 20rem;
+    padding: 1.5rem 0;
+    width: 25rem;
     font-weight: bold;
-    font-size: 0.7em;
+    font-size: 0.5em;
     color: #fff;
+    text-transform: uppercase;
 
-    transform: translate(-10.5em, 1.75em) rotate(-45deg);
+    transform: translate(-19.5em, 1.75em) rotate(-45deg);
 
     .badge-img-container {
       display: block;
@@ -91,7 +95,9 @@ export const FeaturedContainer = styled.div`
   @media screen and (min-width: ${breakpoints.tablet}) {
     font-size: 1.5rem;
     .badge {
-      transform: translate(-5.5em, 2.25em) rotate(-45deg);
+      font-size: 0.5em;
+      width: 20rem;
+      transform: translate(-8.5em, 2.5em) rotate(-45deg);
     }
 
     .hero-img {

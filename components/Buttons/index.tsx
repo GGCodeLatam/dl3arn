@@ -9,8 +9,7 @@ interface ButtonProps {
 export const PrimaryButton = styled(Button)<ButtonProps>`
   color: #fff;
 
-  background-color: var(--primary);
-  box-shadow: -48px -61px 52px -40px #ffd700 inset;
+  background: linear-gradient(-2deg, var(--primary), var(--beige));
 
   border-radius: 9999px;
 

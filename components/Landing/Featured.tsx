@@ -25,7 +25,7 @@ function Featured({ badge, course }: Props) {
       <Link href={`/course/${course.url}`}>
         <a className="header-container">
           {course.image ? (
-            <div>
+            <div className="hero-img">
               {badge ? (
                 <div className="badge">
                   <div className="badge-img-container">
@@ -38,10 +38,10 @@ function Featured({ badge, course }: Props) {
                       alt=""
                     />
                   </div>
-                  <span>DL3ARN</span>
+                  <span>mi primer nft</span>
                 </div>
               ) : null}
-              <div className="hero-img">
+              <div>
                 <Image
                   className="img"
                   width="1200px"
