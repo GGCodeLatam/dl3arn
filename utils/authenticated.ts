@@ -14,7 +14,6 @@ interface Props {
 async function authenticated({ token, verified }: Props) {
   try {
     const user = await admin.auth().verifyIdToken(token || "");
-    console.log(user);
     if (verified && !!user && user.email_verified) return true;
     if (!verified && !!user) return true;
     return false;

@@ -36,7 +36,7 @@ export const storage = getStorage(app);
 export const db = getFirestore(app);
 
 auth.onIdTokenChanged(async (user) => {
-  if (!user) return deleteCookie("-user-firebase");
+  if (!user) return deleteCookie("__user_token");
   return setCookie("__user_token", await user.getIdToken(), {
     path: "/",
     sameSite: true,
