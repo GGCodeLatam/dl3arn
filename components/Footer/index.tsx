@@ -2,7 +2,12 @@ import Logo from "components/Logo";
 import Wave from "components/SVGs/wave";
 import Link from "next/link";
 import { BiChevronRight } from "react-icons/bi";
-import { IoLogoInstagram, IoLogoTwitter, IoMdMailOpen } from "react-icons/io";
+import {
+  IoLogoInstagram,
+  IoLogoLinkedin,
+  IoLogoTwitter,
+  IoMdMailOpen,
+} from "react-icons/io";
 import Polygon from "assets/networks/matic.svg";
 import Ethereum from "assets/networks/eth.svg";
 
@@ -74,6 +79,8 @@ function Footer() {
                 </li>
                 <li>
                   <a
+                    target="_blank"
+                    rel="noreferrer"
                     className="contact"
                     href={`https://www.instagram.com/${contact.instagram}`}
                   >
@@ -82,10 +89,23 @@ function Footer() {
                 </li>
                 <li>
                   <a
+                    target="_blank"
+                    rel="noreferrer"
                     className="contact"
                     href={`https://www.twitter.com/${contact.instagram}`}
                   >
                     <IoLogoTwitter className="icon" /> @{contact.twitter}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    className="contact"
+                    href={`https://www.linkedin.com/company/${contact.linkedin}`}
+                  >
+                    <IoLogoLinkedin className="icon" />
+                    {contact.linkedin}
                   </a>
                 </li>
               </ul>
