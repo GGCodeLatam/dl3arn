@@ -1,28 +1,29 @@
+import { GetServerSidePropsContext } from "next";
+import Router, { useRouter } from "next/router";
+import { BiChevronRight } from "react-icons/bi";
+import { FaTimes } from "react-icons/fa";
+
 import useCourse from "hooks/useCourse";
+import useShow from "hooks/useShow";
 import useVideo from "hooks/useVideo";
 
-import Loading from "components/Loading";
-import RamppButton from "components/Buttons/RamppButton";
-import Placeholder from "components/Placeholders";
-import VideoContent from "components/Course/VideoContent";
 import CourseIntro from "components/Course/CourseIntro";
-
+import Layout from "components/Layouts";
+import Loading from "components/Loading";
 import OGTags from "components/SEO";
 import OpenSeaButton from "components/Buttons/OpenSeaButton";
-import PrivateRoute from "components/PrivateRoute";
-import Router, { useRouter } from "next/router";
+import Placeholder from "components/Placeholders";
+import RamppButton from "components/Buttons/RamppButton";
+import VideoContent from "components/Course/VideoContent";
 import VideosMenu from "components/Course/VideosMenu";
-import getCourseDetails from "services/firebase/store/getCourseDetails";
-import useShow from "hooks/useShow";
-import { APIGetCourseById } from "utils/types/course";
-import { BiChevronRight } from "react-icons/bi";
-import { Container } from "styles/course.styles";
-import { FaTimes } from "react-icons/fa";
-import { GetServerSidePropsContext } from "next";
 import { NetworkBadge } from "components/Badges";
-import { VideoSafeProps } from "utils/types/video";
-import Layout from "components/Layouts";
+
 import authenticated from "utils/authenticated";
+import { APIGetCourseById } from "utils/types/course";
+import { VideoSafeProps } from "utils/types/video";
+
+import getCourseDetails from "services/firebase/store/getCourseDetails";
+import { Container } from "styles/course.styles";
 
 interface Props {
   course: APIGetCourseById;
@@ -135,6 +136,7 @@ function Course({ course, meta }: Props) {
               <Loading isLoading={isLoading} element={<LoadingVideo />}>
                 {!video && course && (
                   <CourseIntro
+                    sections={course.sections}
                     name={course.name}
                     imgUrl={
                       typeof course.image === "string"
@@ -218,11 +220,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     course,
     meta: {
       description: course?.description || "",
+      image,
+      name: course?.name || "",
       title: `${course?.name ? `${course.name} | ` : ""}DL3ARN`,
       type: "website",
       url: fullURL,
-      image,
-      name: course?.name || "",
     },
   };
   return {

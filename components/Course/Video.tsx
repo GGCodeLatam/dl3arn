@@ -27,7 +27,9 @@ function Video({ hasNFT, selected, video, onClick }: Props) {
         {!video.free && blocked && <HiLockClosed size={24} className="icon" />}
         <p className="name">{video.name}</p>
         <span className="duration">
-          {video.duration}
+          {video.duration.h ? `${video.duration.h}h ` : ""}
+          {video.duration.m ? `${video.duration.m}m ` : ""}
+          {video.duration.s ? `${video.duration.s}s ` : ""}
           <ClockIcon />
         </span>
       </div>

@@ -23,7 +23,10 @@ export async function addDurationToVideos<T = {}>(
   const withDuration = videos.map((video) => {
     const ytData = data.items.find(({ id }) => id === video.videoId);
     if (!ytData) return { ...video, duration: "" };
-    return { ...video, duration: iso.toString(ytData.contentDetails.duration) };
+    return {
+      ...video,
+      duration: iso._transform(ytData.contentDetails.duration),
+    };
   });
 
   return withDuration;
