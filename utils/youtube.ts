@@ -18,7 +18,7 @@ interface YoutubeResponse {
 
 export async function addDurationToVideos<T = {}>(
   videos: Partial<VideoModel & T>[]
-): Promise<Partial<WithObjectDuration<T>>[]> {
+): Promise<(VideoSafeProps & T)[]> {
   const url = videos.reduce(
     (acc, { videoId }) => acc + `&id=${videoId}`,
     baseUrl
@@ -35,7 +35,7 @@ export async function addDurationToVideos<T = {}>(
       ...props,
       duration: iso._transform(ytData.contentDetails.duration),
     };
-  });
+  }) as (VideoSafeProps & T)[];
 
   return withDuration;
 }
