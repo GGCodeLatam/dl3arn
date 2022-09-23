@@ -1,6 +1,7 @@
 import { getDocs, query, where } from "firebase/firestore";
 import { APIGetCourseById } from "utils/types/course";
 import { CourseModel, VideoModel } from "utils/types/firebase";
+import { Override } from "utils/types/utility";
 import { VideoSafeProps } from "utils/types/video";
 import { addDurationToVideos } from "utils/youtube";
 import { getImage } from "../storage";
@@ -60,7 +61,9 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
       };
     }
 
-    const videos: (Partial<VideoSafeProps> & { section: string })[] = [];
+    const videos: (Partial<Override<VideoSafeProps, { duration: string }>> & {
+      section: string;
+    })[] = [];
 
     await Promise.all(
       Object.entries(course.sections).map(async ([name, data]) => {
@@ -71,7 +74,9 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
     );
 
     const videosWithDuration = videos.length
-      ? await addDurationToVideos<{ section: string }>(videos)
+      ? await addDurationToVideos<{
+          section: string;
+        }>(videos)
       : videos;
     const sections: {
       [key: string]: { position: number; videos: Partial<VideoSafeProps>[] };
@@ -88,7 +93,7 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
         id: video.id,
         free: video.free,
         name: video.name,
-        duration: video.duration,
+        duration: typeof video.duration === "string" ? {} : video.duration,
       });
     });
 
