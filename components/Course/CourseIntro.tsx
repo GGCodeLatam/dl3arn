@@ -76,11 +76,13 @@ function CourseIntro({
     content &&
     content.reduce(
       (acc, section) => ({
+        videos: acc.videos + 1,
         h: acc.h + section.h,
         m: acc.m + section.m,
         s: acc.s + section.s,
       }),
       {
+        videos: 0,
         h: 0,
         m: 0,
         s: 0,
