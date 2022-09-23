@@ -16,7 +16,7 @@ export type VideoSafeProps = Partial<
   Override<
     Omit<VideoModel, Ignore>,
     {
-      duration?: Partial<Duration> | null;
+      duration: Partial<Duration> | null;
     }
   >
 >;

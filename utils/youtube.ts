@@ -30,7 +30,7 @@ export async function addDurationToVideos<T = {}>(
   const withDuration = videos.map((video) => {
     const ytData = data.items.find(({ id }) => id === video.videoId);
     const { duration, ...props } = video;
-    if (!ytData) return { ...props, duration: {} };
+    if (!ytData) return { ...props, duration: null };
     return {
       ...props,
       duration: iso._transform(ytData.contentDetails.duration),
