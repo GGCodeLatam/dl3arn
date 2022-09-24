@@ -2,15 +2,9 @@ import { YOUTUBE_API_KEY } from "constants/index";
 import axios from "axios";
 import ISO8601 from "./ISO8601";
 import { VideoModel } from "./types/firebase";
-import { Duration, VideoSafeProps } from "./types/video";
-import { Override } from "./types/utility";
+import { VideoSafeProps } from "./types/video";
 
 const baseUrl = `https://youtube.googleapis.com/youtube/v3/videos?key=${YOUTUBE_API_KEY}&part=contentDetails`;
-
-type WithObjectDuration<T = {}> = Override<
-  Omit<VideoModel & T, "videoId">,
-  { duration: Partial<Duration> | null }
->;
 
 interface YoutubeResponse {
   items: { id: string; contentDetails: { duration: string } }[];

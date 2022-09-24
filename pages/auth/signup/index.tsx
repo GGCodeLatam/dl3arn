@@ -48,7 +48,7 @@ function Signup() {
             <form onSubmit={onSubmit} className="form">
               <h1>Sign up</h1>
               <div className="container">
-                <FacebookButton />
+                {/*<FacebookButton />*/}
                 <GoogleButton onError={(err) => setError(err.message)} />
                 <p className="separator">
                   <span>Or</span>

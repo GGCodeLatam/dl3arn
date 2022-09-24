@@ -49,7 +49,7 @@ function Login() {
             <h1>Login</h1>
 
             <div className="container">
-              <FacebookButton />
+              {/*<FacebookButton />*/}
               <GoogleButton onError={(err) => setError(err.message)} />
 
               <p className="separator">
