@@ -1,6 +1,6 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { FaTimes } from "react-icons/fa";
-import { BiChevronRight, BiMenuAltRight } from "react-icons/bi";
+import { BiChevronRight, BiMenuAltRight, BiStar } from "react-icons/bi";
 import { PrimaryButton } from "components/Buttons";
 import { useAuth } from "context/firebase";
 import { ReactNode, useEffect, useRef } from "react";
@@ -75,9 +75,13 @@ function Navbar() {
       <Nav isBlue={!!blue_theme[router.pathname]}>
         <div className="wrapper">
           <div className="left">
-            <Logo />
+            <Logo beta />
 
             <div className="links">
+              <div>
+                <NavLink href="/about">acerca de DL3ARN</NavLink>
+              </div>
+
               <div className="categories">
                 <button
                   ref={refCategoriesButton}
@@ -85,7 +89,7 @@ function Navbar() {
                   onClick={toggleCategories}
                   className="link"
                 >
-                  Categorias
+                  Categorías
                 </button>
 
                 {stateCategories && (
@@ -109,9 +113,6 @@ function Navbar() {
           <div className="middle">{/*<SearchBar />*/}</div>
 
           <ul className="right">
-            <li>
-              <NavLink href="/about">acerca de DL3ARN</NavLink>
-            </li>
             {NODE_ENV === "development" && userData?.role === "user" && (
               <li>
                 <NavLink href="/teaching">Trabaja con nosotros</NavLink>
@@ -125,9 +126,11 @@ function Navbar() {
                   </li>
                 )}
 
-                <li>
-                  <NavLink href="/favorites">Favoritos</NavLink>
-                </li>
+                {NODE_ENV !== "development" && (
+                  <li>
+                    <NavLink href="/favorites">Favoritos</NavLink>{" "}
+                  </li>
+                )}
 
                 <li className="user">
                   <ConnectButton
@@ -137,6 +140,11 @@ function Navbar() {
                     showBalance={false}
                   />
 
+                  {NODE_ENV === "development" && (
+                    <NavLink href="/favorites">
+                      <BiStar className="icon" />
+                    </NavLink>
+                  )}
                   <Avatar
                     to="left"
                     onClick={() => router.push(routes.profile.path)}
@@ -208,24 +216,26 @@ function Navbar() {
               </div>
 
               <div className="user">
-                {!isLoading && user ? (
-                  <>
-                    <Avatar
-                      to="right"
-                      onClick={() => router.push(routes.profile.path)}
-                      img={userData?.avatar || null}
-                      isLoading={isLoading}
-                      role={userData?.role}
-                    />
-                    <ConnectButton label="Conectar Wallet" />
-                  </>
-                ) : (
-                  <Link href="/auth/login">
-                    <PrimaryButton as="a" className="login">
-                      Login
-                    </PrimaryButton>
-                  </Link>
-                )}
+                {!isLoading ? (
+                  user ? (
+                    <>
+                      <Avatar
+                        to="right"
+                        onClick={() => router.push(routes.profile.path)}
+                        img={userData?.avatar || null}
+                        isLoading={isLoading}
+                        role={userData?.role}
+                      />
+                      <ConnectButton label="Conectar Wallet" />
+                    </>
+                  ) : (
+                    <Link href="/auth/login">
+                      <PrimaryButton as="a" className="login">
+                        Login
+                      </PrimaryButton>
+                    </Link>
+                  )
+                ) : null}
               </div>
             </div>
           </div>

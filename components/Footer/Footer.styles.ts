@@ -60,15 +60,23 @@ export const FooterContainer = styled.footer`
     }
 
     .logo {
+      position: relative;
       width: max-content;
+      display: flex;
+      flex-flow: column;
+
       .logo-img {
+        display: block;
         font-size: 1.5rem;
       }
       .icons {
-        margin: 0.5em 0.5em;
+        position: absolute;
         display: flex;
+        bottom: -50%;
+        left: 50%;
+        transform: translate(-50%, 0);
         gap: 1em;
-        height: 3em;
+        justify-content: center;
 
         .icon-container {
           position: relative;

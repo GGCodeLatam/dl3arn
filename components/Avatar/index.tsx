@@ -26,10 +26,10 @@ function Avatar({
   fontSize = { img: "1em", name: "1em" },
   rounded,
 }: Props) {
-  const _name = <span className="name">{name}</span>;
-  const _email = <span className="email">{email}</span>;
+  const _name = name && <span className="name">{name}</span>;
+  const _email = email && <span className="email">{email}</span>;
 
-  const user = (
+  const _user = (_name || _email) && (
     <div className="user">
       {name && _name} {email && _email}
     </div>
@@ -46,7 +46,7 @@ function Avatar({
       onClick={onClick}
       fontSize={fontSize}
     >
-      {to === "left" && user}
+      {to === "left" && _user}
       {img ? (
         <div className="image-container">
           <span className="role" />
@@ -65,7 +65,7 @@ function Avatar({
           height={fontSize.img || "2.5em"}
         />
       )}
-      {to === "right" && user}
+      {to === "right" && _user}
     </AvatarContainer>
   );
 }

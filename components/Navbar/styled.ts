@@ -43,12 +43,15 @@ export const Nav = styled.nav<NavProps>`
 
     .link {
       text-transform: capitalize;
-      display: block;
       font-size: 0.9em;
       opacity: 0.5;
       padding: 0 1rem;
       width: max-content;
+      display: flex;
+      align-items: center;
+      gap: 0.25em;
     }
+
     .link:hover {
       opacity: 1;
     }

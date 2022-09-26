@@ -32,15 +32,17 @@ const Container = styled.a`
     color: var(--primary);
   }
 `;
-interface Props extends HTMLProps<HTMLAnchorElement> {}
-function Logo(props: Props) {
+interface Props extends HTMLProps<HTMLAnchorElement> {
+  beta?: boolean;
+}
+function Logo({ className, beta }: Props) {
   return (
     <Link href={routes.landing.path}>
-      <Container className={props.className}>
+      <Container className={className}>
         <div className="img-container">
           <Image className="img" layout="fill" src={LogoImg} alt="dl3arn" />
         </div>
-        <p className="beta">beta</p>
+        {beta && <p className="beta">beta</p>}
       </Container>
     </Link>
   );
