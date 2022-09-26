@@ -1,4 +1,5 @@
 export const NODE_ENV = process.env.NODE_ENV;
+export const DEV_PAGE = process.env.NEXT_PUBLIC_DEV_PAGE as "true" | undefined;
 
 /* -------------------- YOUTUBE  -------------------- */
 

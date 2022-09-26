@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 import useShow from "hooks/useShow";
 import categories from "utils/categories";
 import Logo from "components/Logo";
-import { NODE_ENV } from "constants/index";
+import { DEV_PAGE, NODE_ENV } from "constants/index";
 
 export const NavLink = ({
   children,
@@ -140,7 +140,7 @@ function Navbar() {
                     showBalance={false}
                   />
 
-                  {NODE_ENV === "development" && (
+                  {DEV_PAGE && (
                     <NavLink href="/favorites">
                       <BiStar className="icon" />
                     </NavLink>
