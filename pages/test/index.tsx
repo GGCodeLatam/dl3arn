@@ -202,8 +202,8 @@ function Test({}: { img: string | null }) {
 }
 
 export async function getServerSideProps(context: NextPageContext) {
-  if (DEV_PAGE === "true")
-    return { redirect: { permanent: false, destination: "" } };
+  if (DEV_PAGE !== "true")
+    return { redirect: { permanent: false, destination: "/" } };
   return { props: {} };
 }
 
