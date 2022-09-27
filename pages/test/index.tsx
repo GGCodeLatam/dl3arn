@@ -2,11 +2,17 @@ import axios from "axios";
 import Layout from "components/Layouts";
 import { useAuth } from "context/firebase";
 import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
-import { useState } from "react";
-import { db } from "services/firebase";
+import { NextPageContext } from "next";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { db, storage } from "services/firebase";
+import admin from "firebase-admin";
 import styled from "styled-components";
 import { ContractModel, CourseModel, VideoModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
+import { cert } from "firebase-admin/app";
+import { getDownloadURL, ref } from "firebase/storage";
+import { DEV_PAGE } from "constants/index";
 
 type Not = "id" | "duration" | "url";
 type Replace = Override<CourseModel, { contract: ContractModel | null }>;
@@ -46,8 +52,14 @@ const Container = styled.div`
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
+
+  .video {
+    width: 100%;
+    aspect-ratio {
+    }
+  }
 `;
-function Test() {
+function Test({}: { img: string | null }) {
   const [videosId, setVideosId] = useState<string[]>([]);
   const [courseId, setCourseId] = useState<string>("");
   const {
@@ -122,13 +134,60 @@ function Test() {
     setMailFetch(data);
   };
 
+  const [privateVideo, setPrivateVideo] = useState<boolean>(false);
+  const [vid, setVid] = useState<{
+    src: string | null;
+    error: { message: string } | null;
+  }>({ src: "", error: null });
+  useEffect(() => {
+    const p = async () => {
+      try {
+        const path = privateVideo
+          ? `videos/private/dl3arn-2-2022-07-28_19.20.22.mp4`
+          : `videos/dl3arn-2-2022-07-28_19.20.22.mp4`;
+        const url = await getDownloadURL(ref(storage, path));
+
+        setVid((old) => ({ ...old, src: url, error: null }));
+      } catch (e: any) {
+        const { message, code, name } = e as {
+          message: string;
+          code: string;
+          name: string;
+        };
+
+        if (code === "storage/unauthorized")
+          setVid((old) => ({
+            ...old,
+            src: null,
+            error: { message: "Compra el NFT para poder ver este curso :)" },
+          }));
+      }
+    };
+
+    p();
+  }, [privateVideo]);
+
   return (
     <Layout>
       <Container>
+        <div style={{ width: "100%", height: "100%", position: "relative" }}>
+          <button onClick={() => setPrivateVideo((old) => !old)}>
+            {privateVideo ? "Privado" : "Gratuito"}
+          </button>
+          {vid.src && (
+            <video
+              className="video"
+              src={vid.src}
+              title="dl3arn presentation"
+              controls
+            />
+          )}
+          {vid.error && <p>{vid.error.message}</p>}
+        </div>
+
         {!isLoading && userData?.role === "admin" && (
           <div>
             <h2>{user?.email}</h2>
-            <button onClick={onClick}>Añadirme a Mailchimp</button>
             {mailFetch.data && (
               <pre>{JSON.stringify(mailFetch.data, undefined, 2)}</pre>
             )}
@@ -140,6 +199,12 @@ function Test() {
       </Container>
     </Layout>
   );
+}
+
+export async function getServerSideProps(context: NextPageContext) {
+  if (DEV_PAGE === "true")
+    return { redirect: { permanent: false, destination: "" } };
+  return { props: {} };
 }
 
 export default Test;
