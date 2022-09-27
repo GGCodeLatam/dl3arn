@@ -14,7 +14,7 @@ interface Props {
 }
 async function updateUserData({
   current,
-  update: { avatar, bio, name },
+  update: { avatar, bio, contracts, name },
 }: Props) {
   if (!current || !auth.currentUser?.email) return null;
 
@@ -30,9 +30,23 @@ async function updateUserData({
   if (!avatar && auth.currentUser?.photoURL)
     updatedData.avatar = auth.currentUser?.photoURL;
 
+  /**
+   * Name
+   **/
   if (name) updatedData.name = name;
-  else if (auth.currentUser?.displayName) updatedData.name = name;
+  else updatedData.name = auth.currentUser?.displayName || "";
+
+  /**
+   * Bio
+   **/
   if (bio) updatedData.bio = bio;
+  else updatedData.bio = current.bio || "";
+
+  /**
+   * Contracts
+   **/
+  if (contracts) updatedData.contracts = contracts;
+  else updatedData.contracts = current.contracts || [];
 
   await setDoc(doc(db, "users", auth.currentUser.email), updatedData, {
     merge: true,

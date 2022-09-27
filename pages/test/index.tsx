@@ -4,7 +4,7 @@ import { useAuth } from "context/firebase";
 import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
 import { NextPageContext } from "next";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { db, storage } from "services/firebase";
 import admin from "firebase-admin";
 import styled from "styled-components";
@@ -13,6 +13,7 @@ import { Override } from "utils/types/utility";
 import { cert } from "firebase-admin/app";
 import { getDownloadURL, ref } from "firebase/storage";
 import { DEV_PAGE } from "constants/index";
+import updateUserData from "services/firebase/store/updateUserData";
 
 type Not = "id" | "duration" | "url";
 type Replace = Override<CourseModel, { contract: ContractModel | null }>;
@@ -52,6 +53,14 @@ const Container = styled.div`
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
+
+  > h1 {
+    font-size: 1em;
+    margin: 0 0 2em 0;
+  }
+  section > h2 {
+    font-size: 0.8em;
+  }
 
   .video {
     width: 100%;
@@ -134,46 +143,70 @@ function Test({}: { img: string | null }) {
     setMailFetch(data);
   };
 
-  const [privateVideo, setPrivateVideo] = useState<boolean>(false);
   const [vid, setVid] = useState<{
     src: string | null;
     error: { message: string } | null;
   }>({ src: "", error: null });
+
+  const promise = useCallback(async () => {
+    try {
+      const contract_example = "0xabcf11489bdef";
+      const path = `videos/private/${contract_example}/dl3arn-2-2022-07-28_19.20.22.mp4`;
+      const url = await getDownloadURL(ref(storage, path));
+
+      setVid((old) => ({ ...old, src: url, error: null }));
+    } catch (e: any) {
+      const { message, code, name } = e as {
+        message: string;
+        code: string;
+        name: string;
+      };
+      console.log(e);
+
+      if (code === "storage/unauthorized")
+        setVid((old) => ({
+          ...old,
+          src: null,
+          error: { message: "Compra el NFT para poder ver este curso :)" },
+        }));
+    }
+  }, []);
+
   useEffect(() => {
-    const p = async () => {
-      try {
-        const path = privateVideo
-          ? `videos/private/dl3arn-2-2022-07-28_19.20.22.mp4`
-          : `videos/dl3arn-2-2022-07-28_19.20.22.mp4`;
-        const url = await getDownloadURL(ref(storage, path));
+    promise();
+  }, [promise]);
 
-        setVid((old) => ({ ...old, src: url, error: null }));
-      } catch (e: any) {
-        const { message, code, name } = e as {
-          message: string;
-          code: string;
-          name: string;
-        };
+  const addNFT = async () => {
+    const contract_example = "0xabcf11489bdef";
 
-        if (code === "storage/unauthorized")
-          setVid((old) => ({
-            ...old,
-            src: null,
-            error: { message: "Compra el NFT para poder ver este curso :)" },
-          }));
-      }
-    };
+    await updateUserData({
+      current: userData,
+      update: {
+        contracts: [contract_example],
+      },
+    });
 
-    p();
-  }, [privateVideo]);
+    promise();
+  };
+
+  const removeNFT = async () => {
+    await updateUserData({ current: userData, update: { contracts: [] } });
+    promise();
+  };
 
   return (
     <Layout>
       <Container>
-        <div style={{ width: "100%", height: "100%", position: "relative" }}>
-          <button onClick={() => setPrivateVideo((old) => !old)}>
-            {privateVideo ? "Privado" : "Gratuito"}
-          </button>
+        <h1>Pagina de testeo</h1>
+        <section style={{ width: "100%", position: "relative" }}>
+          <h2>Simular compra de NFT</h2>
+
+          <div>
+            <button onClick={addNFT}>Añadir NFT</button>
+            <br />
+            <button onClick={removeNFT}>Eliminar NFT</button>
+          </div>
+
           {vid.src && (
             <video
               className="video"
@@ -182,20 +215,9 @@ function Test({}: { img: string | null }) {
               controls
             />
           )}
-          {vid.error && <p>{vid.error.message}</p>}
-        </div>
 
-        {!isLoading && userData?.role === "admin" && (
-          <div>
-            <h2>{user?.email}</h2>
-            {mailFetch.data && (
-              <pre>{JSON.stringify(mailFetch.data, undefined, 2)}</pre>
-            )}
-            {mailFetch.error && (
-              <pre>{JSON.stringify(mailFetch.error, undefined, 2)}</pre>
-            )}
-          </div>
-        )}
+          {vid.error && <p>{vid.error.message}</p>}
+        </section>
       </Container>
     </Layout>
   );

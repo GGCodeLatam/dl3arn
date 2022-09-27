@@ -152,4 +152,5 @@ export interface UserModel {
   avatar?: string | null;
   name?: string | null;
   bio?: string | null;
+  contracts?: string[];
 }
