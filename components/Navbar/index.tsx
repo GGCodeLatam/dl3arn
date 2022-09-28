@@ -126,9 +126,9 @@ function Navbar() {
                   </li>
                 )}
 
-                {NODE_ENV !== "development" && (
+                {!DEV_PAGE && (
                   <li>
-                    <NavLink href="/favorites">Favoritos</NavLink>{" "}
+                    <NavLink href="/favorites">Favoritos</NavLink>
                   </li>
                 )}
 
