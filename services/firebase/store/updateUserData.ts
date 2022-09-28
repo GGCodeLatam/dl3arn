@@ -21,7 +21,10 @@ async function updateUserData({
   const updatedData: Partial<UserModel> = { ...current } as Partial<UserModel>;
 
   if (avatar && typeof avatar !== "string") {
-    const storageRef = ref(storage, `${auth.currentUser.email}/avatar`);
+    const storageRef = ref(
+      storage,
+      `images/users/${auth.currentUser.email}/avatar`
+    );
     const avatarRef = await uploadBytes(storageRef, avatar);
     const imgUrl = await getDownloadURL(avatarRef.ref);
     updatedData.avatar = imgUrl;
