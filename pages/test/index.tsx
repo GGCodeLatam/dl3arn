@@ -2,18 +2,17 @@ import axios from "axios";
 import Layout from "components/Layouts";
 import { useAuth } from "context/firebase";
 import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
-import { NextPageContext } from "next";
-import Image from "next/image";
+import { GetServerSideProps } from "next";
 import { useCallback, useEffect, useState } from "react";
 import { db, storage } from "services/firebase";
-import admin from "firebase-admin";
 import styled from "styled-components";
 import { ContractModel, CourseModel, VideoModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
-import { cert } from "firebase-admin/app";
 import { getDownloadURL, ref } from "firebase/storage";
 import { DEV_PAGE } from "constants/index";
 import updateUserData from "services/firebase/store/updateUserData";
+import authenticated from "utils/authenticated";
+import getUserData from "services/firebase/store/getUserData";
 
 type Not = "id" | "duration" | "url";
 type Replace = Override<CourseModel, { contract: ContractModel | null }>;
@@ -223,10 +222,17 @@ function Test({}: { img: string | null }) {
   );
 }
 
-export async function getServerSideProps(context: NextPageContext) {
-  if (DEV_PAGE !== "true")
-    return { redirect: { permanent: false, destination: "/" } };
-  return { props: {} };
-}
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  if (DEV_PAGE === "true") return { props: {} };
+
+  const { __user_token } = context.req.cookies as { __user_token?: string };
+
+  const user = await authenticated({ token: __user_token });
+  const userData = await getUserData((user && user?.email) || "");
+
+  if (userData?.role === "admin") return { props: {} };
+
+  return { redirect: { permanent: false, destination: "/" } };
+};
 
 export default Test;

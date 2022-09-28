@@ -20,8 +20,8 @@ interface Props {
 async function authenticated({ token, verified }: Props) {
   try {
     const user = await admin.auth().verifyIdToken(token || "");
-    if (verified && !!user && user.email_verified) return true;
-    if (!verified && !!user) return true;
+    if (verified && !!user && user.email_verified) return user;
+    if (!verified && !!user) return user;
     return false;
   } catch (e) {
     console.error(e);

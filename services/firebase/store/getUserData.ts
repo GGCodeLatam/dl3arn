@@ -15,10 +15,16 @@ function createUserData({ email, photoURL, displayName }: User) {
   return user;
 }
 
-async function getUserData(user: User) {
+async function getUserData(user: User | string) {
   try {
-    if (!user.email) return null;
+    if (!user) return null;
+    if (typeof user === "string") {
+      const userRef = await getDoc(doc(db, "users", user));
+      const userData = userRef.data() as UserModel;
+      return userData;
+    }
 
+    if (!user.email) return null;
     const userRef = await getDoc(doc(db, "users", user.email));
 
     if (!userRef.data()) return createUserData(user);
