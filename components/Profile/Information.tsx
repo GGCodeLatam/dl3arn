@@ -45,7 +45,7 @@ function Information() {
   const _onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const updated = await updateUserData({ current: userData, update: inputs });
+    const updated = await updateUserData({ update: inputs });
     setLocal("-user-data", updated);
     contextUpdateUser();
   };

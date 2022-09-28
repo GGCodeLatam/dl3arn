@@ -3,21 +3,21 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { UserModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
 import { auth, db, storage } from "..";
+import getUserData from "./getUserData";
 
 type Update = Override<
   Omit<UserModel, "role">,
   { avatar?: File | null | string }
 >;
 interface Props {
-  current: UserModel | null;
   update: Partial<Update>;
 }
 async function updateUserData({
-  current,
   update: { avatar, bio, contracts, name },
 }: Props) {
+  if (!auth.currentUser?.email) return null;
+  const current = await getUserData(auth.currentUser);
   if (!current || !auth.currentUser?.email) return null;
-
   const updatedData: Partial<UserModel> = { ...current } as Partial<UserModel>;
 
   if (avatar && typeof avatar !== "string") {

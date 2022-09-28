@@ -178,18 +178,13 @@ function Test({}: { img: string | null }) {
   const addNFT = async () => {
     const contract_example = "0xabcf11489bdef";
 
-    await updateUserData({
-      current: userData,
-      update: {
-        contracts: [contract_example],
-      },
-    });
+    await updateUserData({ update: { contracts: [contract_example] } });
 
     promise();
   };
 
   const removeNFT = async () => {
-    await updateUserData({ current: userData, update: { contracts: [] } });
+    await updateUserData({ update: { contracts: [] } });
     promise();
   };
 
