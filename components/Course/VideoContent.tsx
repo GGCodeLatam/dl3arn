@@ -2,11 +2,12 @@ import { PrimaryButton } from "components/Buttons";
 import ShareButton from "components/Buttons/ShareButton";
 import { BiChevronLeft, BiChevronRight, BiShareAlt } from "react-icons/bi";
 import { APIGetCourseById } from "utils/types/course";
+import { CourseModel } from "utils/types/firebase";
 import { VideoContentContainer } from "./VideoContent.styles";
 
 interface Props {
   name?: string;
-  instructor?: string;
+  instructor?: CourseModel["instructor"] | null;
   courseName?: string;
   next?: null | (() => any);
   prev?: null | (() => any);
@@ -41,7 +42,9 @@ function VideoContent({
         <div className="video-options">
           <ShareButton
             url={window.location.href}
-            title={`${instructor} | ${courseName} | ${name}`}
+            title={`${
+              typeof instructor === "object" ? `${instructor?.name} |` : ""
+            } ${courseName} | ${name}`}
           >
             <BiShareAlt size={16} />
           </ShareButton>

@@ -1,7 +1,8 @@
 import Avatar from "components/Avatar";
 import { PrimaryButton } from "components/Buttons";
+import ShareButton from "components/Buttons/ShareButton";
 import Image from "next/image";
-import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import { BiChevronLeft, BiChevronRight, BiShareAlt } from "react-icons/bi";
 import { CourseModel, Sections } from "utils/types/firebase";
 import { VideoSafeProps } from "utils/types/video";
 import { CourseIntroContainer } from "./CourseIntro.styles";
@@ -130,6 +131,14 @@ function CourseIntro({
       </div>
 
       <div className="video-options">
+        <ShareButton
+          url={window.location.href}
+          title={`${
+            typeof instructor === "object" ? `${instructor?.name} |` : ""
+          } ${name}`}
+        >
+          <BiShareAlt size={20} />
+        </ShareButton>
         {prev && (
           <PrimaryButton onClick={prev}>
             <BiChevronLeft size={20} />

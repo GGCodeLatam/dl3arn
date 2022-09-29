@@ -11,6 +11,7 @@ const Toast = styled.span`
   top: -50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: max-content;
 
   background-color: var(--dark);
   padding: 0.5rem 0.75rem;
@@ -61,7 +62,7 @@ function ShareButton({ url, title, children }: Props) {
 
   return (
     <Container onClick={share}>
-      {copy.copied && <Toast>Copiado!</Toast>}
+      {copy.copied && <Toast>Enlace copiado!</Toast>}
       {children}
     </Container>
   );
