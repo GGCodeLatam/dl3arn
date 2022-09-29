@@ -9,6 +9,18 @@ export const FeaturedContainer = styled.div`
     overflow: hidden;
   }
 
+  .instructor {
+    gap: 0.5em;
+    .image-container {
+      font-size: 0.65em;
+    }
+    .user {
+      font-weight: 400 !important;
+      font-size: 0.8em;
+      opacity: 0.5 !important;
+    }
+  }
+
   .hero-img {
     border-radius: 5px;
     object-position: left;

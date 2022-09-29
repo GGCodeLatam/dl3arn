@@ -15,16 +15,18 @@ interface Props {
   email?: string;
   fontSize?: { img?: string; name?: string; email?: string };
   rounded?: boolean;
+  className?: string;
 }
 function Avatar({
+  className,
   email,
+  fontSize = { img: "1em", name: "1em" },
   img,
   name,
-  role,
-  to,
   onClick,
-  fontSize = { img: "1em", name: "1em" },
+  role,
   rounded,
+  to,
 }: Props) {
   const _name = name && <span className="name">{name}</span>;
   const _email = email && <span className="email">{email}</span>;
@@ -45,6 +47,7 @@ function Avatar({
       as={tag}
       onClick={onClick}
       fontSize={fontSize}
+      className={className}
     >
       {to === "left" && _user}
       {img ? (

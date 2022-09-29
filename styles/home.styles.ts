@@ -5,6 +5,7 @@ export const HomeContainer = styled.main`
   font-family: Montserrat;
   width: 90%;
   max-width: 1200px;
+  min-width: 300px;
   margin: 0 auto;
 
   > section {

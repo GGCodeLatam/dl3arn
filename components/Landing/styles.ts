@@ -40,8 +40,11 @@ export const CardContainer = styled.div`
     --img-size: 4em;
     position: relative;
     display: flex;
+
     width: var(--img-size);
     height: var(--img-size);
+    min-width: var(--img-size);
+    min-height: var(--img-size);
     transition: all 0.25s;
 
     border-radius: 5px;
@@ -75,16 +78,26 @@ export const CardContainer = styled.div`
       width: 100%;
 
       .name {
-        max-width: 100%;
+        max-width: 50vw;
         text-overflow: ellipsis;
         font-size: 0.75em;
         letter-spacing: 0.5px;
         margin: 0 0 0.25em 0;
+
+        white-space: nowrap;
+        overflow: hidden;
+        font-weight: 800;
       }
       .instructor {
-        font-size: 0.55em;
-        opacity: 0.5;
-        font-weight: 400;
+        gap: 0.5em;
+        .image-container {
+          font-size: 0.65em;
+        }
+        .user {
+          font-weight: 400 !important;
+          font-size: 0.8em;
+          opacity: 0.5 !important;
+        }
       }
       .meta {
         display: flex;
@@ -107,18 +120,15 @@ export const CardContainer = styled.div`
     }
   }
 
-  .name {
-    white-space: nowrap;
-    overflow: hidden;
-    font-weight: 800;
-  }
   @media screen and (min-width: ${breakpoints.tablet}) {
     font-size: 1rem;
     header {
       --img-size: 5em;
     }
     footer {
-      font-size: 1.35em;
+      font-size: 1.25em;
+      .info .name {
+      }
     }
   }
 `;

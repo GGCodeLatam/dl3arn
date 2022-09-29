@@ -84,14 +84,4 @@ export const AvatarContainer = styled.button<Props>`
           : ""}
       }
     `}
-
-  ${({ fontSize }) =>
-    css`
-      .image-container {
-        font-size: ${fontSize?.img || "1rem"};
-      }
-      .name {
-        font-size: ${fontSize?.name || "1rem"}!important;
-      }
-    `}
 `;

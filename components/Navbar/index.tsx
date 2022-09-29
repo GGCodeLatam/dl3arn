@@ -77,7 +77,6 @@ function Navbar() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
-  console.log(height);
 
   return (
     <>
