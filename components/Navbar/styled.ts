@@ -12,6 +12,9 @@ export const Nav = styled.nav<NavProps>`
   background-color: #fff;
   height: var(--nav-size);
   font-size: calc(1rem + 0.75vw);
+  position: fixed;
+  top: 0;
+  left: 0;
 
   .btn {
     padding: 1em;

@@ -205,8 +205,11 @@ function Test({}: { img: string | null }) {
             <video
               className="video"
               src={vid.src}
-              title="dl3arn presentation"
-              controls
+              title=""
+              onMouseOutCapture={(e) => {
+                e.stopPropagation();
+              }}
+              controls={false}
             />
           )}
 
