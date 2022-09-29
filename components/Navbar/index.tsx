@@ -3,7 +3,7 @@ import { FaTimes } from "react-icons/fa";
 import { BiChevronRight, BiMenuAltRight, BiStar } from "react-icons/bi";
 import { PrimaryButton } from "components/Buttons";
 import { useAuth } from "context/firebase";
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import Avatar from "../Avatar";
 import { Nav } from "./styled";
 
@@ -70,9 +70,18 @@ function Navbar() {
     return () => document.removeEventListener("click", listener);
   }, [refCategoriesContainer, refCategoriesButton]);
 
+  const [height, setHeight] = useState(0);
+  const handleResize = useCallback(() => setHeight(window.innerHeight), []);
+  useEffect(() => {
+    setHeight(window.innerHeight);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
+  console.log(height);
+
   return (
     <>
-      <Nav isBlue={!!blue_theme[router.pathname]}>
+      <Nav height={height} isBlue={!!blue_theme[router.pathname]}>
         <div className="wrapper">
           <div className="left">
             <Logo beta />
@@ -179,6 +188,16 @@ function Navbar() {
 
             <div className="bottom">
               <div className="links">
+                <p className="category">Categorias</p>
+                <div className="categories">
+                  {categories.map((category) => (
+                    <NavLink key={category} href={`/courses/${category}`}>
+                      <BiChevronRight className="icon" />
+                      {category}
+                    </NavLink>
+                  ))}
+                </div>
+
                 {!isLoading && !user ? (
                   <>
                     <li>
@@ -187,32 +206,25 @@ function Navbar() {
                   </>
                 ) : (
                   <>
-                    <p className="category">Categorias</p>
-                    <div className="categories">
-                      {categories.map((category) => (
-                        <NavLink key={category} href={`/courses/${category}`}>
-                          <BiChevronRight className="icon" />
-                          {category}
-                        </NavLink>
-                      ))}
-                    </div>
-
                     <NavLink href="/favorites">
                       <BiChevronRight className="icon" />
                       Favoritos
                     </NavLink>
 
-                    <NavLink href="/about">
-                      <BiChevronRight className="icon" />
-                      acerca de DL3ARN
-                    </NavLink>
                     {userData?.role === "admin" && (
                       <li>
-                        <NavLink href="/admin">Admin</NavLink>
+                        <NavLink href="/admin">
+                          <BiChevronRight className="icon" />
+                          Admin
+                        </NavLink>
                       </li>
                     )}
                   </>
                 )}
+                <NavLink href="/about">
+                  <BiChevronRight className="icon" />
+                  acerca de DL3ARN
+                </NavLink>
               </div>
 
               <div className="user">

@@ -3,6 +3,7 @@ import breakpoints from "utils/breakpoints";
 
 interface NavProps {
   isBlue: boolean;
+  height: number;
 }
 export const Nav = styled.nav<NavProps>`
   top: 0;
@@ -30,7 +31,7 @@ export const Nav = styled.nav<NavProps>`
   }
 
   .wrapper {
-    padding: 0 1rem;
+    padding: 0 0.15em;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -84,12 +85,11 @@ export const Nav = styled.nav<NavProps>`
   .mobile {
     box-shadow: 0.5em 0 0.5em #0002;
     z-index: 9999;
-    padding: 3em 1em 10vh 1em;
+    padding: 2em 1em 2em 1em;
     background-color: #fff;
     width: 90%;
     min-width: 320px;
     max-width: 480px;
-    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
@@ -145,7 +145,7 @@ export const Nav = styled.nav<NavProps>`
       }
 
       .category {
-        font-size: 0.75em;
+        font-size: calc(0.5em + 0.5vh);
         font-weight: bold;
       }
 
@@ -166,7 +166,7 @@ export const Nav = styled.nav<NavProps>`
 
       .link {
         position: relative;
-        font-size: 0.85em;
+        font-size: calc(0.4em + 0.5vh);
         display: flex;
         flex-flow: row;
         align-items: center;
@@ -190,6 +190,13 @@ export const Nav = styled.nav<NavProps>`
       }
     }
   }
+
+  ${({ height }) =>
+    css`
+      .mobile {
+        height: ${height}px;
+      }
+    `}
 
   ul,
   li {
@@ -243,6 +250,11 @@ export const Nav = styled.nav<NavProps>`
 
   @media screen and (min-width: ${breakpoints.tablet}) {
     font-size: 1rem;
+    .wrapper {
+      padding: 0 1em;
+      width: 100%;
+    }
+
     .left .links,
     .right {
       display: flex;
