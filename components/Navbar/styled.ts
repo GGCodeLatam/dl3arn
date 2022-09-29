@@ -16,6 +16,7 @@ export const Nav = styled.nav<NavProps>`
   position: fixed;
   top: 0;
   left: 0;
+  box-shadow: 0 2px 5px #0002;
 
   .btn {
     padding: 1em;
