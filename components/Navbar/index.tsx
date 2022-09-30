@@ -218,7 +218,9 @@ function Navbar() {
                 {!isLoading && !user ? (
                   <>
                     <li>
-                      <NavLink href={routes.landing.path}>Home</NavLink>
+                      <NavLink href={routes.landing.path}>
+                        <BiChevronRight className="icon" /> Home
+                      </NavLink>
                     </li>
                   </>
                 ) : (

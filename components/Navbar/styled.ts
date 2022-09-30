@@ -24,6 +24,10 @@ export const Nav = styled.nav<NavProps>`
     color: #000;
   }
 
+  .logo {
+    font-size: 0.85rem;
+  }
+
   .wrapper,
   .left,
   .right,
@@ -105,11 +109,6 @@ export const Nav = styled.nav<NavProps>`
       right: 0;
     }
 
-    .logo {
-      .img-container {
-        background-color: red !important;
-      }
-    }
     ul,
     .link {
       width: 100%;
@@ -270,6 +269,10 @@ export const Nav = styled.nav<NavProps>`
 
   @media screen and (min-width: ${breakpoints.tablet}) {
     font-size: 1rem;
+
+    .logo {
+      font-size: 1rem;
+    }
     .wrapper {
       padding: 0 1em;
       width: 100%;
