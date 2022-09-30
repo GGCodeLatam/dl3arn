@@ -132,6 +132,9 @@ export const Container = styled.main<Props>`
       .left {
         transform: translate(0, 0);
       }
+      .show-menu {
+        display: none;
+      }
     `}
 
   @media screen and (min-width: ${breakpoints.tablet}) {
