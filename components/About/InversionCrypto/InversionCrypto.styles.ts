@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import breakpoints from "utils/breakpoints";
 
 export const InversionCryptoContainer = styled.section`
   width: 90%;
@@ -7,7 +8,7 @@ export const InversionCryptoContainer = styled.section`
 
   .content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     place-items: center;
     gap: 3em;
 
@@ -66,5 +67,11 @@ export const InversionCryptoContainer = styled.section`
     width: 1px;
     height: 50%;
     background-color: #fff;
+  }
+
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    .content {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 `;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import breakpoints from "utils/breakpoints";
 
 export const AboutContainer = styled.main`
   padding: 15vh 0 15vh 0;
@@ -36,8 +37,13 @@ export const AboutContainer = styled.main`
   }
 
   h2 {
-    font-size: 2em;
+    font-size: 1.5em;
     text-align: center;
-    margin: 7vh;
+    margin: 7vh 0;
+  }
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    h2 {
+      font-size: 2em;
+    }
   }
 `;
