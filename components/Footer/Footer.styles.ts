@@ -34,7 +34,13 @@ export const FooterContainer = styled.footer`
     flex-flow: column;
     .link {
       min-width: max-content;
+      opacity: 0.45;
       padding: 0.25em 0;
+      margin: 0.25em 0;
+      :hover {
+        opacity: 1;
+        text-decoration: underline;
+      }
     }
   }
 
@@ -53,9 +59,9 @@ export const FooterContainer = styled.footer`
     section {
       padding: 0 1em;
       width: 100%;
-
-      > h3 {
-        margin: 0.5rem 0;
+      h2 {
+        font-size: 1.5em;
+        margin: 0 0 0.25em 0;
       }
     }
 
@@ -64,6 +70,7 @@ export const FooterContainer = styled.footer`
       width: max-content;
       display: flex;
       flex-flow: column;
+      margin: 0 0 5em 0;
 
       .logo-img {
         display: block;
@@ -104,10 +111,17 @@ export const FooterContainer = styled.footer`
       display: flex;
       align-items: center;
       gap: 0.5em;
+      opacity: 0.45;
+      padding: 0.25em 0;
+      margin: 0.25em 0;
 
       .icon {
         width: 1.25em;
         height: 1.25em;
+      }
+
+      :hover {
+        opacity: 1;
       }
     }
   }
@@ -118,10 +132,13 @@ export const FooterContainer = styled.footer`
     }
     .sections {
       flex-flow: row;
+      align-items: center;
+
+      .logo {
+        margin: 0;
+      }
     }
-    .logo {
-      width: 100%;
-    }
+
     .icons {
       position: absolute;
     }

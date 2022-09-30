@@ -47,6 +47,7 @@ function Footer() {
             </section>
 
             <section>
+              <h2>Paginas</h2>
               <nav className="pages">
                 <Link href={routes.landing.path}>
                   <a className="link">
@@ -71,6 +72,7 @@ function Footer() {
               </nav>
             </section>
             <section>
+              <h2>Contacto</h2>
               <ul className="contacts">
                 <li>
                   <a className="contact" href={`mailto:${contact.email}`}>
