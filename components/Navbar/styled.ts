@@ -106,8 +106,9 @@ export const Nav = styled.nav<NavProps>`
     }
 
     .logo {
-      margin: 0 auto;
-      width: max-content;
+      .img-container {
+        background-color: red !important;
+      }
     }
     ul,
     .link {
@@ -249,6 +250,24 @@ export const Nav = styled.nav<NavProps>`
     }
   }
 
+  .menu-mobile {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    gap: 0.5em;
+
+    .login {
+      width: 100%;
+      text-align: center;
+      font-size: 0.65em;
+      padding: 0.75em 1.5em;
+    }
+
+    .avatar {
+      font-size: 0.9rem;
+    }
+  }
+
   @media screen and (min-width: ${breakpoints.tablet}) {
     font-size: 1rem;
     .wrapper {
@@ -272,6 +291,10 @@ export const Nav = styled.nav<NavProps>`
 
     .btn,
     .mobile {
+      display: none;
+    }
+
+    .menu-mobile {
       display: none;
     }
   }

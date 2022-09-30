@@ -83,11 +83,11 @@ function Navbar() {
       <Nav height={height} isBlue={!!blue_theme[router.pathname]}>
         <div className="wrapper">
           <div className="left">
-            <Logo beta />
+            <Logo className="logo" beta />
 
             <div className="links">
               <div>
-                <NavLink href="/about">acerca de DL3ARN</NavLink>
+                <NavLink href="/about">acerca DL3ARN</NavLink>
               </div>
 
               <div className="categories">
@@ -170,9 +170,27 @@ function Navbar() {
               </Link>
             )}
           </ul>
-          <button onClick={show} className="btn open">
-            <BiMenuAltRight size={20} />
-          </button>
+          <div className="menu-mobile">
+            {user ? (
+              <Avatar
+                to="left"
+                onClick={() => router.push(routes.profile.path)}
+                img={userData?.avatar || null}
+                isLoading={isLoading}
+                role={userData?.role}
+                className="avatar"
+              />
+            ) : (
+              <Link href="/auth/login">
+                <PrimaryButton as="a" className="login">
+                  Login
+                </PrimaryButton>
+              </Link>
+            )}
+            <button onClick={show} className="btn open">
+              <BiMenuAltRight size={20} />
+            </button>
+          </div>
         </div>
 
         {showMenu ? (
@@ -222,30 +240,15 @@ function Navbar() {
                 )}
                 <NavLink href="/about">
                   <BiChevronRight className="icon" />
-                  acerca de DL3ARN
+                  acerca DL3ARN
                 </NavLink>
               </div>
 
               <div className="user">
                 {!isLoading ? (
                   user ? (
-                    <>
-                      <Avatar
-                        to="right"
-                        onClick={() => router.push(routes.profile.path)}
-                        img={userData?.avatar || null}
-                        isLoading={isLoading}
-                        role={userData?.role}
-                      />
-                      <ConnectButton label="Conectar Wallet" />
-                    </>
-                  ) : (
-                    <Link href="/auth/login">
-                      <PrimaryButton as="a" className="login">
-                        Login
-                      </PrimaryButton>
-                    </Link>
-                  )
+                    <ConnectButton label="Conectar Wallet" />
+                  ) : null
                 ) : null}
               </div>
             </div>
