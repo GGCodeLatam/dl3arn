@@ -46,6 +46,7 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
           id: video.id,
           free: video.free,
           name: video.name,
+          from: video.from || null,
           duration: video.duration,
         })
       );
@@ -93,6 +94,7 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
         id: video.id,
         free: video.free,
         name: video.name,
+        from: video.from || null,
         duration: typeof video.duration === "string" ? {} : video.duration,
       });
     });

@@ -85,7 +85,7 @@ function Course({ course, meta }: Props) {
     const available = videos
       .sort((a, b) => Number(b.free) - Number(a.free))
       .filter((video) => !!video.duration);
-    if (available && !v) return available[0].id;
+    if (available![0] && !v) return available[0].id;
 
     const videoIndex = available?.findIndex((video) => video.id === v);
     if (typeof videoIndex !== "number" || videoIndex === -1 || !available)
@@ -154,6 +154,7 @@ function Course({ course, meta }: Props) {
                   <VideoContent
                     course={course}
                     name={video.name}
+                    from={video.from}
                     videoId={video.videoId}
                     instructor={course.instructor}
                     courseName={course.name}

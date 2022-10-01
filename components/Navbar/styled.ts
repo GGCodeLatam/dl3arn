@@ -8,9 +8,9 @@ interface NavProps {
 export const Nav = styled.nav<NavProps>`
   top: 0;
   left: 0;
-  z-index: 9999;
   width: 100%;
   background-color: #fff;
+  z-index: 9999;
   height: var(--nav-size);
   font-size: calc(1rem + 0.75vw);
   position: fixed;
@@ -269,6 +269,7 @@ export const Nav = styled.nav<NavProps>`
 
   @media screen and (min-width: ${breakpoints.tablet}) {
     font-size: 1rem;
+    z-index: 100;
 
     .logo {
       font-size: 1rem;

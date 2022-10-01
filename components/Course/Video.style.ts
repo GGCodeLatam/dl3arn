@@ -83,17 +83,6 @@ export const Container = styled.button<Partial<StyleProps>>`
   ${({ prox }) =>
     prox &&
     css`
-      ::before {
-        background-color: #0001;
-        content: "";
-        height: 100%;
-        right: 0;
-        position: absolute;
-        top: 0;
-        width: 100%;
-        transition: width 0.25s;
-      }
-
       div {
         gap: 0.5rem;
         justify-content: space-between;

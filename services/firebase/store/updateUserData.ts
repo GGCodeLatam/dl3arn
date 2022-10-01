@@ -7,13 +7,15 @@ import getUserData from "./getUserData";
 
 type Update = Override<
   Omit<UserModel, "role">,
-  { avatar?: File | null | string }
+  { avatar?: File | null | string; contracts?: undefined; contract: string }
 >;
 interface Props {
   update: Partial<Update>;
+  remove?: Partial<Update>;
 }
 async function updateUserData({
-  update: { avatar, bio, contracts, name },
+  update: { avatar, bio, contract, name },
+  remove,
 }: Props) {
   if (!auth.currentUser?.email) return null;
   const current = await getUserData(auth.currentUser);
@@ -48,8 +50,19 @@ async function updateUserData({
   /**
    * Contracts
    **/
-  if (contracts) updatedData.contracts = contracts;
-  else updatedData.contracts = current.contracts || [];
+  if (contract) {
+    const contracts = updatedData.contracts;
+    if (!updatedData.contracts?.includes(contract))
+      updatedData.contracts = [...(contracts ? contracts : []), contract];
+    console.log(updatedData.contracts);
+  }
+  if (remove?.contract) {
+    const contracts = updatedData.contracts;
+    updatedData.contracts = [
+      ...(contracts ? contracts.filter((c) => c !== remove.contract) : []),
+    ];
+    console.log(updatedData.contracts);
+  }
 
   await setDoc(doc(db, "users", auth.currentUser.email), updatedData, {
     merge: true,

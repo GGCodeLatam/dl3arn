@@ -120,6 +120,7 @@ export interface VideoModel {
   free: boolean;
   name: string;
   id: string;
+  from?: "youtube" | "firebase" | null;
 
   /**
    * Video id (youtube)

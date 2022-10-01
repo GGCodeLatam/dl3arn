@@ -15,7 +15,7 @@ function Video({ hasNFT, selected, video, onClick }: Props) {
   if (!video || !video.name) return null;
 
   const blocked = !video.free && !hasNFT;
-  return video.duration ? (
+  return video.from !== "youtube" || video.duration ? (
     <Container
       isFree={video.free}
       selected={selected}
@@ -26,12 +26,14 @@ function Video({ hasNFT, selected, video, onClick }: Props) {
       <div>
         {!video.free && blocked && <HiLockClosed size={24} className="icon" />}
         <p className="name">{video.name}</p>
-        <span className="duration">
-          {video.duration.h ? `${video.duration.h}h ` : ""}
-          {video.duration.m ? `${video.duration.m}m ` : ""}
-          {video.duration.s ? `${video.duration.s}s ` : ""}
-          <ClockIcon />
-        </span>
+        {video.duration && (
+          <span className="duration">
+            {video.duration.h ? `${video.duration.h}h ` : ""}
+            {video.duration.m ? `${video.duration.m}m ` : ""}
+            {video.duration.s ? `${video.duration.s}s ` : ""}
+            <ClockIcon />
+          </span>
+        )}
       </div>
     </Container>
   ) : (

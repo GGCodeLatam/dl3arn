@@ -160,7 +160,6 @@ function Test({}: { img: string | null }) {
         code: string;
         name: string;
       };
-      console.log(e);
 
       if (code === "storage/unauthorized")
         setVid((old) => ({
@@ -176,16 +175,14 @@ function Test({}: { img: string | null }) {
   }, [promise]);
 
   const addNFT = async () => {
-    const contract_example = "0xabcf11489bdef";
-
-    await updateUserData({ update: { contracts: [contract_example] } });
-
-    promise();
+    // const contract_example = "0xabcf11489bdef";
+    // await updateUserData({ update: { contracts: [contract_example] } });
+    // promise();
   };
 
   const removeNFT = async () => {
-    await updateUserData({ update: { contracts: [] } });
-    promise();
+    // await updateUserData({ update: { contracts: [] } });
+    // promise();
   };
 
   return (

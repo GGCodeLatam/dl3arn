@@ -4,6 +4,7 @@ import { ContractModel } from "utils/types/firebase";
 import { useAccount, useContractRead } from "wagmi";
 import { NFTabi } from "abis/NFTabi";
 import { course as mixpanelCourse } from "utils/mixpanel";
+import updateUserData from "services/firebase/store/updateUserData";
 
 function useCourse({ course }: { course: APIGetCourseById }) {
   const [contract, setContract] = useState<ContractModel | null>(
@@ -49,6 +50,14 @@ function useCourse({ course }: { course: APIGetCourseById }) {
     const result = hasNft?.toNumber();
     setLocked(!result);
   }, [address, isConnected, hasNft]);
+
+  useEffect(() => {
+    if (contract?.address && locked) {
+      updateUserData({ update: {}, remove: { contract: contract?.address } });
+    } else {
+      updateUserData({ update: { contract: contract?.address } });
+    }
+  }, [locked, contract]);
 
   return { course, locked };
 }
