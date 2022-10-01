@@ -40,7 +40,7 @@ export async function addDurationToVideos<T = {}>(
   });
 
   if (from.youtube.length) {
-    const isYoutube = (from?: "youtue" | "firebase" | null) =>
+    const isYoutube = (from?: "youtube" | "firebase" | null) =>
       !from || from === "youtube";
     const url = from.youtube.reduce(
       (acc, { videoId, from }) =>
