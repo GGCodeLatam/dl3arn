@@ -13,7 +13,7 @@ try {
       projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
       clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
     }),
-    storageBucket: "dev-dl3arn.appspot.com",
+    storageBucket: process.env.FIREBASE_ADMIN_BUCKET,
   });
 } catch (e) {}
 

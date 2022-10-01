@@ -24,7 +24,7 @@ export const CourseIntroContainer = styled.div`
     }
   }
 
-  .grid {
+  .content-grid {
     display: grid;
     gap: 5vw;
     grid-template-columns: 1fr;
@@ -112,8 +112,8 @@ export const CourseIntroContainer = styled.div`
     border-radius: 100%;
   }
 
-  @media screen and (min-width: ${breakpoints.pc}) {
-    .grid {
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    .content-grid {
       grid-template-columns: 1fr 1fr;
     }
   }

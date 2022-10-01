@@ -151,7 +151,7 @@ function CourseIntro({
         )}
       </div>
 
-      <div className="grid">
+      <div className="content-grid">
         {description && (
           <section>
             <h2>Descripcion</h2>
