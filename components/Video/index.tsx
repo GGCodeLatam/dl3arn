@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { HTMLProps, useCallback, useEffect, useRef, useState } from "react";
 import { BiPause, BiPlay } from "react-icons/bi";
 import {
   MdForward10,
@@ -14,7 +14,7 @@ interface VideoState {
   barLength: string;
   fullscreen: boolean;
 }
-interface Props {
+interface Props extends HTMLProps<HTMLVideoElement> {
   src: string;
 }
 
@@ -23,7 +23,7 @@ const init: VideoState = {
   barLength: "0px",
   fullscreen: false,
 };
-function Video({ src }: Props) {
+function Video({ title, src }: Props) {
   const ref = useRef<HTMLVideoElement>(null);
   const [videoState, setVideoState] = useState<VideoState>(init);
 
@@ -124,6 +124,7 @@ function Video({ src }: Props) {
   return (
     <VideoContainer
       onMouseMove={() => showFor(5)}
+      onClick={() => showFor(5)}
       onContextMenu={(e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -137,7 +138,7 @@ function Video({ src }: Props) {
           ref={ref}
           className="video"
           src={src}
-          title=""
+          title={title}
           onContextMenu={(e) => {
             e.preventDefault();
             e.stopPropagation();

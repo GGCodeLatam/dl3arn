@@ -7,6 +7,7 @@ import { BiChevronLeft, BiChevronRight, BiShareAlt } from "react-icons/bi";
 import { APIGetCourseById } from "utils/types/course";
 import { CourseModel } from "utils/types/firebase";
 import { VideoContentContainer } from "./VideoContent.styles";
+import Video from "components/Video";
 
 interface Props {
   name?: string;
@@ -51,13 +52,7 @@ function VideoContent({
       <div className="frame-container">
         {src &&
           (from === "firebase" ? (
-            <video
-              title={name}
-              controls={false}
-              width="100%"
-              height="100%"
-              src={src}
-            />
+            <Video title={name} src={src} />
           ) : (
             <iframe
               title={name}
