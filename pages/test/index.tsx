@@ -3,7 +3,7 @@ import Layout from "components/Layouts";
 import { useAuth } from "context/firebase";
 import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
 import { GetServerSideProps } from "next";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { db, storage } from "services/firebase";
 import styled from "styled-components";
 import { ContractModel, CourseModel, VideoModel } from "utils/types/firebase";
@@ -13,6 +13,8 @@ import { DEV_PAGE } from "constants/index";
 import updateUserData from "services/firebase/store/updateUserData";
 import authenticated from "utils/authenticated";
 import getUserData from "services/firebase/store/getUserData";
+import { BiPause, BiPlay } from "react-icons/bi";
+import Video from "components/Video";
 
 type Not = "id" | "duration" | "url";
 type Replace = Override<CourseModel, { contract: ContractModel | null }>;
@@ -59,12 +61,6 @@ const Container = styled.div`
   }
   section > h2 {
     font-size: 0.8em;
-  }
-
-  .video {
-    width: 100%;
-    aspect-ratio {
-    }
   }
 `;
 function Test({}: { img: string | null }) {
@@ -185,6 +181,34 @@ function Test({}: { img: string | null }) {
     // promise();
   };
 
+  const [videoState, setVideoState] = useState<{
+    playing: boolean;
+    barLength: string;
+  }>({
+    playing: false,
+    barLength: "0px",
+  });
+
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    if (!videoRef.current) return;
+    setVideoState((old) => ({
+      ...old,
+      playing: !videoRef.current?.paused,
+    }));
+
+    videoRef.current?.addEventListener("timeupdate", () => {
+      if (!videoRef.current) return null;
+      const { currentTime, duration, clientWidth } = videoRef.current;
+      setVideoState((old) => ({
+        ...old,
+        barLength: `${(clientWidth * currentTime) / duration}px`,
+      }));
+    });
+
+    return;
+  }, [videoRef]);
+
   return (
     <Layout>
       <Container>
@@ -198,17 +222,7 @@ function Test({}: { img: string | null }) {
             <button onClick={removeNFT}>Eliminar NFT</button>
           </div>
 
-          {vid.src && (
-            <video
-              className="video"
-              src={vid.src}
-              title=""
-              onMouseOutCapture={(e) => {
-                e.stopPropagation();
-              }}
-              controls={false}
-            />
-          )}
+          {vid.src && <Video src={vid.src} />}
 
           {vid.error && <p>{vid.error.message}</p>}
         </section>
