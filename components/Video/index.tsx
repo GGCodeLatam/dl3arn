@@ -145,7 +145,7 @@ function Video({ src }: Props) {
           }}
           controls={false}
         />
-        {true && (
+        {showOptions && (
           <div className="video-options">
             <button className="btn">
               {videoState.playing ? (
@@ -158,7 +158,7 @@ function Video({ src }: Props) {
         )}
       </div>
 
-      {true && (
+      {showOptions && (
         <div className="bottom">
           <div className="bar">
             <div
