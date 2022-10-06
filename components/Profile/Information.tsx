@@ -6,7 +6,6 @@ import updateUserData from "services/firebase/store/updateUserData";
 import { setLocal } from "utils/localStorage";
 import { PrimaryButton } from "components/Buttons";
 import { InputChange } from "utils/types";
-import Image from "next/image";
 
 interface Inputs {
   avatar: null | File | string;
@@ -57,8 +56,6 @@ function Information() {
         avatar: userData.avatar || null,
       }));
   }, [userData, inputs.avatar]);
-
-  console.log(inputs);
 
   return (
     <InformationContainer>

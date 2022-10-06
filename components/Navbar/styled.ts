@@ -302,6 +302,9 @@ export const Nav = styled.nav<NavProps>`
       display: none;
     }
   }
+  .red * {
+    background-color: red !important;
+  }
 `;
 
 export const Verify = styled.button`

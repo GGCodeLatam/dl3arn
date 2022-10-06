@@ -126,7 +126,7 @@ function Navbar() {
                 <NavLink href="/teaching">Trabaja con nosotros</NavLink>
               </li>
             )}
-            {!isLoading && user ? (
+            {isLoading ? null : user ? (
               <>
                 {userData?.role === "admin" && (
                   <li>
@@ -162,13 +162,14 @@ function Navbar() {
                   />
                 </li>
               </>
-            ) : (
+            ) : null}
+            {!isLoading && !user ? (
               <Link href="/auth/login">
-                <PrimaryButton as="a" className="login">
+                <PrimaryButton as="a" className="login red">
                   Login
                 </PrimaryButton>
               </Link>
-            )}
+            ) : null}
           </ul>
           <div className="menu-mobile">
             {user ? (
@@ -180,13 +181,14 @@ function Navbar() {
                 role={userData?.role}
                 className="avatar"
               />
-            ) : (
+            ) : null}
+            {!isLoading && !user ? (
               <Link href="/auth/login">
-                <PrimaryButton as="a" className="login">
+                <PrimaryButton as="a" className="login red">
                   Login
                 </PrimaryButton>
               </Link>
-            )}
+            ) : null}
             <button onClick={show} className="btn open">
               <BiMenuAltRight size={20} />
             </button>
