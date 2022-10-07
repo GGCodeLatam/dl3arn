@@ -155,3 +155,12 @@ export interface UserModel {
   bio?: string | null;
   contracts?: string[];
 }
+
+/* --- BLOG --- */
+export interface BlogModel {
+  $created_at: number;
+  name: string;
+  content: string;
+  creator: UserModel | string | null;
+  images: string[];
+}

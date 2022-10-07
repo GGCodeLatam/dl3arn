@@ -1,230 +1,154 @@
-import axios from "axios";
 import Layout from "components/Layouts";
 import { useAuth } from "context/firebase";
-import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
 import { GetServerSideProps } from "next";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { db, storage } from "services/firebase";
-import styled from "styled-components";
-import { ContractModel, CourseModel, VideoModel } from "utils/types/firebase";
+import { FormEvent, useEffect, useState } from "react";
+import { BlogModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
-import { getDownloadURL, ref } from "firebase/storage";
 import { DEV_PAGE } from "constants/index";
-import updateUserData from "services/firebase/store/updateUserData";
 import authenticated from "utils/authenticated";
 import getUserData from "services/firebase/store/getUserData";
-import { BiPause, BiPlay } from "react-icons/bi";
-import Video from "components/Video";
+import { InputChange } from "utils/types";
+import { Blogs, Container, Images } from "styles/test.styles";
+import { addDoc, getDocs, query } from "firebase/firestore";
+import { blogsCollection } from "services/firebase/store/collections";
+import Avatar from "components/Avatar";
 
-type Not = "id" | "duration" | "url";
-type Replace = Override<CourseModel, { contract: ContractModel | null }>;
-const new_course: Omit<Replace, Not> = {
-  contract: null,
-  created_at: new Date().getTime(),
-  instructor: { name: "Esteban" },
-  description: "",
-  image: "",
-  name: "Curso de prueba",
-  rampp: {
-    abi_uri: "",
-    buttonId: "",
-    network: "polygon",
-    proof_uri: "",
-  },
-  score: 0,
-  total_duration: "",
-  opensea: "",
-  sections: {
-    "Curso de prueba": {
-      position: 0,
-      videos: [],
-    },
-  },
-};
-
-const videos: Omit<VideoModel, Not>[] = [
-  { free: true, name: "MAAN!", videoId: "fUiZ5vz9pUw" },
-  { free: false, name: "Staying Out All Night", videoId: "BoxkNJocqWQ" },
-  { free: false, name: "Medicated", videoId: "jLPvmwfklp8" },
-  { free: true, name: "Young, Wild & Free", videoId: "tdwDYpWsktc" },
-  { free: true, name: "So High", videoId: "uvLSj4gRq-Q" },
-];
-
-const Container = styled.div`
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-
-  > h1 {
-    font-size: 1em;
-    margin: 0 0 2em 0;
-  }
-  section > h2 {
-    font-size: 0.8em;
-  }
-`;
+interface Inputs {
+  content: string;
+  name: string;
+  images: File[];
+}
 function Test({}: { img: string | null }) {
-  const [videosId, setVideosId] = useState<string[]>([]);
-  const [courseId, setCourseId] = useState<string>("");
+  const [blogs, setBlogs] = useState<
+    Override<BlogModel, { $created_at: Date }>[]
+  >([]);
+  const [inputs, setInputs] = useState<Inputs>({
+    images: [],
+    content: "",
+    name: "",
+  });
+
   const {
-    data: { user, isLoading },
-    userData,
+    data: { user },
   } = useAuth();
 
-  const uploadVideos = async () => {
-    try {
-      const refs = await Promise.all(
-        videos.map(
-          async (video) => await addDoc(collection(db, "videos"), video)
-        )
-      );
-
-      const ids = refs.map((ref) => ref.id);
-      setVideosId(ids);
-    } catch (e) {
-      console.log(e);
-    }
+  const onChange = ({ target: { files, name, value } }: InputChange) => {
+    if (files) {
+      setInputs((old) => ({ ...old, images: Array.from(files) }));
+    } else setInputs((old) => ({ ...old, [name]: value }));
   };
-  const removeVideos = () => {
-    try {
-      Promise.all(
-        videosId.map(async (id) => {
-          await deleteDoc(doc(db, "videos", id));
-        })
-      ).then(() => {
-        setVideosId([]);
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const createCourse = async () => {
-    try {
-      const course: Omit<Replace, Not> = {
-        ...new_course,
-        sections: {
-          [new_course.name]: { videos: videosId, position: 0 },
-        },
-      };
-      const ref = await addDoc(collection(db, "courses"), course);
-      setCourseId(ref.id);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const removeCourse = async () => {
-    await deleteDoc(doc(db, "courses", courseId));
-    setCourseId("");
-  };
-
-  const [mailFetch, setMailFetch] = useState<{ error: any; data: any }>({
-    error: null,
-    data: null,
-  });
-
-  const onClick = async () => {
-    if (!user) return null;
-
-    const { data } = await axios.post<{ error: null; data: null }>(
-      "/api/mailchimp/add",
-      {
-        email: user.email,
-        displayName: user.displayName,
-      }
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!user?.email) return null;
+    const { email } = user;
+    const blog: Override<BlogModel, { images: [] }> = {
+      ...inputs,
+      creator: email,
+      $created_at: new Date().getTime(),
+      images: [],
+    };
+    const ref = await addBlog(blog);
+    getBlogs().then((blogs) =>
+      setBlogs(
+        blogs.map((blog) => ({
+          ...blog,
+          $created_at: new Date(blog.$created_at),
+        }))
+      )
     );
-
-    setMailFetch(data);
   };
 
-  const [vid, setVid] = useState<{
-    src: string | null;
-    error: { message: string } | null;
-  }>({ src: "", error: null });
-
-  const promise = useCallback(async () => {
-    try {
-      const contract_example = "0xabcf11489bdef";
-      const path = `videos/private/${contract_example}/dl3arn-2-2022-07-28_19.20.22.mp4`;
-      const url = await getDownloadURL(ref(storage, path));
-
-      setVid((old) => ({ ...old, src: url, error: null }));
-    } catch (e: any) {
-      const { message, code, name } = e as {
-        message: string;
-        code: string;
-        name: string;
-      };
-
-      if (code === "storage/unauthorized")
-        setVid((old) => ({
-          ...old,
-          src: null,
-          error: { message: "Compra el NFT para poder ver este curso :)" },
-        }));
-    }
+  useEffect(() => {
+    getBlogs().then((blogs) =>
+      setBlogs(
+        blogs.map((blog) => ({
+          ...blog,
+          $created_at: new Date(blog.$created_at),
+        }))
+      )
+    );
   }, []);
-
-  useEffect(() => {
-    promise();
-  }, [promise]);
-
-  const addNFT = async () => {
-    // const contract_example = "0xabcf11489bdef";
-    // await updateUserData({ update: { contracts: [contract_example] } });
-    // promise();
-  };
-
-  const removeNFT = async () => {
-    // await updateUserData({ update: { contracts: [] } });
-    // promise();
-  };
-
-  const [videoState, setVideoState] = useState<{
-    playing: boolean;
-    barLength: string;
-  }>({
-    playing: false,
-    barLength: "0px",
-  });
-
-  const videoRef = useRef<HTMLVideoElement>(null);
-  useEffect(() => {
-    if (!videoRef.current) return;
-    setVideoState((old) => ({
-      ...old,
-      playing: !videoRef.current?.paused,
-    }));
-
-    videoRef.current?.addEventListener("timeupdate", () => {
-      if (!videoRef.current) return null;
-      const { currentTime, duration, clientWidth } = videoRef.current;
-      setVideoState((old) => ({
-        ...old,
-        barLength: `${(clientWidth * currentTime) / duration}px`,
-      }));
-    });
-
-    return;
-  }, [videoRef]);
 
   return (
     <Layout>
       <Container>
         <h1>Pagina de testeo</h1>
+
         <section style={{ width: "100%", position: "relative" }}>
-          <h2>Simular compra de NFT</h2>
+          <form onSubmit={onSubmit}>
+            <label>
+              <span>name</span>
+              <input
+                name="name"
+                type="text"
+                value={inputs.name}
+                onChange={onChange}
+                placeholder="name"
+              />
+            </label>
 
-          <div>
-            <button onClick={addNFT}>Añadir NFT</button>
-            <br />
-            <button onClick={removeNFT}>Eliminar NFT</button>
-          </div>
+            <label>
+              <span>content</span>
+              <input
+                name="content"
+                type="text"
+                value={inputs.content}
+                onChange={onChange}
+                placeholder="content"
+              />
+            </label>
 
-          {vid.src && <Video src={vid.src} />}
+            <label>
+              <span>image</span>
+              <input type="file" onChange={onChange} multiple />
+            </label>
 
-          {vid.error && <p>{vid.error.message}</p>}
+            <button type="submit">submit</button>
+          </form>
+
+          <Images>
+            {inputs.images.map((image) => (
+              <li className="image" key={image.name}>
+                <p>{image.name}</p>
+                <div className="metadata">
+                  <span className="data size">
+                    {Math.round(image.size / 1024)}kb
+                  </span>
+                  <span className="data type">{image.type}</span>
+                </div>
+              </li>
+            ))}
+          </Images>
+
+          <Blogs>
+            {blogs.map(({ $created_at, name, creator, content }) => (
+              <article key={name}>
+                {typeof creator === "object" ? (
+                  <Avatar
+                    className="avatar"
+                    to="right"
+                    img={creator?.avatar}
+                    name={creator?.name}
+                  />
+                ) : null}
+                <div className="main-content">
+                  <div className="header">
+                    <h2>{name}</h2>
+                    <time>
+                      <div>
+                        {$created_at.getHours()}:{$created_at.getMinutes()}
+                      </div>
+                      <div className="date">
+                        {$created_at.getDate()}/{$created_at.getMonth()}/
+                        {$created_at.getFullYear()}
+                      </div>
+                    </time>
+                  </div>
+                  <p>{content}</p>
+                </div>
+              </article>
+            ))}
+          </Blogs>
         </section>
       </Container>
     </Layout>
@@ -245,3 +169,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 export default Test;
+
+async function getBlogs() {
+  const blogs = await getDocs(query(blogsCollection));
+  return await Promise.all(
+    blogs.docs.map(async (blog) => {
+      const data = { ...blog.data() } as BlogModel;
+      if (!data.creator || typeof data.creator !== "string") return data;
+      data.creator = await getUserData(data.creator);
+      return data;
+    })
+  );
+}
+
+async function addBlog(blog: BlogModel) {
+  return await addDoc(blogsCollection, blog);
+}

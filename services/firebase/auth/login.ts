@@ -1,4 +1,8 @@
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signInWithRedirect,
+} from "firebase/auth";
 import {
   auth,
   facebookProvider,
@@ -20,7 +24,7 @@ export const login: Login = async ({ email, password }, provider = "email") => {
 
       facebook: async () => signInWithPopup(auth, facebookProvider),
       twitter: async () => signInWithPopup(auth, twitterProvider),
-      google: async () => await signInWithPopup(auth, googleProvider),
+      google: async () => await signInWithRedirect(auth, googleProvider),
     };
 
     const handler = providers[provider];

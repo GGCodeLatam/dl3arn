@@ -1,55 +1,98 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  section {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1em 0;
 
-  .buttons {
-    > div {
-      max-width: 300px;
-      margin: 1rem 0;
-      display: flex;
-      flex-flow: column;
-      gap: 1rem;
-    }
-  }
-
-  .cards {
-    margin: 1rem 0;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem 3rem;
-  }
-
-  main {
+  form,
+  label,
+  input {
     width: 100%;
   }
 
-  .btn {
-    display: block;
-    margin: 0 auto;
-    background-color: transparent;
-    border: none;
-    padding: 0.75rem 2rem;
-    font-weight: 700;
-    font-size: 1rem;
+  > h1 {
+    font-size: 1em;
+    margin: 0 0 2em 0;
   }
-  .primary {
-    background-size: 500%;
-    background-position: 0 50%;
+  section > h2 {
+    font-size: 0.8em;
+  }
+`;
 
-    animation: bg 5s linear infinite;
-    color: #fff;
+export const Images = styled.ul`
+  margin: 1em 0 0 0;
+  list-style: none;
+  display: flex;
+  flex-flow: column;
+  gap: 0.5em;
 
-    @keyframes bg {
-      from {
-        background-position: 0 50%;
+  .image {
+    display: flex;
+    flex-flow: column;
+    p {
+      font-weight: 500;
+      font-size: 1.15em;
+    }
+  }
+  .metadata {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: 0.75em;
+
+    .data {
+      padding: 0.15em 0.75em;
+      border-radius: 5px;
+    }
+
+    .size {
+      background-color: rebeccapurple;
+      color: #fff;
+    }
+  }
+`;
+
+export const Blogs = styled.section`
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+
+  article {
+    padding: 1em;
+    border-bottom: 1px solid #0003;
+  }
+
+  .avatar {
+    font-size: 0.75em;
+    .img {
+      border-radius: 100%;
+    }
+  }
+
+  .main-content {
+    margin: 0.5em 0 0 0;
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      h2 {
+        font-size: 1em;
       }
-      to {
-        background-position: 100em 50%;
+      time {
+        display: flex;
+        gap: 1em;
+        font-size: 0.75em;
+        opacity: 0.5;
       }
+    }
+    p {
+      background-color: #0001;
+      padding: 0.5em 1em;
+      border-radius: 2px;
+      font-size: 0.85em;
     }
   }
 `;

@@ -3,7 +3,7 @@ import {
   CollectionReference,
   DocumentData,
 } from "firebase/firestore";
-import { CourseModel, VideoModel } from "utils/types/firebase";
+import { BlogModel, CourseModel, VideoModel } from "utils/types/firebase";
 import { db } from "..";
 
 const collectionFactory = <T = DocumentData>(collectionName: string) => {
@@ -16,3 +16,4 @@ export const videosCollection =
   collectionFactory<Omit<VideoModel, "id">>("videos");
 export const dl3arnCollection = collection(db, "dl3arn");
 export const usersCollection = collection(db, "users");
+export const blogsCollection = collection(db, "blogs");
