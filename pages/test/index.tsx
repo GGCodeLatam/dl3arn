@@ -9,12 +9,20 @@ import authenticated from "utils/authenticated";
 import getUserData from "services/firebase/store/getUserData";
 import { InputChange } from "utils/types";
 import { Blogs, Container, Images } from "styles/test.styles";
-import { addDoc, doc, getDocs, orderBy, query } from "firebase/firestore";
+import {
+  addDoc,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+  setDoc,
+} from "firebase/firestore";
 import { blogsCollection } from "services/firebase/store/collections";
 import Avatar from "components/Avatar";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "services/firebase";
 import Image from "next/image";
+import Link from "next/link";
 
 interface Inputs {
   content: string;
@@ -48,7 +56,9 @@ function Test({}: { img: string | null }) {
       ...inputs,
       creator: email,
       $created_at: new Date().getTime(),
+      $id: inputs.name.toLowerCase().replaceAll(/\s/g, "-"),
     };
+
     const ref = await addBlog(blog);
     getBlogs().then((blogs) =>
       setBlogs(
@@ -112,41 +122,51 @@ function Test({}: { img: string | null }) {
           </form>
 
           <Blogs>
-            {blogs.map(({ images, $created_at, name, creator, content }) => (
-              <article key={name}>
-                <div className="main-content">
-                  <div className="header">
-                    <h2>{name}</h2>
+            {blogs.map(
+              ({ $id, images, $created_at, name, creator, content }) => (
+                <article key={name}>
+                  <Link href={`/test/${$id}`}>
+                    <a>{$id}</a>
+                  </Link>
+                  <div className="main-content">
+                    <div className="header">
+                      <h2>{name}</h2>
 
-                    <time>
-                      <div>
-                        {$created_at.getHours()}:{$created_at.getMinutes()}
-                      </div>
-                      <div className="date">
-                        {$created_at.getDate()}/{$created_at.getMonth()}/
-                        {$created_at.getFullYear()}
-                      </div>
-                    </time>
-                  </div>
-                  {typeof creator === "object" ? (
+                      <time>
+                        <div>
+                          {$created_at.getHours()}:{$created_at.getMinutes()}
+                        </div>
+                        <div className="date">
+                          {$created_at.getDate()}/{$created_at.getMonth()}/
+                          {$created_at.getFullYear()}
+                        </div>
+                      </time>
+                    </div>
+                    {/*typeof creator === "object" ? (
                     <Avatar
                       className="avatar"
                       to="right"
                       img={creator?.avatar}
                       name={creator?.name}
                     />
-                  ) : null}
-                  <p>{content}</p>
-                </div>
-                <Images>
-                  {images.map((image) => (
-                    <div className="img-container" key={image}>
-                      <Image className="img" layout="fill" src={image} alt="" />
-                    </div>
-                  ))}
-                </Images>
-              </article>
-            ))}
+                    ) : null*/}
+                    <p>{content}</p>
+                  </div>
+                  <Images>
+                    {images.map((image) => (
+                      <div className="img-container" key={image}>
+                        <Image
+                          className="img"
+                          layout="fill"
+                          src={image}
+                          alt=""
+                        />
+                      </div>
+                    ))}
+                  </Images>
+                </article>
+              )
+            )}
           </Blogs>
         </section>
       </Container>
@@ -178,13 +198,15 @@ async function getBlogs() {
       const data = { ...blog.data() } as BlogModel;
       if (!data.creator || typeof data.creator !== "string") return data;
       data.creator = await getUserData(data.creator);
+      data.$id = blog.id;
       return data;
     })
   );
 }
 
 async function addBlog(blog: Override<BlogModel, { images: File[] }>) {
-  const blogRef = doc(blogsCollection);
+  const blogRef = doc(blogsCollection, blog.$id);
+  console.log(blogRef.id);
 
   const images = await Promise.all(
     blog.images.map(async (image) => {
@@ -197,5 +219,5 @@ async function addBlog(blog: Override<BlogModel, { images: File[] }>) {
     })
   );
 
-  return await addDoc(blogsCollection, { ...blog, images });
+  return await setDoc(blogRef, { ...blog, images });
 }

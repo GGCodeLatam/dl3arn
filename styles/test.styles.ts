@@ -24,8 +24,9 @@ export const Container = styled.div`
 export const Blogs = styled.section`
   display: flex;
   flex-flow: column;
-  gap: 1em;
-  max-width: 480px;
+  gap: 10vh;
+  width: 95%;
+  max-width: 720px;
   margin: 0 auto;
 
   article {
@@ -40,8 +41,9 @@ export const Blogs = styled.section`
   }
 
   .main-content {
-    padding: 0.5em 1em;
+    padding: 0.5em 2em;
     margin: 0.5em 0 0 0;
+
     .header {
       display: flex;
       align-items: center;
@@ -59,6 +61,7 @@ export const Blogs = styled.section`
     }
     p {
       border-radius: 2px;
+      margin: 0.5em 0;
       font-size: 0.85em;
     }
   }

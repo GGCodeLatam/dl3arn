@@ -158,6 +158,7 @@ export interface UserModel {
 
 /* --- BLOG --- */
 export interface BlogModel {
+  $id: string;
   $created_at: number;
   name: string;
   content: string;
