@@ -111,46 +111,13 @@ function Test({}: { img: string | null }) {
             <button type="submit">submit</button>
           </form>
 
-          <Images>
-            {inputs.images.map((image) => (
-              <li className="image" key={image.name}>
-                <p>{image.name}</p>
-                <div className="metadata">
-                  <span className="data size">
-                    {(image.size / 1024).toFixed(1)}kb
-                  </span>
-                  <span className="data type">{image.type}</span>
-                </div>
-              </li>
-            ))}
-          </Images>
-
           <Blogs>
             {blogs.map(({ images, $created_at, name, creator, content }) => (
               <article key={name}>
-                {typeof creator === "object" ? (
-                  <Avatar
-                    className="avatar"
-                    to="right"
-                    img={creator?.avatar}
-                    name={creator?.name}
-                  />
-                ) : null}
                 <div className="main-content">
                   <div className="header">
                     <h2>{name}</h2>
-                    <div className="images">
-                      {images.map((image) => (
-                        <div className="img-container" key={image}>
-                          <Image
-                            className="img"
-                            layout="fill"
-                            src={image}
-                            alt=""
-                          />
-                        </div>
-                      ))}
-                    </div>
+
                     <time>
                       <div>
                         {$created_at.getHours()}:{$created_at.getMinutes()}
@@ -161,8 +128,23 @@ function Test({}: { img: string | null }) {
                       </div>
                     </time>
                   </div>
+                  {typeof creator === "object" ? (
+                    <Avatar
+                      className="avatar"
+                      to="right"
+                      img={creator?.avatar}
+                      name={creator?.name}
+                    />
+                  ) : null}
                   <p>{content}</p>
                 </div>
+                <Images>
+                  {images.map((image) => (
+                    <div className="img-container" key={image}>
+                      <Image className="img" layout="fill" src={image} alt="" />
+                    </div>
+                  ))}
+                </Images>
               </article>
             ))}
           </Blogs>
