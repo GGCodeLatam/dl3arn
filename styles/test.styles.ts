@@ -60,7 +60,7 @@ export const Blogs = styled.section`
   gap: 1em;
 
   article {
-    padding: 1em;
+    padding: 1em 0;
     border-bottom: 1px solid #0003;
   }
 
@@ -93,6 +93,20 @@ export const Blogs = styled.section`
       padding: 0.5em 1em;
       border-radius: 2px;
       font-size: 0.85em;
+    }
+  }
+
+  .images {
+    display: flex;
+
+    .img-container {
+      position: relative;
+      width: 2em;
+      height: 2em;
+
+      .img {
+        object-fit: cover;
+      }
     }
   }
 `;

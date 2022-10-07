@@ -9,9 +9,12 @@ import authenticated from "utils/authenticated";
 import getUserData from "services/firebase/store/getUserData";
 import { InputChange } from "utils/types";
 import { Blogs, Container, Images } from "styles/test.styles";
-import { addDoc, getDocs, query } from "firebase/firestore";
+import { addDoc, doc, getDocs, orderBy, query } from "firebase/firestore";
 import { blogsCollection } from "services/firebase/store/collections";
 import Avatar from "components/Avatar";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "services/firebase";
+import Image from "next/image";
 
 interface Inputs {
   content: string;
@@ -41,11 +44,10 @@ function Test({}: { img: string | null }) {
     e.preventDefault();
     if (!user?.email) return null;
     const { email } = user;
-    const blog: Override<BlogModel, { images: [] }> = {
+    const blog: Override<BlogModel, { images: File[] }> = {
       ...inputs,
       creator: email,
       $created_at: new Date().getTime(),
-      images: [],
     };
     const ref = await addBlog(blog);
     getBlogs().then((blogs) =>
@@ -68,6 +70,9 @@ function Test({}: { img: string | null }) {
       )
     );
   }, []);
+  useEffect(() => {
+    console.log(blogs[0]);
+  }, [blogs]);
 
   return (
     <Layout>
@@ -112,7 +117,7 @@ function Test({}: { img: string | null }) {
                 <p>{image.name}</p>
                 <div className="metadata">
                   <span className="data size">
-                    {Math.round(image.size / 1024)}kb
+                    {(image.size / 1024).toFixed(1)}kb
                   </span>
                   <span className="data type">{image.type}</span>
                 </div>
@@ -121,7 +126,7 @@ function Test({}: { img: string | null }) {
           </Images>
 
           <Blogs>
-            {blogs.map(({ $created_at, name, creator, content }) => (
+            {blogs.map(({ images, $created_at, name, creator, content }) => (
               <article key={name}>
                 {typeof creator === "object" ? (
                   <Avatar
@@ -134,6 +139,18 @@ function Test({}: { img: string | null }) {
                 <div className="main-content">
                   <div className="header">
                     <h2>{name}</h2>
+                    <div className="images">
+                      {images.map((image) => (
+                        <div className="img-container" key={image}>
+                          <Image
+                            className="img"
+                            layout="fill"
+                            src={image}
+                            alt=""
+                          />
+                        </div>
+                      ))}
+                    </div>
                     <time>
                       <div>
                         {$created_at.getHours()}:{$created_at.getMinutes()}
@@ -171,7 +188,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 export default Test;
 
 async function getBlogs() {
-  const blogs = await getDocs(query(blogsCollection));
+  const blogs = await getDocs(
+    query(blogsCollection, orderBy("$created_at", "desc"))
+  );
   return await Promise.all(
     blogs.docs.map(async (blog) => {
       const data = { ...blog.data() } as BlogModel;
@@ -182,6 +201,19 @@ async function getBlogs() {
   );
 }
 
-async function addBlog(blog: BlogModel) {
-  return await addDoc(blogsCollection, blog);
+async function addBlog(blog: Override<BlogModel, { images: File[] }>) {
+  const blogRef = doc(blogsCollection);
+
+  const images = await Promise.all(
+    blog.images.map(async (image) => {
+      const storageRef = ref(
+        storage,
+        `images/blogs/${blogRef.id}/${image.name}`
+      );
+      const { ref: imageRef } = await uploadBytes(storageRef, image);
+      return await getDownloadURL(imageRef);
+    })
+  );
+
+  return await addDoc(blogsCollection, { ...blog, images });
 }
