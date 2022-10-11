@@ -124,47 +124,53 @@ function Test({}: { img: string | null }) {
           <Blogs>
             {blogs.map(
               ({ $id, images, $created_at, name, creator, content }) => (
-                <article key={name}>
-                  <Link href={`/test/${$id}`}>
-                    <a>{$id}</a>
-                  </Link>
-                  <div className="main-content">
-                    <div className="header">
-                      <h2>{name}</h2>
+                <Link key={name} href={`/test/${$id}`}>
+                  <a>
+                    <article>
+                      <div className="main-content">
+                        {typeof creator === "object" ? (
+                          <Avatar
+                            className="avatar"
+                            to="right"
+                            img={creator?.avatar}
+                            name={creator?.name}
+                          />
+                        ) : null}
 
-                      <time>
-                        <div>
-                          {$created_at.getHours()}:{$created_at.getMinutes()}
+                        <div className="header">
+                          <h2>{name}</h2>
+
+                          <time>
+                            <div>
+                              {$created_at.getHours()}:
+                              {$created_at.getMinutes()}
+                            </div>
+                            <div className="date">
+                              {$created_at.getDate()}/{$created_at.getMonth()}/
+                              {$created_at.getFullYear()}
+                            </div>
+                          </time>
                         </div>
-                        <div className="date">
-                          {$created_at.getDate()}/{$created_at.getMonth()}/
-                          {$created_at.getFullYear()}
-                        </div>
-                      </time>
-                    </div>
-                    {/*typeof creator === "object" ? (
-                    <Avatar
-                      className="avatar"
-                      to="right"
-                      img={creator?.avatar}
-                      name={creator?.name}
-                    />
-                    ) : null*/}
-                    <p>{content}</p>
-                  </div>
-                  <Images>
-                    {images.map((image) => (
-                      <div className="img-container" key={image}>
-                        <Image
-                          className="img"
-                          layout="fill"
-                          src={image}
-                          alt=""
-                        />
+
+                        <p>{content}</p>
                       </div>
-                    ))}
-                  </Images>
-                </article>
+                      {!!images.length && (
+                        <Images>
+                          {images.map((image) => (
+                            <div className="img-container" key={image}>
+                              <Image
+                                className="img"
+                                layout="fill"
+                                src={image}
+                                alt=""
+                              />
+                            </div>
+                          ))}
+                        </Images>
+                      )}
+                    </article>
+                  </a>
+                </Link>
               )
             )}
           </Blogs>

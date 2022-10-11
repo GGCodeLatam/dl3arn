@@ -24,13 +24,21 @@ export const Container = styled.div`
 export const Blogs = styled.section`
   display: flex;
   flex-flow: column;
-  gap: 10vh;
+  gap: 2em;
   width: 95%;
   max-width: 720px;
   margin: 0 auto;
 
-  article {
+  > a {
+    border-radius: 5px;
+    overflow: hidden;
     background: #0000000a;
+    display: block;
+    padding: 0.75em 0 0 0;
+    transition: background 0.15s ease;
+  }
+  > a:hover {
+    background: #00000012;
   }
 
   .avatar {
@@ -42,7 +50,6 @@ export const Blogs = styled.section`
 
   .main-content {
     padding: 0.5em 2em;
-    margin: 0.5em 0 0 0;
 
     .header {
       display: flex;
@@ -60,8 +67,9 @@ export const Blogs = styled.section`
       }
     }
     p {
+      padding: 0 0 0.75em 0;
       border-radius: 2px;
-      margin: 0.5em 0;
+      margin: 0.5em 0 0 0;
       font-size: 0.85em;
     }
   }
