@@ -112,7 +112,7 @@ export const CourseIntroContainer = styled.div`
     border-radius: 100%;
   }
 
-  @media screen and (min-width: ${breakpoints.tablet}) {
+  @media screen and (min-width: ${breakpoints.pc}) {
     .content-grid {
       grid-template-columns: 1fr 1fr;
     }
