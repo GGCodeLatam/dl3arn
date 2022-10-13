@@ -1,49 +1,103 @@
 import Avatar from "components/Avatar";
 import { doc, getDoc } from "firebase/firestore";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import Image from "next/image";
+import { useState } from "react";
+import { BiFullscreen } from "react-icons/bi";
 import { blogsCollection } from "services/firebase/store/collections";
 import getUserData from "services/firebase/store/getUserData";
 import styled from "styled-components";
+import { BlogContainer, FullscreenImage } from "styles/blog.styles";
 import { BlogModel, UserModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
 
-const Container = styled.div`
-  padding: 2em 2.5em;
-  background-color: #0001;
+const UserContainer = styled.div`
   width: 75%;
-  margin: 1em auto;
+  margin: 1.5em auto 0 auto;
+
+  .avatar {
+    font-size: 0.8rem;
+  }
+  .bio {
+    margin: 0.75rem 0 0 0;
+  }
 `;
 
 function Blog({ $created_at, creator, images, name, content }: BlogModel) {
+  const [img, setImg] = useState<string | null>(null);
+
   const user = creator as UserModel;
   const date = new Date($created_at);
   const parsedDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
-  return (
-    <Container>
-      <h1>{name}</h1>
-      <div>
-        <Avatar isLoading={false} name={user.name} to="right" />
-        <time>{parsedDate}</time>
-      </div>
 
-      <ul>
-        {images.map((image) => (
-          <div key={image}>
-            <Image
-              width={50}
-              height={50}
-              objectFit="cover"
-              objectPosition="center"
-              src={image}
-              alt=""
+  return (
+    <>
+      <Head>
+        <title key="title">{name} | DL3ARN</title>
+      </Head>
+
+      <BlogContainer>
+        <h1 className="title">{name}</h1>
+        <div className="metadata">
+          <div className="left">
+            por
+            <Avatar
+              className="avatar"
+              isLoading={false}
+              name={user.name}
+              to="right"
             />
           </div>
-        ))}
-      </ul>
+          <time>{parsedDate}</time>
+        </div>
 
-      <p>{content}</p>
-    </Container>
+        <div className="content">
+          <ul className="images">
+            {images.map((image) => (
+              <div
+                onClick={() => setImg(image)}
+                className="img-container"
+                key={image}
+              >
+                <Image
+                  layout="fill"
+                  objectFit="cover"
+                  objectPosition="center"
+                  src={image}
+                  alt=""
+                />
+                <div className="hover">
+                  <BiFullscreen size={25} />
+                </div>
+              </div>
+            ))}
+          </ul>
+
+          <p>{content}</p>
+        </div>
+      </BlogContainer>
+
+      {creator && typeof creator === "object" ? (
+        <UserContainer>
+          <Avatar
+            className="avatar"
+            name={creator.name}
+            to="right"
+            role={creator.role}
+          />
+          <p className="bio">{creator.bio}</p>
+        </UserContainer>
+      ) : null}
+
+      {img ? (
+        <FullscreenImage onClick={() => setImg(null)}>
+          <div className="image-container">
+            <Image layout="fill" src={img} objectFit="contain" alt="" />
+          </div>
+        </FullscreenImage>
+      ) : null}
+    </>
   );
 }
 
