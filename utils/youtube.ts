@@ -70,5 +70,8 @@ export async function addDurationToVideos<T = {}>(
 
     return parsed;
   }
-  return [];
+  return from.firebase.map((video) => ({
+    ...video,
+    duration: null,
+  })) as (VideoSafeProps & T)[];
 }

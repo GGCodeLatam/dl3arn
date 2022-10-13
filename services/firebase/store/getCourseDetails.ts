@@ -69,10 +69,16 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
     await Promise.all(
       Object.entries(course.sections).map(async ([name, data]) => {
         const _videos = await Promise.all(data.videos.map(getVideo));
-        videos.push(..._videos.map((video) => ({ ...video, section: name })));
+        videos.push(
+          ..._videos
+            .map((video) => ({ ...video, section: name }))
+            .filter((video) => video.name)
+        );
         return;
       })
     );
+
+    console.log(videos);
 
     const videosWithDuration = videos.length
       ? await addDurationToVideos<{

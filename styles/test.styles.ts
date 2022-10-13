@@ -49,7 +49,7 @@ export const Blogs = styled.section`
   }
 
   .main-content {
-    padding: 0.5em 2em;
+    padding: 0.5em 1.25em;
 
     .header {
       display: flex;

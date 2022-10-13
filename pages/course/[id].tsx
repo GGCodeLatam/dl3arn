@@ -202,6 +202,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query as { id: string };
 
   const course = await getCourseDetails(id);
+  if (course?.sections)
+    console.log(Object.values(course.sections).map(({ videos }) => videos));
 
   const host = context.req.headers.host;
   const path = context.resolvedUrl;
