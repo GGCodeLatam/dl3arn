@@ -10,6 +10,7 @@ import { InputChange } from "utils/types";
 import { BlogModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
 import { BlogFormContainer } from "./BlogForm.styles";
+import { BiSend } from "react-icons/bi";
 
 interface Inputs {
   content: string;
@@ -137,7 +138,9 @@ function BlogForm({ onSubmit }: Props) {
         ))}
       </div>
 
-      <button type="submit">submit</button>
+      <button type="submit">
+        <BiSend size={22} />
+      </button>
     </BlogFormContainer>
   );
 }

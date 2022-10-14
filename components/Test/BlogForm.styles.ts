@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const BlogFormContainer = styled.form`
+  width: 100%;
+  padding: 1em 0;
+
   .input-images {
     margin: 0.75em 0 0 0;
     cursor: pointer;
@@ -57,6 +60,23 @@ export const BlogFormContainer = styled.form`
       span {
         font-size: 0.75em;
       }
+    }
+  }
+
+  button[type="submit"] {
+    background-color: transparent;
+    color: var(--primary);
+    display: block;
+    margin: 0 0 0 auto;
+    padding: 0.25em 0.5em;
+    width: max-content;
+    opacity: 0.5;
+    transition: all 0.15s ease;
+    transform: translate(0, 0) scale(100%);
+
+    :hover {
+      opacity: 1;
+      transform: translate(0, -2px) scale(105%);
     }
   }
 `;
