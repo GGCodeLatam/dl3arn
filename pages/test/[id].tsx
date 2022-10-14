@@ -1,28 +1,19 @@
-import Avatar from "components/Avatar";
-import { doc, getDoc } from "firebase/firestore";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
 import { BiFullscreen } from "react-icons/bi";
+import { doc, getDoc } from "firebase/firestore";
+import Avatar from "components/Avatar";
 import { blogsCollection } from "services/firebase/store/collections";
 import getUserData from "services/firebase/store/getUserData";
-import styled from "styled-components";
-import { BlogContainer, FullscreenImage } from "styles/blog.styles";
+import {
+  BlogContainer,
+  FullscreenImage,
+  UserContainer,
+} from "styles/blog.styles";
 import { BlogModel, UserModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
-
-const UserContainer = styled.div`
-  width: 75%;
-  margin: 1.5em auto 0 auto;
-
-  .avatar {
-    font-size: 0.8rem;
-  }
-  .bio {
-    margin: 0.75rem 0 0 0;
-  }
-`;
 
 function Blog({ $created_at, creator, images, name, content }: BlogModel) {
   const [img, setImg] = useState<string | null>(null);
@@ -56,17 +47,26 @@ function Blog({ $created_at, creator, images, name, content }: BlogModel) {
           <ul className="images">
             {images.map((image) => (
               <div
-                onClick={() => setImg(image)}
-                className="img-container"
-                key={image}
+                onClick={() =>
+                  setImg(typeof image !== "string" ? image.src : image)
+                }
+                className="container"
+                key={typeof image !== "string" ? image.src : image}
               >
-                <Image
-                  layout="fill"
-                  objectFit="cover"
-                  objectPosition="center"
-                  src={image}
-                  alt=""
-                />
+                <figure>
+                  <div className="img-container">
+                    <Image
+                      layout="fill"
+                      objectFit="cover"
+                      objectPosition="center"
+                      src={typeof image !== "string" ? image.src : image}
+                      alt=""
+                    />
+                  </div>
+                  {typeof image !== "string" && (
+                    <caption>{image.caption}</caption>
+                  )}
+                </figure>
                 <div className="hover">
                   <BiFullscreen size={25} />
                 </div>
@@ -107,6 +107,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const blogRef = await getDoc(doc(blogsCollection, id));
   const data = blogRef.data() as Override<BlogModel, { $id?: string }>;
   const blog: BlogModel = { $id: blogRef.id, ...data };
+
   if (!blog.creator || typeof data.creator !== "string")
     return { props: { ...blog } };
   blog.creator = await getUserData(blog.creator as string);

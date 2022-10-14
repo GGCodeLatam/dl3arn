@@ -37,15 +37,38 @@ export const BlogContainer = styled.div`
     margin: 1rem 0 0 0;
     display: flex;
     flex-flow: column;
-    gap: 1rem;
+    gap: 1.5rem;
 
     .images {
       display: flex;
       width: 100%;
       height: 9em;
-      .img-container {
+
+      .container {
+        cursor: pointer;
         position: relative;
         width: 100%;
+
+        figure,
+        .img-container {
+          height: 100%;
+        }
+
+        figure {
+          .img-container {
+            position: relative;
+          }
+
+          caption {
+            font-size: 0.7em;
+            color: #888;
+            font-weight: 400;
+            z-index: 10;
+            height: max-content;
+            min-height: 100%;
+            width: 100%;
+          }
+        }
 
         .hover {
           content: "";
@@ -63,7 +86,6 @@ export const BlogContainer = styled.div`
         :hover .hover {
           opacity: 1;
           color: #fff;
-          cursor: pointer;
         }
       }
     }
@@ -110,5 +132,17 @@ export const FullscreenImage = styled.div`
     width: 95%;
     height: 75%;
     animation: ${scaleIn} 0.25s ease forwards;
+  }
+`;
+
+export const UserContainer = styled.div`
+  width: 75%;
+  margin: 1.5em auto 0 auto;
+
+  .avatar {
+    font-size: 0.8rem;
+  }
+  .bio {
+    margin: 0.75rem 0 0 0;
   }
 `;

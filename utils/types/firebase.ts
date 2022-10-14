@@ -163,5 +163,5 @@ export interface BlogModel {
   name: string;
   content: string;
   creator: UserModel | string | null;
-  images: string[];
+  images: (string | { src: string; caption: string })[];
 }

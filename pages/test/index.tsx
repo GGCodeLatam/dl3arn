@@ -1,7 +1,7 @@
 import Layout from "components/Layouts";
 import { useAuth } from "context/firebase";
 import { GetServerSideProps } from "next";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import { BlogModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
 import { DEV_PAGE } from "constants/index";
@@ -9,68 +9,26 @@ import authenticated from "utils/authenticated";
 import getUserData from "services/firebase/store/getUserData";
 import { InputChange } from "utils/types";
 import { Blogs, Container, Images } from "styles/test.styles";
-import {
-  addDoc,
-  doc,
-  getDocs,
-  orderBy,
-  query,
-  setDoc,
-} from "firebase/firestore";
+import { doc, getDocs, orderBy, query, setDoc } from "firebase/firestore";
 import { blogsCollection } from "services/firebase/store/collections";
 import Avatar from "components/Avatar";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "services/firebase";
 import Image from "next/image";
 import Link from "next/link";
+import BlogForm from "components/Test/BlogForm";
 
 interface Inputs {
   content: string;
   name: string;
-  images: File[];
+  images: { file: File; caption: string }[];
 }
 function Test({}: { img: string | null }) {
   const [blogs, setBlogs] = useState<
     Override<BlogModel, { $created_at: Date }>[]
   >([]);
-  const [inputs, setInputs] = useState<Inputs>({
-    images: [],
-    content: "",
-    name: "",
-  });
 
-  const {
-    data: { user },
-  } = useAuth();
-
-  const onChange = ({ target: { files, name, value } }: InputChange) => {
-    if (files) {
-      setInputs((old) => ({ ...old, images: Array.from(files) }));
-    } else setInputs((old) => ({ ...old, [name]: value }));
-  };
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (!user?.email) return null;
-    const { email } = user;
-    const blog: Override<BlogModel, { images: File[] }> = {
-      ...inputs,
-      creator: email,
-      $created_at: new Date().getTime(),
-      $id: inputs.name.toLowerCase().replaceAll(/\s/g, "-"),
-    };
-
-    const ref = await addBlog(blog);
-    getBlogs().then((blogs) =>
-      setBlogs(
-        blogs.map((blog) => ({
-          ...blog,
-          $created_at: new Date(blog.$created_at),
-        }))
-      )
-    );
-  };
-
-  useEffect(() => {
+  const getBlogsCallback = useCallback(() => {
     getBlogs().then((blogs) =>
       setBlogs(
         blogs.map((blog) => ({
@@ -80,9 +38,15 @@ function Test({}: { img: string | null }) {
       )
     );
   }, []);
+
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    getBlogsCallback();
+  };
+
   useEffect(() => {
-    console.log(blogs[0]);
-  }, [blogs]);
+    getBlogsCallback();
+  }, [getBlogsCallback]);
 
   return (
     <Layout>
@@ -90,36 +54,7 @@ function Test({}: { img: string | null }) {
         <h1>Pagina de testeo</h1>
 
         <section style={{ width: "100%", position: "relative" }}>
-          <form onSubmit={onSubmit}>
-            <label>
-              <span>name</span>
-              <input
-                name="name"
-                type="text"
-                value={inputs.name}
-                onChange={onChange}
-                placeholder="name"
-              />
-            </label>
-
-            <label>
-              <span>content</span>
-              <input
-                name="content"
-                type="text"
-                value={inputs.content}
-                onChange={onChange}
-                placeholder="content"
-              />
-            </label>
-
-            <label>
-              <span>image</span>
-              <input type="file" onChange={onChange} multiple />
-            </label>
-
-            <button type="submit">submit</button>
-          </form>
+          <BlogForm />
 
           <Blogs>
             {blogs.map(
@@ -157,11 +92,18 @@ function Test({}: { img: string | null }) {
                       {!!images.length && (
                         <Images>
                           {images.map((image) => (
-                            <div className="img-container" key={image}>
+                            <div
+                              className="img-container"
+                              key={
+                                typeof image !== "string" ? image.src : image
+                              }
+                            >
                               <Image
                                 className="img"
                                 layout="fill"
-                                src={image}
+                                src={
+                                  typeof image !== "string" ? image.src : image
+                                }
                                 alt=""
                               />
                             </div>
@@ -210,18 +152,20 @@ async function getBlogs() {
   );
 }
 
-async function addBlog(blog: Override<BlogModel, { images: File[] }>) {
+async function addBlog(
+  blog: Override<BlogModel, { images: Inputs["images"] }>
+) {
   const blogRef = doc(blogsCollection, blog.$id);
-  console.log(blogRef.id);
 
   const images = await Promise.all(
     blog.images.map(async (image) => {
+      console.log(image);
       const storageRef = ref(
         storage,
-        `images/blogs/${blogRef.id}/${image.name}`
+        `images/blogs/${blogRef.id}/${image.file.name}`
       );
-      const { ref: imageRef } = await uploadBytes(storageRef, image);
-      return await getDownloadURL(imageRef);
+      const { ref: imageRef } = await uploadBytes(storageRef, image.file);
+      return { src: await getDownloadURL(imageRef), caption: image.caption };
     })
   );
 
