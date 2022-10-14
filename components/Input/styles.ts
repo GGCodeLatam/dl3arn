@@ -3,9 +3,13 @@ import styled from "styled-components";
 export const Label = styled.label`
   width: 100%;
 
+  textarea,
   input {
     width: 100%;
     padding: 0.5rem 0.5rem;
+  }
+  textarea {
+    resize: vertical;
   }
 
   span {

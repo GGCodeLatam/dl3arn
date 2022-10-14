@@ -4,13 +4,14 @@ import { storage } from "services/firebase";
 import { doc, DocumentReference, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import Image from "next/image";
-import { FormEvent, HTMLProps, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, HTMLProps, useEffect, useState } from "react";
 import { blogsCollection } from "services/firebase/store/collections";
 import { InputChange } from "utils/types";
 import { BlogModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
 import { BlogFormContainer } from "./BlogForm.styles";
 import { BiSend } from "react-icons/bi";
+import Textarea from "components/Input/Textarea";
 
 interface Inputs {
   content: string;
@@ -64,6 +65,15 @@ function BlogForm({ onSubmit }: Props) {
     }));
   };
 
+  const handleContent = ({
+    target: { name, value },
+  }: ChangeEvent<HTMLTextAreaElement>) => {
+    setInputs((old) => ({
+      ...old,
+      [name]: value,
+    }));
+  };
+
   useEffect(() => {
     const urls = inputs.images.map(({ file }) => URL.createObjectURL(file));
     setPreviews(urls);
@@ -82,11 +92,13 @@ function BlogForm({ onSubmit }: Props) {
         label="Nombre"
         placeholder="Nombre"
       />
-      <Input
-        onChange={onChange}
+
+      <Textarea
+        onChange={handleContent}
         value={inputs.content}
+        type="textarea"
+        label="content"
         name="content"
-        label="Contenido"
         placeholder="Contenido"
       />
 
