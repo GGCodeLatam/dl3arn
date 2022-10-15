@@ -14,6 +14,7 @@ import {
 } from "styles/blog.styles";
 import { BlogModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
+import LayoutAbout from "components/Layouts/About";
 
 type Props = BlogModel;
 function Blog({ $created_at, creator, images, name, content }: Props) {
@@ -23,9 +24,9 @@ function Blog({ $created_at, creator, images, name, content }: Props) {
   const parsedDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
 
   return (
-    <>
+    <LayoutAbout>
       <Head>
-        <title key="title">{name}</title>
+        <title key="title">{name} | DL3ARN</title>
       </Head>
 
       <BlogContainer>
@@ -76,17 +77,18 @@ function Blog({ $created_at, creator, images, name, content }: Props) {
 
           <p>{content}</p>
         </div>
-      </BlogContainer>
 
-      <UserContainer>
-        <Avatar
-          className="avatar"
-          name={(typeof creator === "object" && creator?.name) || null}
-          to="right"
-          role={typeof creator === "object" ? creator?.role : undefined}
-        />
-        <p className="bio">{typeof creator === "object" && creator?.bio}</p>
-      </UserContainer>
+        <UserContainer>
+          <Avatar
+            className="avatar"
+            name={(typeof creator === "object" && creator?.name) || null}
+            img={typeof creator === "object" ? creator?.avatar : ""}
+            to="right"
+            role={typeof creator === "object" ? creator?.role : undefined}
+          />
+          <p className="bio">{typeof creator === "object" && creator?.bio}</p>
+        </UserContainer>
+      </BlogContainer>
 
       {img ? (
         <FullscreenImage onClick={() => setImg(null)}>
@@ -95,7 +97,7 @@ function Blog({ $created_at, creator, images, name, content }: Props) {
           </div>
         </FullscreenImage>
       ) : null}
-    </>
+    </LayoutAbout>
   );
 }
 

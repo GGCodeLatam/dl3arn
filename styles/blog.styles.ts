@@ -2,10 +2,15 @@ import styled, { keyframes } from "styled-components";
 
 export const BlogContainer = styled.div`
   padding: 2em 2.5em;
-  background-color: #0001;
+  background-color: #eee;
   width: 75%;
+  height: max-content;
   margin: 1em auto;
   border-radius: 2px;
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  gap: 0;
 
   .title {
     font-size: 1.75rem;
@@ -138,11 +143,15 @@ export const FullscreenImage = styled.div`
 `;
 
 export const UserContainer = styled.div`
-  width: 75%;
-  margin: 1.5em auto 0 auto;
+  width: 100%;
+  margin: 1.5em 0 0 0;
 
   .avatar {
     font-size: 0.8rem;
+
+    .image-container {
+      display: block;
+    }
   }
   .bio {
     margin: 0.75rem 0 0 0;

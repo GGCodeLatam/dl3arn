@@ -1,8 +1,13 @@
 import styled from "styled-components";
 
 export const BlogFormContainer = styled.form`
-  width: 100%;
-  padding: 1em 0;
+  font-size: 0.8rem;
+  width: 90%;
+  max-width: 720px;
+  padding: 1rem 1rem;
+  background-color: #fff;
+  margin: 1em auto;
+  border-radius: 5px;
 
   .input-images {
     margin: 0.75em 0 0 0;

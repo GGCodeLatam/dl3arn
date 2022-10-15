@@ -21,13 +21,15 @@ interface Inputs {
 interface Props extends Omit<HTMLProps<HTMLFormElement>, "onSubmit"> {
   onSubmit?: (ref: DocumentReference) => any;
 }
+
+const init: Inputs = {
+  images: [],
+  content: "",
+  name: "",
+};
 function BlogForm({ onSubmit }: Props) {
   const [previews, setPreviews] = useState<string[]>([]);
-  const [inputs, setInputs] = useState<Inputs>({
-    images: [],
-    content: "",
-    name: "",
-  });
+  const [inputs, setInputs] = useState<Inputs>(init);
 
   const {
     data: { user },
@@ -55,6 +57,8 @@ function BlogForm({ onSubmit }: Props) {
     };
 
     await addBlog(blog);
+    setInputs(init);
+    setPreviews([]);
   };
 
   const handleCaption = (e: InputChange, index: number) => {
@@ -91,7 +95,7 @@ function BlogForm({ onSubmit }: Props) {
         value={inputs.name}
         name="name"
         label="Nombre"
-        placeholder="Nombre"
+        placeholder="Nombre del post"
       />
 
       <Textarea
@@ -163,18 +167,22 @@ export default BlogForm;
 async function addBlog(
   blog: Override<BlogModel, { images: Inputs["images"] }>
 ) {
-  const blogRef = doc(blogsCollection, blog.$id);
+  try {
+    const blogRef = doc(blogsCollection, blog.$id);
 
-  const images = await Promise.all(
-    blog.images.map(async (image) => {
-      const storageRef = ref(
-        storage,
-        `images/blogs/${blogRef.id}/${image.file.name}`
-      );
-      const { ref: imageRef } = await uploadBytes(storageRef, image.file);
-      return { src: await getDownloadURL(imageRef), caption: image.caption };
-    })
-  );
+    const images = await Promise.all(
+      blog.images.map(async (image) => {
+        const storageRef = ref(
+          storage,
+          `images/blogs/${blogRef.id}/${image.file.name}`
+        );
+        const { ref: imageRef } = await uploadBytes(storageRef, image.file);
+        return { src: await getDownloadURL(imageRef), caption: image.caption };
+      })
+    );
 
-  return await setDoc(blogRef, { ...blog, images });
+    return await setDoc(blogRef, { ...blog, images });
+  } catch (e) {
+    return e;
+  }
 }

@@ -14,8 +14,11 @@ import Image from "next/image";
 import Link from "next/link";
 import BlogForm from "components/Test/BlogForm";
 import Head from "next/head";
+import LayoutAbout from "components/Layouts/About";
+import { useAuth } from "context/firebase";
 
 function Blogs({}: { img: string | null }) {
+  const { userData } = useAuth();
   const [blogs, setBlogs] = useState<
     Override<BlogModel, { $created_at: Date }>[]
   >([]);
@@ -36,15 +39,13 @@ function Blogs({}: { img: string | null }) {
   }, [getBlogsCallback]);
 
   return (
-    <Layout>
+    <LayoutAbout>
       <Head>
         <title key="title">Blog DL3ARN</title>
       </Head>
       <Container>
-        <h1>Pagina de testeo</h1>
-
         <section style={{ width: "100%", position: "relative" }}>
-          <BlogForm />
+          {userData?.role === "admin" && <BlogForm />}
 
           <BlogsContainer>
             {blogs.map(
@@ -80,7 +81,7 @@ function Blogs({}: { img: string | null }) {
                         <p>{content}</p>
                       </div>
                       {!!images.length && (
-                        <Images>
+                        <Images onlyOne={images.length === 1}>
                           {images.map((image) => (
                             <div
                               className="img-container"
@@ -108,22 +109,9 @@ function Blogs({}: { img: string | null }) {
           </BlogsContainer>
         </section>
       </Container>
-    </Layout>
+    </LayoutAbout>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  if (DEV_PAGE === "true") return { props: {} };
-
-  const { __user_token } = context.req.cookies as { __user_token?: string };
-
-  const user = await authenticated({ token: __user_token });
-  const userData = await getUserData((user && user?.email) || "");
-
-  if (userData?.role === "admin") return { props: {} };
-
-  return { redirect: { permanent: false, destination: "/" } };
-};
 
 async function getBlogs() {
   const blogs = await getDocs(

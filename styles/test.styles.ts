@@ -1,10 +1,11 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 1em 0;
+  position: relative;
 
   form,
   label,
@@ -32,13 +33,14 @@ export const Blogs = styled.section`
   > a {
     border-radius: 5px;
     overflow: hidden;
-    background: #0000000a;
+    background: #ddd;
     display: block;
     padding: 0.75em 0 0 0;
     transition: background 0.15s ease;
   }
   > a:hover {
     background: #00000012;
+    background: #ccc;
   }
 
   .avatar {
@@ -75,9 +77,14 @@ export const Blogs = styled.section`
   }
 `;
 
-export const Images = styled.div`
+export const Images = styled.div<{ onlyOne: boolean }>`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  ${({ onlyOne }) =>
+    onlyOne &&
+    css`
+      grid-template-columns: repeat(1, 1fr);
+    `}
   margin: 1em 0 0 0;
 
   .img-container:first-child {

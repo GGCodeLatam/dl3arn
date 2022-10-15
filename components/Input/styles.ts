@@ -6,7 +6,7 @@ export const Label = styled.label`
   textarea,
   input {
     width: 100%;
-    padding: 0.5rem 0.5rem;
+    padding: 0.5em 0.5em;
   }
   textarea {
     resize: vertical;
@@ -14,8 +14,8 @@ export const Label = styled.label`
 
   span {
     display: block;
-    padding: 0.25rem 0.5rem;
+    padding: 0.25em 0.5em;
     opacity: 0.5;
-    font-size: 0.85rem;
+    font-size: 0.85em;
   }
 `;
