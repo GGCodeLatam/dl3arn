@@ -55,11 +55,13 @@ export const BlogContainer = styled.div`
         }
 
         figure {
+          width: 100%;
           .img-container {
             position: relative;
+            width: 100%;
           }
 
-          caption {
+          figcaption {
             font-size: 0.7em;
             color: #888;
             font-weight: 400;
@@ -67,6 +69,7 @@ export const BlogContainer = styled.div`
             height: max-content;
             min-height: 100%;
             width: 100%;
+            text-align: center;
           }
         }
 

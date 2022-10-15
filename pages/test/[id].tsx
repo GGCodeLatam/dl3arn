@@ -15,17 +15,17 @@ import {
 import { BlogModel, UserModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
 
-function Blog({ $created_at, creator, images, name, content }: BlogModel) {
+type Props = BlogModel;
+function Blog({ $created_at, creator, images, name, content }: Props) {
   const [img, setImg] = useState<string | null>(null);
 
-  const user = creator as UserModel;
   const date = new Date($created_at);
   const parsedDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
 
   return (
     <>
       <Head>
-        <title key="title">{name} | DL3ARN</title>
+        <title key="title">{name}</title>
       </Head>
 
       <BlogContainer>
@@ -36,7 +36,7 @@ function Blog({ $created_at, creator, images, name, content }: BlogModel) {
             <Avatar
               className="avatar"
               isLoading={false}
-              name={user.name}
+              name={typeof creator === "object" ? creator?.name : ""}
               to="right"
             />
           </div>
@@ -64,7 +64,7 @@ function Blog({ $created_at, creator, images, name, content }: BlogModel) {
                     />
                   </div>
                   {typeof image !== "string" && (
-                    <caption>{image.caption}</caption>
+                    <figcaption>{image.caption}</figcaption>
                   )}
                 </figure>
                 <div className="hover">
@@ -78,17 +78,15 @@ function Blog({ $created_at, creator, images, name, content }: BlogModel) {
         </div>
       </BlogContainer>
 
-      {creator && typeof creator === "object" ? (
-        <UserContainer>
-          <Avatar
-            className="avatar"
-            name={creator.name}
-            to="right"
-            role={creator.role}
-          />
-          <p className="bio">{creator.bio}</p>
-        </UserContainer>
-      ) : null}
+      <UserContainer>
+        <Avatar
+          className="avatar"
+          name={(typeof creator === "object" && creator?.name) || null}
+          to="right"
+          role={typeof creator === "object" ? creator?.role : undefined}
+        />
+        <p className="bio">{typeof creator === "object" && creator?.bio}</p>
+      </UserContainer>
 
       {img ? (
         <FullscreenImage onClick={() => setImg(null)}>
@@ -106,7 +104,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!id) return { redirect: { destination: "/404", permanent: false } };
   const blogRef = await getDoc(doc(blogsCollection, id));
   const data = blogRef.data() as Override<BlogModel, { $id?: string }>;
-  const blog: BlogModel = { $id: blogRef.id, ...data };
+  const blog: Props = {
+    $id: blogRef.id,
+    ...data,
+  };
+  console.log(new Date(data.$created_at));
 
   if (!blog.creator || typeof data.creator !== "string")
     return { props: { ...blog } };

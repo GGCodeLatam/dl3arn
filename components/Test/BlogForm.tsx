@@ -47,11 +47,12 @@ function BlogForm({ onSubmit }: Props) {
     const { email } = user;
     const blog: Override<BlogModel, { images: Inputs["images"] }> = {
       ...inputs,
+      name: inputs.name.trim(),
+      content: inputs.content.trim(),
       creator: email,
       $created_at: new Date().getTime(),
-      $id: inputs.name.toLowerCase().replaceAll(/\s/g, "-"),
+      $id: inputs.name.toLowerCase().trim().replaceAll(/\s/g, "-"),
     };
-    console.log(blog);
 
     await addBlog(blog);
   };
