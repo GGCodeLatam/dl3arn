@@ -67,7 +67,6 @@ export const BlogContainer = styled.div`
             font-weight: 400;
             z-index: 10;
             height: max-content;
-            min-height: 100%;
             width: 100%;
             text-align: center;
           }

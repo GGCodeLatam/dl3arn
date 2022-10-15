@@ -25,7 +25,7 @@ function Blog({ $created_at, creator, images, name, content }: Props) {
   return (
     <>
       <Head>
-        <title key="title">{name} | Blog DL3ARN</title>
+        <title key="title">{name}</title>
       </Head>
 
       <BlogContainer>
@@ -103,15 +103,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query as { id: string };
   if (!id) return { redirect: { destination: "/404", permanent: false } };
   const blogRef = await getDoc(doc(blogsCollection, id));
-  console.log(blogRef.exists());
   if (!blogRef.exists())
     return { redirect: { destination: "/404", permanent: false } };
+
   const data = blogRef.data() as Override<BlogModel, { $id?: string }>;
   const blog: Props = {
     $id: blogRef.id,
     ...data,
   };
-  console.log(new Date(data.$created_at));
 
   if (!blog.creator || typeof data.creator !== "string")
     return { props: { ...blog } };
