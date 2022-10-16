@@ -90,7 +90,7 @@ function Test({}: { img: string | null }) {
                         <p>{content}</p>
                       </div>
                       {!!images.length && (
-                        <Images>
+                        <Images onlyOne={false}>
                           {images.map((image) => (
                             <div
                               className="img-container"
