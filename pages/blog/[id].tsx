@@ -15,9 +15,18 @@ import {
 import { BlogModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
 import LayoutAbout from "components/Layouts/About";
+import OGTags from "components/SEO";
 
-type Props = BlogModel;
-function Blog({ $created_at, creator, images, name, content }: Props) {
+interface Props {
+  data: BlogModel;
+  metadata: {
+    image: string;
+  };
+}
+function Blog({
+  data: { $created_at, creator, images, name, content },
+  metadata: { image },
+}: Props) {
   const [img, setImg] = useState<string | null>(null);
 
   const date = new Date($created_at);
@@ -27,6 +36,7 @@ function Blog({ $created_at, creator, images, name, content }: Props) {
     <LayoutAbout>
       <Head>
         <title key="title">{name} | DL3ARN</title>
+        <OGTags image={image} />
       </Head>
 
       <BlogContainer>
@@ -109,16 +119,24 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return { redirect: { destination: "/404", permanent: false } };
 
   const data = blogRef.data() as Override<BlogModel, { $id?: string }>;
-  const blog: Props = {
+  const blog: Props["data"] = {
     $id: blogRef.id,
     ...data,
   };
 
   if (!blog.creator || typeof data.creator !== "string")
-    return { props: { ...blog } };
+    return { props: { data: blog } };
   blog.creator = await getUserData(blog.creator as string);
   return {
-    props: { ...blog },
+    props: {
+      data: { ...blog },
+      metadata: {
+        image:
+          (typeof blog.images[0] === "string"
+            ? blog.images[0]
+            : blog.images[0]?.src) || "",
+      },
+    },
   };
 };
 
