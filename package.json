@@ -22,6 +22,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "4.4.0",
+    "slate": "^0.82.1",
+    "slate-react": "^0.83.2",
     "styled-components": "5.3.5",
     "wagmi": "0.6.4"
   },

@@ -14,6 +14,10 @@ export const BlogContainer = styled.div`
 
   .main-content {
     white-space: pre-line;
+    a {
+      color: #5ad;
+      text-decoration: underline;
+    }
   }
   .title {
     font-size: 1.75rem;

@@ -5,13 +5,12 @@ import authenticated from "utils/authenticated";
 import getUserData from "services/firebase/store/getUserData";
 import { Container } from "styles/test.styles";
 
-import BlogForm from "components/Test/BlogForm";
-import BlogsList from "components/Test/BlogList";
 import { useEffect, useState } from "react";
 import { BlogModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
 import { getDocs, orderBy, query } from "firebase/firestore";
 import { blogsCollection } from "services/firebase/store/collections";
+import RichTextEditor from "components/RichTextEditor";
 
 type Blogs = Override<BlogModel, { $created_at: Date }>[];
 
@@ -35,8 +34,7 @@ function Test() {
         <h1>Pagina de testeo</h1>
 
         <section style={{ width: "100%", position: "relative" }}>
-          <BlogForm />
-          <BlogsList blogs={blogs} />
+          <RichTextEditor />
         </section>
       </Container>
     </Layout>

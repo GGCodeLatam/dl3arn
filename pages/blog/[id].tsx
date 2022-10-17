@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { BiFullscreen } from "react-icons/bi";
 import { doc, getDoc } from "firebase/firestore";
 import Avatar from "components/Avatar";
@@ -16,6 +16,43 @@ import { BlogModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
 import LayoutAbout from "components/Layouts/About";
 import OGTags from "components/SEO";
+
+const createLinks = (str: string): ReactNode | ReactNode[] => {
+  const words = str.replaceAll("\n", " _n ").split(" ");
+
+  const MatchURL = /((http|https)\:\/\/)?(www\.)?\w+(\.\w+)+(\/([\w\-]+)?)+/g;
+  const urls = words
+    .map((word) => {
+      const matches = word.match(MatchURL);
+      if (matches) return matches[0];
+      return null;
+    })
+    .filter((exist) => !!exist) as string[];
+  console.log(words);
+
+  return words
+    .map((word) => {
+      const parsed = urls
+        ?.map((url) =>
+          new RegExp(url, "g").test(word) ? (
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={/(http|https)\:\/\//.test(url) ? url : `https://${url}`}
+            >
+              {url}
+            </a>
+          ) : null
+        )
+        .filter((parsed) => !!parsed);
+      return parsed?.length ? parsed : word;
+    })
+    .map((word) =>
+      typeof word === "string"
+        ? " " + word.replaceAll(/\_n/g, "\n") + " "
+        : word
+    );
+};
 
 interface Props {
   data: BlogModel;
@@ -85,7 +122,7 @@ function Blog({
             ))}
           </ul>
 
-          <div className="main-content">{content}</div>
+          <div className="main-content">{createLinks(content)}</div>
         </div>
 
         <UserContainer>
