@@ -75,7 +75,7 @@ function Blog({ $created_at, creator, images, name, content }: Props) {
             ))}
           </ul>
 
-          <p>{content}</p>
+          <div className="main-content">{content}</div>
         </div>
 
         <UserContainer>

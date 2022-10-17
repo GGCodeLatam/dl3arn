@@ -12,6 +12,9 @@ export const BlogContainer = styled.div`
   flex-flow: column;
   gap: 0;
 
+  .main-content {
+    white-space: pre-line;
+  }
   .title {
     font-size: 1.75rem;
   }
