@@ -1,7 +1,7 @@
 import Input from "components/Input";
 import { useAuth } from "context/firebase";
 import { storage } from "services/firebase";
-import { doc, DocumentReference, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import Image from "next/image";
 import { ChangeEvent, FormEvent, HTMLProps, useEffect, useState } from "react";
@@ -19,7 +19,7 @@ interface Inputs {
   images: { file: File; caption: string }[];
 }
 interface Props extends Omit<HTMLProps<HTMLFormElement>, "onSubmit"> {
-  onSubmit?: (ref: DocumentReference) => any;
+  onSubmit?: (_?: any) => any;
 }
 
 const init: Inputs = {
@@ -49,16 +49,24 @@ function BlogForm({ onSubmit }: Props) {
     const { email } = user;
     const blog: Override<BlogModel, { images: Inputs["images"] }> = {
       ...inputs,
-      name: inputs.name.trim(),
+      name: inputs.name.trim().replaceAll(/\s+/g, " "),
       content: inputs.content.trim(),
       creator: email,
       $created_at: new Date().getTime(),
-      $id: inputs.name.toLowerCase().trim().replaceAll(/\s/g, "-"),
+      $id: inputs.name
+        .toLowerCase()
+        .trim()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replaceAll(/\-/g, "")
+        .replaceAll(/\s+/g, " ")
+        .replaceAll(/\s/g, "-"),
     };
 
     await addBlog(blog);
     setInputs(init);
     setPreviews([]);
+    onSubmit!();
   };
 
   const handleCaption = (e: InputChange, index: number) => {

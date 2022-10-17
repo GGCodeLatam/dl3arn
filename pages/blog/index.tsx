@@ -39,7 +39,9 @@ function Blogs({}: { img: string | null }) {
       </Head>
       <Container>
         <section style={{ width: "100%", position: "relative" }}>
-          {userData?.role === "admin" && <BlogForm />}
+          {userData?.role === "admin" && (
+            <BlogForm onSubmit={getBlogsCallback} />
+          )}
           <BlogsList blogs={blogs} />
         </section>
       </Container>
@@ -58,7 +60,7 @@ async function getBlogs() {
       data.creator = await getUserData(data.creator);
       data.$id = blog.id;
       if (data.content.length > 150)
-        data.content = data.content.slice(0, 150)[0];
+        `${(data.content = data.content.slice(0, 150).trim())}...`;
       return data;
     })
   );
