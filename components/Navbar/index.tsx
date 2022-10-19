@@ -109,6 +109,7 @@ function Navbar() {
                           href={`/courses/${category}`}
                         >
                           {category}
+                          <BiChevronRight size={20} className="icon" />
                         </NavLink>
                       </li>
                     ))}

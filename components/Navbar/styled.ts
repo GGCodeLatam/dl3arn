@@ -301,6 +301,19 @@ export const Nav = styled.nav<NavProps>`
     .menu-mobile {
       display: none;
     }
+    .categories-list {
+      font-size: 0.9em !important;
+      margin: 0.5em 0;
+      .link {
+        display: flex;
+        justify-content: space-between;
+        min-width: 200px;
+        padding: 0.25em 1em !important;
+      }
+      *:not(:last-child) .link {
+        border-bottom: 1px solid #0001;
+      }
+    }
   }
   .red * {
     background-color: red !important;

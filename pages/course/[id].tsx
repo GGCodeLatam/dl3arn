@@ -24,6 +24,7 @@ import { VideoSafeProps } from "utils/types/video";
 
 import getCourseDetails from "services/firebase/store/getCourseDetails";
 import { Container } from "styles/course.styles";
+import { useAuth } from "context/firebase";
 
 interface Props {
   course: APIGetCourseById;
@@ -37,6 +38,9 @@ interface Props {
   };
 }
 function Course({ course, meta }: Props) {
+  const {
+    data: { isLoading: userLoading, user },
+  } = useAuth();
   const { state, show, hide } = useShow({});
   const router = useRouter();
 
@@ -68,17 +72,21 @@ function Course({ course, meta }: Props) {
     locked: locked,
   });
 
-  const handleVideo = (_id?: string | null) =>
-    _id === null
-      ? null
-      : Router.push(
-          {
-            pathname: `/course/${course?.url}`,
-            query: { v: _id || "" },
-          },
-          undefined,
-          { shallow: true }
-        );
+  const handleVideo = (_id?: string | null) => {
+    if (_id === null || userLoading) return null;
+    if (!userLoading && !user) return Router.push({ pathname: "/auth/login" });
+    if (!userLoading && user) {
+      return Router.push(
+        {
+          pathname: `/course/${course?.url}`,
+          query: { v: _id || "" },
+        },
+        undefined,
+        { shallow: true }
+      );
+    }
+    return null;
+  };
 
   const getVideo = (diff: number) => {
     if (!videos.length) return null;
@@ -194,16 +202,9 @@ function Course({ course, meta }: Props) {
 export default Course;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { __user_token } = context.req.cookies;
-
-  if (!(await authenticated({ token: __user_token, verified: true })))
-    return { redirect: { permanent: false, destination: "/auth/login" } };
-
   const { id } = context.query as { id: string };
 
   const course = await getCourseDetails(id);
-  if (course?.sections)
-    console.log(Object.values(course.sections).map(({ videos }) => videos));
 
   const host = context.req.headers.host;
   const path = context.resolvedUrl;

@@ -57,9 +57,9 @@ function PreguntasFrecuentes() {
         </section>
       </div>
 
-      <PrimaryButton className="more-questions">
+      {/*<PrimaryButton className="more-questions">
         Leer más preguntas
-      </PrimaryButton>
+      </PrimaryButton>*/}
     </PreguntasFrecuentesContainer>
   );
 }

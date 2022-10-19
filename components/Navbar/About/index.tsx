@@ -8,8 +8,8 @@ function NavbarAbout() {
       <div className="wrapper">
         <Logo />
         <ul className="links">
+          <NavLink href="/about">Acerca DL3ARN</NavLink>
           <NavLink href="/blog">Blogs</NavLink>
-          <NavLink href="/about">Sobre DL3ARN</NavLink>
           <NavLink href="/about/roadmap">Roadmap</NavLink>
           <NavLink href="/about/quienes-somos">Quienes somos</NavLink>
         </ul>
