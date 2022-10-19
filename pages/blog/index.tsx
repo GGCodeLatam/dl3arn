@@ -58,7 +58,6 @@ async function getBlogs() {
       const data = { ...blog.data() } as BlogModel;
       if (!data.creator || typeof data.creator !== "string") return data;
       data.creator = await getUserData(data.creator);
-      data.$id = blog.id;
       if (data.content.length > 150)
         data.content = `${data.content.slice(0, 150).trim()}...`;
       return data;

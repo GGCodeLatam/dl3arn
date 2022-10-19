@@ -20,31 +20,39 @@ import OGTags from "components/SEO";
 const createLinks = (str: string): ReactNode | ReactNode[] => {
   const words = str.replaceAll("\n", " _n ").split(" ");
 
-  const MatchURL = /((http|https)\:\/\/)?(www\.)?\w+(\.\w+)+(\/([\w\-]+)?)+/g;
+  const MatchURL =
+    /(((http|https)\:\/\/)|(www\.)?)\w+(\.\w+)+(\/?([\w\-]+)?)+/g;
   const urls = words
     .map((word) => {
       const matches = word.match(MatchURL);
+      if (matches?.length) console.log({ matches, word });
       if (matches) return matches[0];
       return null;
     })
     .filter((exist) => !!exist) as string[];
-  console.log(words);
+  console.log(urls);
 
   return words
     .map((word) => {
       const parsed = urls
         ?.map((url) =>
-          new RegExp(url, "g").test(word) ? (
+          new RegExp(`^${url}$`).test(word.replace(/[^\w\s\-\:\/\.]/g, "")) ? (
             <a
               target="_blank"
               rel="noreferrer"
               href={/(http|https)\:\/\//.test(url) ? url : `https://${url}`}
+              key={url}
             >
               {url}
             </a>
           ) : null
         )
         .filter((parsed) => !!parsed);
+      if (parsed.length && false)
+        console.log({
+          word: word.replace(/[^\w\s\-\:\/\.]/g, ""),
+          parsed: parsed.map((e) => e?.key),
+        });
       return parsed?.length ? parsed : word;
     })
     .map((word) =>

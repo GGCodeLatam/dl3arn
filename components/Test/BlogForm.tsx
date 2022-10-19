@@ -58,6 +58,7 @@ function BlogForm({ onSubmit }: Props) {
         .trim()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^\w\s]+/gi, "-")
         .replaceAll(/\-/g, "")
         .replaceAll(/\s+/g, " ")
         .replaceAll(/\s/g, "-"),
