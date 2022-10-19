@@ -39,6 +39,7 @@ const createLinks = (str: string): ReactNode | ReactNode[] => {
               target="_blank"
               rel="noreferrer"
               href={/(http|https)\:\/\//.test(url) ? url : `https://${url}`}
+              style={{ wordBreak: "break-all" }}
               key={url}
             >
               {url}

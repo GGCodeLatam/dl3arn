@@ -1,9 +1,10 @@
 import styled, { keyframes } from "styled-components";
+import breakpoints from "utils/breakpoints";
 
 export const BlogContainer = styled.div`
-  padding: 2em 2.5em;
+  padding: 1em 1.5em;
   background-color: #eee;
-  width: 75%;
+  width: 95%;
   height: max-content;
   margin: 1em auto;
   border-radius: 2px;
@@ -103,6 +104,11 @@ export const BlogContainer = styled.div`
         }
       }
     }
+  }
+
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    width: 75%;
+    padding: 2em 2.5em;
   }
 `;
 
