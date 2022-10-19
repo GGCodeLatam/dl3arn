@@ -25,12 +25,10 @@ const createLinks = (str: string): ReactNode | ReactNode[] => {
   const urls = words
     .map((word) => {
       const matches = word.match(MatchURL);
-      if (matches?.length) console.log({ matches, word });
       if (matches) return matches[0];
       return null;
     })
     .filter((exist) => !!exist) as string[];
-  console.log(urls);
 
   return words
     .map((word) => {
@@ -48,11 +46,6 @@ const createLinks = (str: string): ReactNode | ReactNode[] => {
           ) : null
         )
         .filter((parsed) => !!parsed);
-      if (parsed.length && false)
-        console.log({
-          word: word.replace(/[^\w\s\-\:\/\.]/g, ""),
-          parsed: parsed.map((e) => e?.key),
-        });
       return parsed?.length ? parsed : word;
     })
     .map((word) =>
