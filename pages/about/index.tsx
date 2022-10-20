@@ -3,6 +3,8 @@ import InversionCrypto from "components/About/InversionCrypto";
 import PreguntasFrecuentes from "components/About/PreguntasFrecuentes";
 import { AboutContainer } from "styles/about.styles";
 import LayoutAbout from "components/Layouts/About";
+import { getDocs, limit, query } from "firebase/firestore";
+import { coursesCollection } from "services/firebase/store/collections";
 
 interface Props {
   meta: {
@@ -48,6 +50,10 @@ function About({ meta }: Props) {
 }
 
 export async function getServerSideProps() {
+  const q = query(coursesCollection, limit(500));
+  const courses = await getDocs(q);
+  console.log(courses);
+
   const props: Props = {
     meta: {
       description:

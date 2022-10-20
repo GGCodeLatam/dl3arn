@@ -8,6 +8,7 @@ export const CourseIntroContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 1em;
+    white-space: pre-line;
 
     .img-container {
       position: relative;
