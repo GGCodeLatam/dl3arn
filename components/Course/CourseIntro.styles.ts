@@ -8,7 +8,6 @@ export const CourseIntroContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 1em;
-    white-space: pre-line;
 
     .img-container {
       position: relative;
@@ -38,6 +37,9 @@ export const CourseIntroContainer = styled.div`
         font-size: 1.15em;
         margin: 0.25em 0;
       }
+    }
+    .description {
+      white-space: pre-line;
     }
 
     .instructor-data {
