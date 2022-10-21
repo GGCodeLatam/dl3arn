@@ -69,6 +69,16 @@ function Footer() {
                     <BiChevronRight /> Quienes Somos
                   </a>
                 </Link>
+                <Link href={routes.landing.path}>
+                  <a className="link">
+                    <BiChevronRight /> Politica de privacidad
+                  </a>
+                </Link>
+                <Link href={routes.landing.path}>
+                  <a className="link">
+                    <BiChevronRight /> Terminos y condiciones
+                  </a>
+                </Link>
               </nav>
             </section>
             <section>

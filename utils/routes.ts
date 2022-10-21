@@ -11,13 +11,21 @@ type Page =
   | "login"
   | "notfound"
   | "password"
+  | "privacy"
   | "profile"
   | "quienes"
   | "roadmap"
-  | "signup";
+  | "signup"
+  | "terms";
 type Pages = { [key in Page]: Route };
 
 const routes: Pages = {
+  privacy: {
+    path: "/privacy",
+  },
+  terms: {
+    path: "/terms",
+  },
   landing: {
     path: "/",
   },
