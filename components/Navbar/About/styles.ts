@@ -6,7 +6,7 @@ export const NavbarAboutContainer = styled.nav`
   left: 0;
   width: 100%;
   list-style: none;
-  background: #3f6ef2;
+  background: var(--primary);
 
   &,
   .mobile,
@@ -15,7 +15,7 @@ export const NavbarAboutContainer = styled.nav`
   }
   &,
   .mobile {
-    background: #3f6ef2;
+    background: var(--primary);
   }
 
   .right .link {

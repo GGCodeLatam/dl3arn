@@ -2,11 +2,10 @@ import styled from "styled-components";
 import breakpoints from "utils/breakpoints";
 
 export const InversionCryptoContainer = styled.section`
-  width: 90%;
-  max-width: 1200px;
   margin: 0 auto;
 
   .content {
+    max-width: 1200px;
     display: grid;
     grid-template-columns: 1fr;
     place-items: center;

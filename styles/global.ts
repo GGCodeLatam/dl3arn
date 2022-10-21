@@ -9,10 +9,10 @@ export const GlobalStyle = createGlobalStyle`
 
 :root {
   --gold: #ba9050;
-  --brow: #362d1f;
+  --brown: #362d1f;
   --beige: #f2da99;
 
-  --primary:var(--gold);
+  --primary: var(--gold);
   --primary-rgb: 186, 144, 80;
   --primary-contrast: #fff;
 

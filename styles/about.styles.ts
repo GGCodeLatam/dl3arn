@@ -39,11 +39,21 @@ export const AboutContainer = styled.main`
   h2 {
     font-size: 1.5em;
     text-align: center;
-    margin: 7vh 0;
+    margin: 0 0 7vh 0;
   }
   @media screen and (min-width: ${breakpoints.tablet}) {
     h2 {
       font-size: 2em;
+    }
+  }
+
+  > section:nth-child(2n) {
+    background-color: #242424;
+    width: 100%;
+    padding: 3em 0;
+    .content {
+      width: 90%;
+      margin: 0 auto;
     }
   }
 `;

@@ -11,7 +11,7 @@ const Container = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(#4374ff, #030816);
+  background: linear-gradient(var(--primary), var(--brown));
 `;
 interface Props {
   children: ReactNode;
