@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 export const PreguntasFrecuentesContainer = styled.section`
+  color: #fff;
   width: 90%;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 10em auto 0 auto;
 
   h3 {
     margin: 1em 0 0 0;

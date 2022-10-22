@@ -2,14 +2,15 @@ import styled from "styled-components";
 import breakpoints from "utils/breakpoints";
 
 export const AboutContainer = styled.main`
-  padding: 15vh 0 15vh 0;
   display: flex;
   flex-flow: column;
-  gap: 10vh;
   position: relative;
   color: #fff;
 
   .intro {
+    padding: 15vh 0 20vh 0;
+    background-color: var(--brown);
+
     h1 {
       width: 90%;
       max-width: 1200px;
@@ -49,6 +50,9 @@ export const AboutContainer = styled.main`
 
   > section:nth-child(2n) {
     width: 100%;
+    position: relative;
+    z-index: 10;
+
     .main {
       background-color: #242424;
       padding: 3em 0;
@@ -57,5 +61,8 @@ export const AboutContainer = styled.main`
       width: 90%;
       margin: 0 auto;
     }
+  }
+  > section {
+    transform: translate(0, -12vh);
   }
 `;

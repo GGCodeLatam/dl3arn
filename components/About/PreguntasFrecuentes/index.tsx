@@ -1,4 +1,3 @@
-import { PrimaryButton } from "components/Buttons";
 import { PreguntasFrecuentesContainer } from "./PreguntasFrecuentes.styles";
 
 function PreguntasFrecuentes() {

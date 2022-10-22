@@ -19,7 +19,7 @@ interface Props {
   };
 }
 
-function About({ data, meta }: Props) {
+function About({ data: { total_courses, total_users }, meta }: Props) {
   return (
     <>
       <Head>
@@ -48,10 +48,7 @@ function About({ data, meta }: Props) {
             />
           </div>
 
-          <InversionCrypto
-            courses={data.total_courses}
-            users={data.total_users}
-          />
+          <InversionCrypto courses={total_courses} users={total_users} />
           <PreguntasFrecuentes />
         </AboutContainer>
       </LayoutAbout>
@@ -59,9 +56,9 @@ function About({ data, meta }: Props) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const qCourses = query(coursesCollection, limit(500));
-  const qUsers = query(usersCollection, limit(500));
+  const qUsers = query(usersCollection, limit(1000));
 
   const [courses, users] = await Promise.all([
     await getDocs(qCourses),
@@ -70,7 +67,6 @@ export async function getServerSideProps() {
 
   const total_courses = courses.docs.length;
   const total_users = users.docs.length;
-  console.log(users);
 
   const props: Props = {
     data: {

@@ -3,8 +3,8 @@ import breakpoints from "utils/breakpoints";
 
 export const InversionCryptoContainer = styled.section`
   margin: 0 auto;
-  .deco {
-  }
+  position: relative;
+
   .deco.top {
     transform: translate(0, 0.5em);
   }
@@ -13,6 +13,7 @@ export const InversionCryptoContainer = styled.section`
   }
 
   .content {
+    position: relative;
     max-width: 1200px;
     display: grid;
     grid-template-columns: 1fr;
