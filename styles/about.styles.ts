@@ -48,9 +48,11 @@ export const AboutContainer = styled.main`
   }
 
   > section:nth-child(2n) {
-    background-color: #242424;
     width: 100%;
-    padding: 3em 0;
+    .main {
+      background-color: #242424;
+      padding: 3em 0;
+    }
     .content {
       width: 90%;
       margin: 0 auto;

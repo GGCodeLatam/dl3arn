@@ -3,6 +3,14 @@ import breakpoints from "utils/breakpoints";
 
 export const InversionCryptoContainer = styled.section`
   margin: 0 auto;
+  .deco {
+  }
+  .deco.top {
+    transform: translate(0, 0.5em);
+  }
+  .deco.bottom {
+    transform: translate(0, -0.15em) rotate(180deg);
+  }
 
   .content {
     max-width: 1200px;
