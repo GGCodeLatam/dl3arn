@@ -1,13 +1,8 @@
-import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 
 import Intro from "components/Landing/Intro";
 
 import getCourses from "services/firebase/store/getCourses";
-import getDl3arn from "services/firebase/store/getDl3arn";
-import getCoursesByIds from "services/firebase/store/getCoursesByIds";
-import { getImage } from "services/firebase/storage";
-
 import { CourseModel, UserModel } from "utils/types/firebase";
 
 import { HomeContainer } from "styles/home.styles";
@@ -16,17 +11,16 @@ import ListCourses from "components/Landing/ListCourses";
 import Layout from "components/Layouts";
 import getUserByEmail from "services/firebase/store/getUserByEmail";
 import { Override } from "utils/types/utility";
+import { Meta } from "utils/types";
 
 interface Props {
   data: {
-    featured: Override<CourseModel, { instructor: UserModel | null }>[];
     courses: Override<CourseModel, { instructor: UserModel | null }>[];
   };
-  meta: { description: string; title: string };
+  meta: Meta;
 }
 function Home({ data, meta }: Props) {
-  const { featured, courses } = data;
-  const [main, ...more] = featured;
+  const { courses } = data;
 
   return (
     <>
@@ -37,8 +31,6 @@ function Home({ data, meta }: Props) {
       <Layout>
         <HomeContainer>
           <Intro />
-
-          <OurCourses main={main} more={more} />
 
           <section>
             <ListCourses courses={courses} className="list" />
@@ -51,23 +43,11 @@ function Home({ data, meta }: Props) {
 
 export default Home;
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const dl3arn = await getDl3arn("home");
-
-  const [featured, courses] = await Promise.all([
-    getCoursesByIds(dl3arn.pinned),
-    getCourses({}),
-  ]);
+export async function getServerSideProps() {
+  const courses = await getCourses({});
 
   const instructors: { [key: string]: UserModel | null } = {};
-  await Promise.all(
-    featured.map(async ({ instructor }) => {
-      if (typeof instructor === "object" && instructor.email)
-        instructors[instructor.email] = instructor;
-      else if (typeof instructor === "string")
-        instructors[instructor] = await getUserByEmail(instructor);
-    })
-  );
+
   await Promise.all(
     courses.map(async ({ instructor }) => {
       if (typeof instructor === "object" && instructor.email)
@@ -77,31 +57,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     })
   );
 
+  const coursesWithInstructors = courses.map(({ instructor, ...data }) => ({
+    ...data,
+    instructor:
+      typeof instructor === "string" ? instructors[instructor] : instructor,
+  }));
+
   const props: Props = {
-    data: {
-      featured: await Promise.all(
-        featured.map(async (course) => ({
-          ...course,
-          instructor:
-            typeof course.instructor === "string"
-              ? instructors[course.instructor]
-              : course.instructor,
-        }))
-      ),
-      courses: (
-        await Promise.all(
-          courses.map(async (course) => ({
-            ...course,
-            instructor:
-              typeof course.instructor === "string"
-                ? instructors[course.instructor]
-                : course.instructor,
-          }))
-        )
-      ).filter((course) =>
-        featured.findIndex((f) => f.id === course.id) === -1 ? true : false
-      ),
-    },
+    data: { courses: coursesWithInstructors },
 
     meta: {
       description:

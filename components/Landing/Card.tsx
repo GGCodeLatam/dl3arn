@@ -8,6 +8,7 @@ import { CardContainer } from "./styles";
 import Image from "next/image";
 import Avatar from "components/Avatar";
 import { Override } from "utils/types/utility";
+import Placeholder from "components/Placeholders";
 
 type Get =
   | "description"
@@ -45,10 +46,20 @@ function Card({
       <Link href={`/course/${url}`}>
         <a className="content">
           <header>
-            {img && (
-              <div className="img-container">
-                <Image className="img" layout="fill" src={img} alt="" />
-              </div>
+            {img ? (
+              <Image
+                width={720}
+                height={720}
+                className="img"
+                src={img}
+                alt=""
+              />
+            ) : (
+              <Placeholder
+                width="100%"
+                height="100%"
+                style={{ minHeight: "10rem" }}
+              />
             )}
           </header>
 
@@ -56,14 +67,14 @@ function Card({
             <div className="info">
               <div>
                 <h3 className="name">{name}</h3>
-                {instructor && typeof instructor !== "string" && (
+                {(instructor && typeof instructor !== "string" && (
                   <Avatar
                     to="right"
                     img={instructor.avatar}
                     name={instructor.name}
                     className="instructor"
                   />
-                )}
+                )) || <Placeholder width="100%" height="1.5em" />}
               </div>
               <div className="meta">
                 {total_duration && (

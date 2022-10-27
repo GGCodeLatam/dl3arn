@@ -14,37 +14,39 @@ export const CardContainer = styled.div`
 
   .other {
     position: absolute;
+    width: 100%;
+    background: linear-gradient(0deg, transparent, #000b);
     top: 0;
     right: 0;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    padding: 0.5em;
     gap: 0.75em;
     z-index: 1;
+    border-radius: 5px;
   }
 
   font-family: Montserrat;
 
   .content {
-    :hover header {
-      transform: scale(110%);
-    }
     display: flex;
-    gap: 1em;
+    flex-flow: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 0.25em;
+    height: 100%;
     text-align: left;
-    align-items: center;
   }
 
   border-radius: 0.25em;
 
   header {
-    --img-size: 4em;
     position: relative;
     display: flex;
+    width: 100%;
+    height: 100%;
 
-    width: var(--img-size);
-    height: var(--img-size);
-    min-width: var(--img-size);
-    min-height: var(--img-size);
     transition: all 0.25s;
 
     border-radius: 5px;
@@ -52,23 +54,22 @@ export const CardContainer = styled.div`
 
     overflow: hidden;
 
-    .img-container {
-      position: relative;
+    .img {
       display: block;
+      object-fit: cover;
       width: 100%;
       height: 100%;
-      .img {
-        object-fit: cover;
-        object-position: center;
-      }
+      aspect-ratio: 1/1;
+      border-radius: 5px;
+      overflow: hidden;
     }
   }
 
   footer {
-    font-size: 1em;
+    font-size: 0.85em;
     display: flex;
-    height: 100%;
     position: relative;
+    width: 100%;
 
     .info {
       display: flex;
@@ -76,9 +77,10 @@ export const CardContainer = styled.div`
       align-items: center;
       justify-content: space-between;
       width: 100%;
+      margin: 0.25em 0 0 0;
 
       .name {
-        max-width: 50vw;
+        max-width: 320px;
         text-overflow: ellipsis;
         font-size: 0.75em;
         letter-spacing: 0.5px;
@@ -88,7 +90,9 @@ export const CardContainer = styled.div`
         overflow: hidden;
         font-weight: 800;
       }
+
       .instructor {
+        font-size: 0.95em;
         gap: 0.5em;
         .image-container {
           font-size: 0.65em;
@@ -122,13 +126,26 @@ export const CardContainer = styled.div`
 
   @media screen and (min-width: ${breakpoints.tablet}) {
     font-size: 1rem;
-    header {
-      --img-size: 5em;
-    }
     footer {
       font-size: 1.25em;
-      .info .name {
-      }
+    }
+    .name {
+    }
+  }
+
+  @media screen and (min-width: ${breakpoints["mobile-lg"]}) {
+    .name {
+      max-width: 40vw !important;
+    }
+  }
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    .name {
+      max-width: 20vw !important;
+    }
+  }
+  @media screen and (min-width: ${breakpoints.pc}) {
+    .name {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 220px));
     }
   }
 `;

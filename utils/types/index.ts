@@ -1,4 +1,5 @@
 import { ChangeEvent, HTMLProps, ReactNode } from "react";
+export * from "./HTML";
 
 export type InputChange = ChangeEvent<HTMLInputElement>;
 
