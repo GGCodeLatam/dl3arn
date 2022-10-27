@@ -1,7 +1,5 @@
 import Head from "next/head";
 
-import { getImage } from "services/firebase/storage";
-
 import Card from "components/Landing/Card";
 
 import { CourseModel, UserModel } from "utils/types/firebase";
@@ -73,7 +71,6 @@ export const getServerSideProps = async (context: Context) => {
     courses: await Promise.all(
       courses.map(async (course) => ({
         ...course,
-        image: await getImage(course.image),
         instructor:
           typeof course.instructor === "string"
             ? await getUserByEmail(course.instructor)

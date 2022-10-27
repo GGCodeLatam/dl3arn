@@ -59,15 +59,32 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     getCourses({}),
   ]);
 
+  const instructors: { [key: string]: UserModel | null } = {};
+  await Promise.all(
+    featured.map(async ({ instructor }) => {
+      if (typeof instructor === "object" && instructor.email)
+        instructors[instructor.email] = instructor;
+      else if (typeof instructor === "string")
+        instructors[instructor] = await getUserByEmail(instructor);
+    })
+  );
+  await Promise.all(
+    courses.map(async ({ instructor }) => {
+      if (typeof instructor === "object" && instructor.email)
+        instructors[instructor.email] = instructor;
+      else if (typeof instructor === "string")
+        instructors[instructor] = await getUserByEmail(instructor);
+    })
+  );
+
   const props: Props = {
     data: {
       featured: await Promise.all(
         featured.map(async (course) => ({
           ...course,
-          image: await getImage(course.image),
           instructor:
             typeof course.instructor === "string"
-              ? await getUserByEmail(course.instructor)
+              ? instructors[course.instructor]
               : course.instructor,
         }))
       ),
@@ -75,10 +92,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         await Promise.all(
           courses.map(async (course) => ({
             ...course,
-            image: await getImage(course.image),
             instructor:
               typeof course.instructor === "string"
-                ? await getUserByEmail(course.instructor)
+                ? instructors[course.instructor]
                 : course.instructor,
           }))
         )

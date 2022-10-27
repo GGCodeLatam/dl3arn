@@ -51,14 +51,9 @@ function Favorites() {
 export default Favorites;
 
 type CourseType = Override<CourseModel, { instructor: UserModel | null }>;
-function Favorite(favorite: CourseType) {
-  const [img, setImg] = useState<string | null>(null);
-  useEffect(() => {
-    if (favorite.image)
-      getImage(favorite.image).then((img) => {
-        setImg(typeof img === "string" ? img : img?.md || "");
-      });
-  }, [favorite.image]);
+function Favorite({ image, ...favorite }: CourseType) {
+  const img: string = typeof image === "string" ? image : image?.md || "";
+
   return (
     <FavoriteContainer key={favorite.id}>
       <Link href={`/course/${favorite.url}`}>
