@@ -4,7 +4,6 @@ import { CourseModel, VideoModel } from "utils/types/firebase";
 import { Override } from "utils/types/utility";
 import { VideoSafeProps } from "utils/types/video";
 import { addDurationToVideos } from "utils/youtube";
-import { getImage } from "../storage";
 import { coursesCollection } from "./collections";
 import getUserByEmail from "./getUserByEmail";
 import getVideo from "./getVideo";
@@ -18,12 +17,9 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
       ...qsnap.docs[0].data(),
     } as CourseModel;
 
-    const image = (await getImage(course.image)) || "";
-
     if (!course.sections)
       return {
         ...course,
-        image,
         sections: [],
         instructor:
           typeof course.instructor === "string"
@@ -53,7 +49,6 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
 
       return {
         ...course,
-        image,
         sections: sanitized,
         instructor:
           typeof course.instructor === "string"
@@ -77,8 +72,6 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
         return;
       })
     );
-
-    console.log(videos);
 
     const videosWithDuration = videos.length
       ? await addDurationToVideos<{
@@ -107,7 +100,6 @@ async function getCourseDetails(id: string): Promise<APIGetCourseById | null> {
 
     return {
       ...course,
-      image,
       sections,
       instructor:
         typeof course.instructor === "string"
