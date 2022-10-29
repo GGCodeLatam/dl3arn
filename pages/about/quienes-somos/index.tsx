@@ -30,20 +30,20 @@ function QuienesSomos() {
       </Head>
       <LayoutAbout>
         <QuienesSomosContainer>
-          <div className="bg" />
-          <div className="overlay" />
           <section>
             <h1>Conocé al equipo DL3ARN</h1>
             <ul className="members">
               {members.map((member) => (
                 <Member key={member.name}>
-                  <div>
+                  <div className="toast">
                     <h3>{member.name}</h3>
                     <span>{member.role}</span>
                   </div>
 
                   <div className="img-container">
                     <Image
+                      height={1200}
+                      width={1200}
                       className="img"
                       layout="fill"
                       src={member.photo}

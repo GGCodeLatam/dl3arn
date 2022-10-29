@@ -12,22 +12,10 @@ export const QuienesSomosContainer = styled.main`
   height: 100%;
   padding: 15vh 1rem;
 
-  .bg,
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-  .bg {
-    background: linear-gradient(#4374ff, #030816);
-  }
-
   h1 {
     text-align: center;
     font-size: 2rem;
-    margin: 0 0 5rem 0;
+    margin: 0 0 2em 0;
   }
 
   section {
@@ -35,57 +23,70 @@ export const QuienesSomosContainer = styled.main`
   }
 
   .members {
-    display: grid;
-    max-width: 1200px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
     margin: 0 auto;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
+    max-width: 480px;
+    gap: 2.5em;
     list-style: none;
   }
 `;
 
 export const Member = styled.li`
+  position: relative;
   display: flex;
   flex-flow: column;
   border-radius: 0.5rem;
   justify-content: space-between;
-  overflow: hidden;
-  background-color: #fff;
   color: #000;
-  box-shadow: 0 5px 10px #0004;
   transition: transform 0.35s;
-
-  :hover {
-    z-index: 10;
-    transform: scale(105%);
-  }
 
   .img-container {
     position: relative;
-    width: 100%;
-    height: 60vh;
-    object-fit: cover;
-    object-position: center;
+    width: 5em;
+    aspect-ratio: 1 / 1;
+    border-radius: 100%;
+    overflow: hidden;
     margin: 0 auto;
+    box-shadow: 0 5px 10px #0004;
   }
 
   .img {
     object-fit: cover;
-    object-position: top;
+    object-position: center;
   }
 
   h3 {
+    font-size: calc(0.75em + 0.15vw);
+    width: max-content;
     color: var(--primary);
     text-align: center;
   }
   span {
+    font-size: calc(0.65em + 0.15vw);
     display: block;
     width: 100%;
     text-align: center;
     opacity: 0.5;
   }
 
-  > div {
-    margin: 1rem 0;
+  .toast {
+    opacity: 0;
+    border-radius: 5px;
+    padding: 0.25em 0.75em;
+    background-color: #fff;
+    position: absolute;
+    top: -25%;
+    left: 50%;
+    z-index: 10;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 5px 10px #0004;
+    transition: all 0.15s;
+  }
+  :hover {
+    .toast {
+      opacity: 1;
+    }
   }
 `;
