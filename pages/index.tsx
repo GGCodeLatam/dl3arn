@@ -6,7 +6,6 @@ import getCourses from "services/firebase/store/getCourses";
 import { CourseModel, UserModel } from "utils/types/firebase";
 
 import { HomeContainer } from "styles/home.styles";
-import OurCourses from "components/Landing/OurCourses";
 import ListCourses from "components/Landing/ListCourses";
 import Layout from "components/Layouts";
 import getUserByEmail from "services/firebase/store/getUserByEmail";
