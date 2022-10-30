@@ -194,7 +194,7 @@ function Course({ course, meta }: Props) {
                     <OpenSeaButton collection={course.opensea} />
                   )}
                   <div>
-                    <Link href="blog/paso-a-paso-comprar-un-cursonft-dl3arn">
+                    <Link href="/blog/paso-a-paso-comprar-un-cursonft-dl3arn">
                       <a className="buy-nft">
                         Paso a paso para comprar tu primer NFT
                       </a>
