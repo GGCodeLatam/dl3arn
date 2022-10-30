@@ -2,6 +2,7 @@ import { GetServerSidePropsContext } from "next";
 import Router, { useRouter } from "next/router";
 import { BiChevronRight } from "react-icons/bi";
 import { FaTimes } from "react-icons/fa";
+import Link from "next/link";
 
 import useCourse from "hooks/useCourse";
 import useShow from "hooks/useShow";
@@ -18,7 +19,6 @@ import VideoContent from "components/Course/VideoContent";
 import VideosMenu from "components/Course/VideosMenu";
 import { NetworkBadge } from "components/Badges";
 
-import authenticated from "utils/authenticated";
 import { APIGetCourseById } from "utils/types/course";
 import { VideoSafeProps } from "utils/types/video";
 
@@ -176,19 +176,30 @@ function Course({ course, meta }: Props) {
             <div className="right">
               {course?.rampp && course.contract && (
                 <>
-                  <NetworkBadge
-                    network={course.rampp.network}
-                    dark
-                    toRight
-                    onlyIcon
-                  />
-                  <RamppButton
-                    rampp={course.rampp}
-                    address={course.contract.address}
-                  />
+                  <div className="mint">
+                    <NetworkBadge
+                      height="2.5em"
+                      width="2.5em"
+                      network={course.rampp.network}
+                      dark
+                      toRight
+                      onlyIcon
+                    />
+                    <RamppButton
+                      rampp={course.rampp}
+                      address={course.contract.address}
+                    />
+                  </div>
                   {course?.opensea && (
                     <OpenSeaButton collection={course.opensea} />
                   )}
+                  <div>
+                    <Link href="blog/paso-a-paso-comprar-un-cursonft-dl3arn">
+                      <a className="buy-nft">
+                        Paso a paso para comprar tu primer NFT
+                      </a>
+                    </Link>
+                  </div>
                 </>
               )}
             </div>

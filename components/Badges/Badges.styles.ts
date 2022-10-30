@@ -42,14 +42,14 @@ export const Badge = styled.div<BadgeProps>`
   ${({ height }) =>
     height &&
     css`
-      img {
+      .img-container {
         height: ${height};
       }
     `}
   ${({ width }) =>
     width &&
     css`
-      img {
+      .img-container {
         width: ${width};
       }
     `}

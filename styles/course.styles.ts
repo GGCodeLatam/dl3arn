@@ -7,6 +7,7 @@ interface Props {
 export const Container = styled.main<Props>`
   margin: 0 auto 10vh auto;
   width: 100%;
+
   h1 {
     padding: 0.5em 0;
     font-size: 1.5em;
@@ -136,6 +137,19 @@ export const Container = styled.main<Props>`
         display: none;
       }
     `}
+
+  .buy-nft {
+    color: #5af;
+    text-decoration: underline;
+    line-height: 0.5em;
+    font-size: 0.85em;
+    font-weight: 500;
+  }
+  .mint {
+    display: flex;
+    width: 100%;
+    gap: 1em;
+  }
 
   @media screen and (min-width: ${breakpoints.tablet}) {
     .grid {
