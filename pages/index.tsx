@@ -11,6 +11,7 @@ import Layout from "components/Layouts";
 import getUserByEmail from "services/firebase/store/getUserByEmail";
 import { Override } from "utils/types/utility";
 import { Meta } from "utils/types";
+import getUsersByEmail from "services/firebase/store/getUsersByEmail";
 
 interface Props {
   data: {
@@ -45,22 +46,17 @@ export default Home;
 export async function getServerSideProps() {
   const courses = await getCourses({});
 
-  const instructors: { [key: string]: UserModel | null } = {};
+  const emails = courses
+    .filter(({ instructor }) => !!instructor && typeof instructor === "string")
+    .map(({ instructor }) => instructor) as string[];
 
-  await Promise.all(
-    courses.map(async ({ instructor }) => {
-      if (typeof instructor === "object" && instructor.email)
-        instructors[instructor.email] = instructor;
-      else if (typeof instructor === "string")
-        instructors[instructor] = await getUserByEmail(instructor);
-    })
-  );
+  const users = await getUsersByEmail(emails);
 
-  const coursesWithInstructors = courses.map(({ instructor, ...data }) => ({
-    ...data,
-    instructor:
-      typeof instructor === "string" ? instructors[instructor] : instructor,
-  }));
+  const coursesWithInstructors = courses.map((course) => {
+    const instructor = users.find((inst) => inst.email === course.instructor);
+    if (!instructor) return course;
+    return { ...course, instructor };
+  });
 
   const props: Props = {
     data: { courses: coursesWithInstructors },
