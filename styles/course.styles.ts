@@ -98,9 +98,13 @@ export const Container = styled.main<Props>`
     width: 100%;
     margin: 0 auto;
     display: flex;
+    flex-flow: row wrap;
+    padding: 0 1em 0.5em 1em;
     justify-content: space-between;
     align-items: center;
     gap: 1em;
+
+    background: rgba(var(--primary-rgb), 0.25);
   }
 
   .loading {
@@ -174,12 +178,15 @@ export const Container = styled.main<Props>`
     }
     .middle {
       margin: 0 0 0 0;
+      border: 1px solid #0003;
+      border-top: none;
+      border-bottom: none;
     }
     .right {
       flex-flow: column;
       justify-content: flex-start;
       gap: 0.25em;
-      padding: 0 0.5em;
+      padding: 0 1em;
     }
   }
 `;

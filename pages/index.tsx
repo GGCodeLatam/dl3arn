@@ -1,17 +1,27 @@
 import Head from "next/head";
+import { ReactNode } from "react";
 
+import Carrousel from "components/Carrousel";
 import Intro from "components/Landing/Intro";
+import Layout from "components/Layouts";
+import ListCourses from "components/Landing/ListCourses";
 
 import getCourses from "services/firebase/store/getCourses";
+import getUsersByEmail from "services/firebase/store/getUsersByEmail";
+
 import { CourseModel, UserModel } from "utils/types/firebase";
+import { Meta } from "utils/types";
+import { Override } from "utils/types/utility";
+import { DEV_PAGE } from "constants/index";
 
 import { HomeContainer } from "styles/home.styles";
-import ListCourses from "components/Landing/ListCourses";
-import Layout from "components/Layouts";
-import getUserByEmail from "services/firebase/store/getUserByEmail";
-import { Override } from "utils/types/utility";
-import { Meta } from "utils/types";
-import getUsersByEmail from "services/firebase/store/getUsersByEmail";
+
+const sections: ReactNode[] = [
+  <div key={1}>Section 1</div>,
+  <div key={2}>Section 2</div>,
+  <div key={3}>Section 3</div>,
+  <div key={4}>Section 4</div>,
+];
 
 interface Props {
   data: {
@@ -29,12 +39,15 @@ function Home({ data, meta }: Props) {
         <meta key="desciption" name="description" content={meta.description} />
       </Head>
       <Layout>
+        {DEV_PAGE === "true" && (
+          <Carrousel sections={sections} delay={25} startAt={0} />
+        )}
         <HomeContainer>
-          <Intro />
-
           <section>
             <ListCourses courses={courses} className="list" />
           </section>
+
+          <Intro />
         </HomeContainer>
       </Layout>
     </>
