@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const CarrouselContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 75vh;
+  height: 50vh;
 
   .abs {
     position: absolute;
