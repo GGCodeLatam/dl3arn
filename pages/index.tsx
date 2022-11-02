@@ -40,7 +40,7 @@ function Home({ data, meta }: Props) {
       </Head>
       <Layout>
         {DEV_PAGE === "true" && (
-          <Carrousel sections={sections} delay={25} startAt={0} />
+          <Carrousel sections={sections} delay={8} startAt={0} />
         )}
         <HomeContainer>
           <section>
