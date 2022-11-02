@@ -94,6 +94,7 @@ export const CardContainer = styled.div`
       .instructor {
         font-size: 0.95em;
         gap: 0.5em;
+
         .image-container {
           font-size: 0.65em;
         }
@@ -135,8 +136,13 @@ export const CardContainer = styled.div`
     footer {
       font-size: 1.25em;
     }
+
     .name {
       max-width: 20.5vw !important;
+    }
+
+    .instructor .name {
+      width: 16.5vw;
     }
   }
 `;

@@ -40,7 +40,7 @@ function Card({
     <CardContainer>
       <div className="other">
         <NetworkBadge size={1.5} network={rampp?.network} onlyIcon />
-        <FavoriteButton id={id} />
+        <FavoriteButton id={id} theme="light" />
       </div>
 
       <Link href={`/course/${url}`}>
