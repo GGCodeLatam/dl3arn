@@ -80,7 +80,7 @@ export const CardContainer = styled.div`
       margin: 0.25em 0 0 0;
 
       .name {
-        max-width: 320px;
+        max-width: 37vw;
         text-overflow: ellipsis;
         font-size: 0.75em;
         letter-spacing: 0.5px;
@@ -124,28 +124,19 @@ export const CardContainer = styled.div`
     }
   }
 
+  @media screen and (min-width: 520px) {
+    .name {
+      max-width: 25vw !important;
+    }
+  }
+
   @media screen and (min-width: ${breakpoints.tablet}) {
     font-size: 1rem;
     footer {
       font-size: 1.25em;
     }
     .name {
-    }
-  }
-
-  @media screen and (min-width: ${breakpoints["mobile-lg"]}) {
-    .name {
-      max-width: 40vw !important;
-    }
-  }
-  @media screen and (min-width: ${breakpoints.tablet}) {
-    .name {
-      max-width: 20vw !important;
-    }
-  }
-  @media screen and (min-width: ${breakpoints.pc}) {
-    .name {
-      grid-template-columns: repeat(auto-fit, minmax(100px, 220px));
+      max-width: 20.5vw !important;
     }
   }
 `;
