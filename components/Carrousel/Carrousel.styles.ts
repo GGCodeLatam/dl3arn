@@ -30,12 +30,21 @@ export const CarrouselContainer = styled.div`
       color: var(--primary);
     }
   }
+
   .prev {
-    background: linear-gradient(90deg, #0005, transparent);
+    background: linear-gradient(
+      90deg,
+      rgba(var(--primary-rgb), 0.5),
+      rgba(var(--primary-rgb), 0)
+    );
     left: 0;
   }
   .next {
-    background: linear-gradient(-90deg, #0005, transparent);
+    background: linear-gradient(
+      -90deg,
+      rgba(var(--primary-rgb), 0.5),
+      rgba(var(--primary-rgb), 0)
+    );
     right: 0;
   }
 

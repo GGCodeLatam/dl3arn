@@ -44,6 +44,7 @@ function Home({ data, meta }: Props) {
         )}
         <HomeContainer>
           <section>
+            <h2>Los mas vendidos</h2>
             <ListCourses courses={courses} className="list" />
           </section>
 

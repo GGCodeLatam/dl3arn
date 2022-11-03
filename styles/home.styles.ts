@@ -11,6 +11,11 @@ export const HomeContainer = styled.main`
   > section {
     margin: 2em 0;
     width: 100%;
+    > h2 {
+      font-size: 0.75em;
+      padding: 0.5em 0;
+      color: #555;
+    }
   }
 
   .list {

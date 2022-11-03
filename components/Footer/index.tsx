@@ -1,7 +1,7 @@
 import Logo from "components/Logo";
 import Wave from "components/SVGs/wave";
 import Link from "next/link";
-import { BiChevronRight } from "react-icons/bi";
+import { BiChevronRight, BiPhone } from "react-icons/bi";
 import {
   IoLogoInstagram,
   IoLogoLinkedin,
@@ -13,8 +13,40 @@ import Ethereum from "assets/networks/eth.svg";
 
 import contact from "utils/contact.json";
 import routes from "utils/routes";
-import { FooterContainer } from "./Footer.styles";
+import {
+  ContactList,
+  Copyright,
+  FooterContainer,
+  FooterSection,
+  LogoContainer,
+  PageList,
+} from "./Footer.styles";
 import Image from "next/image";
+import { ReactNode } from "react";
+
+interface LinkProps {
+  href: string;
+  children: ReactNode[];
+  link?: boolean;
+}
+
+const PageLink = ({ children, href }: LinkProps) => (
+  <Link href={href}>
+    <a className="link">{children}</a>
+  </Link>
+);
+
+const ContactLink = ({ href, children, link = true }: LinkProps) => (
+  <li>
+    {link ? (
+      <a target="_blank" rel="noreferrer" className="contact" href={href}>
+        {children}
+      </a>
+    ) : (
+      <p>{children}</p>
+    )}
+  </li>
+);
 
 function Footer() {
   return (
@@ -23,110 +55,91 @@ function Footer() {
       <div className="data">
         <div className="container">
           <div className="sections">
-            <section className="logo">
-              <Logo className="logo-img" />
+            <FooterSection>
+              <LogoContainer>
+                <div className="logos">
+                  <Logo className="logo-img" />
 
-              <div className="icons">
-                <div className="icon-container">
-                  <Image
-                    layout="fill"
-                    className="icon"
-                    src={Polygon}
-                    alt="Polygon"
-                  />
+                  <div className="icons">
+                    <div className="icon-container">
+                      <Image
+                        layout="fill"
+                        className="icon"
+                        src={Polygon}
+                        alt="Polygon"
+                      />
+                    </div>
+                    <div className="icon-container">
+                      <Image
+                        layout="fill"
+                        className="icon"
+                        src={Ethereum}
+                        alt="Ethereum"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className="icon-container">
-                  <Image
-                    layout="fill"
-                    className="icon"
-                    src={Ethereum}
-                    alt="Ethereum"
-                  />
-                </div>
-              </div>
-            </section>
+              </LogoContainer>
+            </FooterSection>
 
-            <section>
-              <h2>Paginas</h2>
-              <nav className="pages">
-                <Link href={routes.landing.path}>
-                  <a className="link">
-                    <BiChevronRight /> Home
-                  </a>
-                </Link>
-                <Link href={routes.about.path}>
-                  <a className="link">
-                    <BiChevronRight /> Acerca de DL3ARN
-                  </a>
-                </Link>
-                <Link href={routes.roadmap.path}>
-                  <a className="link">
-                    <BiChevronRight /> Roadmap
-                  </a>
-                </Link>
-                <Link href={routes.quienes.path}>
-                  <a className="link">
-                    <BiChevronRight /> Quienes Somos
-                  </a>
-                </Link>
-                <Link href={routes.landing.path}>
-                  <a className="link">
-                    <BiChevronRight /> Politica de privacidad
-                  </a>
-                </Link>
-                <Link href={routes.landing.path}>
-                  <a className="link">
-                    <BiChevronRight /> Terminos y condiciones
-                  </a>
-                </Link>
-              </nav>
-            </section>
-            <section>
+            <FooterSection>
+              <h2>Páginas</h2>
+
+              <PageList>
+                <PageLink href={routes.landing.path}>
+                  <BiChevronRight /> Home
+                </PageLink>
+                <PageLink href={routes.about.path}>
+                  <BiChevronRight /> Acerca de DL3ARN
+                </PageLink>
+                <PageLink href={routes.roadmap.path}>
+                  <BiChevronRight /> Roadmap
+                </PageLink>
+                <PageLink href={routes.quienes.path}>
+                  <BiChevronRight /> Quienes Somos
+                </PageLink>
+                <PageLink href={routes.landing.path}>
+                  <BiChevronRight /> Politica de privacidad
+                </PageLink>
+                <PageLink href={routes.landing.path}>
+                  <BiChevronRight /> Terminos y condiciones
+                </PageLink>
+              </PageList>
+            </FooterSection>
+
+            <FooterSection>
               <h2>Contacto</h2>
-              <ul className="contacts">
-                <li>
-                  <a className="contact" href={`mailto:${contact.email}`}>
-                    <IoMdMailOpen className="icon" /> {contact.email}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    className="contact"
-                    href={`https://www.instagram.com/${contact.instagram}`}
-                  >
-                    <IoLogoInstagram className="icon" /> @{contact.instagram}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    className="contact"
-                    href={`https://www.twitter.com/${contact.instagram}`}
-                  >
-                    <IoLogoTwitter className="icon" /> @{contact.twitter}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    className="contact"
-                    href={`https://www.linkedin.com/company/${contact.linkedin}`}
-                  >
-                    <IoLogoLinkedin className="icon" />
-                    {contact.linkedin}
-                  </a>
-                </li>
-              </ul>
-            </section>
+
+              <ContactList>
+                <ContactLink href={`mailto:${contact.email}`}>
+                  <IoMdMailOpen className="icon" /> {contact.email}
+                </ContactLink>
+
+                <ContactLink
+                  href={`https://www.instagram.com/${contact.instagram}`}
+                >
+                  <IoLogoInstagram className="icon" /> @{contact.instagram}
+                </ContactLink>
+                <ContactLink
+                  href={`https://www.twitter.com/${contact.instagram}`}
+                >
+                  <IoLogoTwitter className="icon" /> @{contact.twitter}
+                </ContactLink>
+                <ContactLink
+                  href={`https://www.linkedin.com/company/${contact.linkedin}`}
+                >
+                  <IoLogoLinkedin className="icon" /> contact.linkedin
+                </ContactLink>
+                <ContactLink link={false} href="#">
+                  <BiPhone className="icon" /> +1 (786) 462-2369
+                </ContactLink>
+              </ContactList>
+            </FooterSection>
           </div>
 
-          <p className="copyright">
-            DL3ARN | © 2022 – Todos los derechos reservados.
-          </p>
+          <Copyright>
+            DL3ARN Inc. | © 2022 – Todos los derechos reservados.
+          </Copyright>
         </div>
       </div>
     </FooterContainer>

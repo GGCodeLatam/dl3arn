@@ -7,7 +7,7 @@ import routes from "utils/routes";
 import { HTMLProps } from "react";
 
 const Container = styled.a`
-  width: 100%;
+  width: max-content;
   display: flex;
   align-items: center;
   height: 100%;
