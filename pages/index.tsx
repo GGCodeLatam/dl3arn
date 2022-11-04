@@ -72,8 +72,24 @@ export async function getServerSideProps() {
     return { ...course, instructor };
   });
 
+  const sorted: { videos: CourseModel[]; noVideos: CourseModel[] } = {
+    videos: [],
+    noVideos: [],
+  };
+  coursesWithInstructors.forEach((course) => {
+    const { sections } = course;
+    if (typeof sections !== "object") return sorted.noVideos.push(course);
+    if (Array.isArray(sections) && sections.length)
+      return sorted.videos.push(course);
+    if (Object.values(sections).some(({ videos }) => !!videos.length))
+      return sorted.videos.push(course);
+    return sorted.noVideos.push(course);
+  });
+
   const props: Props = {
-    data: { courses: coursesWithInstructors },
+    data: {
+      courses: [...sorted.videos, ...sorted.noVideos],
+    },
 
     meta: {
       description:
