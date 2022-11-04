@@ -76,13 +76,14 @@ export async function getServerSideProps() {
     videos: [],
     noVideos: [],
   };
+
   coursesWithInstructors.forEach((course) => {
-    const { sections } = course;
-    if (typeof sections !== "object") return sorted.noVideos.push(course);
-    if (Array.isArray(sections) && sections.length)
-      return sorted.videos.push(course);
-    if (Object.values(sections).some(({ videos }) => !!videos.length))
-      return sorted.videos.push(course);
+    const { sections: s } = course;
+    if (!s || typeof s !== "object") return sorted.noVideos.push(course);
+    const isArray = Array.isArray(s);
+    if (isArray && s.length) return sorted.videos.push(course);
+    const emptyObj = Object.values(s).some(({ videos: v }) => !!v.length);
+    if (emptyObj) return sorted.videos.push(course);
     return sorted.noVideos.push(course);
   });
 

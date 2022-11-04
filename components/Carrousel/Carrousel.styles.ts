@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import breakpoints from "utils/breakpoints";
 
 export const CarrouselContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 50vh;
+  aspect-ratio: 2 / 1;
 
   .abs {
     position: absolute;
@@ -82,5 +83,8 @@ export const CarrouselContainer = styled.div`
     height: 100%;
     display: grid;
     place-items: center;
+  }
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    aspect-ratio: 4 / 1;
   }
 `;
