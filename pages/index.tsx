@@ -24,9 +24,9 @@ const CarruselImg = ({ src }: { src: string }) => (
 );
 
 const sections: ReactNode[] = [
-  <CarruselImg key="carrusel-1" src="/assets/images/carrusel/1.png" />,
-  <CarruselImg key="carrusel-2" src="/assets/images/carrusel/2.png" />,
-  <CarruselImg key="carrusel-3" src="/assets/images/carrusel/3.png" />,
+  <CarruselImg key="carrusel-1" src="/assets/images/carrusel/1.jpg" />,
+  <CarruselImg key="carrusel-2" src="/assets/images/carrusel/2.jpg" />,
+  <CarruselImg key="carrusel-3" src="/assets/images/carrusel/3.jpg" />,
 ];
 
 interface Props {
