@@ -9,16 +9,6 @@ export const CourseIntroContainer = styled.div`
     align-items: center;
     gap: 1em;
 
-    .img-container {
-      position: relative;
-      width: 5em;
-      height: 5em;
-
-      .course-image {
-        object-fit: cover;
-        border-radius: 5px;
-      }
-    }
     .course-name {
       font-size: 1.5em;
     }

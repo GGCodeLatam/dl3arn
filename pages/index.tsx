@@ -19,14 +19,14 @@ import Image from "next/image";
 
 const CarruselImg = ({ src }: { src: string }) => (
   <div style={{ width: "100%", height: "100%", position: "relative" }}>
-    <Image layout="fill" src={src} alt="" />
+    <Image objectFit="cover" layout="fill" src={src} alt="" />
   </div>
 );
 
 const sections: ReactNode[] = [
-  <CarruselImg key="carrusel-1" src="/assets/images/1.svg" />,
-  <CarruselImg key="carrusel-2" src="/assets/images/2.svg" />,
-  <CarruselImg key="carrusel-3" src="/assets/images/3.svg" />,
+  <CarruselImg key="carrusel-1" src="/assets/images/carrusel/1.png" />,
+  <CarruselImg key="carrusel-2" src="/assets/images/carrusel/2.png" />,
+  <CarruselImg key="carrusel-3" src="/assets/images/carrusel/3.png" />,
 ];
 
 interface Props {
