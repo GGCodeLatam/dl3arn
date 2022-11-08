@@ -11,7 +11,7 @@ import {
 import Image from "next/image";
 import { ReactNode } from "react";
 import Carrousel from "components/Carrousel";
-import { DEV_PAGE } from "constants";
+import { DEV_PAGE } from "constants/index";
 
 const CarruselImg = ({ src }: { src: string }) => (
   <div style={{ width: "100%", height: "100%", position: "relative" }}>
