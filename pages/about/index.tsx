@@ -8,6 +8,21 @@ import {
   coursesCollection,
   usersCollection,
 } from "services/firebase/store/collections";
+import Image from "next/image";
+import { ReactNode } from "react";
+import Carrousel from "components/Carrousel";
+
+const CarruselImg = ({ src }: { src: string }) => (
+  <div style={{ width: "100%", height: "100%", position: "relative" }}>
+    <Image objectFit="cover" layout="fill" src={src} alt="" />
+  </div>
+);
+
+const sections: ReactNode[] = [
+  <CarruselImg key="carrusel-1" src="/assets/images/carrusel/4.jpg" />,
+  <CarruselImg key="carrusel-2" src="/assets/images/carrusel/5.jpg" />,
+  <CarruselImg key="carrusel-3" src="/assets/images/carrusel/6.jpg" />,
+];
 
 interface Props {
   data: {
@@ -30,22 +45,7 @@ function About({ data: { total_courses, total_users }, meta }: Props) {
       <LayoutAbout>
         <AboutContainer>
           <div className="intro">
-            <h1>Aprendizaje descentralizado</h1>
-
-            <p>
-              Nuestra mision en DL3ARN es descentralizar el aprendizaje, para
-              que cada persona pueda elegir que quiere aprender y como
-              aprenderlo.
-            </p>
-
-            <iframe
-              width="320"
-              src="https://www.youtube.com/embed/5d4T3p8J7dI"
-              title="DL3ARN"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+            <Carrousel sections={sections} delay={8} startAt={0} />
           </div>
 
           <InversionCrypto courses={total_courses} users={total_users} />

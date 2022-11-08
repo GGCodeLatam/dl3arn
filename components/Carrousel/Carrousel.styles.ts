@@ -79,6 +79,9 @@ export const CarrouselContainer = styled.div`
       transform: translate(0, calc(calc(var(--size) / 4) * -1)) scale(125%);
       background: rgba(var(--primary-rgb), 1);
     }
+    button:hover .dot {
+      background: rgba(var(--primary-rgb), 1);
+    }
   }
 
   > .section {

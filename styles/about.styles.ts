@@ -8,7 +8,8 @@ export const AboutContainer = styled.main`
   color: #fff;
 
   .intro {
-    padding: 15vh 0 20vh 0;
+    display: grid;
+    padding: 0 0 20vh 0;
     background-color: var(--brown);
 
     h1 {
