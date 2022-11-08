@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext } from "next";
 import Router, { useRouter } from "next/router";
-import { BiChevronRight } from "react-icons/bi";
+import { BiChevronRight, BiCreditCard } from "react-icons/bi";
 import { FaTimes } from "react-icons/fa";
 import Link from "next/link";
 
@@ -197,42 +197,50 @@ function Course({ course, meta }: Props) {
 
                   {course.price && (
                     <p className="price">
-                      precio <span></span>
+                      precio <span>{course.price}</span>
                     </p>
                   )}
                 </div>
               )}
-              {course?.rampp && course.contract && (
-                <>
-                  <div className="mint">
-                    <NetworkBadge
-                      height="2.5em"
-                      width="2.5em"
-                      network={course.rampp.network}
-                      dark
-                      toRight
-                      onlyIcon
-                    />
-                    <RamppButton
-                      rampp={course.rampp}
-                      address={course.contract.address}
-                    />
-                  </div>
-                  {course?.opensea && (
-                    <OpenSeaButton collection={course.opensea} />
-                  )}
-                  <div>
+              <section className="pay-methods">
+                <h2>Metodos de pago</h2>
+
+                <a className="credit-card" href="#">
+                  <BiCreditCard size={18} /> debito / credito
+                </a>
+                <Link href="/blog/paso-a-paso-comprar-un-cursonft-dl3arn">
+                  <a className="buy-nft">Como comprar con debito / credito</a>
+                </Link>
+
+                {course?.rampp && course.contract && (
+                  <>
+                    <div className="mint">
+                      <NetworkBadge
+                        height="2.5em"
+                        width="2.5em"
+                        network={course.rampp.network}
+                        dark
+                        toRight
+                        onlyIcon
+                      />
+                      <RamppButton
+                        rampp={course.rampp}
+                        address={course.contract.address}
+                      />
+                    </div>
+
                     <Link href="/blog/paso-a-paso-comprar-un-cursonft-dl3arn">
                       <a className="buy-nft">
                         Paso a paso para comprar tu primer NFT
                       </a>
                     </Link>
-                  </div>
-                </>
-              )}
-              <div>
-                <a href="#">Tarjeta de debito/credito</a>
-              </div>
+
+                    {course?.opensea && (
+                      <OpenSeaButton collection={course.opensea} />
+                    )}
+                  </>
+                )}
+              </section>
             </div>
           </div>
         </CourseContainer>

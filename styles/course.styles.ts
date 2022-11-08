@@ -14,6 +14,10 @@ export const CourseContainer = styled.main<Props>`
     text-align: center;
   }
 
+  h2 {
+    font-size: 0.95em;
+  }
+
   .grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -145,8 +149,7 @@ export const CourseContainer = styled.main<Props>`
   .buy-nft {
     color: #5af;
     text-decoration: underline;
-    line-height: 0.5em;
-    font-size: 0.85em;
+    font-size: 0.75em;
     font-weight: 500;
   }
   .mint {
@@ -219,5 +222,17 @@ export const CourseContainer = styled.main<Props>`
         }
       }
     }
+  }
+
+  .credit-card {
+    font-size: 0.8em;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    background-color: #fff;
+    padding: 0.75em 1em;
+    border-radius: 5px;
+    margin: 1em 0 0 0;
   }
 `;
