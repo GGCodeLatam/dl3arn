@@ -1,11 +1,12 @@
 import Avatar from "components/Avatar";
+import { NetworkBadge } from "components/Badges";
 import { PrimaryButton } from "components/Buttons";
 import ShareButton from "components/Buttons/ShareButton";
 import Image from "next/image";
 import { BiChevronLeft, BiChevronRight, BiShareAlt } from "react-icons/bi";
 import { CourseModel, Sections } from "utils/types/firebase";
 import { VideoSafeProps } from "utils/types/video";
-import { CourseIntroContainer } from "./CourseIntro.styles";
+import { CourseIntroContainer, NetworkContainer } from "./CourseIntro.styles";
 
 type SectionOrNull = Sections<{
   position: number;
@@ -13,14 +14,15 @@ type SectionOrNull = Sections<{
 }>;
 
 interface Props {
-  imgUrl: string | null;
-  name: string;
-  instructor: CourseModel["instructor"] | null;
   description: string;
+  imgUrl: string | null;
+  instructor: CourseModel["instructor"] | null;
+  name: string;
   sections: SectionOrNull | Partial<VideoSafeProps>[] | null;
 
   next?: null | (() => any);
   prev?: null | (() => any);
+  rampp?: CourseModel["rampp"] | null;
 }
 function CourseIntro({
   description,
@@ -29,6 +31,7 @@ function CourseIntro({
   name,
   next,
   prev,
+  rampp,
   sections,
 }: Props) {
   const content =
@@ -119,18 +122,11 @@ function CourseIntro({
 
   return (
     <CourseIntroContainer>
-      <div className="info">
-        {imgUrl && (
-          <div className="img-container">
-            <Image layout="fill" className="course-image" src={imgUrl} alt="" />
-          </div>
-        )}
-        <div>
-          <h2 className="course-name">{name}</h2>
-        </div>
-      </div>
-
       <div className="video-options">
+        <NetworkContainer>
+          <NetworkBadge dark toRight network={rampp?.network} />
+        </NetworkContainer>
+
         <ShareButton
           url={window.location.href}
           title={`${
@@ -139,6 +135,7 @@ function CourseIntro({
         >
           <BiShareAlt size={20} />
         </ShareButton>
+
         {prev && (
           <PrimaryButton onClick={prev}>
             <BiChevronLeft size={20} />

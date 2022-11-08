@@ -4,7 +4,7 @@ import breakpoints from "utils/breakpoints";
 interface Props {
   showMenu: boolean;
 }
-export const Container = styled.main<Props>`
+export const CourseContainer = styled.main<Props>`
   margin: 0 auto 10vh auto;
   width: 100%;
 
@@ -185,8 +185,39 @@ export const Container = styled.main<Props>`
     .right {
       flex-flow: column;
       justify-content: flex-start;
+      align-items: flex-start;
       gap: 0.25em;
       padding: 0 1em;
+
+      .info {
+        display: flex;
+        padding: 1em 0;
+
+        .f-inline {
+          display: flex;
+          gap: 1em;
+        }
+
+        .img-container {
+          position: relative;
+          --size: 2.5em;
+          width: var(--size);
+          height: var(--size);
+
+          .course-image {
+            object-fit: cover;
+            border-radius: 5px;
+          }
+        }
+
+        .name {
+          font-size: 0.95em;
+        }
+
+        .price {
+          font-weight: 500;
+        }
+      }
     }
   }
 `;

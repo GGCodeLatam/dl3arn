@@ -16,6 +16,8 @@ function Carrousel({ delay, pausedTime, sections, startAt, ...props }: Props) {
 
   return (
     <CarrouselContainer {...props}>
+      <section className="section">{section}</section>
+
       <div className="abs">
         <button className="prev" onClick={prev}>
           <BiChevronLeft className="icon" size={30} />
@@ -36,8 +38,6 @@ function Carrousel({ delay, pausedTime, sections, startAt, ...props }: Props) {
           ))}
         </ul>
       </div>
-
-      <section className="section">{section}</section>
     </CarrouselContainer>
   );
 }

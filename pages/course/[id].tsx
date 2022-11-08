@@ -23,8 +23,9 @@ import { APIGetCourseById } from "utils/types/course";
 import { VideoSafeProps } from "utils/types/video";
 
 import getCourseDetails from "services/firebase/store/getCourseDetails";
-import { Container } from "styles/course.styles";
+import { CourseContainer } from "styles/course.styles";
 import { useAuth } from "context/firebase";
+import Image from "next/image";
 
 interface Props {
   course: APIGetCourseById;
@@ -121,7 +122,7 @@ function Course({ course, meta }: Props) {
       />
 
       <Layout>
-        <Container showMenu={state}>
+        <CourseContainer showMenu={state}>
           <div className="grid">
             <div className="left">
               <button className="close" onClick={hide}>
@@ -145,6 +146,7 @@ function Course({ course, meta }: Props) {
                 {!video && course && (
                   <CourseIntro
                     sections={course.sections}
+                    rampp={course.rampp}
                     name={course.name}
                     imgUrl={
                       typeof course.image === "string"
@@ -174,6 +176,32 @@ function Course({ course, meta }: Props) {
             </div>
 
             <div className="right">
+              {course && (
+                <div className="info">
+                  <div className="f-inline">
+                    <div className="img-container">
+                      <Image
+                        layout="fill"
+                        className="course-image"
+                        src={
+                          typeof course.image === "string"
+                            ? course.image
+                            : course.image?.md || ""
+                        }
+                        alt=""
+                      />
+                    </div>
+
+                    <h1 className="name">{course.name}</h1>
+                  </div>
+
+                  {course.price && (
+                    <p className="price">
+                      precio <span></span>
+                    </p>
+                  )}
+                </div>
+              )}
               {course?.rampp && course.contract && (
                 <>
                   <div className="mint">
@@ -202,9 +230,12 @@ function Course({ course, meta }: Props) {
                   </div>
                 </>
               )}
+              <div>
+                <a href="#">Tarjeta de debito/credito</a>
+              </div>
             </div>
           </div>
-        </Container>
+        </CourseContainer>
       </Layout>
     </>
   );

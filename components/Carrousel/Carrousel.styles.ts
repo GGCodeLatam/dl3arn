@@ -8,6 +8,9 @@ export const CarrouselContainer = styled.div`
 
   .abs {
     position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
     width: 100%;
     height: 100%;
   }
@@ -83,7 +86,9 @@ export const CarrouselContainer = styled.div`
     height: 100%;
     display: grid;
     place-items: center;
+    position: relative;
   }
+
   @media screen and (min-width: ${breakpoints.tablet}) {
     aspect-ratio: 4 / 1;
   }

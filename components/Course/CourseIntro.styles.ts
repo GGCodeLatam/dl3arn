@@ -121,3 +121,10 @@ export const CourseIntroContainer = styled.div`
     }
   }
 `;
+
+export const NetworkContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  font-size: 0.8em;
+`;

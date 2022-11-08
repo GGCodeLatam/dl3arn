@@ -15,12 +15,18 @@ import { Override } from "utils/types/utility";
 import { DEV_PAGE } from "constants/index";
 
 import { HomeContainer } from "styles/home.styles";
+import Image from "next/image";
+
+const CarruselImg = ({ src }: { src: string }) => (
+  <div style={{ width: "100%", height: "100%", position: "relative" }}>
+    <Image layout="fill" src={src} alt="" />
+  </div>
+);
 
 const sections: ReactNode[] = [
-  <div key={1}>Section 1</div>,
-  <div key={2}>Section 2</div>,
-  <div key={3}>Section 3</div>,
-  <div key={4}>Section 4</div>,
+  <CarruselImg key="carrusel-1" src="/assets/images/1.svg" />,
+  <CarruselImg key="carrusel-2" src="/assets/images/2.svg" />,
+  <CarruselImg key="carrusel-3" src="/assets/images/3.svg" />,
 ];
 
 interface Props {

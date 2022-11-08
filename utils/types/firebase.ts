@@ -100,6 +100,7 @@ export interface CourseModel {
   instructor: UserModel | string;
   name: string;
   opensea: string | null;
+  price: string;
   rampp: RamppModel | null;
   score: number;
   sections: Sections;
