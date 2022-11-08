@@ -11,6 +11,7 @@ import {
 import Image from "next/image";
 import { ReactNode } from "react";
 import Carrousel from "components/Carrousel";
+import { DEV_PAGE } from "constants";
 
 const CarruselImg = ({ src }: { src: string }) => (
   <div style={{ width: "100%", height: "100%", position: "relative" }}>
@@ -45,7 +46,9 @@ function About({ data: { total_courses, total_users }, meta }: Props) {
       <LayoutAbout>
         <AboutContainer>
           <div className="intro">
-            <Carrousel sections={sections} delay={8} startAt={0} />
+            {DEV_PAGE === "true" ? (
+              <Carrousel sections={sections} delay={8} startAt={0} />
+            ) : null}
           </div>
 
           <InversionCrypto courses={total_courses} users={total_users} />
