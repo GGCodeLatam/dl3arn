@@ -106,6 +106,7 @@ export interface CourseModel {
   sections: Sections;
   total_duration: string | null;
   url: string;
+  crypto: string;
 }
 
 export type Network = "polygon";

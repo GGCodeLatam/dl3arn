@@ -205,12 +205,25 @@ function Course({ course, meta }: Props) {
               <section className="pay-methods">
                 <h2>Metodos de pago</h2>
 
-                <a className="credit-card" href="#">
-                  <BiCreditCard size={18} /> debito / credito
-                </a>
-                <Link href="/blog/paso-a-paso-comprar-un-cursonft-dl3arn">
-                  <a className="buy-nft">Como comprar con debito / credito</a>
-                </Link>
+                {course?.contract && (
+                  <>
+                    <a className="credit-card" href="#">
+                      <BiCreditCard size={18} /> debito / credito
+                    </a>
+
+                    <Link href="/blog/paso-a-paso-comprar-un-cursonft-dl3arn">
+                      <a className="buy-nft">
+                        Como comprar con debito / credito
+                      </a>
+                    </Link>
+
+                    {course?.crypto && (
+                      <a className="credit-card" href={course?.crypto}>
+                        Comprar con criptomonedas
+                      </a>
+                    )}
+                  </>
+                )}
 
                 {course?.rampp && course.contract && (
                   <>
