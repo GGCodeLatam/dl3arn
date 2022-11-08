@@ -9,8 +9,6 @@ interface Props {
 function InversionCrypto({ users, courses }: Props) {
   return (
     <InversionCryptoContainer>
-      <Wave fill="#242424" className="deco top" />
-
       <div className="main">
         <h2>Creadores de cursos que confian en nosotros</h2>
         <section className="content">

@@ -9,7 +9,6 @@ export const AboutContainer = styled.main`
 
   .intro {
     display: grid;
-    padding: 0 0 20vh 0;
     background-color: var(--brown);
 
     h1 {
@@ -62,8 +61,5 @@ export const AboutContainer = styled.main`
       width: 90%;
       margin: 0 auto;
     }
-  }
-  > section {
-    transform: translate(0, -12vh);
   }
 `;
