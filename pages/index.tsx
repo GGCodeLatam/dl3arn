@@ -12,21 +12,63 @@ import getUsersByEmail from "services/firebase/store/getUsersByEmail";
 import { CourseModel, UserModel } from "utils/types/firebase";
 import { Meta } from "utils/types";
 import { Override } from "utils/types/utility";
-import { DEV_PAGE } from "constants/index";
 
 import { HomeContainer } from "styles/home.styles";
 import Image from "next/image";
+import styled from "styled-components";
+import breakpoints from "utils/breakpoints";
 
-const CarruselImg = ({ src }: { src: string }) => (
-  <div style={{ width: "100%", height: "100%", position: "relative" }}>
-    <Image objectFit="cover" layout="fill" src={src} alt="" />
-  </div>
+const ImgContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  .mobile {
+    display: none;
+  }
+  .pc {
+    display: none;
+  }
+
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    .mobile {
+      display: none !important;
+    }
+    .pc {
+      display: block !important;
+    }
+  }
+`;
+
+const CarruselImg = ({ pc, mobile }: { pc: string; mobile: string }) => (
+  <ImgContainer>
+    <Image className="pc" objectFit="cover" layout="fill" src={pc} alt="" />
+    <Image
+      className="mobile"
+      objectFit="cover"
+      layout="fill"
+      src={mobile}
+      alt=""
+    />
+  </ImgContainer>
 );
 
 const sections: ReactNode[] = [
-  <CarruselImg key="carrusel-1" src="/assets/images/carrusel/1.jpg" />,
-  <CarruselImg key="carrusel-2" src="/assets/images/carrusel/2.jpg" />,
-  <CarruselImg key="carrusel-3" src="/assets/images/carrusel/3.jpg" />,
+  <CarruselImg
+    key="carrusel-1"
+    pc="/assets/images/carrusel/1.jpg"
+    mobile="/assets/images/carrusel/1-mobile.jpg"
+  />,
+  <CarruselImg
+    key="carrusel-2"
+    pc="/assets/images/carrusel/2.jpg"
+    mobile="/assets/images/carrusel/2-mobile.jpg"
+  />,
+  <CarruselImg
+    key="carrusel-3"
+    pc="/assets/images/carrusel/3.jpg"
+    mobile="/assets/images/carrusel/3-mobile.jpg"
+  />,
 ];
 
 interface Props {
