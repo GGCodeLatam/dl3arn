@@ -234,21 +234,6 @@ function Course({ course, meta }: Props) {
 
                 {course?.rampp && course.contract && (
                   <>
-                    <div className="mint">
-                      <NetworkBadge
-                        height="2.5em"
-                        width="2.5em"
-                        network={course.rampp.network}
-                        dark
-                        toRight
-                        onlyIcon
-                      />
-                      <RamppButton
-                        rampp={course.rampp}
-                        address={course.contract.address}
-                      />
-                    </div>
-
                     <Link href="/blog/paso-a-paso-comprar-un-cursonft-dl3arn">
                       <a className="buy-nft">
                         Paso a paso para comprar tu primer NFT
