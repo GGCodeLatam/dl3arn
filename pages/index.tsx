@@ -45,9 +45,7 @@ function Home({ data, meta }: Props) {
         <meta key="desciption" name="description" content={meta.description} />
       </Head>
       <Layout>
-        {DEV_PAGE === "true" && (
-          <Carrousel sections={sections} delay={8} startAt={0} />
-        )}
+        <Carrousel sections={sections} delay={8} startAt={0} />
         <HomeContainer>
           <section>
             <h2>Los mas vendidos</h2>

@@ -226,10 +226,11 @@ export const CourseContainer = styled.main<Props>`
 
   .credit-card {
     font-size: 0.8em;
-    font-weight: 500;
+    font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 0.5em;
+    text-align: left;
+    gap: 1em;
     background-color: #fff;
     padding: 0.75em 1em;
     border-radius: 5px;

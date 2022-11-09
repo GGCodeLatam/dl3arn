@@ -2,6 +2,7 @@ import { GetServerSidePropsContext } from "next";
 import Router, { useRouter } from "next/router";
 import { BiChevronRight, BiCreditCard } from "react-icons/bi";
 import { FaTimes } from "react-icons/fa";
+import { BsCoin } from "react-icons/bs";
 import Link from "next/link";
 
 import useCourse from "hooks/useCourse";
@@ -207,9 +208,10 @@ function Course({ course, meta }: Props) {
 
                 {course?.contract && (
                   <>
-                    <a className="credit-card" href="#">
-                      <BiCreditCard size={18} /> debito / credito
-                    </a>
+                    <button className="credit-card">
+                      <BiCreditCard size={26} /> Comprar con debito / credito
+                      (proximamente)
+                    </button>
 
                     <Link href="/blog/paso-a-paso-comprar-un-cursonft-dl3arn">
                       <a className="buy-nft">
@@ -218,8 +220,13 @@ function Course({ course, meta }: Props) {
                     </Link>
 
                     {course?.crypto && (
-                      <a className="credit-card" href={course?.crypto}>
-                        Comprar con criptomonedas
+                      <a
+                        className="credit-card"
+                        target="_blank"
+                        rel="noreferrer"
+                        href={course?.crypto}
+                      >
+                        <BsCoin size={18} /> Comprar con criptomonedas
                       </a>
                     )}
                   </>
