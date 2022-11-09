@@ -128,7 +128,7 @@ function Footer() {
                 <ContactLink
                   href={`https://www.linkedin.com/company/${contact.linkedin}`}
                 >
-                  <IoLogoLinkedin className="icon" /> contact.linkedin
+                  <IoLogoLinkedin className="icon" /> {contact.linkedin}
                 </ContactLink>
                 <ContactLink link={false} href="#">
                   <BiPhone className="icon" /> +1 (786) 462-2369
