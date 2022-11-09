@@ -145,4 +145,20 @@ export const CardContainer = styled.div`
       width: 16.5vw;
     }
   }
+  @media screen and (min-width: ${breakpoints.pc}) {
+    font-size: 1rem;
+    width: 100%;
+
+    footer {
+      font-size: 1.25em;
+    }
+
+    .name {
+      max-width: 275px !important;
+    }
+
+    .instructor .name {
+      width: 210px;
+    }
+  }
 `;
